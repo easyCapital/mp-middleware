@@ -20,7 +20,18 @@ export default class Step implements StepInterface {
     this.titleMobile = json.titleMobile;
 
     if (json.blocks) {
-      this.blocks = json.blocks.map(block => new Block(block));
+      const blocks: Block[] = [];
+
+      json.blocks.forEach(item => {
+        const newBlock = new Block(item);
+        const blockIds = blocks.map(block => block.getId());
+
+        if (!blockIds.includes(newBlock.getId())) {
+          blocks.push(newBlock);
+        }
+      });
+
+      this.blocks = blocks;
     }
   }
 

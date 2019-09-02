@@ -10,9 +10,9 @@ const BackendClient = use('BackendClient');
 
 export default async function getOnboarding() {
   const steps: StepInterface[] = [];
-  const blocks: BlockInterface[] = [];
+  const blocks: { [key: string]: BlockInterface } = {};
   const questionKeys: string[] = [];
-  const questions: QuestionInterface[] = [];
+  const questions: { [key: string]: QuestionInterface } = {};
 
   try {
     const stepResponse = await BackendClient.get({ url: 'step/search' });
@@ -23,7 +23,7 @@ export default async function getOnboarding() {
 
       steps.push(step.toJson());
       step.getBlocks().forEach(block => {
-        blocks.push(block.toJson());
+        blocks[block.getId()] = block.toJson();
 
         const matches = block.getLabel().match(/\{([\s\S]+?)\}/g);
 
@@ -49,7 +49,7 @@ export default async function getOnboarding() {
       const question = new Question(item);
 
       if (questionKeys.includes(question.getId())) {
-        questions.push(question.toJson());
+        questions[question.getId()] = question.toJson();
       }
     });
   } catch (error) {
