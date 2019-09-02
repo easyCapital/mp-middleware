@@ -12,6 +12,7 @@ const path = require('path');
 */
 const providers: any = [
   '@adonisjs/framework/providers/AppProvider',
+  '@adonisjs/cors/providers/CorsProvider',
   path.join(__dirname, '../providers/BackendProvider'),
 ];
 

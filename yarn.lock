@@ -23,6 +23,11 @@
     prompt-list "^3.2.0"
     prompt-password "^1.2.0"
 
+"@adonisjs/cors@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@adonisjs/cors/-/cors-1.0.7.tgz#9b7565ad0b80215c620e8864b4af8651220a527c"
+  integrity sha512-jBO+bI/zdydAXURL02gQxXB57L5+eV2MUYp7zmDrVa12M6mQPMRz5TC2F7a0Kknx9JUr5dsl4+eN0XNfe/8sWQ==
+
 "@adonisjs/fold@^4.0.9":
   version "4.0.9"
   resolved "https://registry.yarnpkg.com/@adonisjs/fold/-/fold-4.0.9.tgz#1a9860af2dbe29e4111d7f0cc234be15c2e28be8"
