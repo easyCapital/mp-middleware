@@ -1,4 +1,4 @@
-'use strict';
+const path = require('path');
 
 /*
 |--------------------------------------------------------------------------
@@ -10,7 +10,10 @@
 | provider here.
 |
 */
-const providers: any = ['@adonisjs/framework/providers/AppProvider'];
+const providers: any = [
+  '@adonisjs/framework/providers/AppProvider',
+  path.join(__dirname, '../providers/BackendProvider'),
+];
 
 /*
 |--------------------------------------------------------------------------
@@ -47,4 +50,4 @@ const aliases: any = {};
 */
 const commands: any = [];
 
-module.exports = { providers, aceProviders, aliases, commands };
+export = { providers, aceProviders, aliases, commands };

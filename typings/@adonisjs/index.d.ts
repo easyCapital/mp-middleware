@@ -1,7 +1,9 @@
-import http = require('http');
-import stream = require('stream');
-import events = require('events');
-import GE = require('@adonisjs/generic-exceptions');
+import http from 'http';
+import stream from 'stream';
+import events from 'events';
+import GE from '@adonisjs/generic-exceptions';
+
+import { BackendClientInterface } from '../../src/app/Clients/Backend/BackendClient';
 
 type WorkInProgress = any;
 type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
@@ -12844,6 +12846,8 @@ declare namespace AdonisNamespaces {
   type Antl = 'Antl' | 'Adonis/Addons/Antl';
   type AntlFormats = 'Antl/Formats' | 'Adonis/Addons/Antl/Formats';
   type DatabaseTransactions = 'DatabaseTransactions' | 'Adonis/Traits/DatabaseTransactions';
+
+  type BackendClient = 'BackendClient';
 }
 
 declare global {
@@ -12877,6 +12881,7 @@ declare global {
   function use(namespace: AdonisNamespaces.Antl): Antl;
   function use(namespace: AdonisNamespaces.AntlFormats): Formats;
   function use(namespace: AdonisNamespaces.DatabaseTransactions): Lucid.DatabaseTransactions;
+  function use(namespace: AdonisNamespaces.BackendClient): BackendClientInterface;
 }
 
 declare global {

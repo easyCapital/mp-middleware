@@ -13,3 +13,12 @@
 const Route = use('Route');
 
 Route.get('/', 'V1/BaseController.index');
+
+/*
+|--------------------------------------------------------------------------
+| API V1 - ONBOARDING
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.get('/', 'V1/OnboardingController.index');
+}).prefix('api/1.0/onboarding');

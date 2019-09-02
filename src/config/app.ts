@@ -196,7 +196,7 @@ export = {
     */
     console: {
       driver: 'console',
-      name: 'adonis-app',
+      name: 'mieuxplacer-middleware',
       level: 'info',
     },
 
@@ -213,8 +213,8 @@ export = {
     */
     file: {
       driver: 'file',
-      name: 'adonis-app',
-      filename: 'adonis.log',
+      name: 'mieuxplacer-middleware',
+      filename: 'mieuxplacer-middleware.log',
       level: 'info',
     },
   },
