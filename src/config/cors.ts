@@ -14,7 +14,7 @@ export = {
   | Function - Receives the current origin and should return one of the above values.
   |
   */
-  origin: ['http://mif.mieuxplacer.local', 'http://middleware.dev.robintech.co'],
+  origin: ['http://mif.mieuxplacer.local', 'http://mif.mieuxplacer.dev.robintech.co'],
 
   /*
   |--------------------------------------------------------------------------
