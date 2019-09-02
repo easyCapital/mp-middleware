@@ -3,10 +3,6 @@
   "version": "0.0.1",
   "description": "Middleware for Mieuxplacer.com services",
   "main": "index.js",
-  "scripts": {
-    "start": "rm -rf dist/ && copyfiles .env package.json ./dist && tsc-watch --onSuccess 'node ./dist/server.js'",
-    "build": "rm -rf dist/ && tsc && copyfiles .env package.json"
-  },
   "private": true,
   "dependencies": {
     "@adonisjs/ace": "^5.0.8",
@@ -30,6 +26,10 @@
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.6.2"
+  },
+  "scripts": {
+    "start": "rm -rf dist/ && copyfiles .env package.json ./dist && tsc-watch --onSuccess 'node ./dist/server.js'",
+    "build": "rm -rf dist/ && tsc && copyfiles .env package.json ./dist"
   },
   "autoload": {
     "App": "./app"
