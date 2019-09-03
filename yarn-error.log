@@ -1,20 +1,20 @@
 Arguments: 
-  /usr/local/bin/node /opt/yarn-v1.13.0/bin/yarn.js add @types/node-fetch
+  /home/bram/.nvm/versions/node/v10.16.2/bin/node /usr/share/yarn/bin/yarn.js add cpx -D
 
 PATH: 
-  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  /home/bram/.nvm/versions/node/v10.16.2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
 Yarn version: 
-  1.13.0
+  1.12.3
 
 Node version: 
-  10.15.3
+  10.16.2
 
 Platform: 
   linux x64
 
 Trace: 
-  Error: ENOENT: no such file or directory, lstat '/usr/src/app/node_modules/resolve/test/resolver/quux/foo/'
+  Error: EACCES: permission denied, unlink '/home/bram/Robin/mieuxplacer/middleware/node_modules/.yarn-integrity'
 
 npm manifest: 
   {
@@ -22,20 +22,19 @@ npm manifest:
     "version": "0.0.1",
     "description": "Middleware for Mieuxplacer.com services",
     "main": "index.js",
-    "scripts": {
-      "start": "rm -rf dist/ && copyfiles .env package.json ./dist && tsc-watch --onSuccess 'node ./dist/server.js'",
-      "build": "rm -rf dist/ && tsc && copyfiles .env package.json"
-    },
     "private": true,
     "dependencies": {
       "@adonisjs/ace": "^5.0.8",
+      "@adonisjs/cors": "^1.0.7",
       "@adonisjs/fold": "^4.0.9",
       "@adonisjs/framework": "^5.0.9",
       "@adonisjs/ignitor": "^2.0.8",
+      "mieuxplacer-js-api": "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#0.1.5",
       "node-fetch": "^2.6.0"
     },
     "devDependencies": {
       "@types/node": "^12.7.3",
+      "@types/node-fetch": "^2.5.0",
       "commitlint": "^8.1.0",
       "copyfiles": "^2.1.1",
       "husky": "^3.0.4",
@@ -46,6 +45,11 @@ npm manifest:
       "tslint-config-airbnb": "^5.11.1",
       "tslint-config-prettier": "^1.18.0",
       "typescript": "^3.6.2"
+    },
+    "scripts": {
+      "start": "tsc-watch --onSuccess 'node ./dist/server.js'",
+      "build": "tsc && copyfiles .env package.json ./dist",
+      "clean": "rimraf dist/"
     },
     "autoload": {
       "App": "./app"
@@ -93,6 +97,11 @@ Lockfile:
       prompt-expand "^1.0.1"
       prompt-list "^3.2.0"
       prompt-password "^1.2.0"
+  
+  "@adonisjs/cors@^1.0.7":
+    version "1.0.7"
+    resolved "https://registry.yarnpkg.com/@adonisjs/cors/-/cors-1.0.7.tgz#9b7565ad0b80215c620e8864b4af8651220a527c"
+    integrity sha512-jBO+bI/zdydAXURL02gQxXB57L5+eV2MUYp7zmDrVa12M6mQPMRz5TC2F7a0Kknx9JUr5dsl4+eN0XNfe/8sWQ==
   
   "@adonisjs/fold@^4.0.9":
     version "4.0.9"
@@ -379,6 +388,13 @@ Lockfile:
     version "3.0.3"
     resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
     integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
+  
+  "@types/node-fetch@^2.5.0":
+    version "2.5.0"
+    resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.5.0.tgz#1c55616a4591bdd15a389fbd0da4a55b9502add5"
+    integrity sha512-TLFRywthBgL68auWj+ziWu+vnmmcHCDFC/sqCOQf1xTz4hRq8cu79z8CtHU9lncExGBsB8fXA4TiLDLt6xvMzw==
+    dependencies:
+      "@types/node" "*"
   
   "@types/node@*", "@types/node@^12.0.2", "@types/node@^12.7.3":
     version "12.7.3"
@@ -2430,6 +2446,10 @@ Lockfile:
     dependencies:
       braces "^3.0.1"
       picomatch "^2.0.5"
+  
+  "mieuxplacer-js-api@git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#0.1.5":
+    version "1.0.0"
+    resolved "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#d9f0e573980f1e51ed9820da5e02a8cdfc129bcc"
   
   mime-db@1.40.0:
     version "1.40.0"
