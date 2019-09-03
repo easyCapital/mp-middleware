@@ -4,8 +4,8 @@
       "name": "middleware",
       "script": "./dist/server.js",
       "cwd": "/var/www/middleware/current",
-      "error_file": "/var/logs/middleware/middleware.err.log",
-      "out_file": "/var/logs/middleware/middleware.out.log",
+      "error_file": "/var/log/middleware/middleware.err.log",
+      "out_file": "/var/log/middleware/middleware.out.log",
       "exec_mode": "fork_mode"
     }
   ]
