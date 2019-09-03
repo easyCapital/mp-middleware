@@ -1,0 +1,12 @@
+{
+  "apps": [
+    {
+      "name": "middleware",
+      "script": "./dist/index.js",
+      "cwd": "/var/www/middleware/current",
+      "error_file": "/var/logs/middleware/middleware.err.log",
+      "out_file": "/var/logs/middleware/middleware.out.log",
+      "exec_mode": "fork_mode"
+    }
+  ]
+}
