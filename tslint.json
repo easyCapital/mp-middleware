@@ -12,6 +12,7 @@
     "no-empty": false,
     "array-type": false,
     "no-var-requires": false,
-    "no-console": ["log"]
+    "no-console": ["log"],
+    "no-boolean-literal-compare": false
   }
 }

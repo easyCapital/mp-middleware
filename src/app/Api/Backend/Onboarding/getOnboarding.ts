@@ -49,7 +49,11 @@ export default async function getOnboarding() {
       const question = new Question(item);
 
       if (questionKeys.includes(question.getId())) {
-        questions[question.getId()] = question.toJson();
+        const jsonQuestion = question.toJson();
+
+        if (jsonQuestion) {
+          questions[question.getId()] = jsonQuestion;
+        }
       }
     });
   } catch (error) {

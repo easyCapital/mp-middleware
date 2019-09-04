@@ -17,13 +17,15 @@ enum ErrorTypeMapping {
 }
 
 export default class ErrorTypeMapper {
-  public static transformValue(value: string): ErrorType {
+  public static transformValue(value: string): ErrorType | null {
     const mappedValue = ErrorTypeMapping[value];
 
-    if (!mappedValue) {
-      Logger.info('Missing mapping value in %s for %s', 'ErrorTypeMapper', value);
+    if (mappedValue) {
+      return mappedValue;
     }
 
-    return mappedValue;
+    Logger.info('Missing mapping value in %s for %s', 'ErrorTypeMapper', value);
+
+    return null;
   }
 }

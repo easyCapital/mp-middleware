@@ -13,7 +13,6 @@ export default class Block implements BlockInterface {
   private contextualHelpOpen: boolean;
   private contextualHelpText?: string;
   private annotation?: string;
-  private conditions?: string;
 
   constructor(json: any) {
     this.id = json.id;
@@ -22,7 +21,6 @@ export default class Block implements BlockInterface {
     this.contextualHelpOpen = json.contextualHelpOpen;
     this.contextualHelpText = json.contextualHelpText;
     this.annotation = json.annotation;
-    this.conditions = json.conditions;
   }
 
   public toJson(): JsonBlockInterface {
@@ -33,7 +31,6 @@ export default class Block implements BlockInterface {
       contextualHelpOpen: this.contextualHelpOpen,
       contextualHelpText: this.contextualHelpText || null,
       annotation: this.annotation || null,
-      conditions: this.conditions || null,
     };
   }
 

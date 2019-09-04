@@ -18,13 +18,15 @@ enum InputTypeMapping {
 }
 
 export default class InputTypeMapper {
-  public static transformValue(value: string): InputType {
+  public static transformValue(value: string): InputType | null {
     const mappedValue = InputTypeMapping[value];
 
-    if (!mappedValue) {
-      Logger.info('Missing mapping value in %s for %s', 'InputTypeMapper', value);
+    if (mappedValue) {
+      return mappedValue;
     }
 
-    return mappedValue;
+    Logger.info('Missing mapping value in %s for %s', 'InputTypeMapper', value);
+
+    return null;
   }
 }
