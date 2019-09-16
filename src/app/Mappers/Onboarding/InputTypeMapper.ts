@@ -7,14 +7,14 @@ enum InputTypeMapping {
   'number' = InputTypes.NUMBER,
   'select' = InputTypes.SELECT,
   'radio' = InputTypes.RADIO,
-  'list' = InputTypes.CHECKBOX,
+  'checkbox' = InputTypes.CHECKBOX,
   'email' = InputTypes.EMAIL,
   'password' = InputTypes.PASSWORD,
   'tel_mobile' = InputTypes.PHONE,
-  'icon-checkbox' = InputTypes.ICON_CHECKBOX,
-  'bordered-checkbox' = InputTypes.BORDERED_CHECKBOX,
+  'icon_checkbox' = InputTypes.ICON_CHECKBOX,
+  'bordered_checkbox' = InputTypes.BORDERED_CHECKBOX,
   'chart' = InputTypes.CHART,
-  'option-stepper' = InputTypes.OPTION_STEPPER,
+  'option_stepper' = InputTypes.OPTION_STEPPER,
 }
 
 export default class InputTypeMapper {

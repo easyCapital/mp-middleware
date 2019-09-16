@@ -36,6 +36,7 @@ export default class BackendClient implements BackendClientInterface {
       headers: {
         Authorization: `token ${this.apiKey}`,
       },
+      timeout: 10000,
     };
 
     if (options.pagination && requestParameters.headers) {

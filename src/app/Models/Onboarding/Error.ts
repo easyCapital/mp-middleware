@@ -10,9 +10,9 @@ export default class Error implements ErrorInterface {
   private type: ErrorTypes | null;
   private label: string;
 
-  constructor(json: any) {
-    this.type = ErrorTypeMapper.transformValue(json.type);
-    this.label = json.label;
+  constructor(type: string, label: string) {
+    this.type = ErrorTypeMapper.transformValue(type);
+    this.label = label;
   }
 
   public toJson(): JsonErrorInterface | null {

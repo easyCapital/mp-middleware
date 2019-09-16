@@ -10,7 +10,7 @@
     "@adonisjs/fold": "^4.0.9",
     "@adonisjs/framework": "^5.0.9",
     "@adonisjs/ignitor": "^2.0.8",
-    "mieuxplacer-js-api": "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#1.1.2",
+    "mieuxplacer-js-api": "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#1.2.3",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
@@ -28,7 +28,7 @@
     "typescript": "^3.6.2"
   },
   "scripts": {
-    "start": "cpx '.env package.json' dist && tsc-watch --onSuccess 'node ./dist/server.js'",
+    "start": "cpx '.env' dist && cpx 'package.json' dist && tsc-watch --onSuccess 'node ./dist/server.js'",
     "build": "tsc && cpx '.env' dist && cpx 'package.json' dist",
     "clean": "rimraf dist/"
   },

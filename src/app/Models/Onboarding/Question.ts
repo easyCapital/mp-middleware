@@ -1,11 +1,10 @@
 import {
   Question as JsonQuestionInterface,
   Condition as JsonConditionInterface,
-  Rule as JsonRuleInterface,
   InputType,
 } from 'mieuxplacer-js-api';
 
-import { Condition, Error, Option, Rule } from '.';
+import { Condition, Error, Option } from '.';
 
 import { InputTypeMapper } from '../../Mappers/Onboarding';
 
@@ -24,26 +23,21 @@ export default class Question implements QuestionInterface {
   private max?: number;
   private sensitive: boolean = false;
   private conditions?: Condition[];
-  private rules?: Rule[];
   private options?: Option[];
   private errors: Error[] = [];
 
   constructor(json: any) {
     this.id = json.key;
     this.label = json.label;
-    this.type = InputTypeMapper.transformValue(json.type);
+    this.type = InputTypeMapper.transformValue(json.input_type);
     this.placeholder = json.placeholder;
     this.required = json.required;
     this.min = json.min;
     this.max = json.max;
-    this.sensitive = json.sensitive;
+    this.sensitive = json.is_sensitive;
 
     if (json.condition) {
       this.conditions = json.condition.split(' and ').map(condition => new Condition(condition));
-    }
-
-    if (json.rules) {
-      this.rules = json.rules.split(' and ').map(condition => new Rule(condition));
     }
 
     if (json.answers) {
@@ -51,7 +45,7 @@ export default class Question implements QuestionInterface {
     }
 
     if (json.errors) {
-      this.errors = json.errors.map(errors => new Error(errors));
+      this.errors = Object.keys(json.errors).map(type => new Error(type, json.errors[type]));
     }
   }
 
@@ -81,20 +75,6 @@ export default class Question implements QuestionInterface {
         });
 
         json.conditions = conditions;
-      }
-
-      if (this.rules) {
-        const rules: JsonRuleInterface[] = [];
-
-        this.rules.forEach(rule => {
-          const jsonRule = rule.toJson();
-
-          if (jsonRule) {
-            rules.push(jsonRule);
-          }
-        });
-
-        json.rules = rules;
       }
 
       if (this.options) {
