@@ -10,7 +10,7 @@ export default class ConditionMapper {
       const conditionElements = value.split(' not in ');
 
       return {
-        key: conditionElements[1],
+        key: conditionElements[1].replace(/int\(/g, '').replace(/\)/g, ''),
         value: getNumberOrString(conditionElements[0]),
         type: ConditionTypes.NOT_IN,
       };
@@ -20,7 +20,7 @@ export default class ConditionMapper {
       const conditionElements = value.split(' in ');
 
       return {
-        key: conditionElements[1],
+        key: conditionElements[1].replace(/int\(/g, '').replace(/\)/g, ''),
         value: getNumberOrString(conditionElements[0]),
         type: ConditionTypes.IN,
       };
@@ -30,7 +30,7 @@ export default class ConditionMapper {
       const conditionElements = value.split(' == ');
 
       return {
-        key: conditionElements[0],
+        key: conditionElements[0].replace(/int\(/g, '').replace(/\)/g, ''),
         value: getNumberOrString(conditionElements[1]),
         type: ConditionTypes.EQUALS,
       };
@@ -40,7 +40,7 @@ export default class ConditionMapper {
       const conditionElements = value.split(' != ');
 
       return {
-        key: conditionElements[0],
+        key: conditionElements[0].replace(/int\(/g, '').replace(/\)/g, ''),
         value: getNumberOrString(conditionElements[1]),
         type: ConditionTypes.NOT_EQUALS,
       };
@@ -50,7 +50,7 @@ export default class ConditionMapper {
       const conditionElements = value.split(' >= ');
 
       return {
-        key: conditionElements[0],
+        key: conditionElements[0].replace(/int\(/g, '').replace(/\)/g, ''),
         value: getNumberOrString(conditionElements[1]),
         type: ConditionTypes.IS_SUPERIOR_OR_EQUAL,
       };
@@ -60,7 +60,7 @@ export default class ConditionMapper {
       const conditionElements = value.split(' > ');
 
       return {
-        key: conditionElements[0],
+        key: conditionElements[0].replace(/int\(/g, '').replace(/\)/g, ''),
         value: getNumberOrString(conditionElements[1]),
         type: ConditionTypes.IS_SUPERIOR,
       };
@@ -70,7 +70,7 @@ export default class ConditionMapper {
       const conditionElements = value.split(' <= ');
 
       return {
-        key: conditionElements[0],
+        key: conditionElements[0].replace(/int\(/g, '').replace(/\)/g, ''),
         value: getNumberOrString(conditionElements[1]),
         type: ConditionTypes.IS_INFERIOR_OR_EQUAL,
       };
@@ -80,7 +80,7 @@ export default class ConditionMapper {
       const conditionElements = value.split(' < ');
 
       return {
-        key: conditionElements[0],
+        key: conditionElements[0].replace(/int\(/g, '').replace(/\)/g, ''),
         value: getNumberOrString(conditionElements[1]),
         type: ConditionTypes.IS_INFERIOR,
       };
