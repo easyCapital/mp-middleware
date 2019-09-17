@@ -1,10 +1,12 @@
 import * as BackendApi from '../../../Api/Backend';
 
 class OnboardingController {
-  private async index({ response }) {
-    const data = await BackendApi.getOnboarding();
+  private async index() {
+    return BackendApi.getOnboarding();
+  }
 
-    response.send(data);
+  private async prevalidate({ request }) {
+    return BackendApi.prevalidateAnswers(request.post());
   }
 }
 

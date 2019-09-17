@@ -9,7 +9,7 @@ const Server = use('Server');
 | match.
 |
 */
-const globalMiddleware: any = [];
+const globalMiddleware: string[] = ['Adonis/Middleware/BodyParser'];
 
 /*
 |--------------------------------------------------------------------------
