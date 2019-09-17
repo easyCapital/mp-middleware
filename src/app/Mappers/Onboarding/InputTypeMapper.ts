@@ -10,7 +10,7 @@ enum InputTypeMapping {
   'checkbox' = InputTypes.CHECKBOX,
   'email' = InputTypes.EMAIL,
   'password' = InputTypes.PASSWORD,
-  'tel_mobile' = InputTypes.PHONE,
+  'phone' = InputTypes.PHONE,
   'icon_checkbox' = InputTypes.ICON_CHECKBOX,
   'bordered_checkbox' = InputTypes.BORDERED_CHECKBOX,
   'chart' = InputTypes.CHART,
