@@ -221,6 +221,7 @@ export = {
     api: {
       driver: 'file',
       filename: 'api.log',
+      json: true,
     },
   },
 

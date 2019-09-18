@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { format } from 'date-fns';
 
 export interface BackendClientInterface {
   get(options: RequestOptions): Promise<any>;
@@ -80,9 +81,21 @@ export default class BackendClient implements BackendClientInterface {
       requestParameters.body = JSON.stringify(body);
     }
 
+    const startTime = process.hrtime();
+
     const response = await fetch(url, requestParameters);
 
-    this.logger.transport('api').info(`Backoffice || ${method} || `);
+    const endTime = process.hrtime(startTime);
+    const elapsedTime = Math.floor((endTime[0] * 1e9 + endTime[1]) / 1e6);
+
+    this.logger.transport('api').info('Backoffice API request', {
+      time: format(new Date(), 'dd-MM-yyyy hh:mm:ss'),
+      app: 'Backoffice',
+      method,
+      status: response.status,
+      duration: `${elapsedTime}ms`,
+      url: response.url.replace(this.host, ''),
+    });
 
     return response;
   }
