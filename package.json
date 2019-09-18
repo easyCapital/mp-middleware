@@ -6,12 +6,16 @@
   "private": true,
   "dependencies": {
     "@adonisjs/ace": "^5.0.8",
+    "@adonisjs/bodyparser": "^2.0.9",
     "@adonisjs/cors": "^1.0.7",
     "@adonisjs/fold": "^4.0.9",
     "@adonisjs/framework": "^5.0.9",
+    "@adonisjs/generic-exceptions": "^3.0.1",
     "@adonisjs/ignitor": "^2.0.8",
+    "date-fns": "^2.2.1",
     "mieuxplacer-js-api": "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#1.2.3",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "on-finished": "^2.3.0"
   },
   "devDependencies": {
     "@types/node": "^12.7.3",

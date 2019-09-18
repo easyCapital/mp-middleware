@@ -217,6 +217,12 @@ export = {
       filename: 'mieuxplacer-middleware.log',
       level: 'info',
     },
+
+    api: {
+      driver: 'file',
+      filename: 'api.log',
+      json: true,
+    },
   },
 
   /*

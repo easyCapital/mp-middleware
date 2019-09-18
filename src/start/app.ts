@@ -10,9 +10,10 @@ const path = require('path');
 | provider here.
 |
 */
-const providers: any = [
+const providers: string[] = [
   '@adonisjs/framework/providers/AppProvider',
   '@adonisjs/cors/providers/CorsProvider',
+  '@adonisjs/bodyparser/providers/BodyParserProvider',
   path.join(__dirname, '../providers/BackendProvider'),
 ];
 

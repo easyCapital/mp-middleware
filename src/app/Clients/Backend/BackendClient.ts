@@ -1,7 +1,9 @@
 import fetch from 'node-fetch';
+import { format } from 'date-fns';
 
 export interface BackendClientInterface {
   get(options: RequestOptions): Promise<any>;
+  post(options: RequestOptions, body?: any): Promise<any>;
 }
 
 export interface RequestOptions {
@@ -16,10 +18,12 @@ export interface RequestOptions {
 }
 
 export default class BackendClient implements BackendClientInterface {
+  private logger: any;
   private host: string;
   private apiKey: string;
 
-  constructor(host: string, apiKey: string) {
+  constructor(logger: any, host: string, apiKey: string) {
+    this.logger = logger;
     this.host = `${host}/api`;
     this.apiKey = apiKey;
   }
@@ -28,12 +32,17 @@ export default class BackendClient implements BackendClientInterface {
     return this.call('GET', options);
   }
 
-  private call(method: string, options: RequestOptions, body?: any): Promise<any> {
+  public async post(options: RequestOptions, body?: any): Promise<any> {
+    return this.call('POST', options, body);
+  }
+
+  private async call(method: string, options: RequestOptions, body?: any): Promise<any> {
     let url = `${this.host}/${options.url}`;
 
     const requestParameters: any = {
       method,
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `token ${this.apiKey}`,
       },
       timeout: 10000,
@@ -72,6 +81,22 @@ export default class BackendClient implements BackendClientInterface {
       requestParameters.body = JSON.stringify(body);
     }
 
-    return fetch(url, requestParameters);
+    const startTime = process.hrtime();
+
+    const response = await fetch(url, requestParameters);
+
+    const endTime = process.hrtime(startTime);
+    const elapsedTime = Math.floor((endTime[0] * 1e9 + endTime[1]) / 1e6);
+
+    this.logger.transport('api').info('Backoffice API request', {
+      time: format(new Date(), 'dd-MM-yyyy hh:mm:ss'),
+      app: 'Backoffice',
+      method,
+      status: response.status,
+      duration: `${elapsedTime}ms`,
+      url: response.url.replace(this.host, ''),
+    });
+
+    return response;
   }
 }

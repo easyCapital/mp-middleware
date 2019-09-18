@@ -1,0 +1,46 @@
+import { HttpException } from '@adonisjs/generic-exceptions';
+import { ErrorTypes, ErrorType } from 'mieuxplacer-js-api';
+
+import { BackendError, BackendErrorTypes } from '../../../../Clients/Backend/types';
+
+const Logger = use('Logger');
+
+export default class AnswerException extends HttpException {
+  constructor(answers: { question: string; value: string }[], errors: BackendError[]) {
+    const errorMessages = {};
+
+    errors.forEach((error, index) => {
+      const answer = answers[index];
+
+      Object.keys(error).forEach(errorKey => {
+        let errorMessageType: ErrorType = ErrorTypes.DEFAULT;
+
+        switch (errorKey) {
+          case BackendErrorTypes.BlankError:
+            errorMessageType = ErrorTypes.REQUIRED;
+            break;
+
+          case BackendErrorTypes.MinValueError:
+            errorMessageType = ErrorTypes.MIN;
+            break;
+
+          case BackendErrorTypes.MaxValueError:
+            errorMessageType = ErrorTypes.MAX;
+            break;
+
+          case BackendErrorTypes.NotFound:
+            errorMessageType = ErrorTypes.DEFAULT;
+            break;
+
+          default:
+            Logger.info('Missing Error mapping value in %s for %s', 'AnswerException', errorKey);
+            break;
+        }
+
+        errorMessages[answer.question] = errorMessageType;
+      });
+    });
+
+    super(JSON.stringify(errorMessages), 400);
+  }
+}
