@@ -8,11 +8,9 @@ export default async function prevalidateAnswers(answers: { [key: string]: strin
 
   const response = await BackendClient.post({ url: 'answer/prevalidate' }, formattedAnswers);
 
-  const data = await response.json();
+  if (!response.ok) {
+    const data = await response.json();
 
-  if (response.ok) {
-    return data;
+    throw new AnswerException(formattedAnswers, data);
   }
-
-  throw new AnswerException(formattedAnswers, data);
 }
