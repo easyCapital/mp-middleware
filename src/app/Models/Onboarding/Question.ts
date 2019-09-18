@@ -22,6 +22,7 @@ export default class Question implements QuestionInterface {
   private min?: number;
   private max?: number;
   private sensitive: boolean = false;
+  private active: boolean = false;
   private conditions?: Condition[];
   private options?: Option[];
   private errors: Error[] = [];
@@ -35,6 +36,7 @@ export default class Question implements QuestionInterface {
     this.min = json.min;
     this.max = json.max;
     this.sensitive = json.is_sensitive;
+    this.active = json.is_active;
 
     if (json.condition) {
       this.conditions = json.condition.split(' and ').map(condition => new Condition(condition));
@@ -60,6 +62,7 @@ export default class Question implements QuestionInterface {
         min: this.min || null,
         max: this.max || null,
         sensitive: this.sensitive,
+        active: this.active,
         errors: [],
       };
 
