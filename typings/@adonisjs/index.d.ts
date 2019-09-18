@@ -1098,6 +1098,8 @@ declare class Logger {
   crit(message: string, ...options: any[]): void;
   alert(message: string, ...options: any[]): void;
   emerg(message: string, ...options: any[]): void;
+
+  transport(transport: string): this;
 }
 
 interface FileError {

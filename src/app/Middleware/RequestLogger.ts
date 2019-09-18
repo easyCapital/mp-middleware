@@ -11,7 +11,6 @@ class RequestLogger {
       const endTime = process.hrtime(startTime);
       const elapsedTime = Math.floor((endTime[0] * 1e9 + endTime[1]) / 1e6);
 
-      // @ts-ignore
       Logger.transport('api').info('Middleware API request', {
         time: format(new Date(), 'dd-MM-yyyy hh:mm:ss'),
         app: 'Middleware',
