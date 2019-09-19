@@ -1,6 +1,6 @@
-function formatAnswerBody(answers: {
-  [key: string]: string | string[];
-}): { question: string; value: string }[] {
+import { Answer } from 'mieuxplacer-js-api';
+
+function formatAnswerBody(answers: Answer): { question: string; value: string }[] {
   const formattedAnswers: { question: string; value: string }[] = [];
 
   Object.keys(answers).forEach(key => {

@@ -14,6 +14,7 @@ const providers: string[] = [
   '@adonisjs/framework/providers/AppProvider',
   '@adonisjs/cors/providers/CorsProvider',
   '@adonisjs/bodyparser/providers/BodyParserProvider',
+  '@adonisjs/session/providers/SessionProvider',
   path.join(__dirname, '../providers/BackendProvider'),
 ];
 

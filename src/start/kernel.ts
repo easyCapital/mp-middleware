@@ -9,7 +9,11 @@ const Server = use('Server');
 | match.
 |
 */
-const globalMiddleware: string[] = ['Adonis/Middleware/BodyParser', 'App/Middleware/RequestLogger'];
+const globalMiddleware: string[] = [
+  'Adonis/Middleware/BodyParser',
+  'Adonis/Middleware/Session',
+  'App/Middleware/RequestLogger',
+];
 
 /*
 |--------------------------------------------------------------------------

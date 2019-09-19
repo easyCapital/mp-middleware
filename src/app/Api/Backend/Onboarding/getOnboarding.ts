@@ -4,11 +4,13 @@ import {
   Question as QuestionInterface,
 } from 'mieuxplacer-js-api';
 
+import { Exception } from '../../../Exceptions';
+
 import { Step, Question } from '../../../Models/Onboarding';
 
 const BackendClient = use('BackendClient');
 
-export default async function getOnboarding() {
+export default async function getOnboarding(withAuthentication: boolean) {
   const steps: StepInterface[] = [];
   const blocks: { [key: string]: BlockInterface } = {};
   const questionKeys: string[] = [];
@@ -19,7 +21,7 @@ export default async function getOnboarding() {
     const data = await stepResponse.json();
 
     data.forEach(item => {
-      const step = new Step(item);
+      const step = new Step(item, withAuthentication);
 
       steps.push(step.toJson());
       step.getBlocks().forEach(block => {
@@ -35,7 +37,7 @@ export default async function getOnboarding() {
       });
     });
   } catch (error) {
-    console.log(error);
+    throw new Exception(error);
   }
 
   try {
@@ -57,7 +59,7 @@ export default async function getOnboarding() {
       }
     });
   } catch (error) {
-    console.log(error);
+    throw new Exception(error);
   }
 
   return { steps, blocks, questions };

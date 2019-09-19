@@ -13,7 +13,7 @@ export default class Step implements StepInterface {
   private titleMobile: string;
   private blocks: Block[] = [];
 
-  constructor(json: any) {
+  constructor(json: any, withAuthentication: boolean) {
     this.id = json.id;
     this.step = Number(json.step);
     this.title = json.title;
@@ -27,7 +27,13 @@ export default class Step implements StepInterface {
         const blockIds = blocks.map(block => block.getId());
 
         if (!blockIds.includes(newBlock.getId())) {
-          blocks.push(newBlock);
+          if (newBlock.getLabel().includes('password')) {
+            if (withAuthentication) {
+              blocks.push(newBlock);
+            }
+          } else {
+            blocks.push(newBlock);
+          }
         }
       });
 

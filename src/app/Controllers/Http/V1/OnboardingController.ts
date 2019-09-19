@@ -1,12 +1,21 @@
 import * as BackendApi from '../../../Api/Backend';
 
 class OnboardingController {
-  private async index() {
-    return BackendApi.getOnboarding();
+  public async index({ request, session, response }) {
+    const withAuthentication = request.input('with-authentication') || false;
+
+    const data = await BackendApi.getOnboarding(withAuthentication);
+    const answers = session.get('answers');
+
+    response.status(200).send({ ...data, answers });
   }
 
-  private async prevalidate({ request }) {
-    return BackendApi.prevalidateAnswers(request.post());
+  public async prevalidate({ request, session, response }) {
+    await BackendApi.prevalidateAnswers(request.post());
+
+    session.put('answers', request.post());
+
+    response.status(200).send();
   }
 }
 
