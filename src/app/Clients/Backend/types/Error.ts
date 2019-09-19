@@ -3,6 +3,9 @@ export enum BackendErrorTypes {
   NotFound = 'NotFound',
   MinValueError = 'MinValueError',
   MaxValueError = 'MaxValueError',
+  InvalidMobileFormatError = 'InvalidMobileFormatError',
+  EmailAlreadyAssignedToUserError = 'EmailAlreadyAssignedToUserError',
+  InvalidEmailStatus = 'InvalidEmailStatus',
 }
 
 export type BackendError = {

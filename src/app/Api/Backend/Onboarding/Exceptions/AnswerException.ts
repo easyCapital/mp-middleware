@@ -32,6 +32,9 @@ export default class AnswerException extends HttpException {
             errorMessageType = ErrorTypes.DEFAULT;
             break;
 
+          case BackendErrorTypes.InvalidMobileFormatError:
+            errorMessageType = ErrorTypes.INVALID_MOBILE_NUMBER;
+
           default:
             Logger.info('Missing Error mapping value in %s for %s', 'AnswerException', errorKey);
             break;
