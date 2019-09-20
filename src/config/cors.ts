@@ -1,3 +1,5 @@
+const Config = use('Config');
+
 export = {
   /*
   |--------------------------------------------------------------------------
@@ -14,7 +16,12 @@ export = {
   | Function - Receives the current origin and should return one of the above values.
   |
   */
-  origin: ['http://mif.mieuxplacer.local', 'http://mif.mieuxplacer.dev.robintech.co'],
+  origin: () => {
+    const allowedOriginsPerApp = Config.get('app.allowedOriginsPerApp') || {};
+    const origins = Object.keys(allowedOriginsPerApp).map(key => allowedOriginsPerApp[key]);
+
+    return origins.reduce((acc, val) => acc.concat(val), []);
+  },
 
   /*
   |--------------------------------------------------------------------------
