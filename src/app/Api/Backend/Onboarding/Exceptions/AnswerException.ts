@@ -44,6 +44,7 @@ export default class AnswerException extends HttpException {
       });
     });
 
-    super(JSON.stringify(errorMessages), 400);
+    // @ts-ignore
+    super(errorMessages, 400);
   }
 }

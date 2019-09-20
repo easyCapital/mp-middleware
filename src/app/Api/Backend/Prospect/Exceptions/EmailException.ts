@@ -25,6 +25,7 @@ export default class EmailException extends HttpException {
       }
     });
 
-    super(JSON.stringify({ email: errorMessageType }), 400);
+    // @ts-ignore
+    super({ email: errorMessageType }, 400);
   }
 }
