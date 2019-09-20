@@ -5,7 +5,7 @@ import { BackendError, BackendErrorTypes } from '../../../../Clients/Backend/typ
 
 const Logger = use('Logger');
 
-export default class EmailException extends HttpException {
+export default class ProspectException extends HttpException {
   constructor(error: BackendError) {
     let errorMessageType: ErrorType = ErrorTypes.DEFAULT;
 
@@ -20,7 +20,7 @@ export default class EmailException extends HttpException {
           break;
 
         default:
-          Logger.info('Missing Error mapping value in %s for %s', 'EmailException', errorKey);
+          Logger.info('Missing Error mapping value in %s for %s', 'ProspectException', errorKey);
           break;
       }
     });

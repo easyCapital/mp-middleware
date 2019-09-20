@@ -1,4 +1,4 @@
-import EmailException from './Exceptions/EmailException';
+import { ProspectException } from './Exceptions';
 
 const BackendClient = use('BackendClient');
 
@@ -8,7 +8,7 @@ export default async function createProspect(email: string) {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new EmailException(data);
+    throw new ProspectException(data);
   }
 
   return data;
