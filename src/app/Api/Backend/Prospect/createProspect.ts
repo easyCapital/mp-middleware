@@ -1,4 +1,4 @@
-import { ProspectException } from './Exceptions';
+import { ProspectException } from '../Exceptions';
 
 const BackendClient = use('BackendClient');
 

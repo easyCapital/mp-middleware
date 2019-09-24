@@ -37,7 +37,7 @@ export default class BackendClient implements BackendClientInterface {
   }
 
   private async call(method: string, options: RequestOptions, body?: any): Promise<any> {
-    let url = `${this.host}/${options.url}`;
+    const url = new URL(`${this.host}/${options.url}`);
 
     const requestParameters: any = {
       method,
@@ -56,24 +56,16 @@ export default class BackendClient implements BackendClientInterface {
     }
 
     if (options.filters) {
-      const filters: string[] = [];
-
       Object.keys(options.filters).forEach(filter => {
         if (options.filters) {
           if (Array.isArray(options.filters[filter])) {
             options.filters[filter].forEach(item => {
-              filters.push(`${filter}=${item}`);
+              url.searchParams.append(filter, item);
             });
           } else {
-            filters.push(`${filter}=${options.filters[filter]}`);
+            url.searchParams.append(filter, options.filters[filter]);
           }
         }
-      });
-
-      url += '?';
-
-      filters.forEach(filter => {
-        url += `&${filter}`;
       });
     }
 
@@ -83,7 +75,7 @@ export default class BackendClient implements BackendClientInterface {
 
     const startTime = process.hrtime();
 
-    const response = await fetch(url, requestParameters);
+    const response = await fetch(url.href, requestParameters);
 
     const endTime = process.hrtime(startTime);
     const elapsedTime = Math.floor((endTime[0] * 1e9 + endTime[1]) / 1e6);

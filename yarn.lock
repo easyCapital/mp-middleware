@@ -2917,9 +2917,9 @@ micromatch@^4.0.2:
     braces "^3.0.1"
     picomatch "^2.0.5"
 
-"mieuxplacer-js-api@git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#1.4.2":
-  version "1.4.2"
-  resolved "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#9a85f635a0a0bc567acca8052a30b69a2a1b3c30"
+"mieuxplacer-js-api@git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#1.5.1":
+  version "1.4.4"
+  resolved "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#58c31adf1e50fd001929a95ac34d1a8a102df01b"
 
 mime-db@1.40.0:
   version "1.40.0"

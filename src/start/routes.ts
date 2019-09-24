@@ -24,3 +24,13 @@ Route.group(() => {
   Route.post('/validate', 'V1/OnboardingController.validate');
   Route.post('/prevalidate', 'V1/OnboardingController.prevalidate');
 }).prefix('api/1.0/onboarding');
+
+/*
+|--------------------------------------------------------------------------
+| API V1 - PROPOSITION
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.get('/:token', 'V1/PropositionController.getByToken');
+  Route.post('/generate', 'V1/PropositionController.generate');
+}).prefix('api/1.0/proposition');

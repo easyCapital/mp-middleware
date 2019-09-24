@@ -1,7 +1,7 @@
 import { Answer } from 'mieuxplacer-js-api';
 
-import { AnswerException } from './Exceptions';
-import { formatAnswerBody } from './Helpers';
+import { AnswerException } from '../Exceptions';
+import { formatAnswerBody } from '../Helpers';
 
 const BackendClient = use('BackendClient');
 

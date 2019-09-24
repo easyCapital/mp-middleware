@@ -1,7 +1,7 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
 import { ErrorTypes, ErrorType } from 'mieuxplacer-js-api';
 
-import { BackendError, BackendErrorTypes } from '../../../../Clients/Backend/types';
+import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
 
 const Logger = use('Logger');
 
