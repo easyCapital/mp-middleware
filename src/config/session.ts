@@ -50,9 +50,9 @@ export = {
   |
   */
   cookie: {
-    path: '/',
     httpOnly: true,
     sameSite: false,
+    path: '/',
   },
 
   /*
@@ -66,5 +66,22 @@ export = {
   */
   file: {
     location: 'sessions',
+  },
+
+  /*
+  |--------------------------------------------------------------------------
+  | Redis config
+  |--------------------------------------------------------------------------
+  |
+  | The configuration for the redis driver. By default we reference it from
+  | the redis file. But you are free to define an object here too.
+  |
+  */
+  redis: {
+    host: Env.get('REDIS_HOST', '127.0.0.1'),
+    port: Env.get('REDIS_PORT', '6379'),
+    password: Env.get('REDIS_PASSWORD', ''),
+    db: 0,
+    keyPrefix: '',
   },
 };
