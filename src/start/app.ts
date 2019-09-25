@@ -16,6 +16,7 @@ const providers: string[] = [
   '@adonisjs/bodyparser/providers/BodyParserProvider',
   '@adonisjs/session/providers/SessionProvider',
   path.join(__dirname, '../providers/BackendProvider'),
+  path.join(__dirname, '../providers/PrismicProvider'),
 ];
 
 /*

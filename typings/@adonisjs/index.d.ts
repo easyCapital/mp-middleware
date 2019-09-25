@@ -4,6 +4,7 @@ import events from 'events';
 import GE from '@adonisjs/generic-exceptions';
 
 import { BackendClientInterface } from '../../src/app/Clients/Backend/BackendClient';
+import { PrismicClientInterface } from '../../src/app/Clients/Prismic/PrismicClient';
 
 type WorkInProgress = any;
 type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
@@ -12850,6 +12851,7 @@ declare namespace AdonisNamespaces {
   type DatabaseTransactions = 'DatabaseTransactions' | 'Adonis/Traits/DatabaseTransactions';
 
   type BackendClient = 'BackendClient';
+  type PrismicClient = 'PrismicClient';
 }
 
 declare global {
@@ -12884,6 +12886,7 @@ declare global {
   function use(namespace: AdonisNamespaces.AntlFormats): Formats;
   function use(namespace: AdonisNamespaces.DatabaseTransactions): Lucid.DatabaseTransactions;
   function use(namespace: AdonisNamespaces.BackendClient): BackendClientInterface;
+  function use(namespace: AdonisNamespaces.PrismicClient): PrismicClientInterface;
 }
 
 declare global {

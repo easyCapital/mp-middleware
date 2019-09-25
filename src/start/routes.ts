@@ -16,6 +16,35 @@ Route.get('/', 'V1/BaseController.index');
 
 /*
 |--------------------------------------------------------------------------
+| API V1 - PRISMIC
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.get('/', 'V1/PageController.index');
+  Route.get('/search', 'V1/PageController.search');
+  Route.get('/:slug', 'V1/PageController.get');
+}).prefix('api/1.0/page');
+
+Route.group(() => {
+  Route.get('/', 'V1/ProductController.index');
+  Route.get('/search', 'V1/ProductController.search');
+  Route.get('/:slug', 'V1/ProductController.get');
+}).prefix('api/1.0/product');
+
+Route.group(() => {
+  Route.get('/', 'V1/ProductTypeController.index');
+  Route.get('/search', 'V1/ProductTypeController.search');
+  Route.get('/:slug', 'V1/ProductTypeController.get');
+}).prefix('api/1.0/type');
+
+Route.group(() => {
+  Route.get('/', 'V1/SupplierController.index');
+  Route.get('/search', 'V1/SupplierController.search');
+  Route.get('/:slug', 'V1/SupplierController.get');
+}).prefix('api/1.0/supplier');
+
+/*
+|--------------------------------------------------------------------------
 | API V1 - ONBOARDING
 |--------------------------------------------------------------------------
 */

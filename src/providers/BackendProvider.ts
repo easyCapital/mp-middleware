@@ -8,8 +8,8 @@ class BackendClientProvider extends ServiceProvider {
     const Logger = this.app.use('Logger');
 
     this.app.singleton('BackendClient', () => {
-      const host = Config.get('backend.host');
-      const apiKey = Config.get('backend.apiKey');
+      const host = Config.get('clients.backend.host');
+      const apiKey = Config.get('clients.backend.apiKey');
 
       if (host && apiKey) {
         const backendClient = new BackendClient(Logger, host, apiKey);
