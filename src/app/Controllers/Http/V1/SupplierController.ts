@@ -1,4 +1,5 @@
 import * as PrismicApi from '../../../Api/Prismic';
+import { InvalidArgumentException } from '../../../Exceptions';
 
 class SupplierController {
   public async index({ response }) {
@@ -17,6 +18,10 @@ class SupplierController {
 
   public async search({ request, response }) {
     const filters = request.input('filters');
+
+    if (!filters) {
+      throw new InvalidArgumentException("Aucun filtre n'a été fourni");
+    }
 
     const data = await PrismicApi.findSuppliers(filters);
 

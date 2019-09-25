@@ -13,10 +13,8 @@ class ExceptionHandler extends BaseExceptionHandler {
   }
 
   public async report(error) {
-    if (error.message) {
-      if (error.name === 'FetchError' || error.name === 'Exception') {
-        Logger.crit(error.message);
-      }
+    if (error.name === 'FetchError' || error.name === 'Exception') {
+      Logger.crit(error);
     }
   }
 }

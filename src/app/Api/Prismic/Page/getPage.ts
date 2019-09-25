@@ -1,23 +1,11 @@
-import Prismic from 'prismic-javascript';
-import { Page as JsonPageInterface } from 'mieuxplacer-js-api';
+import { Page as JsonPageInterface, ContentTypes } from 'mieuxplacer-js-api';
 
-import { Exception, NotFoundException } from '../../../Exceptions';
 import { Page } from '../../../Models/Prismic';
-
-const PrismicClient = use('PrismicClient');
+import { getOne } from '..';
 
 export default async function getPage(slug: string): Promise<JsonPageInterface> {
-  try {
-    const response = await PrismicClient.query({ query: Prismic.Predicates.at('my.page.uid', slug) });
+  const response = await getOne(ContentTypes.PAGE, slug);
+  const page = new Page(response);
 
-    if (response.results.length > 0) {
-      const page = new Page(response.results[0]);
-
-      return page.toJson();
-    }
-  } catch (error) {
-    throw new Exception(error);
-  }
-
-  throw new NotFoundException("Cette page n'existe pas");
+  return page.toJson();
 }

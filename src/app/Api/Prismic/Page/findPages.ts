@@ -1,38 +1,19 @@
-import Prismic from 'prismic-javascript';
-import { Page as JsonPageInterface } from 'mieuxplacer-js-api';
+import { Page as JsonPageInterface, ContentTypes } from 'mieuxplacer-js-api';
 
-import { Exception } from '../../../Exceptions';
 import { Page } from '../../../Models/Prismic';
-
-const PrismicClient = use('PrismicClient');
+import { find } from '..';
 
 export default async function findPages(filters: {
   [filter: string]: string | string[];
 }): Promise<JsonPageInterface[]> {
-  try {
-    const query: string[] = [];
+  const response = await find(ContentTypes.PAGE, filters);
+  const pages: JsonPageInterface[] = [];
 
-    Object.keys(filters).forEach(filter => {
-      const value = filters[filter];
+  response.forEach(item => {
+    const page = new Page(item);
 
-      if (Array.isArray(value)) {
-        query.push(Prismic.Predicates.in(`my.products.${filter}`, value));
-      } else {
-        query.push(Prismic.Predicates.at(`my.products.${filter}`, value));
-      }
-    });
+    pages.push(page.toJson());
+  });
 
-    const response = await PrismicClient.query({ query });
-    const pages: JsonPageInterface[] = [];
-
-    response.results.forEach(item => {
-      const page = new Page(item);
-
-      pages.push(page.toJson());
-    });
-
-    return pages;
-  } catch (error) {
-    throw new Exception(error);
-  }
+  return pages;
 }

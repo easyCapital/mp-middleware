@@ -1,38 +1,19 @@
-import Prismic from 'prismic-javascript';
-import { Type as JsonTypeInterface } from 'mieuxplacer-js-api';
+import { Type as JsonTypeInterface, ContentTypes } from 'mieuxplacer-js-api';
 
-import { Exception } from '../../../Exceptions';
 import { Type } from '../../../Models/Prismic';
-
-const PrismicClient = use('PrismicClient');
+import { find } from '..';
 
 export default async function findTypes(filters: {
   [filter: string]: string | string[];
 }): Promise<JsonTypeInterface[]> {
-  try {
-    const query: string[] = [];
+  const response = await find(ContentTypes.TYPE, filters);
+  const types: JsonTypeInterface[] = [];
 
-    Object.keys(filters).forEach(filter => {
-      const value = filters[filter];
+  response.forEach(item => {
+    const type = new Type(item);
 
-      if (Array.isArray(value)) {
-        query.push(Prismic.Predicates.in(`my.type.${filter}`, value));
-      } else {
-        query.push(Prismic.Predicates.at(`my.type.${filter}`, value));
-      }
-    });
+    types.push(type.toJson());
+  });
 
-    const response = await PrismicClient.query({ query });
-    const types: JsonTypeInterface[] = [];
-
-    response.results.forEach(item => {
-      const type = new Type(item);
-
-      types.push(type.toJson());
-    });
-
-    return types;
-  } catch (error) {
-    throw new Exception(error);
-  }
+  return types;
 }

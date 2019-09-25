@@ -1,24 +1,17 @@
-import Prismic from 'prismic-javascript';
-import { Supplier as JsonSupplierInterface } from 'mieuxplacer-js-api';
+import { Supplier as JsonSupplierInterface, ContentTypes } from 'mieuxplacer-js-api';
 
-import { Exception } from '../../../Exceptions';
 import { Supplier } from '../../../Models/Prismic';
-
-const PrismicClient = use('PrismicClient');
+import { getAll } from '..';
 
 export default async function getSuppliers(): Promise<JsonSupplierInterface[]> {
-  try {
-    const response = await PrismicClient.query({ query: Prismic.Predicates.at('document.type', 'supplier') });
-    const suppliers: JsonSupplierInterface[] = [];
+  const response = await getAll(ContentTypes.SUPPLIER);
+  const suppliers: JsonSupplierInterface[] = [];
 
-    response.results.forEach(item => {
-      const supplier = new Supplier(item);
+  response.forEach(item => {
+    const supplier = new Supplier(item);
 
-      suppliers.push(supplier.toJson());
-    });
+    suppliers.push(supplier.toJson());
+  });
 
-    return suppliers;
-  } catch (error) {
-    throw new Exception(error);
-  }
+  return suppliers;
 }

@@ -1,38 +1,19 @@
-import Prismic from 'prismic-javascript';
-import { Product as JsonProductInterface } from 'mieuxplacer-js-api';
+import { Product as JsonProductInterface, ContentTypes } from 'mieuxplacer-js-api';
 
-import { Exception } from '../../../Exceptions';
 import { Product } from '../../../Models/Prismic';
-
-const PrismicClient = use('PrismicClient');
+import { find } from '..';
 
 export default async function findProducts(filters: {
   [filter: string]: string | string[];
 }): Promise<JsonProductInterface[]> {
-  try {
-    const query: string[] = [];
+  const response = await find(ContentTypes.PRODUCT, filters);
+  const products: JsonProductInterface[] = [];
 
-    Object.keys(filters).forEach(filter => {
-      const value = filters[filter];
+  response.forEach(item => {
+    const product = new Product(item);
 
-      if (Array.isArray(value)) {
-        query.push(Prismic.Predicates.in(`my.products.${filter}`, value));
-      } else {
-        query.push(Prismic.Predicates.at(`my.products.${filter}`, value));
-      }
-    });
+    products.push(product.toJson());
+  });
 
-    const response = await PrismicClient.query({ query });
-    const products: JsonProductInterface[] = [];
-
-    response.results.forEach(item => {
-      const product = new Product(item);
-
-      products.push(product.toJson());
-    });
-
-    return products;
-  } catch (error) {
-    throw new Exception(error);
-  }
+  return products;
 }
