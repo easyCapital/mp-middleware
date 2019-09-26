@@ -1,9 +1,11 @@
 import { Proposition as JsonPropositionInterface, Answer } from 'mieuxplacer-js-api';
 
 import { Portfolio } from '.';
+import { Advice } from '../Prismic';
 
 interface PropositionInterface {
   toJSON(): JsonPropositionInterface;
+  setInvestorType(investorType: Advice): Proposition;
   addPortfolio(portfolio: Portfolio): Proposition;
 }
 
@@ -15,6 +17,7 @@ export default class Proposition implements PropositionInterface {
   private userEmail?: string;
   private weightedSrri: number;
   private answers: Answer = {};
+  private investorType?: Advice;
   private portfolios: Portfolio[] = [];
 
   constructor(json: any) {
@@ -53,8 +56,15 @@ export default class Proposition implements PropositionInterface {
       userEmail: this.userEmail,
       weightedSrri: this.weightedSrri,
       answers: this.answers,
+      investorType: this.investorType && this.investorType.toJSON(),
       portfolios: this.portfolios.map(portfolio => portfolio.toJSON()),
     };
+  }
+
+  public setInvestorType(investorType: Advice): Proposition {
+    this.investorType = investorType;
+
+    return this;
   }
 
   public addPortfolio(portfolio: Portfolio): Proposition {

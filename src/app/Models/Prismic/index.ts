@@ -1,3 +1,4 @@
+export { default as Advice } from './Advice';
 export { default as ContentType } from './ContentType';
 export { default as Objective } from './Objective';
 export { default as Page } from './Page';
