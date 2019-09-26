@@ -43,6 +43,11 @@ Route.group(() => {
   Route.get('/:slug', 'V1/SupplierController.get');
 }).prefix('api/1.0/supplier');
 
+Route.group(() => {
+  Route.get('/', 'V1/AdviceController.index');
+  Route.get('/search', 'V1/AdviceController.search');
+}).prefix('api/1.0/advice');
+
 /*
 |--------------------------------------------------------------------------
 | API V1 - ONBOARDING
