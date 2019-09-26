@@ -14,7 +14,7 @@ export = {
   |
   */
 
-  name: Env.get('APP_NAME', 'AdonisJs'),
+  name: Env.get('APP_NAME', 'Mieuxplacer-middleware'),
 
   /*
   |--------------------------------------------------------------------------
@@ -43,6 +43,8 @@ export = {
       'https://mieuxplacer.com',
       'http://mif.mieuxplacer.local',
       'http://mif.mieuxplacer.dev.robintech.co',
+      'http://conseil.mieuxplacer.local',
+      'http://conseil.mieuxplacer.dev.robintech.co',
     ],
   },
 
