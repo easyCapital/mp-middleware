@@ -18,7 +18,7 @@ export default async function find(
       const value = filters[filter];
 
       if (Array.isArray(value)) {
-        query.push(Prismic.Predicates.in(`my.${type}.${filter}`, value));
+        query.push(Prismic.Predicates.any(`my.${type}.${filter}`, value));
       } else {
         query.push(Prismic.Predicates.at(`my.${type}.${filter}`, value));
       }

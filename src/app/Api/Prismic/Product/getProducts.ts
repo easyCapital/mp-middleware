@@ -1,16 +1,16 @@
-import { Product as JsonProductInterface, ContentTypes } from 'mieuxplacer-js-api';
+import { ContentTypes } from 'mieuxplacer-js-api';
 
 import { Product } from '../../../Models/Prismic';
 import { getAll } from '..';
 
-export default async function getProducts(): Promise<JsonProductInterface[]> {
+export default async function getProducts(): Promise<Product[]> {
   const response = await getAll(ContentTypes.PRODUCT);
-  const products: JsonProductInterface[] = [];
+  const products: Product[] = [];
 
   response.forEach(item => {
     const product = new Product(item);
 
-    products.push(product.toJson());
+    products.push(product);
   });
 
   return products;

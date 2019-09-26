@@ -1,61 +1,45 @@
-import { Proposition, Fund, Portfolio } from '../../../Models/Proposition';
+import { ArrayToObject } from '../../../Helpers';
+import { Proposition, Portfolio } from '../../../Models/Proposition';
+import { Product } from '../../../Models/Prismic';
 import { Exception } from '../../../Exceptions';
+import { findPortfolios } from '../Portfolio';
+import { findProducts } from '../../Prismic';
 
 const BackendClient = use('BackendClient');
 
-export default async function getPropositionByToken(token: string) {
+export default async function getPropositionByToken(token: string): Promise<Proposition> {
   try {
     const response = await BackendClient.get({ url: `proposition/get/token/${token}` });
     const data = await response.json();
 
     const proposition = new Proposition(data);
 
-    if (data.contents.length > 0) {
-      for (const jsonPortfolio of data.contents) {
-        const portfolio = new Portfolio(jsonPortfolio);
-        try {
-          const portfolioResponse = await BackendClient.get({
-            url: 'portfolio/search',
-            filters: { id: portfolio.getId() },
-          });
-          const portfolioData = await portfolioResponse.json();
+    const portfolioIds = data.contents.map(item => item.portfolio);
+    const portfolioProducts = data.contents.map(item => item.product_identifier);
 
-          if (portfolioData.length > 0) {
-            const portfolioLines = portfolioData[0].lines;
-            const lineIds = portfolioLines.map(item => item.line);
+    const [portfolios, products] = await Promise.all([
+      findPortfolios({ id__in: portfolioIds }),
+      findProducts({ backend_key: portfolioProducts }),
+    ]);
 
-            try {
-              const lineResponse = await BackendClient.get({
-                url: 'line/search',
-                filters: { id__in: lineIds },
-              });
-              const lineData = await lineResponse.json();
+    const portfoliosById: { [id: string]: Portfolio } = ArrayToObject(portfolios);
+    const productsById: { [id: string]: Product } = ArrayToObject(products, 'identifier');
 
-              if (lineData.length > 0) {
-                lineData.forEach(line => {
-                  const fund = new Fund(line);
-                  const portfolioLine = portfolioLines.find(item => item.line === fund.getId());
+    data.contents.forEach(item => {
+      const portfolio = portfoliosById[item.portfolio];
+      const product = productsById[item.product_identifier];
 
-                  if (portfolioLine) {
-                    fund.setWeight(portfolioLine.weight);
-                  }
+      portfolio
+        .setProduct(product)
+        .setSrri(item.srri)
+        .setAmount(item.amount);
 
-                  portfolio.addFund(fund);
-                });
-              }
+      console.log(portfolio);
 
-              proposition.addPortfolio(portfolio);
-            } catch (error) {
-              throw new Exception(error);
-            }
-          }
-        } catch (error) {
-          throw new Exception(error);
-        }
-      }
-    }
+      proposition.addPortfolio(portfolio);
+    });
 
-    return proposition.toJson();
+    return proposition;
   } catch (error) {
     throw new Exception(error);
   }

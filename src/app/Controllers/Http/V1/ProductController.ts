@@ -3,17 +3,17 @@ import { InvalidArgumentException } from '../../../Exceptions';
 
 class ProductController {
   public async index({ response }) {
-    const data = await PrismicApi.getProducts();
+    const products = await PrismicApi.getProducts();
 
-    response.status(200).send(data);
+    response.status(200).send(products);
   }
 
   public async get({ params, response }) {
     const { slug } = params;
 
-    const data = await PrismicApi.getProduct(slug);
+    const product = await PrismicApi.getProduct(slug);
 
-    response.status(200).send(data);
+    response.status(200).send(product);
   }
 
   public async search({ request, response }) {
@@ -23,9 +23,9 @@ class ProductController {
       throw new InvalidArgumentException("Aucun filtre n'a été fourni");
     }
 
-    const data = await PrismicApi.findProducts(filters);
+    const products = await PrismicApi.findProducts(filters);
 
-    response.status(200).send(data);
+    response.status(200).send(products);
   }
 }
 

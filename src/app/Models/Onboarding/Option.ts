@@ -1,7 +1,7 @@
 import { Option as JsonOptionInterface } from 'mieuxplacer-js-api';
 
 interface OptionInterface {
-  toJson(): JsonOptionInterface;
+  toJSON(): JsonOptionInterface;
 }
 
 export default class Option implements OptionInterface {
@@ -17,7 +17,7 @@ export default class Option implements OptionInterface {
     this.data = json.data;
   }
 
-  public toJson(): JsonOptionInterface {
+  public toJSON(): JsonOptionInterface {
     const json: JsonOptionInterface = {
       value: this.value,
       exclusive: this.exclusive,

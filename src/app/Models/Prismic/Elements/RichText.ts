@@ -1,5 +1,5 @@
 interface RichTextInterface {
-  toJson(): any;
+  toJSON(): any;
 }
 
 export default class RichText implements RichTextInterface {
@@ -13,7 +13,7 @@ export default class RichText implements RichTextInterface {
     // this.name = json;
   }
 
-  public toJson(): any {
+  public toJSON(): any {
     return {};
   }
 }

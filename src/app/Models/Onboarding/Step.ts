@@ -3,7 +3,8 @@ import { Step as JsonStepInterface } from 'mieuxplacer-js-api';
 import Block from './Block';
 
 interface StepInterface {
-  toJson(): JsonStepInterface;
+  toJSON(): JsonStepInterface;
+  getBlocks(): Block[];
 }
 
 export default class Step implements StepInterface {
@@ -41,7 +42,7 @@ export default class Step implements StepInterface {
     }
   }
 
-  public toJson(): JsonStepInterface {
+  public toJSON(): JsonStepInterface {
     return {
       id: this.id,
       step: this.step,

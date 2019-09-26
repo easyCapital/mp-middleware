@@ -3,7 +3,7 @@
 import { ContentType } from '.';
 
 interface ObjectiveInterface {
-  toJson(): any;
+  toJSON(): any;
 }
 
 export default class Objective extends ContentType implements ObjectiveInterface {
@@ -11,7 +11,7 @@ export default class Objective extends ContentType implements ObjectiveInterface
     super(json);
   }
 
-  public toJson(): any {
+  public toJSON(): any {
     return {
       id: this.id,
       slug: this.slug,

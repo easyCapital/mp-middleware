@@ -1,18 +1,16 @@
-import { Type as JsonTypeInterface, ContentTypes } from 'mieuxplacer-js-api';
+import { ContentTypes } from 'mieuxplacer-js-api';
 
 import { Type } from '../../../Models/Prismic';
 import { find } from '..';
 
-export default async function findTypes(filters: {
-  [filter: string]: string | string[];
-}): Promise<JsonTypeInterface[]> {
+export default async function findTypes(filters: { [filter: string]: string | string[] }): Promise<Type[]> {
   const response = await find(ContentTypes.TYPE, filters);
-  const types: JsonTypeInterface[] = [];
+  const types: Type[] = [];
 
   response.forEach(item => {
     const type = new Type(item);
 
-    types.push(type.toJson());
+    types.push(type);
   });
 
   return types;

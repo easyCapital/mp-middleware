@@ -3,7 +3,7 @@ import { Page as JsonPageInterface } from 'mieuxplacer-js-api';
 import { ContentType } from '.';
 
 interface PageInterface {
-  toJson(): JsonPageInterface;
+  toJSON(): JsonPageInterface;
 }
 
 export default class Page extends ContentType implements PageInterface {
@@ -21,7 +21,7 @@ export default class Page extends ContentType implements PageInterface {
     this.gaTitle = json.data.ga_page_name;
   }
 
-  public toJson(): JsonPageInterface {
+  public toJSON(): JsonPageInterface {
     return {
       id: this.id,
       slug: this.slug,

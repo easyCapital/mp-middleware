@@ -3,7 +3,7 @@ import { Condition as JsonConditionInterface, ConditionType } from 'mieuxplacer-
 import { ConditionMapper } from '../../Mappers/Onboarding';
 
 interface ConditionInterface {
-  toJson(): JsonConditionInterface | null;
+  toJSON(): JsonConditionInterface | null;
 }
 
 export default class Condition implements ConditionInterface {
@@ -21,7 +21,7 @@ export default class Condition implements ConditionInterface {
     }
   }
 
-  public toJson(): JsonConditionInterface | null {
+  public toJSON(): JsonConditionInterface | null {
     if (this.key && this.value && this.type) {
       return {
         key: this.key,

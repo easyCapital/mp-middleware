@@ -1,20 +1,16 @@
-import {
-  Step as StepInterface,
-  Block as BlockInterface,
-  Question as QuestionInterface,
-} from 'mieuxplacer-js-api';
-
 import { Exception } from '../../../Exceptions';
 
-import { Step, Question } from '../../../Models/Onboarding';
+import { Step, Block, Question } from '../../../Models/Onboarding';
 
 const BackendClient = use('BackendClient');
 
-export default async function getOnboarding(withAuthentication: boolean) {
-  const steps: StepInterface[] = [];
-  const blocks: { [key: string]: BlockInterface } = {};
+export default async function getOnboarding(
+  withAuthentication: boolean,
+): Promise<{ steps: Step[]; blocks: { [key: string]: Block }; questions: { [key: string]: Question } }> {
+  const steps: Step[] = [];
+  const blocks: { [key: string]: Block } = {};
   const questionKeys: string[] = [];
-  const questions: { [key: string]: QuestionInterface } = {};
+  const questions: { [key: string]: Question } = {};
 
   try {
     const stepResponse = await BackendClient.get({ url: 'step/search' });
@@ -23,9 +19,9 @@ export default async function getOnboarding(withAuthentication: boolean) {
     data.forEach(item => {
       const step = new Step(item, withAuthentication);
 
-      steps.push(step.toJson());
+      steps.push(step);
       step.getBlocks().forEach(block => {
-        blocks[block.getId()] = block.toJson();
+        blocks[block.getId()] = block;
 
         const matches = block.getLabel().match(/\{([\s\S]+?)\}/g);
 
@@ -51,11 +47,7 @@ export default async function getOnboarding(withAuthentication: boolean) {
       const question = new Question(item);
 
       if (questionKeys.includes(question.getId())) {
-        const jsonQuestion = question.toJson();
-
-        if (jsonQuestion) {
-          questions[question.getId()] = jsonQuestion;
-        }
+        questions[question.getId()] = question;
       }
     });
   } catch (error) {

@@ -3,8 +3,8 @@ import { Proposition as JsonPropositionInterface, Answer } from 'mieuxplacer-js-
 import { Portfolio } from '.';
 
 interface PropositionInterface {
-  toJson(): JsonPropositionInterface;
-  addPortfolio(portfolio: Portfolio): void;
+  toJSON(): JsonPropositionInterface;
+  addPortfolio(portfolio: Portfolio): Proposition;
 }
 
 export default class Proposition implements PropositionInterface {
@@ -44,7 +44,7 @@ export default class Proposition implements PropositionInterface {
     });
   }
 
-  public toJson(): JsonPropositionInterface {
+  public toJSON(): JsonPropositionInterface {
     return {
       id: this.id,
       created: this.created,
@@ -53,11 +53,13 @@ export default class Proposition implements PropositionInterface {
       userEmail: this.userEmail,
       weightedSrri: this.weightedSrri,
       answers: this.answers,
-      portfolios: this.portfolios.map(portfolio => portfolio.toJson()),
+      portfolios: this.portfolios.map(portfolio => portfolio.toJSON()),
     };
   }
 
-  public addPortfolio(portfolio: Portfolio) {
+  public addPortfolio(portfolio: Portfolio): Proposition {
     this.portfolios.push(portfolio);
+
+    return this;
   }
 }

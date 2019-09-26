@@ -1,7 +1,8 @@
 import { Fund as JsonFundInterface } from 'mieuxplacer-js-api';
 
 interface FundInterface {
-  toJson(): JsonFundInterface;
+  toJSON(): JsonFundInterface;
+  setWeight(wieght: number): Fund;
 }
 
 export default class Fund implements FundInterface {
@@ -29,7 +30,7 @@ export default class Fund implements FundInterface {
     this.price = json.line_price;
   }
 
-  public toJson(): JsonFundInterface {
+  public toJSON(): JsonFundInterface {
     return {
       id: this.id,
       name: this.name,
@@ -43,10 +44,6 @@ export default class Fund implements FundInterface {
       partPrice: this.price,
       weight: this.weight,
     };
-  }
-
-  public getId(): number {
-    return this.id;
   }
 
   public setWeight(weight: number): Fund {

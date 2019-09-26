@@ -3,17 +3,17 @@ import { InvalidArgumentException } from '../../../Exceptions';
 
 class PageController {
   public async index({ response }) {
-    const data = await PrismicApi.getPages();
+    const pages = await PrismicApi.getPages();
 
-    response.status(200).send(data);
+    response.status(200).send(pages);
   }
 
   public async get({ params, response }) {
     const { slug } = params;
 
-    const data = await PrismicApi.getPage(slug);
+    const page = await PrismicApi.getPage(slug);
 
-    response.status(200).send(data);
+    response.status(200).send(page);
   }
 
   public async search({ request, response }) {
@@ -23,9 +23,9 @@ class PageController {
       throw new InvalidArgumentException("Aucun filtre n'a été fourni");
     }
 
-    const data = await PrismicApi.findPages(filters);
+    const pages = await PrismicApi.findPages(filters);
 
-    response.status(200).send(data);
+    response.status(200).send(pages);
   }
 }
 

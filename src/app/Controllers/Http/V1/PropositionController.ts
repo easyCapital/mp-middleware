@@ -4,18 +4,18 @@ class PropositionController {
   public async getByToken({ params, response }) {
     const { token } = params;
 
-    const data = await BackendApi.getPropositionByToken(token);
+    const proposition = await BackendApi.getPropositionByToken(token);
 
-    response.status(200).send(data);
+    response.status(200).send(proposition);
   }
 
   public async generate({ request, response }) {
     const { universe } = request;
     const { prospectId, answers } = request.post();
 
-    const data = await BackendApi.generateProspectProposition(universe, prospectId, answers);
+    const proposition = await BackendApi.generateProspectProposition(universe, prospectId, answers);
 
-    response.status(200).send(data);
+    response.status(200).send(proposition);
   }
 }
 

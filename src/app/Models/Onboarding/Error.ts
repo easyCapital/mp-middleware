@@ -3,7 +3,7 @@ import { Error as JsonErrorInterface, ErrorTypes } from 'mieuxplacer-js-api';
 import { ErrorTypeMapper } from '../../Mappers/Onboarding';
 
 interface ErrorInterface {
-  toJson(): JsonErrorInterface | null;
+  toJSON(): JsonErrorInterface | null;
 }
 
 export default class Error implements ErrorInterface {
@@ -15,7 +15,7 @@ export default class Error implements ErrorInterface {
     this.label = label;
   }
 
-  public toJson(): JsonErrorInterface | null {
+  public toJSON(): JsonErrorInterface | null {
     if (this.type && this.label) {
       return {
         type: this.type,

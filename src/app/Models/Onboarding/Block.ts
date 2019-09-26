@@ -1,7 +1,7 @@
 import { Block as JsonBlockInterface } from 'mieuxplacer-js-api';
 
 interface BlockInterface {
-  toJson(): JsonBlockInterface;
+  toJSON(): JsonBlockInterface;
   getId(): string;
   getLabel(): string;
 }
@@ -23,7 +23,7 @@ export default class Block implements BlockInterface {
     this.annotation = json.annotation;
   }
 
-  public toJson(): JsonBlockInterface {
+  public toJSON(): JsonBlockInterface {
     return {
       id: this.id,
       label: this.label,

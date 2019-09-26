@@ -1,15 +1,11 @@
-import {
-  Question as JsonQuestionInterface,
-  Condition as JsonConditionInterface,
-  InputType,
-} from 'mieuxplacer-js-api';
+import { Question as JsonQuestionInterface, Condition as JsonConditionInterface, InputType } from 'mieuxplacer-js-api';
 
 import { Condition, Error, Option } from '.';
 
 import { InputTypeMapper } from '../../Mappers/Onboarding';
 
 interface QuestionInterface {
-  toJson(): JsonQuestionInterface | null;
+  toJSON(): JsonQuestionInterface | null;
   getId(): string;
 }
 
@@ -51,7 +47,7 @@ export default class Question implements QuestionInterface {
     }
   }
 
-  public toJson(): JsonQuestionInterface | null {
+  public toJSON(): JsonQuestionInterface | null {
     if (this.type) {
       const json: JsonQuestionInterface = {
         id: this.id,
@@ -70,7 +66,7 @@ export default class Question implements QuestionInterface {
         const conditions: JsonConditionInterface[] = [];
 
         this.conditions.forEach(condition => {
-          const jsonCondition = condition.toJson();
+          const jsonCondition = condition.toJSON();
 
           if (jsonCondition) {
             conditions.push(jsonCondition);
@@ -81,11 +77,11 @@ export default class Question implements QuestionInterface {
       }
 
       if (this.options) {
-        json.options = this.options.map(option => option.toJson());
+        json.options = this.options.map(option => option.toJSON());
       }
 
       this.errors.forEach(error => {
-        const jsonError = error.toJson();
+        const jsonError = error.toJSON();
 
         if (jsonError) {
           json.errors.push(jsonError);
