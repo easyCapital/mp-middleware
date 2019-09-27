@@ -25,7 +25,7 @@ export default class Product extends ContentType implements ProductInterface {
     super(json);
 
     this.identifier = json.data.backend_key;
-    this.title = json.data.page_title;
+    this.title = json.data.title[0].text;
     this.gaTitle = json.data.ga_page_name;
     this.metaDescription = json.data.meta_description;
     this.subscribable = BooleanMapper.transformValue(json.data.subscribable);
