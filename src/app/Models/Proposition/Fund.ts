@@ -1,4 +1,6 @@
-import { Fund as JsonFundInterface } from 'mieuxplacer-js-api';
+import { Fund as JsonFundInterface, FundType } from 'mieuxplacer-js-api';
+
+import { FundTypeMapper } from '../../Mappers/Proposition';
 
 interface FundInterface {
   toJSON(): JsonFundInterface;
@@ -10,7 +12,7 @@ export default class Fund implements FundInterface {
   private weight?: number;
   private isin: string;
   private name: string;
-  private type: string;
+  private type: FundType | null;
   private morningStarId: string;
   private diciUrl?: string;
   private srri: number;
@@ -22,7 +24,7 @@ export default class Fund implements FundInterface {
     this.id = json.id;
     this.isin = json.isin;
     this.name = json.name;
-    this.type = json.line_type;
+    this.type = FundTypeMapper.transformValue(json.line_type);
     this.morningStarId = json.id_morningstar;
     this.srri = json.srri;
     this.grade = json.ms_scoring_overall;
