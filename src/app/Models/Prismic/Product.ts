@@ -33,16 +33,12 @@ export default class Product extends ContentType implements ProductInterface {
     this.type = json.data.type.id;
     this.supplier = json.data.supplier.id;
 
-    if (json.summary && json.summary.length > 0) {
-      this.summary = [];
-
-      json.summary.map(item => new RichText(item));
+    if (json.data.summary && json.data.summary.length > 0) {
+      this.summary = json.data.summary.map(item => new RichText(item));
     }
 
-    if (json.description && json.description.length > 0) {
-      this.description = [];
-
-      json.description.map(item => new RichText(item));
+    if (json.data.description && json.data.description.length > 0) {
+      this.description = json.data.description.map(item => new RichText(item));
     }
   }
 
