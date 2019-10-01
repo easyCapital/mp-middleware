@@ -3066,7 +3066,7 @@ micromatch@^4.0.2:
 
 "mieuxplacer-js-api@git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#master":
   version "1.4.4"
-  resolved "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#380ad750ca6f5befe131facd4662235d87d7a7e3"
+  resolved "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#10b59f340593fc3262607c46f7520e2d9e02d814"
 
 mime-db@1.40.0:
   version "1.40.0"

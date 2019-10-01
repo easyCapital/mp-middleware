@@ -1,6 +1,6 @@
 import { Product as JsonProductInterface } from 'mieuxplacer-js-api';
 
-import { ContentType, Type, Supplier, RichText } from '.';
+import { ContentType, Type, Supplier, RichText, Cost } from '.';
 import { BooleanMapper } from '../../Mappers/Prismic';
 
 interface ProductInterface {
@@ -20,6 +20,7 @@ export default class Product extends ContentType implements ProductInterface {
   private order: number;
   private type: Type | string;
   private supplier: Supplier | string;
+  private costs?: Cost[];
 
   constructor(json: any) {
     super(json);
@@ -40,6 +41,10 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.description && json.data.description.length > 0) {
       this.description = json.data.description.map(item => new RichText(item));
     }
+
+    if (json.data.costs && json.data.costs.length > 0) {
+      this.costs = json.data.costs.map(item => new Cost(item));
+    }
   }
 
   public toJSON(): JsonProductInterface {
@@ -56,6 +61,7 @@ export default class Product extends ContentType implements ProductInterface {
       order: this.order,
       type: typeof this.type === 'string' ? this.type : this.type.toJSON(),
       supplier: typeof this.supplier === 'string' ? this.supplier : this.supplier.toJSON(),
+      costs: this.costs && this.costs.map(item => item.toJSON()),
     };
   }
 
