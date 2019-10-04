@@ -18,6 +18,7 @@ const providers: string[] = [
 
   path.join(__dirname, '../providers/BackendProvider'),
   path.join(__dirname, '../providers/PrismicProvider'),
+  path.join(__dirname, '../providers/SymfonyProvider'),
 ];
 
 /*

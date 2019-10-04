@@ -15,6 +15,7 @@ const globalMiddleware: string[] = [
   'App/Middleware/RequestLogger',
   'App/Middleware/AppAccessVerifier',
   'App/Middleware/UniverseDetector',
+  'App/Middleware/SymfonySessionDetector',
 ];
 
 /*
