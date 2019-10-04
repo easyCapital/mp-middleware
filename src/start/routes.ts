@@ -54,6 +54,7 @@ Route.group(() => {
 |--------------------------------------------------------------------------
 */
 Route.group(() => {
+  Route.post('/login', 'V1/AuthenticationController.login');
   Route.post('/forgot-password', 'V1/AuthenticationController.forgotPassword');
 }).prefix('api/1.0/auth');
 
@@ -76,4 +77,5 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/:token', 'V1/PropositionController.getByToken');
   Route.post('/generate', 'V1/PropositionController.generate');
+  Route.post('/', 'V1/PropositionController.validate');
 }).prefix('api/1.0/proposition');

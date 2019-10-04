@@ -8,7 +8,7 @@ export interface SymfonyClientInterface {
 
 export interface RequestOptions {
   url: string;
-  sessionCookie: string;
+  sessionCookie?: string;
 }
 
 export default class UserClient implements SymfonyClientInterface {
@@ -18,7 +18,7 @@ export default class UserClient implements SymfonyClientInterface {
 
   constructor(logger: any, host: string, sessionKey: string) {
     this.logger = logger;
-    this.host = `${host}/api`;
+    this.host = `${host}/api/2.0`;
     this.sessionKey = sessionKey;
   }
 
@@ -37,10 +37,13 @@ export default class UserClient implements SymfonyClientInterface {
       method,
       headers: {
         'Content-Type': 'application/json',
-        Cookie: `${this.sessionKey}=${options.sessionCookie}`,
       },
       timeout: 10000,
     };
+
+    if (options.sessionCookie !== undefined) {
+      requestParameters.headers.Cookie = `${this.sessionKey}=${options.sessionCookie}`;
+    }
 
     if (body !== undefined) {
       requestParameters.body = JSON.stringify(body);
