@@ -18,6 +18,8 @@ class PrismicClientProvider extends ServiceProvider {
         return prismicClient;
       }
 
+      Logger.crit('PrismicClient could not be loaded because of missing parameters');
+
       return null;
     });
   }

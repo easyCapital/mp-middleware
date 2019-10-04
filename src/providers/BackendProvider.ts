@@ -17,6 +17,8 @@ class BackendClientProvider extends ServiceProvider {
         return backendClient;
       }
 
+      Logger.crit('BackendClient could not be loaded because of missing parameters');
+
       return null;
     });
   }

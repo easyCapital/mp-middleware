@@ -6,12 +6,14 @@ export enum BackendErrorTypes {
   InvalidMobileFormatError = 'InvalidMobileFormatError',
   EmailAlreadyAssignedToUserError = 'EmailAlreadyAssignedToUserError',
   InvalidEmailStatus = 'InvalidEmailStatus',
+  EmailValidationError = 'EmailValidationError',
+  MissingMandatoryFieldsError = 'MissingMandatoryFieldsError',
 }
 
 export type BackendError = {
   [key in BackendErrorTypes]: {
     detail: string;
-    field: string[];
+    fields: string[];
     value: any;
   };
 };
