@@ -11,6 +11,23 @@ class OnboardingController {
     response.status(200).send({ ...data, answers });
   }
 
+  public async getQuestions({ request, session, response }) {
+    const ids = request.input('ids');
+
+    const questions = await BackendApi.getQuestions(ids);
+
+    const sessionAnswers = session.get('answers');
+    const answers = {};
+
+    if (sessionAnswers) {
+      ids.forEach(id => {
+        answers[id] = sessionAnswers[id];
+      });
+    }
+
+    response.status(200).send({ questions, answers });
+  }
+
   public async prevalidate({ request, session, response }) {
     const answers = request.post();
 

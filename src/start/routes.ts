@@ -65,6 +65,7 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.get('/', 'V1/OnboardingController.index');
+  Route.get('/questions', 'V1/OnboardingController.getQuestions');
   Route.post('/validate', 'V1/OnboardingController.validate');
   Route.post('/prevalidate', 'V1/OnboardingController.prevalidate');
 }).prefix('api/1.0/onboarding');

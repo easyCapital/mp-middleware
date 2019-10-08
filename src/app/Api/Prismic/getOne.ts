@@ -13,7 +13,6 @@ export default async function getOne(type: ContentType, slug: string): Promise<a
       return response.results[0];
     }
   } catch (error) {
-    console.log(error);
     throw new Exception(error);
   }
 
