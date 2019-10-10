@@ -22,10 +22,12 @@
     "redis-lru": "^0.6.0"
   },
   "devDependencies": {
+    "@adonisjs/vow": "^1.0.17",
     "@types/node": "^12.7.3",
     "@types/node-fetch": "^2.5.0",
     "commitlint": "^8.1.0",
     "cpx": "^1.5.0",
+    "fetch-mock": "^7.5.1",
     "husky": "^3.0.4",
     "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
@@ -38,8 +40,9 @@
   "scripts": {
     "start": "yarn clean && yarn copy:files && tsc-watch --onSuccess 'node ./dist/server.js'",
     "build": "yarn clean && tsc && yarn copy:files",
-    "copy:files": "cpx '.env' dist && cpx 'package.json' dist",
-    "clean": "rimraf dist/"
+    "copy:files": "cpx '.env' dist && cpx '.env.testing' dist && cpx 'package.json' dist",
+    "clean": "rimraf dist/",
+    "test": "ln -fs ../node_modules dist/node_modules && cp ace dist/ace && node dist/ace test"
   },
   "autoload": {
     "App": "./app"

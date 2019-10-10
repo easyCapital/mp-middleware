@@ -5469,7 +5469,7 @@ interface Server {
    * @param callback?
    * @return
    */
-  listen(host?: 'localhost', port?: 3333, callback?: Function): HttpServer;
+  listen(host?: string, port?: number, callback?: Function): HttpServer;
 
   /**
    * Closes the HTTP server
@@ -12878,7 +12878,7 @@ declare global {
   function use(namespace: AdonisNamespaces.Model): Lucid.Model;
   function use(namespace: AdonisNamespaces.Migration): Migration;
   function use(namespace: AdonisNamespaces.Drive): Drive;
-  function use(namespace: AdonisNamespaces.Test): Suite;
+  function use(namespace: AdonisNamespaces.Test): Function;
   function use(namespace: AdonisNamespaces.Context): Http.Context;
   function use(namespace: AdonisNamespaces.Request): Http.Request;
   function use(namespace: AdonisNamespaces.Response): Http.Response;

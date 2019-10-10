@@ -30,7 +30,7 @@ const providers: string[] = [
 | Providers for migrations, tests etc.
 |
 */
-const aceProviders: any = [];
+const aceProviders: any = ['@adonisjs/vow/providers/VowProvider'];
 
 /*
 |--------------------------------------------------------------------------
