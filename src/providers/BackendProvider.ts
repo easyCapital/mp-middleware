@@ -10,16 +10,9 @@ class BackendClientProvider extends ServiceProvider {
     this.app.singleton('BackendClient', () => {
       const host = Config.get('clients.backend.host');
       const apiKey = Config.get('clients.backend.apiKey');
+      const backendClient = new BackendClient(Logger, host, apiKey);
 
-      if (host && apiKey) {
-        const backendClient = new BackendClient(Logger, host, apiKey);
-
-        return backendClient;
-      }
-
-      Logger.crit('BackendClient could not be loaded because of missing parameters');
-
-      return null;
+      return backendClient;
     });
   }
 

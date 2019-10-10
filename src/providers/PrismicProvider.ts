@@ -11,16 +11,9 @@ class PrismicClientProvider extends ServiceProvider {
     this.app.singleton('PrismicClient', () => {
       const host = Config.get('clients.prismic.host');
       const apiKey = Config.get('clients.prismic.apiKey');
+      const prismicClient = new PrismicClient(Logger, host, apiKey);
 
-      if (host && apiKey) {
-        const prismicClient = new PrismicClient(Logger, host, apiKey);
-
-        return prismicClient;
-      }
-
-      Logger.crit('PrismicClient could not be loaded because of missing parameters');
-
-      return null;
+      return prismicClient;
     });
   }
 

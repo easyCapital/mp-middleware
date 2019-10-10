@@ -10,16 +10,9 @@ class SymfonyClientProvider extends ServiceProvider {
     this.app.singleton('SymfonyClient', () => {
       const host = Config.get('clients.symfony.host');
       const sessionKey = Config.get('clients.symfony.sessionKey');
+      const symfonyClient = new SymfonyClient(Logger, host, sessionKey);
 
-      if (host && sessionKey) {
-        const symfonyClient = new SymfonyClient(Logger, host, sessionKey);
-
-        return symfonyClient;
-      }
-
-      Logger.crit('SymfonyClient could not be loaded because of missing parameters');
-
-      return null;
+      return symfonyClient;
     });
   }
 
