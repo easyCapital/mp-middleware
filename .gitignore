@@ -9,3 +9,4 @@ tmp
 
 # Generated files
 dist/
+.vscode/launch.json
