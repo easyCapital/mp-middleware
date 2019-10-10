@@ -43,7 +43,7 @@
     "copy:files": "cpx '.env' dist && cpx '.env.testing' dist && cpx 'package.json' dist",
     "clean": "rimraf dist/",
     "test": "ln -fs ../node_modules dist/node_modules && cp ace dist/ace && node dist/ace test",
-    "dev": "adonis serve --dev --debug"
+    "debug": "yarn clean && yarn copy:files && tsc-watch --onSuccess 'node --inspect ./dist/server.js'"
   },
   "autoload": {
     "App": "./app"
