@@ -1,11 +1,11 @@
-import * as BackendApi from '../../../Api/Backend';
 import * as SymfonyApi from '../../../Api/Symfony';
+import { Context } from '../../../../types';
 
 const Config = use('Adonis/Src/Config');
 
 class AuthenticationController {
-  public async login({ request, response }) {
-    const { email, password } = request.post();
+  public async login({ request, response }: Context) {
+    const { email, password }: any = request.post();
 
     const sessionCookie = await SymfonyApi.login(email, password);
 
@@ -19,10 +19,10 @@ class AuthenticationController {
     response.status(200).send();
   }
 
-  public async forgotPassword({ request, response }) {
-    const { email } = request.post();
+  public async forgotPassword({ request, response, backendApi }: Context) {
+    const { email }: any = request.post();
 
-    await BackendApi.forgotPassword(email);
+    await backendApi.forgotPassword(email);
 
     response.status(200).send();
   }

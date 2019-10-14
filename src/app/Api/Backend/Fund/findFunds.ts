@@ -1,11 +1,13 @@
 import { Fund } from '../../../Models/Proposition';
 import { Exception } from '../../../Exceptions';
+import BackendApi from '..';
 
-const BackendClient = use('BackendClient');
-
-export default async function findFunds(filters: { [filter: string]: string | string[] }): Promise<Fund[]> {
+export default async function findFunds(
+  this: BackendApi,
+  filters: { [filter: string]: string | string[] },
+): Promise<Fund[]> {
   try {
-    const response = await BackendClient.get({
+    const response = await this.backendClient.get({
       url: 'line/search',
       filters,
     });

@@ -1,9 +1,8 @@
 import { AuthenticationException } from '../Exceptions';
+import BackendApi from '..';
 
-const BackendClient = use('BackendClient');
-
-export default async function forgotPassword(email: string) {
-  const response = await BackendClient.post({ url: 'customer/password/reset' }, { email });
+export default async function forgotPassword(this: BackendApi, email: string) {
+  const response = await this.backendClient.post({ url: 'customer/password/reset' }, { email });
 
   if (!response.ok) {
     const data = await response.json();

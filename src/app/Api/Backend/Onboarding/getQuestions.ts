@@ -1,14 +1,13 @@
 import { Exception } from '../../../Exceptions';
 
 import { Question } from '../../../Models/Onboarding';
+import BackendApi from '..';
 
-const BackendClient = use('BackendClient');
-
-export default async function getQuestions(ids: string[] = []): Promise<{ [key: string]: Question }> {
+export default async function getQuestions(this: BackendApi, ids: string[] = []): Promise<{ [key: string]: Question }> {
   const questions: { [key: string]: Question } = {};
 
   try {
-    const stepResponse = await BackendClient.get({
+    const stepResponse = await this.backendClient.get({
       url: 'question/search',
       filters: { key__in: ids },
     });

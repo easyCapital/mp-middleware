@@ -1,5 +1,5 @@
 import Prismic from 'prismic-javascript';
-import { ContentType, MetaData } from 'mieuxplacer-js-api';
+import { ContentType } from 'mieuxplacer-js-api';
 
 import { Exception } from '../../Exceptions';
 import { getMetaData } from './Helpers';

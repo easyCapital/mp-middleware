@@ -6,13 +6,11 @@ class BackendClientProvider extends ServiceProvider {
   public register() {
     const Config = this.app.use('Adonis/Src/Config');
     const Logger = this.app.use('Logger');
-
-    this.app.singleton('BackendClient', () => {
-      const host = Config.get('clients.backend.host');
-      const apiKey = Config.get('clients.backend.apiKey');
-      const backendClient = new BackendClient(Logger, host, apiKey);
-
-      return backendClient;
+    const host = Config.get('clients.backend.host');
+    this.app.singleton('BackendClientBuilder', () => {
+      return backendApiKey => {
+        return new BackendClient(Logger, host, backendApiKey);
+      };
     });
   }
 

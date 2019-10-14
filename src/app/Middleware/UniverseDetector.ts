@@ -1,11 +1,11 @@
+import { Context } from '../../types';
+
 class UniverseDetector {
-  private async handle({ request }, next) {
-    const universe = request.header('Universe');
-
+  protected async handle(ctx: Context, next) {
+    const universe = ctx.request.header('Universe');
     if (universe) {
-      request.universe = universe;
+      ctx.universe = universe;
     }
-
     await next();
   }
 }

@@ -1,8 +1,9 @@
 import * as PrismicApi from '../../../Api/Prismic';
 import { InvalidArgumentException } from '../../../Exceptions';
+import { Context } from '../../../../types';
 
 class PageController {
-  public async index({ response }) {
+  public async index({ response }: Context) {
     const pages = await PrismicApi.getPages();
 
     response.status(200).send(pages);
@@ -16,7 +17,7 @@ class PageController {
     response.status(200).send(page);
   }
 
-  public async search({ request, response }) {
+  public async search({ request, response }: Context) {
     const filters = request.input('filters');
 
     if (!filters) {

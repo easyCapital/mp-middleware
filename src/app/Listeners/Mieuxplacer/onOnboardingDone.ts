@@ -1,11 +1,10 @@
 import { Answer } from 'mieuxplacer-js-api';
+import BackendApi from '../../Api/Backend';
 
-import * as BackendApi from '../../Api/Backend';
-
-async function onOnboardingDone(answers: Answer, extra: { [key: string]: string }) {
+async function onOnboardingDone(backendApi: BackendApi, answers: Answer, extra: { [key: string]: string }) {
   const { email } = extra;
 
-  const data = await BackendApi.creatProspect(email);
+  const data = await backendApi.creatProspect(email);
 
   return data;
 }

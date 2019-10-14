@@ -1,13 +1,13 @@
+import { Context } from '../../types';
+
 const Config = use('Adonis/Src/Config');
 
 class SymfonySessionDetector {
-  private async handle({ request }, next) {
-    const cookie = request.cookie(Config.get('clients.symfony.sessionKey'));
-
+  protected async handle(ctx: Context, next) {
+    const cookie = ctx.request.cookie(Config.get('clients.symfony.sessionKey'));
     if (cookie) {
-      request.symfonySession = cookie;
+      ctx.symfonySession = cookie;
     }
-
     await next();
   }
 }

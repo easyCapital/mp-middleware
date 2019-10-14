@@ -1,5 +1,3 @@
-import { Apps } from '../types';
-
 const Env = use('Env');
 
 export = {
@@ -26,27 +24,6 @@ export = {
   |
   */
   appKey: Env.getOrFail('APP_KEY'),
-
-  /*
-  |--------------------------------------------------------------------------
-  | Allowed origins per app
-  |--------------------------------------------------------------------------
-  |
-  | Object with all the allowed origins for a given app.
-  |
-  */
-  allowedOriginsPerApp: {
-    [Apps.MIEUXPLACER]: [
-      'http://mieuxplacer.local',
-      'http://mieuxplacer.dev.robintech.co',
-      'https://mieuxplacer.stg.robintech.co',
-      'https://mieuxplacer.com',
-      'http://mif.mieuxplacer.local',
-      'http://mif.mieuxplacer.dev.robintech.co',
-      'http://conseil.mieuxplacer.local',
-      'http://conseil.mieuxplacer.dev.robintech.co',
-    ],
-  },
 
   http: {
     /*

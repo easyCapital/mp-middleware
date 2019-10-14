@@ -2,14 +2,12 @@ import { ArrayToObject } from '../../../Helpers';
 import { Proposition, Portfolio } from '../../../Models/Proposition';
 import { Product } from '../../../Models/Prismic';
 import { Exception } from '../../../Exceptions';
-import { findPortfolios } from '../Portfolio';
+import BackendApi from '..';
 import { findProducts, findAdvices } from '../../Prismic';
 
-const BackendClient = use('BackendClient');
-
-export default async function getPropositionByToken(token: string): Promise<Proposition> {
+export default async function getPropositionByToken(this: BackendApi, token: string): Promise<Proposition> {
   try {
-    const response = await BackendClient.get({ url: `proposition/get/token/${token}` });
+    const response = await this.backendClient.get({ url: `proposition/get/token/${token}` });
     const data = await response.json();
 
     const proposition = new Proposition(data);
@@ -18,7 +16,7 @@ export default async function getPropositionByToken(token: string): Promise<Prop
     const portfolioProducts = data.contents.map(item => item.product_identifier);
 
     const [portfolios, products, advices] = await Promise.all([
-      findPortfolios({ id__in: portfolioIds }),
+      this.findPortfolios({ id__in: portfolioIds }),
       findProducts({ backend_key: portfolioProducts }),
       findAdvices({ key: data.risk_advice }),
     ]);

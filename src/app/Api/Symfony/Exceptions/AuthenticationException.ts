@@ -1,8 +1,7 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
-import { ErrorTypes, ErrorType } from 'mieuxplacer-js-api';
+import { ErrorTypes } from 'mieuxplacer-js-api';
 
 import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
-
 const Logger = use('Logger');
 
 export default class AuthenticationException extends HttpException {

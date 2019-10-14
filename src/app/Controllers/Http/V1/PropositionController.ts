@@ -1,27 +1,24 @@
-import * as BackendApi from '../../../Api/Backend';
 import * as SymfonyApi from '../../../Api/Symfony';
+import { Context } from '../../../../types';
 
 class PropositionController {
-  public async getByToken({ params, response }) {
+  public async getByToken({ params, response, backendApi }: Context) {
     const { token } = params;
-
-    const proposition = await BackendApi.getPropositionByToken(token);
-
-    response.status(200).send(proposition);
-  }
-
-  public async generate({ request, response }) {
-    const { universe } = request;
-    const { prospectId, answers } = request.post();
-
-    const proposition = await BackendApi.generateProspectProposition(universe, prospectId, answers);
+    const proposition = await backendApi.getPropositionByToken(token);
 
     response.status(200).send(proposition);
   }
 
-  public async validate({ request, response }) {
-    const { symfonySession } = request;
-    const { proposition } = request.post();
+  public async generate({ request, response, backendApi, universe }: Context) {
+    const { prospectId, answers }: any = request.post();
+
+    const proposition = await backendApi.generateProspectProposition(universe, prospectId, answers);
+
+    response.status(200).send(proposition);
+  }
+
+  public async validate({ request, response, symfonySession }: Context) {
+    const { proposition }: any = request.post();
 
     await SymfonyApi.validateProposition(proposition, symfonySession);
 

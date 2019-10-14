@@ -17,7 +17,8 @@
     "paths": {
       "*": ["node_modules/@types/*", "typings/*"]
     },
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noUnusedLocals": true
   },
   "files": ["typings/global.d.ts"],
   "exclude": ["node_modules"],

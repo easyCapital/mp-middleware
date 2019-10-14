@@ -61,11 +61,7 @@ declare module '@adonisjs/generic-exceptions' {
      *
      * @return {InvalidArgumentException}
      */
-    missingParameter(
-      method: string,
-      parameterName: string,
-      position: string | number,
-    ): InvalidArgumentException;
+    missingParameter(method: string, parameterName: string, position: string | number): InvalidArgumentException;
 
     /**
      * Throw exception when the parameter received is invalid

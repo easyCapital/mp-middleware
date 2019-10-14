@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +13,7 @@
 // Uncomment when want to run migrations
 // const ace = require('@adonisjs/ace')
 
-export = (cli : any, runner : any) => {
+export = (cli: any, runner: any) => {
   runner.before(async () => {
     /*
     |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ export = (cli : any, runner : any) => {
     | line, if http server is not required
     |
     */
-    use('Adonis/Src/Server').listen(process.env.HOST, Number(process.env.PORT))
+    use('Adonis/Src/Server').listen(process.env.HOST, Number(process.env.PORT));
 
     /*
     |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ export = (cli : any, runner : any) => {
     |
     */
     // await ace.call('migration:run', {}, { silent: true })
-  })
+  });
 
   runner.after(async () => {
     /*
@@ -46,7 +46,9 @@ export = (cli : any, runner : any) => {
     | Shutdown the HTTP server when all tests have been executed.
     |
     */
-    use('Adonis/Src/Server').getInstance().close()
+    use('Adonis/Src/Server')
+      .getInstance()
+      .close();
 
     /*
     |--------------------------------------------------------------------------
@@ -58,5 +60,5 @@ export = (cli : any, runner : any) => {
     |
     */
     // await ace.call('migration:reset', {}, { silent: true })
-  })
-}
+  });
+};

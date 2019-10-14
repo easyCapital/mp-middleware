@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@adonisjs/vow": "^1.0.17",
+    "@types/fetch-mock": "^7.3.1",
     "@types/node": "^12.7.3",
     "@types/node-fetch": "^2.5.0",
     "commitlint": "^8.1.0",
@@ -43,7 +44,9 @@
     "copy:files": "cpx '.env' dist && cpx '.env.testing' dist && cpx 'package.json' dist",
     "clean": "rimraf dist/",
     "test": "ln -fs ../node_modules dist/node_modules && cp ace dist/ace && node dist/ace test",
-    "debug": "yarn clean && yarn copy:files && tsc-watch --onSuccess 'node --inspect ./dist/server.js'"
+    "debug": "yarn clean && yarn copy:files && tsc-watch --onSuccess 'node --inspect ./dist/server.js'",
+    "format": "prettier --write 'src/**/*.ts'",
+    "lint": "tslint 'src/**/*.ts' && prettier --check 'src/**/*.ts'"
   },
   "autoload": {
     "App": "./app"

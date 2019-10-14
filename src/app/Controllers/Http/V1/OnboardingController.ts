@@ -1,20 +1,20 @@
-import * as BackendApi from '../../../Api/Backend';
 import { onOnboardingDone } from '../../../Listeners';
+import { Context } from '../../../../types';
 
 class OnboardingController {
-  public async index({ request, session, response }) {
+  public async index({ request, session, response, backendApi }: Context) {
     const withAuthentication = request.input('with-authentication') || false;
 
-    const data = await BackendApi.getOnboarding(withAuthentication);
+    const data = await backendApi.getOnboarding(withAuthentication);
     const answers = session.get('answers');
 
     response.status(200).send({ ...data, answers });
   }
 
-  public async getQuestions({ request, session, response }) {
+  public async getQuestions({ request, session, response, backendApi }: Context) {
     const ids = request.input('ids');
 
-    const questions = await BackendApi.getQuestions(ids);
+    const questions = await backendApi.getQuestions(ids);
 
     const sessionAnswers = session.get('answers');
     const answers = {};
@@ -28,10 +28,10 @@ class OnboardingController {
     response.status(200).send({ questions, answers });
   }
 
-  public async prevalidate({ request, session, response }) {
-    const answers = request.post();
+  public async prevalidate({ request, session, response, backendApi }: Context) {
+    const answers: any = request.post();
 
-    await BackendApi.prevalidateAnswers(answers);
+    await backendApi.prevalidateAnswers(answers);
 
     const oldAnswers = session.get('answers');
     session.put('answers', { ...oldAnswers, ...answers });
@@ -39,15 +39,14 @@ class OnboardingController {
     response.status(200).send();
   }
 
-  public async validate({ request, session, response }) {
-    const app = request.header('MP-App');
-    const { answers, extra } = request.post();
+  public async validate({ request, session, response, backendApi, app }: Context) {
+    const { answers, extra }: any = request.post();
 
-    await BackendApi.prevalidateAnswers(answers);
+    await backendApi.prevalidateAnswers(answers);
 
     session.put('answers', answers);
 
-    const data = await onOnboardingDone(app, answers, extra);
+    const data = await onOnboardingDone(backendApi, app, answers, extra);
 
     response.status(200).send(data);
   }

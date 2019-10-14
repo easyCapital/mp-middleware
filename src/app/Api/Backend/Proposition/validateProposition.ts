@@ -1,7 +1,7 @@
-const BackendClient = use('BackendClient');
+import BackendApi from '..';
 
-export default async function validateProposition(propositionId: string, userId: string) {
-  const response = await BackendClient.post(
+export default async function validateProposition(this: BackendApi, propositionId: string, userId: string) {
+  const response = await this.backendClient.post(
     { url: 'contract/create_from_proposition' },
     { proposition: propositionId, user: userId },
   );

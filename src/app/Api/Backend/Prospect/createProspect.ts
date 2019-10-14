@@ -1,9 +1,8 @@
 import { ProspectException } from '../Exceptions';
+import BackendApi from '..';
 
-const BackendClient = use('BackendClient');
-
-export default async function createProspect(email: string) {
-  const response = await BackendClient.post({ url: 'prospect/create' }, { email });
+export default async function createProspect(this: BackendApi, email: string) {
+  const response = await this.backendClient.post({ url: 'prospect/create' }, { email });
 
   const data = await response.json();
 

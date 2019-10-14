@@ -1,14 +1,15 @@
 import * as PrismicApi from '../../../Api/Prismic';
 import { InvalidArgumentException } from '../../../Exceptions';
+import { Context } from '../../../../types';
 
 class AdviceController {
-  public async index({ response }) {
+  public async index({ response }: Context) {
     const advices = await PrismicApi.getAdvices();
 
     response.status(200).send(advices);
   }
 
-  public async search({ request, response }) {
+  public async search({ request, response }: Context) {
     const filters = request.input('filters');
 
     if (!filters) {

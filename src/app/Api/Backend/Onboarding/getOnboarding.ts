@@ -1,10 +1,10 @@
 import { Exception } from '../../../Exceptions';
 
 import { Step, Block, Question } from '../../../Models/Onboarding';
-
-const BackendClient = use('BackendClient');
+import BackendApi from '..';
 
 export default async function getOnboarding(
+  this: BackendApi,
   withAuthentication: boolean,
 ): Promise<{ steps: Step[]; blocks: { [key: string]: Block }; questions: { [key: string]: Question } }> {
   const steps: Step[] = [];
@@ -13,7 +13,7 @@ export default async function getOnboarding(
   const questions: { [key: string]: Question } = {};
 
   try {
-    const stepResponse = await BackendClient.get({ url: 'step/search' });
+    const stepResponse = await this.backendClient.get({ url: 'step/search' });
     const data = await stepResponse.json();
 
     data.forEach(item => {
@@ -37,7 +37,7 @@ export default async function getOnboarding(
   }
 
   try {
-    const stepResponse = await BackendClient.get({
+    const stepResponse = await this.backendClient.get({
       url: 'question/search',
       filters: { key__in: questionKeys },
     });

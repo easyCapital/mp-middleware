@@ -3,7 +3,7 @@ import stream from 'stream';
 import events from 'events';
 import GE from '@adonisjs/generic-exceptions';
 
-import { BackendClientInterface } from '../../src/app/Clients/Backend/BackendClient';
+import { BackendClientBuilder, BackendClientInterface } from '../../src/app/Clients/Backend/BackendClient';
 import { PrismicClientInterface } from '../../src/app/Clients/Prismic/PrismicClient';
 import { SymfonyClientInterface } from '../../src/app/Clients/Symfony/SymfonyClient';
 
@@ -2652,13 +2652,7 @@ declare namespace Http {
      * @param status?
      * @return
      */
-    route(
-      routeNameOrHandler: string,
-      data?: {},
-      domain?: string,
-      sendParams?: false,
-      status?: 302,
-    ): void;
+    route(routeNameOrHandler: string, data?: {}, domain?: string, sendParams?: false, status?: 302): void;
 
     /**
      * Add the HTTP `Vary` header
@@ -2702,7 +2696,7 @@ declare namespace Http {
      * @param generateEtag
      * @return
      */
-    send(body: any, generateEtag?: boolean): void;
+    send(body?: any, generateEtag?: boolean): void;
 
     /**
      * Sets the response body for the HTTP request with
@@ -3463,11 +3457,7 @@ declare namespace Auth {
      * @param deleteInstead?
      * @return
      */
-    revokeTokensForUser(
-      user: any,
-      tokens?: Array<string> | null,
-      deleteInstead?: boolean,
-    ): Promise<number>;
+    revokeTokensForUser(user: any, tokens?: Array<string> | null, deleteInstead?: boolean): Promise<number>;
 
     /**
      * Lists all refresh tokens for currently logged in user.
@@ -3672,12 +3662,7 @@ declare namespace Auth {
      * @param password
      * @return
      */
-    clientLogin(
-      headerFn: HeaderFn,
-      sessionFn: SessionFn,
-      username: string,
-      password: string,
-    ): Promise<void>;
+    clientLogin(headerFn: HeaderFn, sessionFn: SessionFn, username: string, password: string): Promise<void>;
   }
 
   /**
@@ -3804,12 +3789,7 @@ declare namespace Auth {
      * @param jwtOptions?
      * @return
      */
-    attempt(
-      uid: string,
-      password: string,
-      jwtPayload?: Object | boolean,
-      jwtOptions?: Object,
-    ): Promise<Object>;
+    attempt(uid: string, password: string, jwtPayload?: Object | boolean, jwtOptions?: Object): Promise<Object>;
 
     /**
      * Generates a jwt token for a given user. This method doesn't check the existence
@@ -3884,11 +3864,7 @@ declare namespace Auth {
      * @param jwtOptions?
      * @return
      */
-    generateForRefreshToken(
-      refreshToken: string,
-      jwtPayload?: Object | boolean,
-      jwtOptions?: Object,
-    ): Promise<Object>;
+    generateForRefreshToken(refreshToken: string, jwtPayload?: Object | boolean, jwtOptions?: Object): Promise<Object>;
 
     /**
      * Check if user is authenticated for the current HTTP request or not. This
@@ -4403,11 +4379,7 @@ interface Route extends Macroable {
    * @param host?
    * @return
    */
-  resolve(
-    url: string,
-    verb: 'string',
-    host?: string,
-  ): { url: string; params: string[]; subdomains: {} } | null;
+  resolve(url: string, verb: 'string', host?: string): { url: string; params: string[]; subdomains: {} } | null;
 
   /**
    * Returns the JSON representation of the route.
@@ -6457,23 +6429,12 @@ declare namespace Database {
 
   interface Join {
     (raw: Raw): QueryInterface;
-    (
-      tableName: TableName | QueryCallback,
-      clause: (this: JoinClause, join: JoinClause) => void,
-    ): QueryInterface;
-    (
-      tableName: TableName | QueryCallback,
-      columns: { [key: string]: string | number | Raw },
-    ): QueryInterface;
+    (tableName: TableName | QueryCallback, clause: (this: JoinClause, join: JoinClause) => void): QueryInterface;
+    (tableName: TableName | QueryCallback, columns: { [key: string]: string | number | Raw }): QueryInterface;
     (tableName: TableName | QueryCallback, raw: Raw): QueryInterface;
     (tableName: TableName | QueryCallback, column1: string, column2: string): QueryInterface;
     (tableName: TableName | QueryCallback, column1: string, raw: Raw): QueryInterface;
-    (
-      tableName: TableName | QueryCallback,
-      column1: string,
-      operator: string,
-      column2: string,
-    ): QueryInterface;
+    (tableName: TableName | QueryCallback, column1: string, operator: string, column2: string): QueryInterface;
   }
 
   interface JoinClause {
@@ -6637,11 +6598,7 @@ declare namespace Database {
   //
 
   type QueryCallback = (this: QueryInterface, builder: QueryInterface) => void;
-  type QueryCallbackWithArgs = (
-    this: QueryInterface,
-    builder: QueryInterface,
-    ...args: any[]
-  ) => void;
+  type QueryCallbackWithArgs = (this: QueryInterface, builder: QueryInterface, ...args: any[]) => void;
 
   interface Sql {
     method: string;
@@ -6654,18 +6611,9 @@ declare namespace Database {
   // Schema builder
   //
   interface SchemaBuilder {
-    createTable(
-      tableName: string,
-      callback: (tableBuilder: CreateTableBuilder) => any,
-    ): SchemaBuilder;
-    createTableIfNotExists(
-      tableName: string,
-      callback: (tableBuilder: CreateTableBuilder) => any,
-    ): SchemaBuilder;
-    alterTable(
-      tableName: string,
-      callback: (tableBuilder: CreateTableBuilder) => any,
-    ): SchemaBuilder;
+    createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
+    createTableIfNotExists(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
+    alterTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
     renameTable(oldTableName: string, newTableName: string): any;
     dropTable(tableName: string): SchemaBuilder;
     hasTable(tableName: string): any;
@@ -7204,12 +7152,9 @@ declare interface Validator {
 declare namespace Ignitor {
   type callback = () => void;
   type validHooks = {
-    [key in
-      | 'providersRegistered'
-      | 'providersBooted'
-      | 'preloading'
-      | 'httpServer'
-      | 'aceCommand']: (callback: callback) => void;
+    [key in 'providersRegistered' | 'providersBooted' | 'preloading' | 'httpServer' | 'aceCommand']: (
+      callback: callback,
+    ) => void;
   };
 
   /**
@@ -8419,12 +8364,7 @@ declare namespace Fold {
      * @param appNamespace
      * @param forDirectory
      */
-    new (
-      Ioc: Ioc,
-      directories: Array<string>,
-      appNamespace: string,
-      forDirectory?: string,
-    ): Resolver;
+    new (Ioc: Ioc, directories: Array<string>, appNamespace: string, forDirectory?: string): Resolver;
 
     /**
      * Translates a binding into a valid namespace, ready to
@@ -10360,10 +10300,7 @@ declare namespace Lucid {
        * @param pivotCallback?
        * @return
        */
-      saveMany(
-        arrayOfRelatedInstances: Array<Object>,
-        pivotCallback?: pivotCallback,
-      ): Promise<void>;
+      saveMany(arrayOfRelatedInstances: Array<Object>, pivotCallback?: pivotCallback): Promise<void>;
 
       /**
        * Creates a new related model instance and persist
@@ -10524,10 +10461,7 @@ declare namespace Lucid {
        * @param trx?
        * @return
        */
-      saveMany(
-        arrayOfRelatedInstances: Array<Object>,
-        trx?: Database.Transaction,
-      ): Promise<boolean>;
+      saveMany(arrayOfRelatedInstances: Array<Object>, trx?: Database.Transaction): Promise<boolean>;
     }
 
     /**
@@ -10915,11 +10849,7 @@ declare namespace Lucid {
      * @param foreignKey
      * @return
      */
-    hasOne(
-      relatedModel: string | Model,
-      primaryKey?: string,
-      foreignKey?: string,
-    ): Relations.HasOne;
+    hasOne(relatedModel: string | Model, primaryKey?: string, foreignKey?: string): Relations.HasOne;
 
     /**
      * Returns an instance of @ref('HasMany') relation
@@ -10936,11 +10866,7 @@ declare namespace Lucid {
      * @param foreignKey
      * @return
      */
-    hasMany(
-      relatedModel: string | Model,
-      primaryKey?: string,
-      foreignKey?: string,
-    ): Relations.HasMany;
+    hasMany(relatedModel: string | Model, primaryKey?: string, foreignKey?: string): Relations.HasMany;
 
     /**
      * Returns an instance of @ref('BelongsTo') relation
@@ -10957,11 +10883,7 @@ declare namespace Lucid {
      * @param foreignKey
      * @return
      */
-    belongsTo(
-      relatedModel: string | Model,
-      primaryKey?: string,
-      foreignKey?: string,
-    ): Relations.BelongsTo;
+    belongsTo(relatedModel: string | Model, primaryKey?: string, foreignKey?: string): Relations.BelongsTo;
 
     /**
      * Returns an instance of @ref('BelongsToMany') relation
@@ -12851,7 +12773,7 @@ declare namespace AdonisNamespaces {
   type AntlFormats = 'Antl/Formats' | 'Adonis/Addons/Antl/Formats';
   type DatabaseTransactions = 'DatabaseTransactions' | 'Adonis/Traits/DatabaseTransactions';
 
-  type BackendClient = 'BackendClient';
+  type BackendClientBuilder = 'BackendClientBuilder';
   type PrismicClient = 'PrismicClient';
   type SymfonyClient = 'SymfonyClient';
 }
@@ -12887,7 +12809,7 @@ declare global {
   function use(namespace: AdonisNamespaces.Antl): Antl;
   function use(namespace: AdonisNamespaces.AntlFormats): Formats;
   function use(namespace: AdonisNamespaces.DatabaseTransactions): Lucid.DatabaseTransactions;
-  function use(namespace: AdonisNamespaces.BackendClient): BackendClientInterface;
+  function use(namespace: AdonisNamespaces.BackendClientBuilder): BackendClientBuilder;
   function use(namespace: AdonisNamespaces.PrismicClient): PrismicClientInterface;
   function use(namespace: AdonisNamespaces.SymfonyClient): SymfonyClientInterface;
 }

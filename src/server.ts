@@ -17,7 +17,7 @@
 const { Ignitor } = require('@adonisjs/ignitor');
 const Fold = require('@adonisjs/fold');
 
-require("node-fetch"); // global require to make fetch mockable by fetch-mock in tests
+require('node-fetch'); // global require to make fetch mockable by fetch-mock in tests
 
 new Ignitor(Fold)
   .appRoot(__dirname)

@@ -9,4 +9,5 @@ tmp
 
 # Generated files
 dist/
-.vscode/launch.json
+.vscode/
+yarn-error.log

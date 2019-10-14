@@ -1,13 +1,14 @@
 import { ArrayToObject } from '../../../Helpers';
 import { Fund, Portfolio } from '../../../Models/Proposition';
 import { Exception } from '../../../Exceptions';
-import { findFunds } from '../Fund';
+import BackendApi from '..';
 
-const BackendClient = use('BackendClient');
-
-export default async function findPortfolios(filters: { [filter: string]: string | string[] }): Promise<Portfolio[]> {
+export default async function findPortfolios(
+  this: BackendApi,
+  filters: { [filter: string]: string | string[] },
+): Promise<Portfolio[]> {
   try {
-    const response = await BackendClient.get({
+    const response = await this.backendClient.get({
       url: 'portfolio/search',
       filters,
     });
@@ -19,7 +20,7 @@ export default async function findPortfolios(filters: { [filter: string]: string
       const portfolio = new Portfolio(jsonPortfolio);
       const fundIds = jsonPortfolio.lines.map(item => item.line);
 
-      const funds = await findFunds({ id__in: fundIds });
+      const funds = await this.findFunds({ id__in: fundIds });
       const fundsById: { [id: string]: Fund } = ArrayToObject(funds);
 
       jsonPortfolio.lines.forEach(item => {

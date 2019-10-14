@@ -1,14 +1,15 @@
 import * as PrismicApi from '../../../Api/Prismic';
 import { InvalidArgumentException } from '../../../Exceptions';
+import { Context } from '../../../../types';
 
 class ProductController {
-  public async index({ response }) {
+  public async index({ response }: Context) {
     const products = await PrismicApi.getProducts();
 
     response.status(200).send(products);
   }
 
-  public async get({ params, response }) {
+  public async get({ params, response }: Context) {
     const { slug } = params;
 
     const product = await PrismicApi.getProduct(slug);
@@ -16,7 +17,7 @@ class ProductController {
     response.status(200).send(product);
   }
 
-  public async search({ request, response }) {
+  public async search({ request, response }: Context) {
     const filters = request.input('filters');
 
     if (!filters) {

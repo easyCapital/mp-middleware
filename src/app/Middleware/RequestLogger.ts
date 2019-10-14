@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 const Logger = use('Logger');
 
 class RequestLogger {
-  private async handle({ request, response }, next) {
+  protected async handle({ request, response }, next) {
     const startTime = process.hrtime();
 
     onFinished(response.response, () => {

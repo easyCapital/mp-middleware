@@ -13,7 +13,7 @@ const globalMiddleware: string[] = [
   'Adonis/Middleware/BodyParser',
   'Adonis/Middleware/Session',
   'App/Middleware/RequestLogger',
-  'App/Middleware/AppAccessVerifier',
+  'App/Middleware/OriginConfigDetector',
   'App/Middleware/UniverseDetector',
   'App/Middleware/SymfonySessionDetector',
 ];

@@ -1,5 +1,3 @@
-// import { Page as JsonPageInterface } from 'mieuxplacer-js-api';
-
 import { ContentType } from '.';
 
 interface ObjectiveInterface {

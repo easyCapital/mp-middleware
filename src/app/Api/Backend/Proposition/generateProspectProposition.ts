@@ -1,13 +1,17 @@
 import { Answer } from 'mieuxplacer-js-api';
 
 import { formatAnswerBody } from '../Helpers';
+import BackendApi from '..';
 
-const BackendClient = use('BackendClient');
-
-export default async function generateProspectProposition(universe: string, prospectId: string, answers: Answer) {
+export default async function generateProspectProposition(
+  this: BackendApi,
+  universe: string | undefined,
+  prospectId: string,
+  answers: Answer,
+) {
   const formattedAnswers = formatAnswerBody(answers);
 
-  const response = await BackendClient.post(
+  const response = await this.backendClient.post(
     { url: 'recommendation/customer/generate_prospect_proposition' },
     { universe, prospect: prospectId, answers: formattedAnswers },
   );

@@ -1,5 +1,7 @@
 import { format } from 'date-fns';
 
+export type BackendClientBuilder = (backendApiKey: string) => BackendClientInterface;
+
 export interface BackendClientInterface {
   get(options: RequestOptions): Promise<any>;
   post(options: RequestOptions, body?: any): Promise<any>;
