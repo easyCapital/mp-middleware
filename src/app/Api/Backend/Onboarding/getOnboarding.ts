@@ -1,5 +1,5 @@
 import { Step, Block, Question } from '../../../Models/Onboarding';
-import BackendException from '../Exceptions/BackendException';
+import { Exception } from '../../../Exceptions';
 import BackendApi from '..';
 
 export default async function getOnboarding(
@@ -32,7 +32,15 @@ export default async function getOnboarding(
       });
     });
   } catch (exception) {
-    throw new BackendException(exception);
+    if (exception.json) {
+      const data = await exception.json();
+
+      throw new Exception(JSON.stringify(data));
+    } else if (exception.message) {
+      throw new Exception(exception.message);
+    }
+
+    throw new Exception(exception);
   }
 
   try {
@@ -50,7 +58,15 @@ export default async function getOnboarding(
       }
     });
   } catch (exception) {
-    throw new BackendException(exception);
+    if (exception.json) {
+      const data = await exception.json();
+
+      throw new Exception(JSON.stringify(data));
+    } else if (exception.message) {
+      throw new Exception(exception.message);
+    }
+
+    throw new Exception(exception);
   }
 
   return { steps, blocks, questions };

@@ -1,5 +1,5 @@
 import { Question } from '../../../Models/Onboarding';
-import BackendException from '../Exceptions/BackendException';
+import { Exception } from '../../../Exceptions';
 import BackendApi from '..';
 
 export default async function getQuestions(this: BackendApi, ids?: string[]): Promise<{ [key: string]: Question }> {
@@ -24,7 +24,15 @@ export default async function getQuestions(this: BackendApi, ids?: string[]): Pr
       }
     });
   } catch (exception) {
-    throw new BackendException(exception);
+    if (exception.json) {
+      const data = await exception.json();
+
+      throw new Exception(JSON.stringify(data));
+    } else if (exception.message) {
+      throw new Exception(exception.message);
+    }
+
+    throw new Exception(exception);
   }
 
   return questions;

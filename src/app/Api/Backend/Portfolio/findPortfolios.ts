@@ -1,6 +1,6 @@
 import { ArrayToObject } from '../../../Helpers';
 import { Fund, Portfolio } from '../../../Models/Proposition';
-import BackendException from '../Exceptions/BackendException';
+import { Exception } from '../../../Exceptions';
 import BackendApi from '..';
 
 export default async function findPortfolios(
@@ -36,6 +36,14 @@ export default async function findPortfolios(
 
     return portfolios;
   } catch (exception) {
-    throw new BackendException(exception);
+    if (exception.json) {
+      const data = await exception.json();
+
+      throw new Exception(JSON.stringify(data));
+    } else if (exception.message) {
+      throw new Exception(exception.message);
+    }
+
+    throw new Exception(exception);
   }
 }
