@@ -15,6 +15,7 @@ export default class Proposition implements PropositionInterface {
   private universe: string;
   private userId?: number;
   private userEmail?: string;
+  private token: string;
   private weightedSrri: number;
   private answers: Answer = {};
   private investorType?: Advice;
@@ -24,6 +25,7 @@ export default class Proposition implements PropositionInterface {
     this.id = json.id;
     this.created = json.created;
     this.universe = json.universe;
+    this.token = json.token;
     this.weightedSrri = json.srri_weighted;
 
     if (json.user) {
@@ -34,17 +36,19 @@ export default class Proposition implements PropositionInterface {
       this.userEmail = json.prospect.email;
     }
 
-    json.answers.forEach(answer => {
-      if (this.answers[answer.question]) {
-        const existingAnswer = this.answers[answer.question];
+    if (json.answers) {
+      json.answers.forEach(answer => {
+        if (this.answers[answer.question]) {
+          const existingAnswer = this.answers[answer.question];
 
-        this.answers[answer.question] = Array.isArray(existingAnswer)
-          ? [...existingAnswer, answer.value]
-          : [existingAnswer, answer.value];
-      } else {
-        this.answers[answer.question] = answer.value;
-      }
-    });
+          this.answers[answer.question] = Array.isArray(existingAnswer)
+            ? [...existingAnswer, answer.value]
+            : [existingAnswer, answer.value];
+        } else {
+          this.answers[answer.question] = answer.value;
+        }
+      });
+    }
   }
 
   public toJSON(): JsonPropositionInterface {
@@ -59,6 +63,16 @@ export default class Proposition implements PropositionInterface {
       investorType: this.investorType && this.investorType.toJSON(),
       portfolios: this.portfolios.map(portfolio => portfolio.toJSON()),
     };
+  }
+
+  public getToken(): string {
+    return this.token;
+  }
+
+  public setToken(token: string): Proposition {
+    this.token = token;
+
+    return this;
   }
 
   public setInvestorType(investorType: Advice): Proposition {

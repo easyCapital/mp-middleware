@@ -14,6 +14,7 @@ const globalMiddleware: string[] = [
   'Adonis/Middleware/Session',
   'App/Middleware/RequestLogger',
   'App/Middleware/OriginConfigDetector',
+  'App/Middleware/AuthenticatedDetector',
   'App/Middleware/UniverseDetector',
   'App/Middleware/SymfonySessionDetector',
 ];

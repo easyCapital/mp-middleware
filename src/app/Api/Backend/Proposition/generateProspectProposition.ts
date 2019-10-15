@@ -1,7 +1,8 @@
 import { Answer } from 'mieuxplacer-js-api';
 
 import { formatAnswerBody } from '../Helpers';
-import BackendException from '../Exceptions/BackendException';
+import { Exception } from '../../../Exceptions';
+import { Proposition } from '../../../Models/Proposition';
 import BackendApi from '..';
 
 export default async function generateProspectProposition(
@@ -9,7 +10,7 @@ export default async function generateProspectProposition(
   universe: string | undefined,
   prospectId: string,
   answers: Answer,
-) {
+): Promise<Proposition> {
   const formattedAnswers = formatAnswerBody(answers);
 
   try {
@@ -20,7 +21,9 @@ export default async function generateProspectProposition(
 
     const data = await response.json();
 
-    const proposition = this.getPropositionByToken(data.token);
+    const proposition = await this.getPropositionByToken(data.token);
+
+    proposition.setToken(data.token);
 
     return proposition;
   } catch (exception) {

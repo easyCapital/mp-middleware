@@ -1,10 +1,10 @@
 import { Exception } from '../../../Exceptions';
 import { ArrayToObject } from '../../../Helpers';
 import { Proposition, Portfolio } from '../../../Models/Proposition';
-import { Product } from '../../../Models/Prismic';
-import BackendApi from '..';
-import { PropositionException } from '../Exceptions';
 import { findProducts, findAdvices } from '../../Prismic';
+import { Product } from '../../../Models/Prismic';
+import { PropositionException } from '../Exceptions';
+import BackendApi from '..';
 
 export default async function getPropositionByToken(this: BackendApi, token: string): Promise<Proposition> {
   try {

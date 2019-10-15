@@ -5,6 +5,7 @@ import { App } from './Apps';
 export interface Context extends Http.Context {
   backendApi: BackendApi;
   app: App;
+  authenticated: boolean;
   symfonySession?: any;
   universe?: string;
 }
