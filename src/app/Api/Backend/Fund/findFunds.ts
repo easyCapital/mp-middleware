@@ -1,5 +1,5 @@
 import { Fund } from '../../../Models/Proposition';
-import { Exception } from '../../../Exceptions';
+import BackendException from '../Exceptions/BackendException';
 import BackendApi from '..';
 
 export default async function findFunds(
@@ -22,7 +22,7 @@ export default async function findFunds(
     });
 
     return funds;
-  } catch (error) {
-    throw new Exception(error);
+  } catch (exception) {
+    throw new BackendException(exception);
   }
 }

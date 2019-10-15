@@ -2,11 +2,10 @@ import { Step, Block, Question } from '../../../Models/Onboarding';
 import BackendException from '../Exceptions/BackendException';
 import BackendApi from '..';
 
-export default async function getOnboarding(
+export default async function getBlocks(
   this: BackendApi,
-  withAuthentication: boolean,
-): Promise<{ steps: Step[]; blocks: { [key: string]: Block }; questions: { [key: string]: Question } }> {
-  const steps: Step[] = [];
+  ids?: string[],
+): Promise<{ blocks: { [key: string]: Block }; questions: { [key: string]: Question } }> {
   const blocks: { [key: string]: Block } = {};
   const questionKeys: string[] = [];
   const questions: { [key: string]: Question } = {};
@@ -16,18 +15,19 @@ export default async function getOnboarding(
     const data = await stepResponse.json();
 
     data.forEach(item => {
-      const step = new Step(item, withAuthentication);
+      const step = new Step(item, false);
 
-      steps.push(step);
       step.getBlocks().forEach(block => {
-        blocks[block.getId()] = block;
+        if (!ids || ids.includes(block.getId())) {
+          blocks[block.getId()] = block;
 
-        const matches = block.getLabel().match(/\{([\s\S]+?)\}/g);
+          const matches = block.getLabel().match(/\{([\s\S]+?)\}/g);
 
-        if (matches) {
-          matches.forEach(match => {
-            questionKeys.push(match.replace(/\{|\}/g, ''));
-          });
+          if (matches) {
+            matches.forEach(match => {
+              questionKeys.push(match.replace(/\{|\}/g, ''));
+            });
+          }
         }
       });
     });
@@ -53,5 +53,5 @@ export default async function getOnboarding(
     throw new BackendException(exception);
   }
 
-  return { steps, blocks, questions };
+  return { blocks, questions };
 }

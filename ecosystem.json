@@ -6,6 +6,7 @@
       "cwd": "/var/www/middleware/current",
       "error_file": "/var/log/middleware/middleware.err.log",
       "out_file": "/var/log/middleware/middleware.out.log",
+      "time": true,
       "exec_mode": "fork_mode"
     }
   ]

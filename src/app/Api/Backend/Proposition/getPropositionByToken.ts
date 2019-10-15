@@ -1,8 +1,9 @@
+import { Exception } from '../../../Exceptions';
 import { ArrayToObject } from '../../../Helpers';
 import { Proposition, Portfolio } from '../../../Models/Proposition';
 import { Product } from '../../../Models/Prismic';
-import { Exception } from '../../../Exceptions';
 import BackendApi from '..';
+import { PropositionException } from '../Exceptions';
 import { findProducts, findAdvices } from '../../Prismic';
 
 export default async function getPropositionByToken(this: BackendApi, token: string): Promise<Proposition> {
@@ -12,34 +13,42 @@ export default async function getPropositionByToken(this: BackendApi, token: str
 
     const proposition = new Proposition(data);
 
-    const portfolioIds = data.contents.map(item => item.portfolio);
-    const portfolioProducts = data.contents.map(item => item.product_identifier);
+    if (data.contents.length > 0) {
+      const portfolioIds = data.contents.map(item => item.portfolio);
+      const portfolioProducts = data.contents.map(item => item.product_identifier);
 
-    const [portfolios, products, advices] = await Promise.all([
-      this.findPortfolios({ id__in: portfolioIds }),
-      findProducts({ backend_key: portfolioProducts }),
-      findAdvices({ key: data.risk_advice }),
-    ]);
+      const [portfolios, products, advices] = await Promise.all([
+        this.findPortfolios({ id__in: portfolioIds }),
+        findProducts({ backend_key: portfolioProducts }),
+        findAdvices({ key: data.risk_advice }),
+      ]);
 
-    const portfoliosById: { [id: string]: Portfolio } = ArrayToObject(portfolios);
-    const productsById: { [id: string]: Product } = ArrayToObject(products, 'identifier');
+      const portfoliosById: { [id: string]: Portfolio } = ArrayToObject(portfolios);
+      const productsById: { [id: string]: Product } = ArrayToObject(products, 'identifier');
 
-    proposition.setInvestorType(advices[0]);
+      proposition.setInvestorType(advices[0]);
 
-    data.contents.forEach(item => {
-      const portfolio = portfoliosById[item.portfolio];
-      const product = productsById[item.product_identifier];
+      data.contents.forEach(item => {
+        const portfolio = portfoliosById[item.portfolio];
+        const product = productsById[item.product_identifier];
 
-      portfolio
-        .setProduct(product)
-        .setSrri(item.srri)
-        .setAmount(item.amount);
+        portfolio
+          .setProduct(product)
+          .setSrri(item.srri)
+          .setAmount(item.amount);
 
-      proposition.addPortfolio(portfolio);
-    });
+        proposition.addPortfolio(portfolio);
+      });
+    }
 
     return proposition;
-  } catch (error) {
-    throw new Exception(error);
+  } catch (exception) {
+    if (exception.json) {
+      const data = await exception.json();
+
+      throw new PropositionException(data);
+    }
+
+    throw new Exception(exception);
   }
 }

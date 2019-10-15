@@ -90,6 +90,10 @@ export default class BackendClient implements BackendClientInterface {
       url: response.url.replace(this.host, ''),
     });
 
+    if (!response.ok) {
+      throw response;
+    }
+
     return response;
   }
 }

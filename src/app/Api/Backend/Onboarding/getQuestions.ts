@@ -1,9 +1,8 @@
-import { Exception } from '../../../Exceptions';
-
 import { Question } from '../../../Models/Onboarding';
+import BackendException from '../Exceptions/BackendException';
 import BackendApi from '..';
 
-export default async function getQuestions(this: BackendApi, ids: string[] = []): Promise<{ [key: string]: Question }> {
+export default async function getQuestions(this: BackendApi, ids?: string[]): Promise<{ [key: string]: Question }> {
   const questions: { [key: string]: Question } = {};
 
   try {
@@ -16,12 +15,16 @@ export default async function getQuestions(this: BackendApi, ids: string[] = [])
     data.forEach(item => {
       const question = new Question(item);
 
-      if (ids.includes(question.getId())) {
+      if (ids !== undefined && ids.length > 0) {
+        if (ids.includes(question.getId())) {
+          questions[question.getId()] = question;
+        }
+      } else {
         questions[question.getId()] = question;
       }
     });
-  } catch (error) {
-    throw new Exception(error);
+  } catch (exception) {
+    throw new BackendException(exception);
   }
 
   return questions;

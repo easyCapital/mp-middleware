@@ -16,7 +16,7 @@ git clone git@github.com:robinfinance/middleware.git
 
 ```bash
 cd middleware
-cp .env.example .snv
+cp .env.example .env
 ```
 
 3. Clone the infrastructure repository

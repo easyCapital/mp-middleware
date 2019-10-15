@@ -6,13 +6,30 @@ class OnboardingController {
     const withAuthentication = request.input('with-authentication') || false;
 
     const data = await backendApi.getOnboarding(withAuthentication);
-    const answers = session.get('answers');
+    const sessionAnswers = session.get('answers');
 
-    response.status(200).send({ ...data, answers });
+    response.status(200).send({ ...data, answers: sessionAnswers || {} });
+  }
+
+  public async getBlocks({ request, session, response, backendApi }) {
+    const ids = request.input('ids') || [];
+
+    const { blocks, questions } = await backendApi.getBlocks(ids);
+
+    const sessionAnswers = session.get('answers');
+    const answers = {};
+
+    if (sessionAnswers) {
+      ids.forEach(id => {
+        answers[id] = sessionAnswers[id];
+      });
+    }
+
+    response.status(200).send({ blocks, questions, answers });
   }
 
   public async getQuestions({ request, session, response, backendApi }: Context) {
-    const ids = request.input('ids');
+    const ids = request.input('ids') || [];
 
     const questions = await backendApi.getQuestions(ids);
 
