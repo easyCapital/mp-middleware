@@ -8,18 +8,15 @@ export interface SymfonyClientInterface {
 
 export interface RequestOptions {
   url: string;
-  sessionCookie?: string;
 }
 
 export default class UserClient implements SymfonyClientInterface {
   private logger: any;
   private host: string;
-  private sessionKey: string;
 
-  constructor(logger: any, host: string, sessionKey: string) {
+  constructor(logger: any, host: string) {
     this.logger = logger;
     this.host = `${host}/api/2.0`;
-    this.sessionKey = sessionKey;
   }
 
   public async get(options: RequestOptions): Promise<any> {
@@ -40,10 +37,6 @@ export default class UserClient implements SymfonyClientInterface {
       },
       timeout: 10000,
     };
-
-    if (options.sessionCookie !== undefined) {
-      requestParameters.headers.Cookie = `${this.sessionKey}=${options.sessionCookie}`;
-    }
 
     if (body !== undefined) {
       requestParameters.body = JSON.stringify(body);

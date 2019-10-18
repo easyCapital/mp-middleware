@@ -56,7 +56,18 @@ Route.group(() => {
 Route.group(() => {
   Route.post('/login', 'V1/AuthenticationController.login');
   Route.post('/forgot-password', 'V1/AuthenticationController.forgotPassword');
+  Route.post('/email-validation', 'V1/AuthenticationController.sendValidationEmail');
 }).prefix('api/1.0/auth');
+
+/*
+|--------------------------------------------------------------------------
+| API V1 - CUSTOMER
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.get('/', 'V1/CustomerController.get');
+  Route.post('/', 'V1/CustomerController.create');
+}).prefix('api/1.0/customer');
 
 /*
 |--------------------------------------------------------------------------

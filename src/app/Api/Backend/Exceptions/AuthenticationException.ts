@@ -7,10 +7,14 @@ const Logger = use('Logger');
 
 export default class AuthenticationException extends HttpException {
   constructor(error: BackendError) {
-    const errorMessages = {};
+    const errorMessages: { [key: string]: string } = {};
 
     Object.keys(error).forEach(errorKey => {
       switch (errorKey) {
+        case BackendErrorTypes.InvalidCredentialsError:
+          errorMessages.global = ErrorTypes.INVALID_CREDENTIALS;
+          break;
+
         case BackendErrorTypes.MissingMandatoryFieldsError:
           error[errorKey].fields.forEach(field => {
             errorMessages[field] = ErrorTypes.REQUIRED;

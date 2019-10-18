@@ -27,14 +27,8 @@ export default async function generateProspectProposition(
 
     return proposition;
   } catch (exception) {
-    if (exception.json) {
-      const data = await exception.json();
+    const data = await exception.json();
 
-      throw new Exception(JSON.stringify(data));
-    } else if (exception.message) {
-      throw new Exception(exception.message);
-    }
-
-    throw new Exception(exception);
+    throw new Exception(JSON.stringify(data));
   }
 }

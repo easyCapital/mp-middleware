@@ -1,9 +1,9 @@
 import { Answer } from 'mieuxplacer-js-api';
 
 import { Apps } from '../../types';
+import BackendApi from '../Api/Backend';
 
 import * as MieuxplacerEvents from './Mieuxplacer';
-import BackendApi from '../Api/Backend';
 
 async function onOnboardingDone(
   backendApi: BackendApi,

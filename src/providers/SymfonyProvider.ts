@@ -9,8 +9,8 @@ class SymfonyClientProvider extends ServiceProvider {
 
     this.app.singleton('SymfonyClient', () => {
       const host = Config.get('clients.symfony.host');
-      const sessionKey = Config.get('clients.symfony.sessionKey');
-      const symfonyClient = new SymfonyClient(Logger, host, sessionKey);
+
+      const symfonyClient = new SymfonyClient(Logger, host);
 
       return symfonyClient;
     });

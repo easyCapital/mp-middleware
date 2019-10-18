@@ -4,7 +4,7 @@ import BackendApi from '../../Api/Backend';
 async function onOnboardingDone(backendApi: BackendApi, answers: Answer, extra: { [key: string]: any }) {
   const { email } = extra;
 
-  const data = await backendApi.creatProspect(email);
+  const data = await backendApi.createProspect(email);
 
   return { prospect: data };
 }

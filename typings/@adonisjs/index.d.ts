@@ -4,6 +4,7 @@ import events from 'events';
 import GE from '@adonisjs/generic-exceptions';
 
 import { BackendClientBuilder, BackendClientInterface } from '../../src/app/Clients/Backend/BackendClient';
+import { ElasticClientInterface } from '../../src/app/Clients/Elastic/ElasticClient';
 import { PrismicClientInterface } from '../../src/app/Clients/Prismic/PrismicClient';
 import { SymfonyClientInterface } from '../../src/app/Clients/Symfony/SymfonyClient';
 
@@ -12776,6 +12777,7 @@ declare namespace AdonisNamespaces {
   type BackendClientBuilder = 'BackendClientBuilder';
   type PrismicClient = 'PrismicClient';
   type SymfonyClient = 'SymfonyClient';
+  type ElasticClient = 'ElasticClient';
 }
 
 declare global {
@@ -12812,6 +12814,7 @@ declare global {
   function use(namespace: AdonisNamespaces.BackendClientBuilder): BackendClientBuilder;
   function use(namespace: AdonisNamespaces.PrismicClient): PrismicClientInterface;
   function use(namespace: AdonisNamespaces.SymfonyClient): SymfonyClientInterface;
+  function use(namespace: AdonisNamespaces.ElasticClient): ElasticClientInterface;
 }
 
 declare global {

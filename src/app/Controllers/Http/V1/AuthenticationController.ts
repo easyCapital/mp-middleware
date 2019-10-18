@@ -1,28 +1,35 @@
-import * as SymfonyApi from '../../../Api/Symfony';
 import { Context } from '../../../../types';
-
-const Config = use('Adonis/Src/Config');
+import { EmailNotVerifiedException, UserIsInactiveException } from '../../../Exceptions';
 
 class AuthenticationController {
-  public async login({ request, response }: Context) {
+  public async login({ request, response, backendApi }: Context) {
     const { email, password }: any = request.post();
 
-    const sessionCookie = await SymfonyApi.login(email, password);
+    const { data, customer } = await backendApi.login(email, password);
 
-    const sessionKey = Config.get('clients.symfony.sessionKey');
+    if (!customer.isActive()) {
+      throw new UserIsInactiveException();
+    }
 
-    response.cookie(sessionKey, sessionCookie, {
-      httpOnly: true,
-      path: '/',
-    });
+    if (!customer.isEmailValidated()) {
+      throw new EmailNotVerifiedException();
+    }
 
-    response.status(200).send();
+    response.status(200).send(data);
   }
 
   public async forgotPassword({ request, response, backendApi }: Context) {
     const { email }: any = request.post();
 
     await backendApi.forgotPassword(email);
+
+    response.status(200).send();
+  }
+
+  public async sendValidationEmail({ request, response, backendApi }: Context) {
+    const { email }: any = request.post();
+
+    await backendApi.sendValidationEmail(email);
 
     response.status(200).send();
   }

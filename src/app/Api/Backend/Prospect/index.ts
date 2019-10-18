@@ -1,1 +1,1 @@
-export { default as creatProspect } from './createProspect';
+export { default as createProspect } from './createProspect';

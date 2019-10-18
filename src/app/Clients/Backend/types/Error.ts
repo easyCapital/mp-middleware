@@ -4,14 +4,25 @@ export enum BackendErrorTypes {
   PermissionDenied = 'PermissionDenied',
   InvalidCustomerTokenError = 'InvalidCustomerTokenError',
   MissingCustomerTokenError = 'MissingCustomerTokenError',
+  InvalidCredentialsError = 'InvalidCredentialsError',
 
   MinValueError = 'MinValueError',
   MaxValueError = 'MaxValueError',
-  InvalidMobileFormatError = 'InvalidMobileFormatError',
-  EmailAlreadyAssignedToUserError = 'EmailAlreadyAssignedToUserError',
-  InvalidEmailStatus = 'InvalidEmailStatus',
-  EmailValidationError = 'EmailValidationError',
+
+  MinimumLengthError = 'MinimumLengthError',
   MissingMandatoryFieldsError = 'MissingMandatoryFieldsError',
+
+  InvalidMobileFormatError = 'InvalidMobileFormatError',
+
+  UserAttributeSimilarityError = 'UserAttributeSimilarityError',
+  CommonPasswordError = 'CommonPasswordError',
+  NumericPasswordError = 'NumericPasswordError',
+
+  EmailUniqueConstraintError = 'EmailUniqueConstraintError',
+  EmailAlreadyAssignedToUserError = 'EmailAlreadyAssignedToUserError',
+  ToManyEmailRevalidation = 'ToManyEmailRevalidation',
+  EmailValidationError = 'EmailValidationError',
+  InvalidEmailStatus = 'InvalidEmailStatus',
 }
 
 export type BackendError = {

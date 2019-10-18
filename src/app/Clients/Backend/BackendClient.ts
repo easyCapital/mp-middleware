@@ -1,10 +1,13 @@
 import { format } from 'date-fns';
 
+import { ExpectedJsonResponseException } from '../../Exceptions';
+
 export type BackendClientBuilder = (backendApiKey: string) => BackendClientInterface;
 
 export interface BackendClientInterface {
   get(options: RequestOptions): Promise<any>;
   post(options: RequestOptions, body?: any): Promise<any>;
+  setCustomerToken(customerToken?: string): void;
 }
 
 export interface RequestOptions {
@@ -22,6 +25,7 @@ export default class BackendClient implements BackendClientInterface {
   private logger: any;
   private host: string;
   private apiKey: string;
+  private customerToken?: string;
 
   constructor(logger: any, host: string, apiKey: string) {
     this.logger = logger;
@@ -37,24 +41,34 @@ export default class BackendClient implements BackendClientInterface {
     return this.call('POST', options, body);
   }
 
+  public setCustomerToken(customerToken?: string) {
+    this.customerToken = customerToken;
+  }
+
   private async call(method: string, options: RequestOptions, body?: any): Promise<any> {
     const url = new URL(`${this.host}/${options.url}`);
 
-    const requestParameters: any = {
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `token ${this.apiKey}`,
-      },
-      timeout: 10000,
-    };
+    const headers: Headers = new Headers({
+      'Content-Type': 'application/json',
+      Authorization: `token ${this.apiKey}`,
+    });
 
-    if (options.pagination && requestParameters.headers) {
+    if (this.customerToken) {
+      headers.set('Customer-Token', this.customerToken);
+    }
+
+    if (options.pagination) {
       const offset = (options.pagination.page - 1) * options.pagination.perPage;
       const limit = offset + options.pagination.perPage;
 
-      requestParameters.headers.RANGE = `${offset}-${limit}`;
+      headers.set('RANGE', `${offset}-${limit}`);
     }
+
+    const requestParameters: any = {
+      method,
+      headers,
+      timeout: 10000,
+    };
 
     if (options.filters) {
       Object.keys(options.filters).forEach(filter => {
@@ -91,6 +105,9 @@ export default class BackendClient implements BackendClientInterface {
     });
 
     if (!response.ok) {
+      if (response.headers.get('content-type') !== 'application/json') {
+        throw new ExpectedJsonResponseException();
+      }
       throw response;
     }
 

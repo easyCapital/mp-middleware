@@ -1,5 +1,4 @@
 import { Proposition } from '../../../Models/Proposition';
-import * as SymfonyApi from '../../../Api/Symfony';
 import { Context } from '../../../../types';
 import { NotFoundException } from '../../../Exceptions';
 
@@ -52,10 +51,10 @@ class PropositionController {
     response.status(200).send(proposition);
   }
 
-  public async validate({ request, response, symfonySession }: Context) {
+  public async validate({ request, response, backendApi }: Context) {
     const { proposition }: any = request.post();
 
-    await SymfonyApi.validateProposition(proposition, symfonySession);
+    await backendApi.validateProposition(proposition);
 
     response.status(200).send();
   }

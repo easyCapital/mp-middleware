@@ -1,4 +1,3 @@
-import { Exception } from '../../../Exceptions';
 import { ArrayToObject } from '../../../Helpers';
 import { Proposition, Portfolio } from '../../../Models/Proposition';
 import { findProducts, findAdvices } from '../../Prismic';
@@ -43,12 +42,8 @@ export default async function getPropositionByToken(this: BackendApi, token: str
 
     return proposition;
   } catch (exception) {
-    if (exception.json) {
-      const data = await exception.json();
+    const data = await exception.json();
 
-      throw new PropositionException(data);
-    }
-
-    throw new Exception(exception);
+    throw new PropositionException(data);
   }
 }

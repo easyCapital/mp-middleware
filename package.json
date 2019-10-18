@@ -14,11 +14,13 @@
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/redis": "^2.0.7",
     "@adonisjs/session": "^1.0.29",
+    "@elastic/elasticsearch": "6.x",
     "date-fns": "^2.2.1",
-    "mieuxplacer-js-api": "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#2.3.0",
+    "mieuxplacer-js-api": "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#2.6.1",
     "node-fetch": "^2.6.0",
     "on-finished": "^2.3.0",
     "prismic-javascript": "^2.1.1",
+    "proxy-agent": "^3.1.0",
     "redis-lru": "^0.6.0"
   },
   "devDependencies": {
