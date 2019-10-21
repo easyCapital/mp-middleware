@@ -9,7 +9,7 @@ class CustomerController {
     response.status(200).send(customer);
   }
 
-  public async create({ request, response, backendApi, universe, app }: Context) {
+  public async create({ request, response, session, backendApi, universe, app }: Context) {
     const { email, password, ...body }: any = request.post();
 
     if (!universe) {
@@ -17,6 +17,8 @@ class CustomerController {
     }
 
     const data = await backendApi.createCustomer(email, password, universe);
+
+    session.clear();
 
     await onCustomerCreationDone(backendApi, app, { ...body, universe });
 
