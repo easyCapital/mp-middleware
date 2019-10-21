@@ -1,6 +1,7 @@
 import { Proposition } from '../../../Models/Proposition';
 import { Context } from '../../../../types';
 import { NotFoundException } from '../../../Exceptions';
+import * as SymfonyApi from '../../../Api/Symfony';
 
 class PropositionController {
   public async get({ response, session, authenticated, backendApi }: Context) {
@@ -44,6 +45,7 @@ class PropositionController {
       const { prospectId }: any = request.post();
 
       proposition = await backendApi.generateProspectProposition(universe, prospectId, answers);
+      SymfonyApi.sendPropositionByEmail(proposition.getToken());
 
       session.put('lastPropositionToken', proposition.getToken());
     }
