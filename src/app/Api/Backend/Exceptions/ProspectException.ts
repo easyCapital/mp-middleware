@@ -7,16 +7,16 @@ const Logger = use('Logger');
 
 export default class ProspectException extends HttpException {
   constructor(error: BackendError) {
-    let errorMessageType: ErrorType = ErrorTypes.DEFAULT;
+    let errorMessageType: { [key: string]: ErrorType } = { email: ErrorTypes.DEFAULT };
 
     Object.keys(error).forEach(errorKey => {
       switch (errorKey) {
         case BackendErrorTypes.EmailAlreadyAssignedToUserError:
-          errorMessageType = ErrorTypes.USED_EMAIL;
+          errorMessageType = { global: ErrorTypes.USED_EMAIL };
           break;
 
         case BackendErrorTypes.InvalidEmailStatus:
-          errorMessageType = ErrorTypes.INVALID_EMAIL;
+          errorMessageType = { email: ErrorTypes.INVALID_EMAIL };
           break;
 
         default:
@@ -26,6 +26,6 @@ export default class ProspectException extends HttpException {
     });
 
     // @ts-ignore
-    super({ email: errorMessageType }, 400);
+    super(errorMessageType, 400);
   }
 }
