@@ -4,7 +4,7 @@ import BackendApi from '..';
 
 export default async function findFunds(
   this: BackendApi,
-  filters: { [filter: string]: string | string[] },
+  filters?: { [filter: string]: string | string[] },
 ): Promise<Fund[]> {
   try {
     const response = await this.backendClient.get({

@@ -13,8 +13,6 @@ class PropositionController {
     } else {
       const token = session.get('lastPropositionToken');
 
-      console.log(token);
-
       if (token) {
         proposition = await backendApi.getPropositionByToken(token);
       }

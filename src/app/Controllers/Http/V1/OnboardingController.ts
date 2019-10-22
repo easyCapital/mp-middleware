@@ -1,71 +1,68 @@
-import { onOnboardingDone } from '../../../Listeners';
+import { onOnboardingFetch, onOnboardingPrevalidation, onOnboardingValidation } from '../../../Listeners';
 import { Context } from '../../../../types';
 
 class OnboardingController {
-  public async index({ request, session, response, backendApi }: Context) {
+  public async index(context: Context) {
+    const { request, response, backendApi } = context;
     const withAuthentication = request.input('with-authentication') || false;
 
-    const data = await backendApi.getOnboarding(withAuthentication);
-    const sessionAnswers = session.get('answers');
+    let data = await backendApi.getOnboarding(withAuthentication);
+    const extra = await onOnboardingFetch(context, data.questions);
 
-    response.status(200).send({ ...data, answers: sessionAnswers || {} });
-  }
-
-  public async getBlocks({ request, session, response, backendApi }) {
-    const ids = request.input('ids') || [];
-
-    const { blocks, questions } = await backendApi.getBlocks(ids);
-
-    const sessionAnswers = session.get('answers');
-    const answers = {};
-
-    if (sessionAnswers) {
-      ids.forEach(id => {
-        answers[id] = sessionAnswers[id];
-      });
+    if (extra) {
+      data = { ...data, ...extra };
     }
 
-    response.status(200).send({ blocks, questions, answers });
+    response.status(200).send(data);
   }
 
-  public async getQuestions({ request, session, response, backendApi }: Context) {
+  public async getBlocks(context: Context) {
+    const { request, response, backendApi } = context;
+    const ids = request.input('ids') || [];
+
+    let data = await backendApi.getBlocks(ids);
+    const extra = await onOnboardingFetch(context, data.questions);
+
+    if (extra) {
+      data = { ...data, ...extra };
+    }
+
+    response.status(200).send(data);
+  }
+
+  public async getQuestions(context: Context) {
+    const { request, response, backendApi } = context;
     const ids = request.input('ids') || [];
 
     const questions = await backendApi.getQuestions(ids);
+    const extra = await onOnboardingFetch(context, questions);
 
-    const sessionAnswers = session.get('answers');
-    const answers = {};
+    let data = { questions };
 
-    if (sessionAnswers) {
-      ids.forEach(id => {
-        answers[id] = sessionAnswers[id];
-      });
+    if (extra) {
+      data = { ...data, ...extra };
     }
 
-    response.status(200).send({ questions, answers });
+    response.status(200).send(data);
   }
 
-  public async prevalidate({ request, session, response, backendApi }: Context) {
+  public async prevalidate(context: Context) {
+    const { request, response, backendApi } = context;
     const answers: any = request.post();
 
     await backendApi.prevalidateAnswers(answers);
-
-    const oldAnswers = session.get('answers');
-    session.put('answers', { ...oldAnswers, ...answers });
+    await onOnboardingPrevalidation(context, answers);
 
     response.status(200).send();
   }
 
-  public async validate({ request, session, response, backendApi, app }: Context) {
+  public async validate(context: Context) {
+    const { request, response } = context;
     const { answers, extra }: any = request.post();
 
-    await backendApi.prevalidateAnswers(answers);
+    const data = await onOnboardingValidation(context, answers, extra);
 
-    session.put('answers', answers);
-
-    const data = await onOnboardingDone(backendApi, app, answers, extra);
-
-    response.status(200).send(data);
+    response.status(200).send(data || {});
   }
 }
 

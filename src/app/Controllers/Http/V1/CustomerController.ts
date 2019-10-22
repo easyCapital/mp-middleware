@@ -1,6 +1,6 @@
 import { Context } from '../../../../types';
 import InvalidArgumentException from '../../../Exceptions/InvalidArgumentException';
-import { onCustomerCreationDone } from '../../../Listeners';
+import { onCustomerCreation } from '../../../Listeners';
 
 class CustomerController {
   public async get({ response, backendApi }: Context) {
@@ -9,7 +9,8 @@ class CustomerController {
     response.status(200).send(customer);
   }
 
-  public async create({ request, response, session, backendApi, universe, app }: Context) {
+  public async create(context: Context) {
+    const { request, response, session, backendApi, universe } = context;
     const { email, password, ...body }: any = request.post();
 
     if (!universe) {
@@ -20,7 +21,7 @@ class CustomerController {
 
     session.clear();
 
-    await onCustomerCreationDone(backendApi, app, { ...body, universe });
+    await onCustomerCreation(context, body);
 
     response.status(200).send({ token: data.token });
   }

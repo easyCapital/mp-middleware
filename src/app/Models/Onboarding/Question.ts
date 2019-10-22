@@ -19,6 +19,7 @@ export default class Question implements QuestionInterface {
   private max?: number;
   private sensitive: boolean = false;
   private active: boolean = false;
+  private showIfAuthenticated: boolean = false;
   private conditions?: Condition[];
   private options?: Option[];
   private errors: Error[] = [];
@@ -33,6 +34,7 @@ export default class Question implements QuestionInterface {
     this.max = json.max;
     this.sensitive = json.is_sensitive;
     this.active = json.is_active;
+    this.showIfAuthenticated = json.show_if_authenticated;
 
     if (json.condition) {
       this.conditions = json.condition.split(' and ').map(condition => new Condition(condition));
@@ -59,6 +61,7 @@ export default class Question implements QuestionInterface {
         max: this.max || null,
         sensitive: this.sensitive,
         active: this.active,
+        showIfAuthenticated: this.showIfAuthenticated,
         errors: [],
       };
 

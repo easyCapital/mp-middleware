@@ -4,7 +4,12 @@ class Authenticator {
   protected async handle(ctx: Context, next) {
     const authorization = ctx.request.header('Authorization');
 
-    ctx.backendApi.setCustomerToken(authorization);
+    if (authorization) {
+      ctx.authenticated = true;
+      ctx.backendApi.setCustomerToken(authorization);
+    } else {
+      ctx.authenticated = false;
+    }
 
     await next();
   }
