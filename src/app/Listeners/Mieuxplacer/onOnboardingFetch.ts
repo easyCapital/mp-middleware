@@ -14,7 +14,11 @@ async function onOnboardingFetch(context: Context, questions: { [key: string]: Q
 
     answers = rawAnswers.reduce((previous, answer) => ({ ...previous, ...answer.toJSON() }), {});
   } else {
-    answers = session.get('answers');
+    const sessionAnswers = session.get('answers');
+
+    if (sessionAnswers) {
+      answers = sessionAnswers;
+    }
   }
 
   return { answers };
