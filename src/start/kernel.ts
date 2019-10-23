@@ -35,7 +35,9 @@ const globalMiddleware: string[] = [
 | Route.get().middleware('auth')
 |
 */
-const namedMiddleware: any = {};
+const namedMiddleware: { [key: string]: string } = {
+  auth: 'App/Middleware/Auth',
+};
 
 Server.registerGlobal(globalMiddleware)
   .registerNamed(namedMiddleware)

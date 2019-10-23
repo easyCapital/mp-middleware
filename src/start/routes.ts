@@ -65,7 +65,7 @@ Route.group(() => {
 |--------------------------------------------------------------------------
 */
 Route.group(() => {
-  Route.get('/', 'V1/CustomerController.get');
+  Route.get('/', 'V1/CustomerController.get').middleware(['auth']);
   Route.post('/', 'V1/CustomerController.create');
 }).prefix('api/1.0/customer');
 
@@ -88,7 +88,7 @@ Route.group(() => {
 |--------------------------------------------------------------------------
 */
 Route.group(() => {
-  Route.post('/', 'V1/AnswerController.create');
+  Route.post('/', 'V1/AnswerController.create').middleware(['auth']);
 }).prefix('api/1.0/answer');
 
 /*
@@ -98,8 +98,8 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.get('/', 'V1/PropositionController.get');
-  Route.get('/download/:token', 'V1/PropositionController.downloadByToken');
+  Route.post('/', 'V1/PropositionController.validate').middleware(['auth']);
   Route.get('/:token', 'V1/PropositionController.getByToken');
   Route.post('/generate', 'V1/PropositionController.generate');
-  Route.post('/', 'V1/PropositionController.validate');
+  Route.get('/download/:token', 'V1/PropositionController.downloadByToken');
 }).prefix('api/1.0/proposition');
