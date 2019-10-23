@@ -58,6 +58,10 @@ class PropositionController {
 
     response.status(200).send();
   }
+
+  public async downloadByToken({ params, req, res }: Context) {
+    await SymfonyApi.downloadProposition(req, res, params.token);
+  }
 }
 
 export = PropositionController;

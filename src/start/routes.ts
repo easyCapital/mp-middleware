@@ -98,6 +98,7 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.get('/', 'V1/PropositionController.get');
+  Route.get('/download/:token', 'V1/PropositionController.downloadByToken');
   Route.get('/:token', 'V1/PropositionController.getByToken');
   Route.post('/generate', 'V1/PropositionController.generate');
   Route.post('/', 'V1/PropositionController.validate');

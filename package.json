@@ -17,6 +17,7 @@
     "@elastic/elasticsearch": "6.x",
     "date-fns": "^2.2.1",
     "mieuxplacer-js-api": "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#2.7.1",
+    "http-proxy": "^1.18.0",
     "node-fetch": "^2.6.0",
     "on-finished": "^2.3.0",
     "prismic-javascript": "^2.1.1",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@adonisjs/vow": "^1.0.17",
     "@types/fetch-mock": "^7.3.1",
+    "@types/http-proxy": "^1.17.0",
     "@types/node": "^12.7.3",
     "@types/node-fetch": "^2.5.0",
     "commitlint": "^8.1.0",
