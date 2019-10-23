@@ -5,7 +5,8 @@ export default class InvalidArgumentException extends HttpException {
     return 'Tous les arguments nécessaires n\'ont pas été fournis.';
   }
 
-  constructor(message?: string) {
+  constructor(message?: string | { [key: string]: string }) {
+    // @ts-ignore
     super(message || InvalidArgumentException.defaultMessage, 400);
   }
 }

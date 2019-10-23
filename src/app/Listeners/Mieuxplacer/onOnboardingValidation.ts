@@ -1,5 +1,6 @@
-import { Answer } from 'mieuxplacer-js-api';
+import { Answer, ErrorTypes } from 'mieuxplacer-js-api';
 
+import { InvalidArgumentException } from '../../Exceptions';
 import { Context } from '../../../types';
 
 async function onOnboardingValidation(context: Context, answers: Answer, extra?: any) {
@@ -15,6 +16,8 @@ async function onOnboardingValidation(context: Context, answers: Answer, extra?:
 
       return { prospect: data };
     }
+
+    throw new InvalidArgumentException({ email: ErrorTypes.REQUIRED });
   }
 }
 
