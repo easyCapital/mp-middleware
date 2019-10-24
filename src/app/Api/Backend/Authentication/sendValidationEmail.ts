@@ -5,8 +5,12 @@ export default async function sendValidationEmail(this: BackendApi, email: strin
   try {
     await this.backendClient.post({ url: 'email_validation/revalid' }, { email });
   } catch (exception) {
-    const data = await exception.json();
+    if (typeof exception.json === 'function') {
+      const error = await exception.json();
 
-    throw new Exception(JSON.stringify(data));
+      throw new Exception(JSON.stringify(error));
+    }
+
+    throw new Exception(exception);
   }
 }

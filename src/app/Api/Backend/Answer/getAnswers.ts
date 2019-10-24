@@ -31,8 +31,12 @@ export default async function getAnswers(
 
     return Object.values(answers);
   } catch (exception) {
-    const error = await exception.json();
+    if (typeof exception.json === 'function') {
+      const error = await exception.json();
 
-    throw new Exception(JSON.stringify(error));
+      throw new Exception(JSON.stringify(error));
+    }
+
+    throw new Exception(exception);
   }
 }

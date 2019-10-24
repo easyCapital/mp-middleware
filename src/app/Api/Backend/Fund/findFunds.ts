@@ -23,8 +23,12 @@ export default async function findFunds(
 
     return funds;
   } catch (exception) {
-    const data = await exception.json();
+    if (typeof exception.json === 'function') {
+      const data = await exception.json();
 
-    throw new Exception(JSON.stringify(data));
+      throw new Exception(JSON.stringify(data));
+    }
+
+    throw new Exception(exception);
   }
 }

@@ -1,3 +1,4 @@
+import { Exception } from '../../../Exceptions';
 import { AuthenticationException } from '../Exceptions';
 import BackendApi from '..';
 
@@ -5,8 +6,12 @@ export default async function forgotPassword(this: BackendApi, email: string): P
   try {
     await this.backendClient.post({ url: 'customer/password/reset' }, { email });
   } catch (exception) {
-    const data = await exception.json();
+    if (typeof exception.json === 'function') {
+      const error = await exception.json();
 
-    throw new AuthenticationException(data);
+      throw new AuthenticationException(error);
+    }
+
+    throw new Exception(exception);
   }
 }

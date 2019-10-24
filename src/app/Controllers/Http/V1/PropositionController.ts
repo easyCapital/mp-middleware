@@ -1,14 +1,14 @@
 import { Proposition } from '../../../Models/Proposition';
 import { Context } from '../../../../types';
 import { NotFoundException } from '../../../Exceptions';
+import { onPropositionGeneration } from '../../../Listeners';
 
 class PropositionController {
   public async get({ response, session, authenticated, backendApi }: Context) {
     let proposition: Proposition | undefined;
 
     if (authenticated) {
-      proposition = new Proposition({});
-      // proposition = await backendApi.getLastProposition();
+      proposition = await backendApi.getLastProposition();
     } else {
       const token = session.get('lastPropositionToken');
 
@@ -31,13 +31,20 @@ class PropositionController {
     response.status(200).send(proposition);
   }
 
-  public async generate({ request, session, response, backendApi, symfonyApi, universe, authenticated }: Context) {
-    const { answers, prospectId }: any = request.post();
-    const proposition = authenticated
-      ? new Proposition({})
-      : await backendApi.generateProspectProposition(universe, prospectId, answers);
-    symfonyApi.sendPropositionByEmail(proposition.getToken());
-    session.put('lastPropositionToken', proposition.getToken());
+  public async generate(context: Context) {
+    const { request, response, authenticated, backendApi, universe } = context;
+    let proposition: Proposition;
+
+    if (authenticated) {
+      proposition = await backendApi.generateProposition(universe);
+    } else {
+      const { answers, prospectId }: any = request.post();
+
+      proposition = await backendApi.generateProspectProposition(universe, prospectId, answers);
+    }
+
+    await onPropositionGeneration(context, proposition.getToken());
+
     response.status(200).send(proposition);
   }
 

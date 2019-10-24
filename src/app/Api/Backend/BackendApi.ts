@@ -31,7 +31,9 @@ export default class BackendApi {
   // Portfolio
   public findPortfolios = Portfolio.findPortfolios;
   // Proposition
+  public generateProposition = Proposition.generateProposition;
   public generateProspectProposition = Proposition.generateProspectProposition;
+  public getLastProposition = Proposition.getLastProposition;
   public getPropositionByToken = Proposition.getPropositionByToken;
   public validateProposition = Proposition.validateProposition;
   // Prospect

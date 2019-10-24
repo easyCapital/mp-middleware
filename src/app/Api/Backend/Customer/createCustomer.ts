@@ -1,4 +1,5 @@
-import CustomerCreationException from '../Exceptions/CustomerCreationException';
+import { Exception } from '../../../Exceptions';
+import { CustomerCreationException } from '../Exceptions';
 import BackendApi from '..';
 
 export default async function createCustomer(
@@ -11,8 +12,12 @@ export default async function createCustomer(
     const response = await this.backendClient.post({ url: 'customer/create' }, { email, password, universe });
     return await response.json();
   } catch (exception) {
-    const data = await exception.json();
+    if (typeof exception.json === 'function') {
+      const error = await exception.json();
 
-    throw new CustomerCreationException(data);
+      throw new CustomerCreationException(error);
+    }
+
+    throw new Exception(exception);
   }
 }

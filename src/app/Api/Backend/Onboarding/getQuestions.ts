@@ -24,9 +24,13 @@ export default async function getQuestions(this: BackendApi, ids?: string[]): Pr
       }
     });
   } catch (exception) {
-    const data = await exception.json();
+    if (typeof exception.json === 'function') {
+      const error = await exception.json();
 
-    throw new Exception(JSON.stringify(data));
+      throw new Exception(JSON.stringify(error));
+    }
+
+    throw new Exception(exception);
   }
 
   return questions;

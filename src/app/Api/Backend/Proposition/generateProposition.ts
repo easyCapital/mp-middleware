@@ -1,23 +1,16 @@
-import { Answer } from 'mieuxplacer-js-api';
-
-import { formatAnswerBody } from '../Helpers';
 import { Exception } from '../../../Exceptions';
 import { Proposition } from '../../../Models/Proposition';
 import BackendApi from '..';
 import getPropositionDetails from '../Helpers/getPropositionDetails';
 
-export default async function generateProspectProposition(
+export default async function generateProposition(
   this: BackendApi,
   universe: string | undefined,
-  prospectId: string,
-  answers: Answer,
 ): Promise<Proposition> {
-  const formattedAnswers = formatAnswerBody(answers);
-
   try {
     const response = await this.backendClient.post(
-      { url: 'recommendation/customer/generate_prospect_proposition' },
-      { universe, prospect: prospectId, answers: formattedAnswers },
+      { url: 'recommendation/customer/generate_proposition' },
+      { universe },
     );
 
     const data = await response.json();
@@ -25,9 +18,9 @@ export default async function generateProspectProposition(
     return getPropositionDetails(this, data);
   } catch (exception) {
     if (typeof exception.json === 'function') {
-      const error = await exception.json();
+      const data = await exception.json();
 
-      throw new Exception(JSON.stringify(error));
+      throw new Exception(JSON.stringify(data));
     }
 
     throw new Exception(exception);

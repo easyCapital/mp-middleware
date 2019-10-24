@@ -1,5 +1,6 @@
 import { Answer } from 'mieuxplacer-js-api';
 
+import { Exception } from '../../../Exceptions';
 import { AnswerException } from '../Exceptions';
 import { formatAnswerBody } from '../Helpers';
 import BackendApi from '..';
@@ -10,8 +11,12 @@ export default async function createAnswers(this: BackendApi, answers: Answer): 
   try {
     await this.backendClient.post({ url: 'answer/customer/create' }, formattedAnswers);
   } catch (exception) {
-    const data = await exception.json();
+    if (typeof exception.json === 'function') {
+      const error = await exception.json();
 
-    throw new AnswerException(formattedAnswers, data);
+      throw new AnswerException(formattedAnswers, error);
+    }
+
+    throw new Exception(exception);
   }
 }

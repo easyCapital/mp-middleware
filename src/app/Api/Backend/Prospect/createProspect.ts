@@ -1,3 +1,4 @@
+import { Exception } from '../../../Exceptions';
 import { ProspectException } from '../Exceptions';
 import BackendApi from '..';
 
@@ -9,8 +10,12 @@ export default async function createProspect(this: BackendApi, email: string) {
 
     return data;
   } catch (exception) {
-    const data = await exception.json();
+    if (typeof exception.json === 'function') {
+      const error = await exception.json();
 
-    throw new ProspectException(data);
+      throw new ProspectException(error);
+    }
+
+    throw new Exception(exception);
   }
 }
