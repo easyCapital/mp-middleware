@@ -9,11 +9,7 @@ export default async function createCustomer(
 ): Promise<{ id: string; token: string }> {
   try {
     const response = await this.backendClient.post({ url: 'customer/create' }, { email, password, universe });
-    const data = await response.json();
-
-    this.backendClient.setCustomerToken(data.token);
-
-    return data;
+    return await response.json();
   } catch (exception) {
     const data = await exception.json();
 

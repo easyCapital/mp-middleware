@@ -4,15 +4,14 @@ import { SymfonyClient } from '../app/Clients/';
 
 class SymfonyClientProvider extends ServiceProvider {
   public register() {
-    const Config = this.app.use('Adonis/Src/Config');
     const Logger = this.app.use('Logger');
+    const Config = this.app.use('Adonis/Src/Config');
+    const host = Config.get('clients.symfony.host');
 
-    this.app.singleton('SymfonyClient', () => {
-      const host = Config.get('clients.symfony.host');
-
-      const symfonyClient = new SymfonyClient(Logger, host);
-
-      return symfonyClient;
+    this.app.singleton('SymfonyClientBuilder', () => {
+      return (customerToken?: string) => {
+        return new SymfonyClient(Logger, host, customerToken);
+      };
     });
   }
 

@@ -1,1 +1,3 @@
-export * from './Proposition';
+import SymfonyApi from './SymfonyApi';
+
+export default SymfonyApi;

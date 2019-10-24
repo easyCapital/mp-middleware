@@ -1,7 +1,9 @@
 import fetchMock from 'fetch-mock';
+import { assertLastHeader } from './utils';
+import { Suite, Assert } from '../../../typings/@adonisjs';
+import { ioc } from '@adonisjs/fold';
 
-const { ioc } = require('@adonisjs/fold');
-const { test, afterEach, trait } = ioc.use('Test/Suite')('Proposition controller');
+const { test, afterEach, trait }: Suite = ioc.use('Test/Suite')('BackendClient');
 
 trait('Test/ApiClient');
 
@@ -19,7 +21,7 @@ test('validate afi backend API token', async ({ assert, client }) => {
 
 async function assertBackendApiTokenFromOrigin(
   client: any,
-  assert: any,
+  assert: Assert,
   originHeader: string,
   backendApiToken: string,
 ) {
@@ -39,20 +41,7 @@ async function assertBackendApiTokenFromOrigin(
 
   assert.equal(fetchMock.lastUrl(uriFilter), 'http://backoffice.test/api/proposition/get/token/42');
 
-  assertLastHeader(uriFilter, assert, 'Authorization', `token ${backendApiToken}`);
-}
-
-function assertLastHeader(uriFilter: string, assert: any, headerName: string, expectedValue: string) {
-  const lastOptions = fetchMock.lastOptions(uriFilter);
-
-  if (lastOptions && lastOptions.headers) {
-    // We must ignore TS checking on the next line because the FetchMock type hasn't got the right header type.
-    // It expects an object but we use a Header type which is a Map.
-    // @ts-ignore
-    assert.equal(lastOptions.headers.get(headerName), expectedValue);
-  } else {
-    assert.fail('Should have headers in last options');
-  }
+  assertLastHeader(assert, uriFilter, 'Authorization', `token ${backendApiToken}`);
 }
 
 function mockPrismic() {

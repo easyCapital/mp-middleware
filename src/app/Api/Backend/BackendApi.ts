@@ -39,11 +39,7 @@ export default class BackendApi {
 
   protected backendClient: BackendClientInterface;
 
-  constructor(backendApiKey: string) {
-    this.backendClient = use('BackendClientBuilder')(backendApiKey);
-  }
-
-  public setCustomerToken(customerToken?: string) {
-    this.backendClient.setCustomerToken(customerToken);
+  constructor(backendApiKey: string, customerToken?: string) {
+    this.backendClient = use('BackendClientBuilder')(backendApiKey, customerToken);
   }
 }

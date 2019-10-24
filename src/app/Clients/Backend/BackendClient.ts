@@ -2,12 +2,11 @@ import { format } from 'date-fns';
 
 import { ExpectedJsonResponseException } from '../../Exceptions';
 
-export type BackendClientBuilder = (backendApiKey: string) => BackendClientInterface;
+export type BackendClientBuilder = (backendApiKey: string, customerToken?: string) => BackendClientInterface;
 
 export interface BackendClientInterface {
   get(options: RequestOptions): Promise<any>;
   post(options: RequestOptions, body?: any): Promise<any>;
-  setCustomerToken(customerToken?: string): void;
 }
 
 export interface RequestOptions {
@@ -22,16 +21,12 @@ export interface RequestOptions {
 }
 
 export default class BackendClient implements BackendClientInterface {
-  private logger: any;
-  private host: string;
-  private apiKey: string;
-  private customerToken?: string;
-
-  constructor(logger: any, host: string, apiKey: string) {
-    this.logger = logger;
-    this.host = `${host}/api`;
-    this.apiKey = apiKey;
-  }
+  constructor(
+    private readonly logger: any,
+    private readonly host: string,
+    private readonly apiKey: string,
+    private readonly customerToken?: string,
+  ) {}
 
   public async get(options: RequestOptions): Promise<any> {
     return this.call('GET', options);
@@ -41,12 +36,8 @@ export default class BackendClient implements BackendClientInterface {
     return this.call('POST', options, body);
   }
 
-  public setCustomerToken(customerToken?: string) {
-    this.customerToken = customerToken;
-  }
-
   private async call(method: string, options: RequestOptions, body?: any): Promise<any> {
-    const url = new URL(`${this.host}/${options.url}`);
+    const url = new URL(`${this.host}/api/${options.url}`);
 
     const headers: Headers = new Headers({
       'Content-Type': 'application/json',

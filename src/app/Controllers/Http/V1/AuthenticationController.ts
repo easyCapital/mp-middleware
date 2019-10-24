@@ -2,10 +2,13 @@ import { Context } from '../../../../types';
 import { EmailNotVerifiedException, UserIsInactiveException } from '../../../Exceptions';
 
 class AuthenticationController {
-  public async login({ request, session, response, backendApi }: Context) {
-    const { email, password }: any = request.post();
+  public async login(ctx: Context) {
+    const { email, password }: any = ctx.request.post();
 
-    const { data, customer } = await backendApi.login(email, password);
+    const token = await ctx.backendApi.login(email, password);
+    ctx.updateCustomerToken(token.token);
+
+    const customer = await ctx.backendApi.getCustomerDetails();
 
     if (!customer.isActive()) {
       throw new UserIsInactiveException();
@@ -15,9 +18,9 @@ class AuthenticationController {
       throw new EmailNotVerifiedException();
     }
 
-    session.clear();
+    ctx.session.clear();
 
-    response.status(200).send(data);
+    ctx.response.status(200).send(token);
   }
 
   public async logout({ response, backendApi }: Context) {

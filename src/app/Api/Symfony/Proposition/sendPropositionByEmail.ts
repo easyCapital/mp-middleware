@@ -1,8 +1,9 @@
-const SymfonyClient = use('SymfonyClient');
+import SymfonyApi from '../SymfonyApi';
+
 const Logger = use('Logger');
 
-export default async function sendPropositionByEmail(token: string): Promise<void> {
-  const response = await SymfonyClient.post({ url: 'onboarding/recommendation/send' }, { token });
+export default async function sendPropositionByEmail(this: SymfonyApi, token: string): Promise<void> {
+  const response = await this.symfonyClient.post({ url: 'onboarding/recommendation/send' }, { token });
   if (response.ok) {
     Logger.info('Proposition %s sent by email through Symfony', token);
   } else {

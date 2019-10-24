@@ -6,7 +6,7 @@ import GE from '@adonisjs/generic-exceptions';
 import { BackendClientBuilder, BackendClientInterface } from '../../src/app/Clients/Backend/BackendClient';
 import { ElasticClientInterface } from '../../src/app/Clients/Elastic/ElasticClient';
 import { PrismicClientInterface } from '../../src/app/Clients/Prismic/PrismicClient';
-import { SymfonyClientInterface } from '../../src/app/Clients/Symfony/SymfonyClient';
+import { SymfonyClientInterface, SymfonyClientBuilder } from '../../src/app/Clients/Symfony/SymfonyClient';
 
 type WorkInProgress = any;
 type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
@@ -12242,6 +12242,18 @@ interface Drive {
 }
 
 /**
+ * Adonis assert is based on Chai
+ * https://adonisjs.com/docs/4.0/testing#_context
+ */
+interface Assert extends Chai.Assert {
+
+}
+
+type TestParam = {client: any, assert: Assert};
+
+type TestCallBack = (testContext: TestParam) => Promise<void>;
+
+/**
  * The test suite is a group of tests under one file. Suite
  * let you define behavior and requirements of all the
  * tests under one file.
@@ -12386,7 +12398,7 @@ interface Suite {
    * @param callback
    * @return
    */
-  test(title: string, callback: Function): Object;
+  test(title: string, callback: TestCallBack): Object;
 
   /**
    * Add a new regression test
@@ -12776,7 +12788,7 @@ declare namespace AdonisNamespaces {
 
   type BackendClientBuilder = 'BackendClientBuilder';
   type PrismicClient = 'PrismicClient';
-  type SymfonyClient = 'SymfonyClient';
+  type SymfonyClientBuilder = 'SymfonyClientBuilder';
   type ElasticClient = 'ElasticClient';
 }
 
@@ -12813,7 +12825,7 @@ declare global {
   function use(namespace: AdonisNamespaces.DatabaseTransactions): Lucid.DatabaseTransactions;
   function use(namespace: AdonisNamespaces.BackendClientBuilder): BackendClientBuilder;
   function use(namespace: AdonisNamespaces.PrismicClient): PrismicClientInterface;
-  function use(namespace: AdonisNamespaces.SymfonyClient): SymfonyClientInterface;
+  function use(namespace: AdonisNamespaces.SymfonyClientBuilder): SymfonyClientBuilder;
   function use(namespace: AdonisNamespaces.ElasticClient): ElasticClientInterface;
 }
 

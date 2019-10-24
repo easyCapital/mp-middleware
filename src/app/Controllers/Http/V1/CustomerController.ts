@@ -18,6 +18,7 @@ class CustomerController {
     }
 
     const data = await backendApi.createCustomer(email, password, universe);
+    context.updateCustomerToken(data.token);
 
     session.clear();
 

@@ -1,11 +1,12 @@
 import { IncomingMessage, ServerResponse } from 'http';
-const SymfonyClient = use('SymfonyClient');
+import SymfonyApi from '..';
 
 export default async function downloadProposition(
+  this: SymfonyApi,
   req: IncomingMessage,
   res: ServerResponse,
   token: string,
 ): Promise<void> {
   const synfonyUrl = `onboarding/recommendation/download/${token}`;
-  return SymfonyClient.proxy(req, res, synfonyUrl);
+  return this.symfonyClient.proxy(req, res, synfonyUrl);
 }
