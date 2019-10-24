@@ -20,6 +20,12 @@ class AuthenticationController {
     response.status(200).send(data);
   }
 
+  public async logout({ response, backendApi }: Context) {
+    await backendApi.logout();
+
+    response.status(200).send();
+  }
+
   public async forgotPassword({ request, response, backendApi }: Context) {
     const { email }: any = request.post();
 

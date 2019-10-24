@@ -55,6 +55,7 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.post('/login', 'V1/AuthenticationController.login');
+  Route.get('/logout', 'V1/AuthenticationController.logout').middleware(['auth']);
   Route.post('/forgot-password', 'V1/AuthenticationController.forgotPassword');
   Route.post('/email-validation', 'V1/AuthenticationController.sendValidationEmail');
 }).prefix('api/1.0/auth');

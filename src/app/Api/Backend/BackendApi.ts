@@ -16,6 +16,7 @@ export default class BackendApi {
   public prevalidateAnswers = Answer.prevalidateAnswers;
   // Authentication
   public login = Authentication.login;
+  public logout = Authentication.logout;
   public forgotPassword = Authentication.forgotPassword;
   public sendValidationEmail = Authentication.sendValidationEmail;
   // Customer
