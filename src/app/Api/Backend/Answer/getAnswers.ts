@@ -1,5 +1,6 @@
 import { Exception } from '../../../Exceptions';
 import { Answer } from '../../../Models/Answer';
+import { BackendException } from '../Exceptions';
 import BackendApi from '..';
 
 export default async function getAnswers(
@@ -34,7 +35,7 @@ export default async function getAnswers(
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new Exception(JSON.stringify(error));
+      throw new BackendException(error);
     }
 
     throw new Exception(exception);
