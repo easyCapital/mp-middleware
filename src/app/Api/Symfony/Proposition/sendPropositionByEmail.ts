@@ -3,7 +3,7 @@ import SymfonyApi from '../SymfonyApi';
 const Logger = use('Logger');
 
 export default async function sendPropositionByEmail(this: SymfonyApi, token: string): Promise<void> {
-  const response = await this.symfonyClient.post({ url: 'onboarding/recommendation/send' }, { token });
+  const response = await this.symfonyClient.post({ url: 'onboarding/recommendation/send', timeout: 50000 }, { token });
   if (response.ok) {
     Logger.info('Proposition %s sent by email through Symfony', token);
   } else {

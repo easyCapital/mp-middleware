@@ -12,6 +12,7 @@ export interface SymfonyClientInterface {
 
 export interface RequestOptions {
   url: string;
+  timeout?: number;
 }
 
 export default class SymfonyClient implements SymfonyClientInterface {
@@ -81,7 +82,7 @@ export default class SymfonyClient implements SymfonyClientInterface {
     const requestParameters: any = {
       method,
       headers,
-      timeout: 10000,
+      timeout: options.timeout || 10000,
     };
 
     if (body !== undefined) {
