@@ -19,11 +19,22 @@ test('validate afi backend API token', async ({ assert, client }) => {
   await assertBackendApiTokenFromOrigin(client, assert, 'http://mif.afi.local', 'afibackendapitoken');
 });
 
+test('validate backend API token from Referer', async ({ assert, client }) => {
+  await assertBackendApiTokenFromOrigin(
+    client,
+    assert,
+    'http://mif.mieuxplacer.local/a/sub/path',
+    'mieuxplacerbackendapitoken',
+    'Referer',
+  );
+});
+
 async function assertBackendApiTokenFromOrigin(
   client: any,
   assert: Assert,
-  originHeader: string,
+  headerValue: string,
   backendApiToken: string,
+  headerName: string = 'Origin',
 ) {
   mockPrismic();
 
@@ -32,7 +43,7 @@ async function assertBackendApiTokenFromOrigin(
 
   const response = await client
     .get('/api/1.0/proposition/42')
-    .header('Origin', originHeader)
+    .header(headerName, headerValue)
     .end();
 
   assert.equal(response.status, 200);

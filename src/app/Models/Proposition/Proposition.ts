@@ -54,6 +54,7 @@ export default class Proposition implements PropositionInterface {
   public toJSON(): JsonPropositionInterface {
     return {
       id: this.id,
+      token: this.token,
       created: this.created,
       universe: this.universe,
       userId: this.userId,
