@@ -17,7 +17,7 @@ export default class ErrorTypeMapper {
       return mappedValue;
     }
 
-    Logger.info('Missing mapping value in %s for %s', 'ErrorTypeMapper', value);
+    Logger.warning('Missing mapping value in %s for %s', 'ErrorTypeMapper', value);
 
     return null;
   }

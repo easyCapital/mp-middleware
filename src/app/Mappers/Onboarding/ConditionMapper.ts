@@ -90,7 +90,7 @@ export default class ConditionMapper {
       return null;
     }
 
-    Logger.info('Missing mapping value in %s for %s', 'ConditionMapper', value);
+    Logger.warning('Missing mapping value in %s for %s', 'ConditionMapper', value);
 
     return null;
   }

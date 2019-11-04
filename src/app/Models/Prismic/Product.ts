@@ -21,6 +21,8 @@ export default class Product extends ContentType implements ProductInterface {
   private type: Type | string;
   private supplier: Supplier | string;
   private costs?: Cost[];
+  private taxeExemptionRate?: string;
+  private investmentPeriod?: string;
 
   constructor(json: any) {
     super(json);
@@ -45,6 +47,14 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.costs && json.data.costs.length > 0) {
       this.costs = json.data.costs.map(item => new Cost(item));
     }
+
+    if (json.data.taxe_exemption_rate) {
+      this.taxeExemptionRate = json.data.taxe_exemption_rate;
+    }
+
+    if (json.data.investment_period) {
+      this.investmentPeriod = json.data.investment_period;
+    }
   }
 
   public toJSON(): JsonProductInterface {
@@ -59,9 +69,11 @@ export default class Product extends ContentType implements ProductInterface {
       description: this.description && this.description.map(item => item.toJSON()),
       subscribable: this.subscribable,
       order: this.order,
-      type: typeof this.type === 'string' ? this.type : this.type.toJSON(),
-      supplier: typeof this.supplier === 'string' ? this.supplier : this.supplier.toJSON(),
+      type: typeof this.type === 'string' ? undefined : this.type.toJSON(),
+      supplier: typeof this.supplier === 'string' ? undefined : this.supplier.toJSON(),
       costs: this.costs && this.costs.map(item => item.toJSON()),
+      taxeExemptionRate: this.taxeExemptionRate,
+      investmentPeriod: this.investmentPeriod,
     };
   }
 

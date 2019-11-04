@@ -25,7 +25,7 @@ export default class InputTypeMapper {
       return mappedValue;
     }
 
-    Logger.info('Missing mapping value in %s for %s', 'InputTypeMapper', value);
+    Logger.warning('Missing mapping value in %s for %s', 'InputTypeMapper', value);
 
     return null;
   }

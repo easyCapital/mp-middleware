@@ -17,10 +17,15 @@ export default class Portfolio implements PortfolioInterface {
   private amount?: number;
   private srri: number;
   private funds: any[] = [];
+  private performances?: { [year: string]: number };
 
   constructor(json: any) {
     this.id = json.id;
     this.srri = json.srri;
+
+    if (json.performances && Object.keys(json.performances).length > 0) {
+      this.performances = json.performances;
+    }
   }
 
   public toJSON(): JsonPortfolioInterface {
@@ -30,6 +35,7 @@ export default class Portfolio implements PortfolioInterface {
       amount: this.amount,
       srri: this.srri,
       funds: this.funds.map(fund => fund.toJSON()),
+      performances: this.performances,
     };
   }
 

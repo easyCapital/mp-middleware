@@ -4,6 +4,8 @@ import { Product } from '../../../Models/Prismic';
 import { findProducts, findAdvices } from '../../Prismic';
 import BackendApi from '..';
 
+const Logger = use('Logger');
+
 export default async function getPropositionDetails(backendApi: BackendApi, data: any): Promise<Proposition> {
   const proposition = new Proposition(data);
 
@@ -25,6 +27,10 @@ export default async function getPropositionDetails(backendApi: BackendApi, data
     data.contents.forEach(item => {
       const portfolio = portfoliosById[item.portfolio];
       const product = productsById[item.product_identifier];
+
+      if (!product || !portfolio) {
+        Logger.warning('Product with identifier %s could not be found in Prismic', item.product_identifier);
+      }
 
       portfolio
         .setProduct(product)
