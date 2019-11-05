@@ -1,4 +1,4 @@
-import { Supplier as JsonSupplierInterface } from 'mieuxplacer-js-api';
+import { Supplier as JsonSupplierInterface } from '@robinfinance/js-api';
 
 import { ContentType, Image } from '.';
 

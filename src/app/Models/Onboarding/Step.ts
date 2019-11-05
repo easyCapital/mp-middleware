@@ -1,4 +1,4 @@
-import { Step as JsonStepInterface } from 'mieuxplacer-js-api';
+import { Step as JsonStepInterface } from '@robinfinance/js-api';
 
 import Block from './Block';
 

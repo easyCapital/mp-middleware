@@ -1,4 +1,4 @@
-import { ContentTypes } from 'mieuxplacer-js-api';
+import { ContentTypes } from '@robinfinance/js-api';
 
 import { ArrayToObject } from '../../../Helpers';
 import { Product, Type, Supplier } from '../../../Models/Prismic';

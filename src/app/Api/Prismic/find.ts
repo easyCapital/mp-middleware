@@ -1,5 +1,5 @@
 import Prismic from 'prismic-javascript';
-import { ContentType } from 'mieuxplacer-js-api';
+import { ContentType } from '@robinfinance/js-api';
 
 import { Exception } from '../../Exceptions';
 

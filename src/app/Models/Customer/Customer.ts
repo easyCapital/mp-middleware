@@ -1,4 +1,4 @@
-import { Customer as JsonCustomerInterface } from 'mieuxplacer-js-api';
+import { Customer as JsonCustomerInterface } from '@robinfinance/js-api';
 
 interface CustomerInterface {
   toJSON(): JsonCustomerInterface;

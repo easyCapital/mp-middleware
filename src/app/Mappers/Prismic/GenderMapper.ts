@@ -1,4 +1,4 @@
-import { Genders, Gender } from 'mieuxplacer-js-api';
+import { Genders, Gender } from '@robinfinance/js-api';
 
 const Logger = use('Logger');
 

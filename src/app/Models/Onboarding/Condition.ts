@@ -1,4 +1,4 @@
-import { Condition as JsonConditionInterface, ConditionType } from 'mieuxplacer-js-api';
+import { Condition as JsonConditionInterface, ConditionType } from '@robinfinance/js-api';
 
 import { ConditionMapper } from '../../Mappers/Onboarding';
 

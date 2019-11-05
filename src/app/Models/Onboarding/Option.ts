@@ -1,4 +1,4 @@
-import { Option as JsonOptionInterface } from 'mieuxplacer-js-api';
+import { Option as JsonOptionInterface } from '@robinfinance/js-api';
 
 interface OptionInterface {
   toJSON(): JsonOptionInterface;

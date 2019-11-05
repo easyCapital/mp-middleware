@@ -1,4 +1,4 @@
-import { Image as JsonImageInterface } from 'mieuxplacer-js-api';
+import { Image as JsonImageInterface } from '@robinfinance/js-api';
 
 interface ImageInterface {
   toJSON(): JsonImageInterface;

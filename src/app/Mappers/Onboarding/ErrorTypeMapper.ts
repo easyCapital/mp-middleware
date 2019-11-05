@@ -1,4 +1,4 @@
-import { ErrorType, ErrorTypes } from 'mieuxplacer-js-api';
+import { ErrorType, ErrorTypes } from '@robinfinance/js-api';
 
 const Logger = use('Logger');
 

@@ -1,4 +1,4 @@
-import { Page as JsonPageInterface } from 'mieuxplacer-js-api';
+import { Page as JsonPageInterface } from '@robinfinance/js-api';
 
 import { ContentType } from '.';
 

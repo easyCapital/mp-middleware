@@ -1,4 +1,4 @@
-import { Advice as JsonAdviceInterface } from 'mieuxplacer-js-api';
+import { Advice as JsonAdviceInterface } from '@robinfinance/js-api';
 
 import { ContentType, RichText } from '.';
 

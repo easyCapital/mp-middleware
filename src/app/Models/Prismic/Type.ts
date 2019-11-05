@@ -1,4 +1,4 @@
-import { Type as JsonTypeInterface, Gender } from 'mieuxplacer-js-api';
+import { Type as JsonTypeInterface, Gender } from '@robinfinance/js-api';
 
 import { ContentType, Image } from '.';
 import { GenderMapper } from '../../Mappers/Prismic';

@@ -1,4 +1,4 @@
-import { Answer } from 'mieuxplacer-js-api';
+import { Answer } from '@robinfinance/js-api';
 
 function formatAnswerBody(answers: Answer): { question: string; value: string }[] {
   const formattedAnswers: { question: string; value: string }[] = [];

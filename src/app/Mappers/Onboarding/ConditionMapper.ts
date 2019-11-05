@@ -1,4 +1,4 @@
-import { Condition, ConditionTypes } from 'mieuxplacer-js-api';
+import { Condition, ConditionTypes } from '@robinfinance/js-api';
 
 import { getNumberOrString } from '../../Helpers';
 

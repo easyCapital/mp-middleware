@@ -1,5 +1,5 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
-import { ErrorTypes } from 'mieuxplacer-js-api';
+import { ErrorTypes } from '@robinfinance/js-api';
 
 export default class EmailNotVerifiedException extends HttpException {
   constructor() {

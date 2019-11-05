@@ -1,4 +1,4 @@
-import { Portfolio as JsonPortfolioInterface } from 'mieuxplacer-js-api';
+import { Portfolio as JsonPortfolioInterface } from '@robinfinance/js-api';
 
 import { Fund } from '.';
 import { Product } from '../Prismic';

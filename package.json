@@ -1,6 +1,6 @@
 {
   "name": "mieuxplacer-middleware",
-  "version": "0.0.1",
+  "version": "2.6.1",
   "description": "Middleware for Mieuxplacer.com services",
   "main": "index.js",
   "private": true,
@@ -15,8 +15,8 @@
     "@adonisjs/redis": "^2.0.7",
     "@adonisjs/session": "^1.0.29",
     "@elastic/elasticsearch": "6.x",
+    "@robinfinance/js-api": "^2.9.0",
     "date-fns": "^2.2.1",
-    "mieuxplacer-js-api": "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#2.8.10",
     "http-proxy": "^1.18.0",
     "node-fetch": "^2.6.0",
     "on-finished": "^2.3.0",

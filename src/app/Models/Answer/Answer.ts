@@ -1,4 +1,4 @@
-import { Answer as JsonAnswerInterface } from 'mieuxplacer-js-api';
+import { Answer as JsonAnswerInterface } from '@robinfinance/js-api';
 
 interface AnswerInterface {
   toJSON(): JsonAnswerInterface;

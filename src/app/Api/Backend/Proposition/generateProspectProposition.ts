@@ -1,4 +1,4 @@
-import { Answer } from 'mieuxplacer-js-api';
+import { Answer } from '@robinfinance/js-api';
 
 import { formatAnswerBody } from '../Helpers';
 import { Exception } from '../../../Exceptions';

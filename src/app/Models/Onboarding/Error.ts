@@ -1,4 +1,4 @@
-import { Error as JsonErrorInterface, ErrorTypes } from 'mieuxplacer-js-api';
+import { Error as JsonErrorInterface, ErrorTypes } from '@robinfinance/js-api';
 
 import { ErrorTypeMapper } from '../../Mappers/Onboarding';
 

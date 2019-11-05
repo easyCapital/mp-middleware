@@ -1,4 +1,4 @@
-import { InputType, InputTypes } from 'mieuxplacer-js-api';
+import { InputType, InputTypes } from '@robinfinance/js-api';
 
 const Logger = use('Logger');
 

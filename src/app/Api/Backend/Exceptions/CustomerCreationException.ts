@@ -1,5 +1,5 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
-import { ErrorTypes } from 'mieuxplacer-js-api';
+import { ErrorTypes } from '@robinfinance/js-api';
 
 import { Exception } from '../../../Exceptions';
 import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';

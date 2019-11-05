@@ -1,4 +1,4 @@
-import { Block as JsonBlockInterface } from 'mieuxplacer-js-api';
+import { Block as JsonBlockInterface } from '@robinfinance/js-api';
 
 interface BlockInterface {
   toJSON(): JsonBlockInterface;

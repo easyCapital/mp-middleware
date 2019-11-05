@@ -376,6 +376,11 @@
     "@nodelib/fs.scandir" "2.1.2"
     fastq "^1.6.0"
 
+"@robinfinance/js-api@^2.9.0":
+  version "2.9.0"
+  resolved "https://npm.pkg.github.com/download/@robinfinance/js-api/2.9.0/5c32b3a55dbf33b706eb8b67c174b5a6f419304a0fe49c2c501bdd7a1e4b1013#01747bfa2bef84dd1546795517aec496714055bc"
+  integrity sha512-GI051aqXNhxJffwIMfKFLM+oGBsrxuhb4XuSwh7RIDgeNAOvetfdUOa1607aW+7yf4lHhzG6VduehlbxBEry8g==
+
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
@@ -3506,10 +3511,6 @@ micromatch@^4.0.2:
   dependencies:
     braces "^3.0.1"
     picomatch "^2.0.5"
-
-"mieuxplacer-js-api@git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#2.8.10":
-  version "2.8.9"
-  resolved "git+ssh://git@github.com/robinfinance/mieuxplacer-js-api.git#95540599e659f150331829863882a0dedccdce6a"
 
 mime-db@1.40.0:
   version "1.40.0"

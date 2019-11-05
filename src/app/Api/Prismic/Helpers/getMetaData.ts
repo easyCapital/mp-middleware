@@ -1,4 +1,4 @@
-import { MetaData } from 'mieuxplacer-js-api';
+import { MetaData } from '@robinfinance/js-api';
 
 function getMetaData(response): MetaData {
   return {

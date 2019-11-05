@@ -1,4 +1,4 @@
-import { Proposition as JsonPropositionInterface, Answer } from 'mieuxplacer-js-api';
+import { Proposition as JsonPropositionInterface, Answer } from '@robinfinance/js-api';
 
 import { Portfolio } from '.';
 import { Advice } from '../Prismic';

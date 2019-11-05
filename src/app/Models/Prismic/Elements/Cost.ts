@@ -1,4 +1,4 @@
-import { Cost as JsonCostInterface } from 'mieuxplacer-js-api';
+import { Cost as JsonCostInterface } from '@robinfinance/js-api';
 
 interface CostInterface {
   toJSON(): JsonCostInterface;

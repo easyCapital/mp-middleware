@@ -1,4 +1,4 @@
-import { Answer } from 'mieuxplacer-js-api';
+import { Answer } from '@robinfinance/js-api';
 
 import { Context } from '../../../types';
 import { Question } from '../../Models/Onboarding';

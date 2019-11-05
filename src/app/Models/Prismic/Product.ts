@@ -1,4 +1,4 @@
-import { Product as JsonProductInterface } from 'mieuxplacer-js-api';
+import { Product as JsonProductInterface } from '@robinfinance/js-api';
 
 import { ContentType, Type, Supplier, RichText, Cost } from '.';
 import { BooleanMapper } from '../../Mappers/Prismic';

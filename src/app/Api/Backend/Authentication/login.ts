@@ -1,4 +1,4 @@
-import { Token } from 'mieuxplacer-js-api';
+import { Token } from '@robinfinance/js-api';
 
 import { Exception } from '../../../Exceptions';
 import { AuthenticationException } from '../Exceptions';

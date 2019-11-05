@@ -1,4 +1,4 @@
-import { FundTypes, FundType } from 'mieuxplacer-js-api';
+import { FundTypes, FundType } from '@robinfinance/js-api';
 
 const Logger = use('Logger');
 

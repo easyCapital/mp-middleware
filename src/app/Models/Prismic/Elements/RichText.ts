@@ -1,4 +1,4 @@
-import { RichText as JsonRichTextInterface, RichTextType, FormattingType } from 'mieuxplacer-js-api';
+import { RichText as JsonRichTextInterface, RichTextType, FormattingType } from '@robinfinance/js-api';
 
 interface RichTextInterface {
   toJSON(): JsonRichTextInterface;

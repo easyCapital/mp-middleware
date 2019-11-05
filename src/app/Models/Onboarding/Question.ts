@@ -1,4 +1,8 @@
-import { Question as JsonQuestionInterface, Condition as JsonConditionInterface, InputType } from 'mieuxplacer-js-api';
+import {
+  Question as JsonQuestionInterface,
+  Condition as JsonConditionInterface,
+  InputType,
+} from '@robinfinance/js-api';
 
 import { Condition, Error, Option } from '.';
 

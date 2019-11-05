@@ -1,4 +1,4 @@
-import { Fund as JsonFundInterface, FundType } from 'mieuxplacer-js-api';
+import { Fund as JsonFundInterface, FundType } from '@robinfinance/js-api';
 
 import { FundTypeMapper } from '../../Mappers/Proposition';
 

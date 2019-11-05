@@ -1,4 +1,4 @@
-import { Answer, ErrorTypes } from 'mieuxplacer-js-api';
+import { Answer, ErrorTypes } from '@robinfinance/js-api';
 
 import { InvalidArgumentException } from '../../Exceptions';
 import { Context } from '../../../types';
