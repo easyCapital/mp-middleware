@@ -1,6 +1,6 @@
 language: node_js
 before_install:
-  - echo "//npm.pkg.github.com/:_authToken=\${GITHUB_NPM_TOKEN}" > .npmrc
+  - echo "//npm.pkg.github.com/:_authToken=$GITHUB_NPM_TOKEN" > ~/.npmrc
 before_script:
   - yarn lint
   - yarn build
