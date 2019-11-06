@@ -219,8 +219,10 @@ export = {
     },
 
     api: {
-      driver: 'file',
+      driver: Env.getOrFail('NODE_ENV') === 'production' ? 'file' : 'console',
       filename: '/var/log/middleware/middleware.api.log',
+      name: 'mieuxplacer-middleware-api',
+      level: 'info',
       json: true,
     },
   },
