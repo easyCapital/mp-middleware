@@ -220,7 +220,7 @@ export = {
 
     api: {
       driver: 'file',
-      filename: 'api.log',
+      filename: '/var/log/middleware/middleware.api.log',
       json: true,
     },
   },
