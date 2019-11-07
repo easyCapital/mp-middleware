@@ -11,13 +11,20 @@ class CustomerController {
 
   public async create(context: Context) {
     const { request, response, session, backendApi, universe } = context;
-    const { email, password, ...body }: any = request.post();
+    const { email, password, utmCampaign, utmSource, utmMedium, ...body }: any = request.post();
 
     if (!universe) {
       throw new InvalidArgumentException("L'entête MP-Universe est obligatoire.");
     }
 
-    const data = await backendApi.createCustomer(email, password, universe);
+    const data = await backendApi.createCustomer({
+      email,
+      password,
+      universe,
+      utm_campaign: utmCampaign,
+      utm_source: utmSource,
+      utm_medium: utmMedium,
+    });
     context.updateCustomerToken(data.token);
 
     session.clear();

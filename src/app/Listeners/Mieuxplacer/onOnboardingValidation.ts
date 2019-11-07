@@ -3,16 +3,20 @@ import { Answer, ErrorTypes } from '@robinfinance/js-api';
 import { InvalidArgumentException } from '../../Exceptions';
 import { Context } from '../../../types';
 
-async function onOnboardingValidation(context: Context, answers: Answer, extra?: any) {
+async function onOnboardingValidation(context: Context, answers: Answer, prospectData?: any) {
   const { session, authenticated, backendApi } = context;
 
   if (!authenticated) {
     session.put('answers', answers);
 
-    if (extra && extra.email) {
-      const { email } = extra;
-
-      const data = await backendApi.createProspect(email);
+    if (prospectData && prospectData.email) {
+      const { email, utmCampaign, utmSource, utmMedium } = prospectData;
+      const data = await backendApi.createProspect({
+        email,
+        utm_campaign: utmCampaign,
+        utm_source: utmSource,
+        utm_medium: utmMedium,
+      });
 
       return { prospect: data };
     }
