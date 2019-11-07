@@ -11,3 +11,4 @@ tmp
 dist/
 .vscode/
 yarn-error.log
+.history
