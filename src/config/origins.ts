@@ -54,7 +54,7 @@ export = {
     app: Apps.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,
   },
-  'https://mieuxplacer.com': {
+  'https://www.mieuxplacer.com': {
     app: Apps.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,
   },
