@@ -1,4 +1,4 @@
-import { Apps } from '../types';
+const Apps = use('Config').get('mpApps');
 
 const Env = use('Env');
 const mpBackendApiKey = Env.getOrFail('MP_BACKEND_API_TOKEN');

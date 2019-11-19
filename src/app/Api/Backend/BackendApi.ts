@@ -1,4 +1,4 @@
-import { BackendClientInterface } from '../../../app/Clients/Backend/BackendClient';
+import { BackendClientInterface, BackendToken } from '../../../app/Clients/Backend/BackendClient';
 
 import * as Answer from './Answer';
 import * as Authentication from './Authentication';
@@ -41,7 +41,7 @@ export default class BackendApi {
 
   protected backendClient: BackendClientInterface;
 
-  constructor(backendApiKey: string, customerToken?: string) {
-    this.backendClient = use('BackendClientBuilder')(backendApiKey, customerToken);
+  constructor(backendApiKey: string, token?: BackendToken) {
+    this.backendClient = use('BackendClientBuilder')(backendApiKey, token);
   }
 }
