@@ -11,6 +11,7 @@ export default class Customer implements CustomerInterface {
   private email: string;
   private active: boolean;
   private emailValidated: boolean;
+  private dateJoined: string;
   private universe: string;
 
   constructor(json: any) {
@@ -18,6 +19,7 @@ export default class Customer implements CustomerInterface {
     this.email = json.email;
     this.active = json.is_active;
     this.emailValidated = json.email_validated;
+    this.dateJoined = json.date_joined;
     this.universe = json.universe;
   }
 
@@ -27,6 +29,7 @@ export default class Customer implements CustomerInterface {
       email: this.email,
       isActive: this.active,
       emailIsValidated: this.emailValidated,
+      dateJoined: this.dateJoined,
       universe: this.universe,
     };
   }

@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 
+import { Pagination, Filters } from '../../../types';
 import { ExpectedJsonResponseException, MultipleTokenException } from '../../Exceptions';
 
 export type BackendClientBuilder = (backendApiKey: string, token?: BackendToken) => BackendClientInterface;
@@ -16,13 +17,8 @@ export interface BackendToken {
 
 export interface RequestOptions {
   url: string;
-  pagination?: {
-    page: number;
-    perPage: number;
-  };
-  filters?: {
-    [key: string]: any;
-  };
+  pagination?: Pagination;
+  filters?: Filters;
 }
 
 export default class BackendClient implements BackendClientInterface {
@@ -60,8 +56,11 @@ export default class BackendClient implements BackendClientInterface {
     }
 
     if (options.pagination) {
-      const offset = (options.pagination.page - 1) * options.pagination.perPage;
-      const limit = offset + options.pagination.perPage;
+      const perPage = Number(options.pagination.perPage) || 10;
+      const page = Number(options.pagination.page) || 1;
+
+      const offset = (page - 1) * perPage;
+      const limit = offset + perPage;
 
       headers.set('RANGE', `${offset}-${limit}`);
     }
