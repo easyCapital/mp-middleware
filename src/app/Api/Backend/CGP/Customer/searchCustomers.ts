@@ -1,4 +1,5 @@
-import { Filters, Pagination } from '../../../../../types';
+import { Filters, Pagination } from '@robinfinance/js-api';
+
 import { Customer } from '../../../../Models/Customer';
 import { Exception } from '../../../../Exceptions';
 import BackendApi from '../..';
