@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
+import { Pagination, Filters } from '@robinfinance/js-api';
 
-import { Pagination, Filters } from '../../../types';
 import { ExpectedJsonResponseException, MultipleTokenException } from '../../Exceptions';
 
 export type BackendClientBuilder = (backendApiKey: string, token?: BackendToken) => BackendClientInterface;

@@ -1,6 +1,6 @@
 import { Product as JsonProductInterface } from '@robinfinance/js-api';
 
-import { ContentType, Type, Supplier, RichText, Cost } from '.';
+import { ContentType, Type, Supplier, RichText, Cost, TDVM } from '.';
 import { BooleanMapper } from '../../Mappers/Prismic';
 
 interface ProductInterface {
@@ -23,6 +23,8 @@ export default class Product extends ContentType implements ProductInterface {
   private costs?: Cost[];
   private taxeExemptionRate?: string;
   private investmentPeriod?: string;
+  private supplierConditions?: RichText[];
+  private tdvms?: TDVM[];
 
   constructor(json: any) {
     super(json);
@@ -55,6 +57,14 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.investment_period) {
       this.investmentPeriod = json.data.investment_period;
     }
+
+    if (json.data.supplier_conditions && json.data.supplier_conditions.length > 0) {
+      this.supplierConditions = json.data.supplier_conditions.map(item => new RichText(item));
+    }
+
+    if (json.data.tdvm && json.data.tdvm.length > 0) {
+      this.tdvms = json.data.tdvm.map(item => new TDVM(item));
+    }
   }
 
   public toJSON(): JsonProductInterface {
@@ -74,6 +84,8 @@ export default class Product extends ContentType implements ProductInterface {
       costs: this.costs && this.costs.map(item => item.toJSON()),
       taxeExemptionRate: this.taxeExemptionRate,
       investmentPeriod: this.investmentPeriod,
+      supplierConditions: this.supplierConditions && this.supplierConditions.map(item => item.toJSON()),
+      tdvms: this.tdvms && this.tdvms.map(item => item.toJSON()),
     };
   }
 
