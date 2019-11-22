@@ -104,3 +104,13 @@ Route.group(() => {
   Route.post('/generate', 'V1/PropositionController.generate');
   Route.get('/download/:token', 'V1/PropositionController.downloadByToken');
 }).prefix('api/1.0/proposition');
+
+/*
+|--------------------------------------------------------------------------
+| API V1 - CGP
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.get('/', 'V1/CGP/CustomerController.search');
+  Route.get('/:id', 'V1/CGP/CustomerController.get');
+}).prefix('api/1.0/cgp/customer');

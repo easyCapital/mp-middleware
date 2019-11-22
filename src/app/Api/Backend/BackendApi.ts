@@ -8,6 +8,7 @@ import * as Onboarding from './Onboarding';
 import * as Portfolio from './Portfolio';
 import * as Proposition from './Proposition';
 import * as Prospect from './Prospect';
+import * as CGP from './CGP';
 
 export default class BackendApi {
   // Answer
@@ -38,6 +39,9 @@ export default class BackendApi {
   public validateProposition = Proposition.validateProposition;
   // Prospect
   public createProspect = Prospect.createProspect;
+  // CGP - Customer
+  public getCGPCustomer = CGP.getCustomer;
+  public searchCGPCustomer = CGP.searchCustomers;
 
   protected backendClient: BackendClientInterface;
 
