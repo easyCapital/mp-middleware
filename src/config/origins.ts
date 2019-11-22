@@ -14,6 +14,10 @@ export = {
     app: Apps.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,
   },
+  'http://admin.mieuxplacer.local': {
+    app: Apps.ADMIN,
+    backendApiKey: mpBackendApiKey,
+  },
   'http://mif.mieuxplacer.local': {
     app: Apps.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,
@@ -28,6 +32,10 @@ export = {
   },
   'http://mieuxplacer.dev.robintech.co': {
     app: Apps.MIEUXPLACER,
+    backendApiKey: mpBackendApiKey,
+  },
+  'http://admin.mieuxplacer.dev.robintech.co': {
+    app: Apps.ADMIN,
     backendApiKey: mpBackendApiKey,
   },
   'http://mif.mieuxplacer.dev.robintech.co': {
