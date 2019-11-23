@@ -57,6 +57,12 @@ export default class Portfolio implements PortfolioInterface {
     return this;
   }
 
+  public setProductIdentifier(product: string): Portfolio {
+    this.productIdentifier = product;
+
+    return this;
+  }
+
   public setSrri(srri: number): Portfolio {
     this.srri = srri;
 
