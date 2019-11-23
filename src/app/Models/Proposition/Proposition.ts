@@ -49,6 +49,12 @@ export default class Proposition implements PropositionInterface {
         }
       });
     }
+
+    if (json.contents) {
+      json.contents.map(portfolio => {
+        this.portfolios.push(new Portfolio(portfolio));
+      });
+    }
   }
 
   public toJSON(): JsonPropositionInterface {
@@ -78,6 +84,12 @@ export default class Proposition implements PropositionInterface {
 
   public setInvestorType(investorType: Advice): Proposition {
     this.investorType = investorType;
+
+    return this;
+  }
+
+  public setPortfolios(portfolios: Portfolio[]): Proposition {
+    this.portfolios = portfolios;
 
     return this;
   }

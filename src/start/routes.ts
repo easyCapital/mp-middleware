@@ -114,3 +114,7 @@ Route.group(() => {
   Route.get('/', 'V1/CGP/CustomerController.search');
   Route.get('/:id', 'V1/CGP/CustomerController.get');
 }).prefix('api/1.0/cgp/customer');
+
+Route.group(() => {
+  Route.get('/', 'V1/CGP/PropositionController.search');
+}).prefix('api/1.0/cgp/customer/:customer/proposition');
