@@ -8,6 +8,14 @@ class CGPPropositionController {
 
     response.status(200).send(propositions);
   }
+
+  public async get({ params, response, backendApi }: Context) {
+    const { customer, id } = params;
+
+    const proposition = await backendApi.getCGPCustomerProposition(customer, id);
+
+    response.status(200).send(proposition);
+  }
 }
 
 export = CGPPropositionController;

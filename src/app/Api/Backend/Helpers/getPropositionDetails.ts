@@ -18,7 +18,7 @@ export default async function getPropositionDetails(backendApi: BackendApi, data
     const [portfolios, products, advices] = await Promise.all([
       backendApi.findPortfolios({ id__in: portfolioIds }),
       findProducts({ backend_key: portfolioProducts }),
-      findAdvices({ key: data.risk_advice }),
+      findAdvices({ key: data.risk_advice || '' }),
     ]);
 
     const portfoliosById: { [id: string]: Portfolio } = ArrayToObject(portfolios);
