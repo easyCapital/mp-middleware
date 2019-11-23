@@ -13,6 +13,7 @@ interface PortfolioInterface {
 
 export default class Portfolio implements PortfolioInterface {
   private id: number;
+  private productIdentifier?: string;
   private product?: Product;
   private amount?: number;
   private srri: number;
@@ -20,8 +21,16 @@ export default class Portfolio implements PortfolioInterface {
   private performances?: { [year: string]: number };
 
   constructor(json: any) {
-    this.id = json.id;
+    this.id = json.id || json.portfolio;
     this.srri = json.srri;
+
+    if (json.amount) {
+      this.amount = json.amount;
+    }
+
+    if (json.product_identifier) {
+      this.productIdentifier = json.product_identifier;
+    }
 
     if (json.performances && Object.keys(json.performances).length > 0) {
       this.performances = json.performances;
@@ -31,6 +40,7 @@ export default class Portfolio implements PortfolioInterface {
   public toJSON(): JsonPortfolioInterface {
     return {
       id: this.id,
+      productIdentifier: this.productIdentifier,
       product: this.product && this.product.toJSON(),
       amount: this.amount,
       srri: this.srri,

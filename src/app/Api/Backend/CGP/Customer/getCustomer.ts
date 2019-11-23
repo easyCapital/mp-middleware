@@ -2,7 +2,7 @@ import { Customer } from '../../../../Models/Customer';
 import { Exception, NotFoundException } from '../../../../Exceptions';
 import BackendApi from '../..';
 
-export default async function searchCGPCustomers(this: BackendApi, id: string): Promise<Customer> {
+export default async function getCustomer(this: BackendApi, id: string): Promise<Customer> {
   try {
     const response = await this.backendClient.get({ url: 'customer/cgp/search', filters: { id } });
     const data = await response.json();

@@ -9,6 +9,8 @@ const Logger = use('Logger');
 export default async function getPropositionDetails(backendApi: BackendApi, data: any): Promise<Proposition> {
   const proposition = new Proposition(data);
 
+  proposition.setPortfolios([]);
+
   if (data.contents && data.contents.length > 0) {
     const portfolioIds = data.contents.map(item => item.portfolio);
     const portfolioProducts = data.contents.map(item => item.product_identifier);

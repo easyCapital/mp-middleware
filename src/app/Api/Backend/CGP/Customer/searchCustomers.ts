@@ -4,7 +4,7 @@ import { Customer } from '../../../../Models/Customer';
 import { Exception } from '../../../../Exceptions';
 import BackendApi from '../..';
 
-export default async function searchCGPCustomers(
+export default async function searchCustomers(
   this: BackendApi,
   filters?: Filters,
   pagination?: Pagination,
