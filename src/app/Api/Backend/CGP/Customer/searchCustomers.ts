@@ -2,6 +2,7 @@ import { Filters, Pagination, Meta } from '@robinfinance/js-api';
 
 import { Customer } from '../../../../Models/Customer';
 import { Exception } from '../../../../Exceptions';
+import { BackendException } from '../../Exceptions';
 import { formatMeta } from '../../Helpers';
 import BackendApi from '../..';
 
@@ -23,7 +24,7 @@ export default async function searchCustomers(
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new Exception(JSON.stringify(error));
+      throw new BackendException(error);
     }
 
     throw new Exception(exception);

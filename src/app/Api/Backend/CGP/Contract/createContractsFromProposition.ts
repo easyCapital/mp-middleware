@@ -1,5 +1,6 @@
 import { Contract } from '../../../../Models/Contract';
 import { Exception } from '../../../../Exceptions';
+import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function createContractsFromProposition(
@@ -28,7 +29,7 @@ export default async function createContractsFromProposition(
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new Exception(JSON.stringify(error));
+      throw new BackendException(error);
     }
 
     throw new Exception(exception);

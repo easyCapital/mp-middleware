@@ -3,6 +3,7 @@ export enum BackendErrorTypes {
   NotFound = 'NotFound',
   PermissionDenied = 'PermissionDenied',
   InvalidCustomerTokenError = 'InvalidCustomerTokenError',
+  InvalidCGPTokenError = 'InvalidCGPTokenError',
   MissingCustomerTokenError = 'MissingCustomerTokenError',
   InvalidCredentialsError = 'InvalidCredentialsError',
 

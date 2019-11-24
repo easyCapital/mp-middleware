@@ -2,6 +2,7 @@ import { Filters } from '@robinfinance/js-api';
 
 import { Product } from '../../../../Models/Product';
 import { Exception, NotFoundException } from '../../../../Exceptions';
+import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function getProduct(this: BackendApi, filters?: Filters): Promise<Product> {
@@ -23,7 +24,7 @@ export default async function getProduct(this: BackendApi, filters?: Filters): P
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new Exception(JSON.stringify(error));
+      throw new BackendException(error);
     }
 
     throw new Exception(exception);

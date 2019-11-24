@@ -11,6 +11,7 @@ export default class BackendException extends HttpException {
       switch (errorKey) {
         case BackendErrorTypes.InvalidCustomerTokenError:
         case BackendErrorTypes.MissingCustomerTokenError:
+        case BackendErrorTypes.InvalidCGPTokenError:
           throw new UnauthorizedException();
 
         default:
