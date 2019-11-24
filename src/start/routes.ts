@@ -122,14 +122,20 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/', 'V1/CGP/CustomerController.search');
   Route.get('/:id', 'V1/CGP/CustomerController.get');
-}).prefix('api/1.0/cgp/customer');
+})
+  .prefix('api/1.0/cgp/customer')
+  .middleware(['auth']);
 
 Route.group(() => {
   Route.get('/', 'V1/CGP/PropositionController.search');
   Route.post('/', 'V1/CGP/PropositionController.create');
   Route.get('/:id', 'V1/CGP/PropositionController.get');
-}).prefix('api/1.0/cgp/customer/:customer/proposition');
+})
+  .prefix('api/1.0/cgp/customer/:customer/proposition')
+  .middleware(['auth']);
 
 Route.group(() => {
   Route.post('/:proposition', 'V1/CGP/ContractController.create');
-}).prefix('api/1.0/cgp/customer/:customer/contract');
+})
+  .prefix('api/1.0/cgp/customer/:customer/contract')
+  .middleware(['auth']);

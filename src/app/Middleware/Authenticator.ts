@@ -7,6 +7,7 @@ class Authenticator {
   protected async handle(ctx: Context, next) {
     ctx.updateToken = updateToken;
     ctx.updateToken({ [`${ctx.app.userType}Token`]: String(ctx.request.header('Authorization')) });
+
     await next();
   }
 }

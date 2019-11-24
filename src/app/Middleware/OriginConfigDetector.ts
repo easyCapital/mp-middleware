@@ -9,12 +9,15 @@ class OriginConfigDetector {
   protected async handle(ctx: Context, next) {
     const origin: string = findOrigin(ctx);
     const originConfig = Config.get('origins')[origin];
+
     if (!originConfig) {
       Logger.warning('%s could not be found in origins config', origin);
       throw new ForbiddenException();
     }
+
     ctx.app = originConfig.app;
     ctx.backendApiKey = originConfig.backendApiKey;
+
     await next();
   }
 }
@@ -27,18 +30,23 @@ export = OriginConfigDetector;
  */
 function findOrigin(ctx: Context): string {
   const origin = ctx.request.header('Origin');
+
   if (origin) {
     return origin;
   }
   const referer = ctx.request.header('Referer');
+
   if (referer) {
     try {
       return new URL(referer).origin;
     } catch (e) {
       Logger.warning('Could not parse referer %s', origin);
+
       throw new ForbiddenException();
     }
   }
+
   Logger.warning('Missing both Origin and Referer headers');
+
   throw new ForbiddenException();
 }
