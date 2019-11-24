@@ -1,15 +1,15 @@
 import { Http } from '../../typings/@adonisjs';
 import BackendApi from '../app/Api/Backend';
-import { App } from './Apps';
 import SymfonyApi from '../app/Api/Symfony';
+import { BackendToken } from '../../src/app/Clients/Backend/BackendClient';
 
 export interface Context extends Http.Context {
   backendApi: BackendApi;
-  app: App;
+  app: any;
   authenticated: boolean;
   backendApiKey: string;
   symfonySession?: any;
   universe?: string;
   symfonyApi: SymfonyApi;
-  updateCustomerToken: (customerToken?: string) => void;
+  updateToken: (token: BackendToken) => void;
 }

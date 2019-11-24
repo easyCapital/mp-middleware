@@ -1,6 +1,6 @@
 const { ServiceProvider } = require('@adonisjs/fold');
 
-import { BackendClient } from '../app/Clients/';
+import BackendClient, { BackendToken } from '../app/Clients/Backend/BackendClient';
 
 class BackendClientProvider extends ServiceProvider {
   public register() {
@@ -8,8 +8,8 @@ class BackendClientProvider extends ServiceProvider {
     const Logger = this.app.use('Logger');
     const host = Config.get('clients.backend.host');
     this.app.singleton('BackendClientBuilder', () => {
-      return (backendApiKey: string, customerToken?: string) => {
-        return new BackendClient(Logger, host, backendApiKey, customerToken);
+      return (backendApiKey: string, token?: BackendToken) => {
+        return new BackendClient(Logger, host, backendApiKey, token);
       };
     });
   }

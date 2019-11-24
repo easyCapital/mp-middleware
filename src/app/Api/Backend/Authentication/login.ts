@@ -4,9 +4,15 @@ import { Exception } from '../../../Exceptions';
 import { AuthenticationException } from '../Exceptions';
 import BackendApi from '..';
 
-export default async function login(this: BackendApi, email: string, password: string): Promise<Token> {
+export default async function login(
+  this: BackendApi,
+  email: string,
+  password: string,
+  userType: string,
+): Promise<Token> {
   try {
-    const response = await this.backendClient.post({ url: 'customer/login' }, { email, password });
+    const response = await this.backendClient.post({ url: `${userType}/login` }, { email, password });
+
     return await response.json();
   } catch (exception) {
     if (typeof exception.json === 'function') {

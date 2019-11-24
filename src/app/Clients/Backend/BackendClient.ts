@@ -1,12 +1,17 @@
 import { format } from 'date-fns';
 
-import { ExpectedJsonResponseException } from '../../Exceptions';
+import { ExpectedJsonResponseException, MultipleTokenException } from '../../Exceptions';
 
-export type BackendClientBuilder = (backendApiKey: string, customerToken?: string) => BackendClientInterface;
+export type BackendClientBuilder = (backendApiKey: string, token?: BackendToken) => BackendClientInterface;
 
 export interface BackendClientInterface {
   get(options: RequestOptions): Promise<any>;
   post(options: RequestOptions, body?: any): Promise<any>;
+}
+
+export interface BackendToken {
+  customerToken?: string;
+  cgpToken?: string;
 }
 
 export interface RequestOptions {
@@ -25,8 +30,12 @@ export default class BackendClient implements BackendClientInterface {
     private readonly logger: any,
     private readonly host: string,
     private readonly apiKey: string,
-    private readonly customerToken?: string,
-  ) {}
+    private readonly token?: BackendToken,
+  ) {
+    if (this.token && this.token.customerToken && this.token.cgpToken) {
+      throw new MultipleTokenException();
+    }
+  }
 
   public async get(options: RequestOptions): Promise<any> {
     return this.call('GET', options);
@@ -44,8 +53,10 @@ export default class BackendClient implements BackendClientInterface {
       Authorization: `token ${this.apiKey}`,
     });
 
-    if (this.customerToken) {
-      headers.set('Customer-Token', this.customerToken);
+    if (this.token && this.token.customerToken) {
+      headers.set('Customer-Token', this.token.customerToken);
+    } else if (this.token && this.token.cgpToken) {
+      headers.set('CGP-Token', this.token.cgpToken);
     }
 
     if (options.pagination) {

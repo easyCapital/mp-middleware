@@ -1,8 +1,10 @@
 import { Answer } from '@robinfinance/js-api';
 
-import { Apps, Context } from '../../types';
+import { Context } from '../../types';
 
 import * as MieuxplacerEvents from './Mieuxplacer';
+
+const Apps = use('Config').get('mpApps');
 
 async function onOnboardingValidation(context: Context, answers: Answer, extra?: any) {
   switch (context.app) {
