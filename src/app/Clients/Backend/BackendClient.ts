@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { Pagination, Filters } from '@robinfinance/js-api';
+import { Pagination, Filters, OrderBy } from '@robinfinance/js-api';
 
 import { ExpectedJsonResponseException, MultipleTokenException } from '../../Exceptions';
 
@@ -19,6 +19,7 @@ export interface RequestOptions {
   url: string;
   pagination?: Pagination;
   filters?: Filters;
+  orderBy?: OrderBy;
 }
 
 export default class BackendClient implements BackendClientInterface {
@@ -63,6 +64,14 @@ export default class BackendClient implements BackendClientInterface {
       const limit = offset + perPage;
 
       headers.set('RANGE', `${offset}-${limit}`);
+    }
+
+    if (options.orderBy) {
+      if (options.orderBy.type === 'asc') {
+        headers.set('ORDER', options.orderBy.key);
+      } else {
+        headers.set('ORDER', `-${options.orderBy.key}`);
+      }
     }
 
     const requestParameters: any = {

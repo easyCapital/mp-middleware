@@ -45,6 +45,11 @@ export default class BackendApi {
   // CGP - Proposition
   public getCGPCustomerPropositions = CGP.getCustomerPropositions;
   public getCGPCustomerProposition = CGP.getCustomerProposition;
+  public createCGPCustomerProposition = CGP.createCustomerProposition;
+  // CGP - Portfolio
+  public createCGPPortfolio = CGP.createPortfolio;
+  // CGP - Product
+  public getProduct = CGP.getProduct;
 
   protected backendClient: BackendClientInterface;
 
