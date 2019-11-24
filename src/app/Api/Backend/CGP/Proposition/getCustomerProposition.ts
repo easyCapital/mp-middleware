@@ -1,6 +1,7 @@
 import { Proposition, Portfolio } from '../../../../Models/Proposition';
 import { Exception, NotFoundException } from '../../../../Exceptions';
 import { ArrayToObject } from '../../../../Helpers';
+import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function getCustomerProposition(
@@ -46,7 +47,7 @@ export default async function getCustomerProposition(
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new Exception(JSON.stringify(error));
+      throw new BackendException(error);
     }
 
     throw new Exception(exception);

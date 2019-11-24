@@ -1,5 +1,6 @@
 import { Portfolio } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
+import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export interface PortfolioDTO {
@@ -42,7 +43,7 @@ export default async function createPortfolio(
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new Exception(JSON.stringify(error));
+      throw new BackendException(error);
     }
 
     throw new Exception(exception);

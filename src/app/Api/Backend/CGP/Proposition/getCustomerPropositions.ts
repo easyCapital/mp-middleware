@@ -1,5 +1,6 @@
 import { Proposition } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
+import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function getCustomerPropositions(this: BackendApi, customerId: string): Promise<Proposition[]> {
@@ -18,7 +19,7 @@ export default async function getCustomerPropositions(this: BackendApi, customer
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new Exception(JSON.stringify(error));
+      throw new BackendException(error);
     }
 
     throw new Exception(exception);

@@ -1,5 +1,6 @@
 import { Customer } from '../../../../Models/Customer';
 import { Exception, NotFoundException } from '../../../../Exceptions';
+import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function getCustomer(this: BackendApi, id: string): Promise<Customer> {
@@ -20,7 +21,7 @@ export default async function getCustomer(this: BackendApi, id: string): Promise
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new Exception(JSON.stringify(error));
+      throw new BackendException(error);
     }
 
     throw new Exception(exception);
