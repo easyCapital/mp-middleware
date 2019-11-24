@@ -142,6 +142,7 @@ Route.group(() => {
 
 Route.group(() => {
   Route.post('/:proposition', 'V1/CGP/ContractController.create');
+  Route.get('/', 'V1/CGP/ContractController.search');
 })
   .prefix('api/1.0/cgp/customer/:customer/contract')
   .middleware(['auth']);
