@@ -1,3 +1,4 @@
+export * from './Contract';
 export * from './Customer';
 export * from './Portfolio';
 export * from './Product';
