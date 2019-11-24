@@ -117,5 +117,6 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/', 'V1/CGP/PropositionController.search');
+  Route.post('/', 'V1/CGP/PropositionController.create');
   Route.get('/:id', 'V1/CGP/PropositionController.get');
 }).prefix('api/1.0/cgp/customer/:customer/proposition');

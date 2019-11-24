@@ -4,7 +4,11 @@ import BackendApi from '../..';
 
 export default async function getCustomerPropositions(this: BackendApi, customerId: string): Promise<Proposition[]> {
   try {
-    const response = await this.backendClient.get({ url: 'proposition/cgp/search', filters: { user_id: customerId } });
+    const response = await this.backendClient.get({
+      url: 'proposition/cgp/search',
+      filters: { user_id: customerId },
+      orderBy: { key: 'created', type: 'desc' },
+    });
     const data = await response.json();
 
     const propositions = data.map(item => new Proposition(item));

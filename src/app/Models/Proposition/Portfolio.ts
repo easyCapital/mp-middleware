@@ -49,6 +49,10 @@ export default class Portfolio implements PortfolioInterface {
     };
   }
 
+  public getId(): number {
+    return this.id;
+  }
+
   public setProduct(product: Product): Portfolio {
     if (product) {
       this.product = product;
@@ -67,6 +71,10 @@ export default class Portfolio implements PortfolioInterface {
     this.srri = srri;
 
     return this;
+  }
+
+  public getAmount(): number | undefined {
+    return this.amount;
   }
 
   public setAmount(amount: number): Portfolio {
