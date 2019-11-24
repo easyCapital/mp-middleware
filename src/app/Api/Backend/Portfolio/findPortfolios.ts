@@ -20,8 +20,8 @@ export default async function findPortfolios(
       const portfolio = new Portfolio(jsonPortfolio);
       const fundIds = jsonPortfolio.lines.map(item => item.line);
 
-      const funds = await this.findFunds({ id__in: fundIds });
-      const fundsById: { [id: string]: Fund } = ArrayToObject(funds);
+      const funds = await this.findFunds(undefined, { id__in: fundIds });
+      const fundsById: { [id: string]: Fund } = ArrayToObject(funds.results);
 
       jsonPortfolio.lines.forEach(item => {
         const fund = fundsById[item.line];
@@ -36,8 +36,12 @@ export default async function findPortfolios(
 
     return portfolios;
   } catch (exception) {
-    const data = await exception.json();
+    if (typeof exception.json === 'function') {
+      const error = await exception.json();
 
-    throw new Exception(JSON.stringify(data));
+      throw new Exception(JSON.stringify(error));
+    }
+
+    throw new Exception(exception);
   }
 }

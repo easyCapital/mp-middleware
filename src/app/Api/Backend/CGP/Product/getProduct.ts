@@ -1,19 +1,15 @@
-import { Filters, Pagination } from '@robinfinance/js-api';
+import { Filters } from '@robinfinance/js-api';
 
 import { Product } from '../../../../Models/Product';
 import { Exception, NotFoundException } from '../../../../Exceptions';
 import BackendApi from '../..';
 
-export default async function getProduct(
-  this: BackendApi,
-  filters?: Filters,
-  pagination?: Pagination,
-): Promise<Product> {
+export default async function getProduct(this: BackendApi, filters?: Filters): Promise<Product> {
   try {
     const response = await this.backendClient.get({
       url: 'product/search',
       filters,
-      pagination,
+      pagination: { page: 1, perPage: 1 },
     });
 
     const data = await response.json();

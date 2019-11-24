@@ -1,27 +1,28 @@
+import { Filters, Pagination, Meta } from '@robinfinance/js-api';
+
 import { Fund } from '../../../Models/Proposition';
 import { Exception } from '../../../Exceptions';
+import { formatMeta } from '../Helpers';
 import BackendApi from '..';
 
 export default async function findFunds(
   this: BackendApi,
-  filters?: { [filter: string]: string | string[] },
-): Promise<Fund[]> {
+  pagination: Pagination = { page: 1, perPage: 100 },
+  filters?: Filters,
+): Promise<{ results: Fund[]; meta: Meta }> {
   try {
     const response = await this.backendClient.get({
       url: 'line/search',
       filters,
+      pagination,
     });
     const data = await response.json();
 
-    const funds: Fund[] = [];
+    const funds = data.map(item => new Fund(item));
 
-    data.forEach(line => {
-      const fund = new Fund(line);
+    const meta = formatMeta(response.headers, pagination);
 
-      funds.push(fund);
-    });
-
-    return funds;
+    return { results: funds, meta };
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const data = await exception.json();
