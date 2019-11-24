@@ -120,3 +120,7 @@ Route.group(() => {
   Route.post('/', 'V1/CGP/PropositionController.create');
   Route.get('/:id', 'V1/CGP/PropositionController.get');
 }).prefix('api/1.0/cgp/customer/:customer/proposition');
+
+Route.group(() => {
+  Route.post('/:proposition', 'V1/CGP/ContractController.create');
+}).prefix('api/1.0/cgp/customer/:customer/contract');
