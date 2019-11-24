@@ -135,6 +135,12 @@ Route.group(() => {
   .middleware(['auth']);
 
 Route.group(() => {
+  Route.post('/prevalidate', 'V1/CGP/PortfolioController.prevalidate');
+})
+  .prefix('api/1.0/cgp/portfolio')
+  .middleware(['auth']);
+
+Route.group(() => {
   Route.post('/:proposition', 'V1/CGP/ContractController.create');
 })
   .prefix('api/1.0/cgp/customer/:customer/contract')
