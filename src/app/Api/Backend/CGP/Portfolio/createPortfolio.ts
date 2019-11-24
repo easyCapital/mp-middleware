@@ -1,16 +1,8 @@
 import { Portfolio } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
+import { PortfolioDTO } from '../../DTO';
 import BackendApi from '../..';
-
-export interface PortfolioDTO {
-  product: string;
-  amount: number;
-  funds: {
-    id: number;
-    weight: number;
-  }[];
-}
 
 export default async function createPortfolio(
   this: BackendApi,

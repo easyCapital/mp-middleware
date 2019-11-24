@@ -24,6 +24,11 @@ export enum BackendErrorTypes {
   ToManyEmailRevalidation = 'ToManyEmailRevalidation',
   EmailValidationError = 'EmailValidationError',
   InvalidEmailStatus = 'InvalidEmailStatus',
+
+  InitialAmountTooLowError = 'InitialAmountTooLowError',
+  InitialAmountTooHighError = 'InitialAmountTooHighError',
+  InconsistentContractInitialDepositError = 'InconsistentContractInitialDepositError',
+  ConstraintsError = 'ConstraintsError',
 }
 
 export type BackendError = {
@@ -31,5 +36,6 @@ export type BackendError = {
     detail: string;
     fields: string[];
     value: any;
+    constraints: string[];
   };
 };

@@ -1,8 +1,8 @@
 import { Portfolio, Proposition } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
+import { PortfolioDTO } from '../../DTO';
 import BackendApi from '../..';
-import { PortfolioDTO } from '../Portfolio/createPortfolio';
 
 export default async function createCustomerProposition(
   this: BackendApi,
