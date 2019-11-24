@@ -39,20 +39,23 @@ export default class BackendApi {
   public validateProposition = Proposition.validateProposition;
   // Prospect
   public createProspect = Prospect.createProspect;
+  // CGP - Answer
+  public createCGPAnswers = CGP.createAnswers;
   // CGP - Contract
   public createCGPContractsFromProposition = CGP.createContractsFromProposition;
+  public findCGPContracts = CGP.findContracts;
   // CGP - Customer
   public getCGPCustomer = CGP.getCustomer;
   public searchCGPCustomer = CGP.searchCustomers;
-  // CGP - Proposition
-  public getCGPCustomerPropositions = CGP.getCustomerPropositions;
-  public getCGPCustomerProposition = CGP.getCustomerProposition;
-  public createCGPCustomerProposition = CGP.createCustomerProposition;
   // CGP - Portfolio
   public createCGPPortfolio = CGP.createPortfolio;
   public prevalidateCGPPortfolio = CGP.prevalidatePortfolio;
   // CGP - Product
   public getProduct = CGP.getProduct;
+  // CGP - Proposition
+  public getCGPCustomerPropositions = CGP.getCustomerPropositions;
+  public getCGPCustomerProposition = CGP.getCustomerProposition;
+  public createCGPCustomerProposition = CGP.createCustomerProposition;
 
   protected backendClient: BackendClientInterface;
 
