@@ -1,7 +1,7 @@
 import { Proposition } from '../../../Models/Proposition';
 import { Exception } from '../../../Exceptions';
 import { PropositionException } from '../Exceptions';
-import getPropositionDetails from '../Helpers/getPropositionDetails';
+import { getPropositionDetails } from '../Helpers';
 import BackendApi from '..';
 
 export default async function getPropositionByToken(this: BackendApi, token: string): Promise<Proposition> {

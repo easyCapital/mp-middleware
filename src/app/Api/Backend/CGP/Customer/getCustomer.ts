@@ -4,7 +4,11 @@ import BackendApi from '../..';
 
 export default async function getCustomer(this: BackendApi, id: string): Promise<Customer> {
   try {
-    const response = await this.backendClient.get({ url: 'customer/cgp/search', filters: { id } });
+    const response = await this.backendClient.get({
+      url: 'customer/cgp/search',
+      filters: { id },
+      pagination: { page: 1, perPage: 1 },
+    });
     const data = await response.json();
 
     if (data.length > 0) {

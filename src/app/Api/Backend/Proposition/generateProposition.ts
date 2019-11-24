@@ -1,7 +1,7 @@
 import { Exception } from '../../../Exceptions';
 import { Proposition } from '../../../Models/Proposition';
+import { getPropositionDetails } from '../Helpers';
 import BackendApi from '..';
-import getPropositionDetails from '../Helpers/getPropositionDetails';
 
 export default async function generateProposition(
   this: BackendApi,
