@@ -10,9 +10,9 @@ export default class ContractTask implements ContractTaskInterface {
   private order;
 
   constructor(json: any) {
-    this.type = json.type;
-    this.status = TaskStatuses[json.status.toUpperCase()];
-    this.order = TaskTypes[json.order.toUpperCase()];
+    this.type = TaskTypes[json.subject.type.toUpperCase()];
+    this.status = TaskStatuses[json.status_name.toUpperCase()];
+    this.order = json.id;
   }
 
   public toJSON(): JsonContractTaskInterface {
