@@ -1,4 +1,4 @@
-import { Filters, Pagination, Meta, Customer } from '@robinfinance/js-api';
+import { Filters, Pagination, Meta } from '@robinfinance/js-api';
 
 import { Contract } from '../../../../Models/Contract';
 import { Exception } from '../../../../Exceptions';
@@ -7,7 +7,6 @@ import BackendApi from '../..';
 
 export default async function findContracts(
   this: BackendApi,
-  customer: Customer,
   pagination: Pagination = { page: 1, perPage: 10 },
   filters?: Filters,
 ): Promise<{ results: Contract[]; meta: Meta }> {
@@ -15,7 +14,6 @@ export default async function findContracts(
     const response = await this.backendClient.get({
       url: 'contract/cgp/search',
       filters,
-      pagination,
     });
     const data = await response.json();
 
