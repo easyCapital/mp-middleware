@@ -7,7 +7,7 @@ import BackendApi from '../..';
 
 export default async function findContractTasks(
   this: BackendApi,
-  pagination: Pagination = { page: 1, perPage: 10 },
+  pagination: Pagination = { page: 1, perPage: 100 },
   filters?: Filters,
 ): Promise<{ results: ContractTask[]; meta: Meta }> {
   try {
