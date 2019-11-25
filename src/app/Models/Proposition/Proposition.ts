@@ -1,4 +1,4 @@
-import { Proposition as JsonPropositionInterface, Answer } from '@robinfinance/js-api';
+import { Proposition as JsonPropositionInterface, Answer, Origin, Origins } from '@robinfinance/js-api';
 
 import { Portfolio } from '.';
 import { Advice } from '../Prismic';
@@ -15,16 +15,19 @@ export default class Proposition implements PropositionInterface {
   private universe: string;
   private userId?: number;
   private userEmail?: string;
+  private origin: Origin;
   private token: string;
   private weightedSrri: number;
   private answers: Answer = {};
   private investorType?: Advice;
   private portfolios: Portfolio[] = [];
+  private contracts: number[] = [];
 
   constructor(json: any) {
     this.id = json.id;
     this.created = json.created;
     this.universe = json.universe;
+    this.origin = json.cgp === null ? Origins.MIEUXPLACER : Origins.CGP;
     this.token = json.token;
     this.weightedSrri = json.srri_weighted;
 
@@ -55,6 +58,10 @@ export default class Proposition implements PropositionInterface {
         this.portfolios.push(new Portfolio(portfolio));
       });
     }
+
+    if (json.contracts) {
+      this.contracts = json.contracts;
+    }
   }
 
   public toJSON(): JsonPropositionInterface {
@@ -65,10 +72,12 @@ export default class Proposition implements PropositionInterface {
       universe: this.universe,
       userId: this.userId,
       userEmail: this.userEmail,
+      origin: this.origin,
       weightedSrri: this.weightedSrri,
       answers: this.answers,
       investorType: this.investorType && this.investorType.toJSON(),
       portfolios: this.portfolios.map(portfolio => portfolio.toJSON()),
+      contracts: this.contracts,
     };
   }
 
