@@ -17,10 +17,10 @@ class Authenticator {
  */
 function updateToken(this: Context, token: BackendToken) {
   if (token) {
-    this.authenticated = Boolean(token.cgpToken) || Boolean(token.customerToken);
     this.backendApi = new BackendApi(this.backendApiKey, token);
     this.symfonyApi = new SymfonyApi(token.customerToken);
   }
+  this.authenticated = Boolean(token.cgpToken) || Boolean(token.customerToken);
 }
 
 export = Authenticator;
