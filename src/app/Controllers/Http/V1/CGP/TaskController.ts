@@ -19,8 +19,13 @@ class CGPTaskController {
       type: TaskTypes.QUESTION,
       status: TaskStatuses.TODO,
     });
+
     const questionIds = tasks.map(task => task.getKey());
-    const questions = await backendApi.getQuestions(questionIds);
+    let questions = {};
+
+    if (questionIds.length > 0) {
+      questions = await backendApi.getQuestions(questionIds);
+    }
 
     response.status(200).send(Object.values(questions));
   }
