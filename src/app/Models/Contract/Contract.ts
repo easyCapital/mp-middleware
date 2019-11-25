@@ -1,10 +1,11 @@
-import { Contract as JsonContractInterface } from '@robinfinance/js-api';
+import { Contract as JsonContractInterface, Task } from '@robinfinance/js-api';
 
 interface ContractInterface {
   toJSON(): JsonContractInterface;
 }
 
 export default class Contract implements ContractInterface {
+  public tasks?: Task[] = [];
   private id: number;
   private name: string;
   private product: string;
@@ -21,6 +22,9 @@ export default class Contract implements ContractInterface {
     this.subscriptionFee = json.subscription_fee;
     this.totalAmount = json.total_amount;
     this.includedSubscriptionFee = json.is_included_subscription_fee;
+    if (json.tasks) {
+      this.tasks = json.tasks;
+    }
   }
 
   public toJSON(): JsonContractInterface {
@@ -32,6 +36,11 @@ export default class Contract implements ContractInterface {
       subscriptionFee: this.subscriptionFee,
       totalAmount: this.totalAmount,
       includedSubscriptionFee: this.includedSubscriptionFee,
+      tasks: this.tasks,
     };
+  }
+
+  public getId(): number {
+    return this.id;
   }
 }
