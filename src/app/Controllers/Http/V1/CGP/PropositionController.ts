@@ -1,11 +1,13 @@
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
+import { Filters } from '@robinfinance/js-api';
 
 class CGPPropositionController {
-  public async search({ params, response, backendApi }: Context) {
+  public async search({ params, request, response, backendApi }: Context) {
     const { customer } = params;
+    const filters = request.input('filters') as Filters;
 
-    const propositions = await backendApi.getCGPCustomerPropositions(customer);
+    const propositions = await backendApi.getCGPCustomerPropositions(customer, filters);
 
     response.status(200).send(propositions);
   }

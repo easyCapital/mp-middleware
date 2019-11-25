@@ -15,7 +15,7 @@ export = {
     backendApiKey: mpBackendApiKey,
   },
   'http://admin.mieuxplacer.local': {
-    app: Apps.ADMIN,
+    app: Apps.CONSEIL,
     backendApiKey: mpBackendApiKey,
   },
   'http://mif.mieuxplacer.local': {
@@ -35,7 +35,7 @@ export = {
     backendApiKey: mpBackendApiKey,
   },
   'http://admin.mieuxplacer.dev.robintech.co': {
-    app: Apps.ADMIN,
+    app: Apps.CONSEIL,
     backendApiKey: mpBackendApiKey,
   },
   'http://mif.mieuxplacer.dev.robintech.co': {
