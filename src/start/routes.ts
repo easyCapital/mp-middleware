@@ -159,3 +159,10 @@ Route.group(() => {
 })
   .prefix('api/1.0/cgp/contract')
   .middleware(['auth']);
+
+Route.group(() => {
+  Route.post('/', 'V1/CGP/AnswerController.create');
+  Route.get('/', 'V1/CGP/AnswerController.search');
+})
+  .prefix('api/1.0/cgp/customer/:customer/answer')
+  .middleware(['auth']);
