@@ -146,3 +146,9 @@ Route.group(() => {
 })
   .prefix('api/1.0/cgp/customer/:customer/contract')
   .middleware(['auth']);
+
+Route.group(() => {
+  Route.get('/', 'V1/CGP/ContractTaskController.search');
+})
+  .prefix('api/1.0/cgp/contract/:contract/contract-task')
+  .middleware(['auth']);
