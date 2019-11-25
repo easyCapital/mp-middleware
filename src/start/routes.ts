@@ -120,6 +120,12 @@ Route.group(() => {
 |--------------------------------------------------------------------------
 */
 Route.group(() => {
+  Route.get('/', 'V1/CGP/UserController.get');
+})
+  .prefix('api/1.0/cgp')
+  .middleware(['auth']);
+
+Route.group(() => {
   Route.get('/', 'V1/CGP/CustomerController.search');
   Route.get('/:id', 'V1/CGP/CustomerController.get');
 })
