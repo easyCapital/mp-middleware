@@ -1,6 +1,6 @@
 import { Context } from '../../../../../types';
 
-class AnswerController {
+class CGPAnswerController {
   public async create({ params, request, response, backendApi }: Context) {
     const { customer } = params;
     const answers: any = request.post();
@@ -11,4 +11,4 @@ class AnswerController {
   }
 }
 
-export = AnswerController;
+export = CGPAnswerController;

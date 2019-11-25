@@ -3,6 +3,7 @@ import { Filters } from '@robinfinance/js-api';
 import { Task } from '../../../../Models/Contract';
 import { TaskTypeMapper, TaskStatusMapper } from '../../../../Mappers/Contract';
 import { Exception } from '../../../../Exceptions';
+import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function getContractTasks(
@@ -32,9 +33,9 @@ export default async function getContractTasks(
     return tasks;
   } catch (exception) {
     if (typeof exception.json === 'function') {
-      const data = await exception.json();
+      const error = await exception.json();
 
-      throw new Exception(JSON.stringify(data));
+      throw new BackendException(error);
     }
 
     throw new Exception(exception);

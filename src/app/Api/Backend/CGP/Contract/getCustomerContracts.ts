@@ -2,6 +2,7 @@ import { Filters } from '@robinfinance/js-api';
 
 import { Contract } from '../../../../Models/Contract';
 import { Exception } from '../../../../Exceptions';
+import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function getCustomerContracts(
@@ -22,9 +23,9 @@ export default async function getCustomerContracts(
     return contracts;
   } catch (exception) {
     if (typeof exception.json === 'function') {
-      const data = await exception.json();
+      const error = await exception.json();
 
-      throw new Exception(JSON.stringify(data));
+      throw new BackendException(error);
     }
 
     throw new Exception(exception);
