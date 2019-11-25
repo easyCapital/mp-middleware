@@ -1,4 +1,4 @@
-import { Filters, Pagination } from '@robinfinance/js-api';
+import { Filters } from '@robinfinance/js-api';
 import { Context } from '../../../../../types';
 
 class CGPContractController {
@@ -12,12 +12,9 @@ class CGPContractController {
 
   public async search({ params, request, response, backendApi }: Context) {
     const { customer } = params;
-    const pagination = request.input('pagination') as Pagination;
-    let filters = request.input('filters') as Filters;
-    if ((filters && !('users' in filters)) || !filters) {
-      filters = { users: customer };
-    }
-    const contracts = await backendApi.findCGPContracts(pagination, filters);
+    const filters = request.input('filters') as Filters;
+
+    const contracts = await backendApi.getCGPCustomerContracts(customer, filters);
 
     response.status(200).send(contracts);
   }

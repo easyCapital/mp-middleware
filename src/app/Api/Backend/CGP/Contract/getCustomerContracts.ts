@@ -1,27 +1,25 @@
-import { Filters, Pagination, Meta } from '@robinfinance/js-api';
+import { Filters } from '@robinfinance/js-api';
 
 import { Contract } from '../../../../Models/Contract';
 import { Exception } from '../../../../Exceptions';
-import { formatMeta } from '../../Helpers';
 import BackendApi from '../..';
 
-export default async function findContracts(
+export default async function getCustomerContracts(
   this: BackendApi,
-  pagination: Pagination = { page: 1, perPage: 10 },
+  customerId: string,
   filters?: Filters,
-): Promise<{ results: Contract[]; meta: Meta }> {
+): Promise<Contract[]> {
   try {
     const response = await this.backendClient.get({
       url: 'contract/cgp/search',
-      filters,
+      filters: filters ? { ...filters, users: customerId } : { users: customerId },
+      orderBy: { key: 'date_created', type: 'desc' },
     });
     const data = await response.json();
 
     const contracts = data.map(item => new Contract(item));
 
-    const meta = formatMeta(response.headers, pagination);
-
-    return { results: contracts, meta };
+    return contracts;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const data = await exception.json();
