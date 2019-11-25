@@ -141,14 +141,15 @@ Route.group(() => {
   .middleware(['auth']);
 
 Route.group(() => {
-  Route.post('/:proposition', 'V1/CGP/ContractController.create');
   Route.get('/', 'V1/CGP/ContractController.search');
+  Route.post('/:proposition', 'V1/CGP/ContractController.create');
 })
   .prefix('api/1.0/cgp/customer/:customer/contract')
   .middleware(['auth']);
 
 Route.group(() => {
-  Route.get('/', 'V1/CGP/ContractTaskController.search');
+  Route.get('/:contract/task', 'V1/CGP/TaskController.search');
+  Route.get('/:contract/task/complementary-question', 'V1/CGP/TaskController.complementaryQuestions');
 })
-  .prefix('api/1.0/cgp/contract/:contract/contract-task')
+  .prefix('api/1.0/cgp/contract')
   .middleware(['auth']);
