@@ -1,7 +1,9 @@
-import { Proposition as JsonPropositionInterface, Answer, Origin, Origins } from '@robinfinance/js-api';
+import { Proposition as JsonPropositionInterface, Origin, Origins } from '@robinfinance/js-api';
 
 import { Portfolio } from '.';
 import { Advice } from '../Prismic';
+import { Answer } from '../Answer';
+import { formatAnswers } from '../../Api/Backend/Helpers';
 
 interface PropositionInterface {
   toJSON(): JsonPropositionInterface;
@@ -18,7 +20,7 @@ export default class Proposition implements PropositionInterface {
   private origin: Origin;
   private token: string;
   private weightedSrri: number;
-  private answers: Answer = {};
+  private answers: Answer[] = [];
   private investorType?: Advice;
   private portfolios: Portfolio[] = [];
   private contracts: number[] = [];
@@ -40,17 +42,17 @@ export default class Proposition implements PropositionInterface {
     }
 
     if (json.answers) {
-      json.answers.forEach(answer => {
-        if (this.answers[answer.question]) {
-          const existingAnswer = this.answers[answer.question];
+      const answers: { [key: string]: Answer } = {};
 
-          this.answers[answer.question] = Array.isArray(existingAnswer)
-            ? [...existingAnswer, answer.value]
-            : [existingAnswer, answer.value];
+      json.answers.forEach(answer => {
+        if (answers[answer.question]) {
+          answers[answer.question].addValue(answer.value);
         } else {
-          this.answers[answer.question] = answer.value;
+          answers[answer.question] = new Answer(answer);
         }
       });
+
+      this.answers = Object.values(answers);
     }
 
     if (json.contents) {
@@ -74,7 +76,7 @@ export default class Proposition implements PropositionInterface {
       userEmail: this.userEmail,
       origin: this.origin,
       weightedSrri: this.weightedSrri,
-      answers: this.answers,
+      answers: formatAnswers(this.answers),
       investorType: this.investorType && this.investorType.toJSON(),
       portfolios: this.portfolios.map(portfolio => portfolio.toJSON()),
       contracts: this.contracts,

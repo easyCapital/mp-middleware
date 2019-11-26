@@ -1,2 +1,2 @@
-export { default as createAnswers } from './createAnswers';
+export { default as createCustomerAnswers } from './createCustomerAnswers';
 export { default as getCustomerAnswers } from './getCustomerAnswers';

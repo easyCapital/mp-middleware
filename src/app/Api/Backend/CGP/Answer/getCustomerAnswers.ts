@@ -17,9 +17,17 @@ export default async function getCustomerAnswers(
     });
     const data = await response.json();
 
-    const answers = data.map(item => new Answer(item));
+    const answers: { [key: string]: Answer } = {};
 
-    return answers;
+    data.forEach(answer => {
+      if (answers[answer.question]) {
+        answers[answer.question].addValue(answer.value);
+      } else {
+        answers[answer.question] = new Answer(answer);
+      }
+    });
+
+    return Object.values(answers);
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();

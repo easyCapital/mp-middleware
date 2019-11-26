@@ -41,7 +41,7 @@ export default class BackendApi {
   public createProspect = Prospect.createProspect;
   // CGP - Answer
   public getCGPCustomerAnswers = CGP.getCustomerAnswers;
-  public createCGPAnswers = CGP.createAnswers;
+  public createCGPAnswers = CGP.createCustomerAnswers;
   // CGP - Contract
   public createCGPContractsFromProposition = CGP.createContractsFromProposition;
   public getCGPCustomerContracts = CGP.getCustomerContracts;
