@@ -15,7 +15,6 @@ export default class Task implements TaskInterface {
   private parentId?: number;
 
   constructor(json: any) {
-    console.log(json);
     this.key = json.subject.key;
     this.type = TaskTypeMapper.transformValue(json.subject.type);
     this.subType = TaskTypeMapper.transformValue(json.subject.subtasks_type);
