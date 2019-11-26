@@ -45,11 +45,11 @@ export default class BackendApi {
   // CGP - Contract
   public createCGPContractsFromProposition = CGP.createContractsFromProposition;
   public getCGPCustomerContracts = CGP.getCustomerContracts;
-  // CGP - Task
-  public getGCPContractTasks = CGP.getContractTasks;
   // CGP - Customer
   public getCGPCustomer = CGP.getCustomer;
   public searchCGPCustomer = CGP.searchCustomers;
+  // CGP - File
+  public getCGPCustomerFiles = CGP.getCustomerFiles;
   // CGP - Portfolio
   public createCGPPortfolio = CGP.createPortfolio;
   public prevalidateCGPPortfolio = CGP.prevalidatePortfolio;
@@ -59,6 +59,8 @@ export default class BackendApi {
   public getCGPCustomerPropositions = CGP.getCustomerPropositions;
   public getCGPCustomerProposition = CGP.getCustomerProposition;
   public createCGPCustomerProposition = CGP.createCustomerProposition;
+  // CGP - Task
+  public getGCPContractTasks = CGP.getContractTasks;
   // CGP - User
   public getCGPDetails = CGP.getCGPDetails;
 

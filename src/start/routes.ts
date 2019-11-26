@@ -161,6 +161,18 @@ Route.group(() => {
   .middleware(['auth']);
 
 Route.group(() => {
+  Route.get('/', 'V1/CGP/FileController.search');
+})
+  .prefix('api/1.0/cgp/contract/:contract/file')
+  .middleware(['auth']);
+
+Route.group(() => {
+  Route.get('/', 'V1/CGP/FileController.search');
+})
+  .prefix('api/1.0/cgp/customer/:customer/file')
+  .middleware(['auth']);
+
+Route.group(() => {
   Route.post('/', 'V1/CGP/AnswerController.create');
   Route.get('/', 'V1/CGP/AnswerController.search');
 })
