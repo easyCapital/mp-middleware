@@ -13,7 +13,7 @@ export default async function getCustomerAnswers(
   try {
     const response = await this.backendClient.get({
       url: 'answer/cgp/search',
-      filters: filters ? { ...filters, user: customerId } : { users: customerId },
+      filters: filters ? { ...filters, user: customerId } : { user: customerId },
     });
     const data = await response.json();
 
