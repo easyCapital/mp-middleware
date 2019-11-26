@@ -9,14 +9,19 @@ interface TaskInterface {
 export default class Task implements TaskInterface {
   private key: string;
   private type?: TaskType;
+  private subType?: TaskType;
   private status?: TaskStatus;
   private order: number;
+  private parentId?: number;
 
   constructor(json: any) {
+    console.log(json);
     this.key = json.subject.key;
     this.type = TaskTypeMapper.transformValue(json.subject.type);
+    this.subType = TaskTypeMapper.transformValue(json.subject.subtasks_type);
     this.status = TaskStatusMapper.transformValue(json.status);
     this.order = json.id;
+    this.parentId = json.parent ? json.parent : undefined;
   }
 
   public toJSON(): JsonTaskInterface {
@@ -24,7 +29,9 @@ export default class Task implements TaskInterface {
       key: this.key,
       status: this.status,
       type: this.type,
+      subType: this.subType,
       order: this.order,
+      parentId: this.parentId,
     };
   }
 
