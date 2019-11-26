@@ -1,4 +1,5 @@
-import { Filters, TaskTypes } from '@robinfinance/js-api';
+import { Filters } from '@robinfinance/js-api';
+
 import { Contract } from '../../../../Models/Contract';
 import { Context } from '../../../../../types';
 
@@ -15,19 +16,7 @@ class CGPContractController {
     const { customer } = params;
     const filters = request.input('filters') as Filters;
 
-    let contracts: Contract[] = await backendApi.getCGPCustomerContracts(customer, filters);
-
-    contracts = await Promise.all(
-      contracts.map(async (item: Contract) => {
-        const tasks = await backendApi.getGCPContractTasks(item.getId().toString(), {
-          type: TaskTypes.CONTAINER,
-        });
-
-        item.setTasks(tasks);
-
-        return item;
-      }),
-    );
+    const contracts: Contract[] = await backendApi.getCGPCustomerContracts(customer, filters);
 
     response.status(200).send(contracts);
   }
