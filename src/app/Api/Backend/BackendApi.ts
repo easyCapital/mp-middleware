@@ -50,6 +50,7 @@ export default class BackendApi {
   public searchCGPCustomer = CGP.searchCustomers;
   // CGP - File
   public getCGPCustomerFiles = CGP.getCustomerFiles;
+  public downloadCGPCustomerFile = CGP.downloadCustomerFile;
   // CGP - Portfolio
   public createCGPPortfolio = CGP.createPortfolio;
   public prevalidateCGPPortfolio = CGP.prevalidatePortfolio;

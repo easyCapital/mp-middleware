@@ -1,6 +1,5 @@
 import { Filters } from '@robinfinance/js-api';
 
-import { File } from '../../../../Models/File';
 import { Context } from '../../../../../types';
 
 class CGPContractFileController {
@@ -8,11 +7,21 @@ class CGPContractFileController {
     const { customer, contract } = params;
     let filters = request.input('filters') as Filters;
 
-    filters = customer ? { ...filters, user: customer } : contract ? { ...filters, contract } : { ...filters };
+    filters = customer
+      ? { ...filters, user: customer }
+      : contract
+      ? { ...filters, contracts: contract }
+      : { ...filters };
 
-    const files: File[] = await backendApi.getCGPCustomerFiles(filters);
+    const files = await backendApi.getCGPCustomerFiles(filters);
 
     response.status(200).send(files);
+  }
+
+  public async download({ params, req, res, backendApi }: Context) {
+    const { id } = params;
+
+    await backendApi.downloadCGPCustomerFile(req, res, id);
   }
 }
 

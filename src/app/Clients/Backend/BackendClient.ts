@@ -1,4 +1,6 @@
 import { format } from 'date-fns';
+import { IncomingMessage, ServerResponse } from 'http';
+import httpProxy from 'http-proxy';
 import { Pagination, Filters, OrderBy } from '@robinfinance/js-api';
 
 import { ExpectedJsonResponseException, MultipleTokenException } from '../../Exceptions';
@@ -8,6 +10,7 @@ export type BackendClientBuilder = (backendApiKey: string, token?: BackendToken)
 export interface BackendClientInterface {
   get(options: RequestOptions): Promise<any>;
   post(options: RequestOptions, body?: any): Promise<any>;
+  proxy(req: IncomingMessage, res: ServerResponse, options: RequestOptions): Promise<any>;
 }
 
 export interface BackendToken {
@@ -40,6 +43,35 @@ export default class BackendClient implements BackendClientInterface {
 
   public async post(options: RequestOptions, body?: any): Promise<any> {
     return this.call('POST', options, body);
+  }
+
+  public async proxy(req: IncomingMessage, res: ServerResponse, options: RequestOptions): Promise<void> {
+    const url = new URL(`${this.host}/api/${options.url}`);
+
+    const proxy = httpProxy.createProxyServer();
+    const responseEndPromise = this.buildProxyResponseEndPromise(proxy, req, url.href);
+
+    proxy.web(req, res, this.proxyParams(url.href));
+
+    return responseEndPromise;
+  }
+
+  private proxyParams(url: string): httpProxy.ServerOptions {
+    const params: httpProxy.ServerOptions = {
+      target: url,
+      ignorePath: true,
+      changeOrigin: true,
+    };
+
+    params.headers = { Authorization: `token ${this.apiKey}` };
+
+    if (this.token && this.token.customerToken) {
+      params.headers['Customer-Token'] = this.token.customerToken;
+    } else if (this.token && this.token.cgpToken) {
+      params.headers['CGP-Token'] = this.token.cgpToken;
+    }
+
+    return params;
   }
 
   private async call(method: string, options: RequestOptions, body?: any): Promise<any> {
@@ -122,5 +154,25 @@ export default class BackendClient implements BackendClientInterface {
     }
 
     return response;
+  }
+
+  /**
+   * we need to wait for the proxying to finish, otherwise Adonis will return an empty 204 response
+   */
+  private buildProxyResponseEndPromise(proxy: httpProxy, req: IncomingMessage, symfonyUrl: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      proxy.on('error', error => {
+        this.logger.error('Error while proxying %s to %s: %s', req.url, symfonyUrl, error);
+
+        reject(error);
+      });
+
+      proxy.on('proxyRes', proxyRes => {
+        proxyRes.on('end', () => {
+          this.logger.debug('Done proxying %s to %s done', req.url, symfonyUrl);
+          resolve();
+        });
+      });
+    });
   }
 }

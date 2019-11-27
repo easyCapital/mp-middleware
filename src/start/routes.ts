@@ -133,6 +133,13 @@ Route.group(() => {
   .middleware(['auth']);
 
 Route.group(() => {
+  Route.post('/', 'V1/CGP/AnswerController.create');
+  Route.get('/', 'V1/CGP/AnswerController.search');
+})
+  .prefix('api/1.0/cgp/customer/:customer/answer')
+  .middleware(['auth']);
+
+Route.group(() => {
   Route.get('/', 'V1/CGP/PropositionController.search');
   Route.post('/', 'V1/CGP/PropositionController.create');
   Route.get('/:id', 'V1/CGP/PropositionController.get');
@@ -173,8 +180,7 @@ Route.group(() => {
   .middleware(['auth']);
 
 Route.group(() => {
-  Route.post('/', 'V1/CGP/AnswerController.create');
-  Route.get('/', 'V1/CGP/AnswerController.search');
+  Route.get('/', 'V1/CGP/FileController.download');
 })
-  .prefix('api/1.0/cgp/customer/:customer/answer')
+  .prefix('api/1.0/cgp/file/:id/download')
   .middleware(['auth']);
