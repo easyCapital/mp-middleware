@@ -184,3 +184,9 @@ Route.group(() => {
 })
   .prefix('api/1.0/cgp/file/:id/download')
   .middleware(['auth']);
+
+Route.group(() => {
+  Route.get('/', 'V1/CGP/MissionReportController.download');
+})
+  .prefix('api/1.0/cgp/proposition/:token/download')
+  .middleware(['auth']);
