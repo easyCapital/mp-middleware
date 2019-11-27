@@ -48,6 +48,8 @@ export default class BackendClient implements BackendClientInterface {
   public async proxy(req: IncomingMessage, res: ServerResponse, options: RequestOptions): Promise<void> {
     const url = new URL(`${this.host}/api/${options.url}`);
 
+    this.logger.info('Proxying %s to %s', req.url, url.href);
+
     const proxy = httpProxy.createProxyServer();
     const responseEndPromise = this.buildProxyResponseEndPromise(proxy, req, url.href);
 
