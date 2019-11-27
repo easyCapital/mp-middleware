@@ -1,24 +1,15 @@
-import { ErrorType, ErrorTypes } from '@robinfinance/js-api';
+import { ErrorTypes } from '@robinfinance/js-api';
+import GenericMapper from '../GenericMapper';
 
-const Logger = use('Logger');
+const ErrorTypeMapping = {
+  default: ErrorTypes.DEFAULT,
+  required: ErrorTypes.REQUIRED,
+  min: ErrorTypes.MIN,
+  max: ErrorTypes.MAX,
+};
 
-enum ErrorTypeMapping {
-  'default' = ErrorTypes.DEFAULT,
-  'required' = ErrorTypes.REQUIRED,
-  'min' = ErrorTypes.MIN,
-  'max' = ErrorTypes.MAX,
+class ErrorTypeMapper extends GenericMapper<ErrorTypes> {
+  protected readonly mapping = ErrorTypeMapping;
 }
 
-export default class ErrorTypeMapper {
-  public static transformValue(value: string): ErrorType | null {
-    const mappedValue = ErrorTypeMapping[value];
-
-    if (mappedValue) {
-      return mappedValue;
-    }
-
-    Logger.warning('Missing mapping value in %s for %s', 'ErrorTypeMapper', value);
-
-    return null;
-  }
-}
+export default new ErrorTypeMapper();

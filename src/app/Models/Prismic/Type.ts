@@ -13,7 +13,7 @@ export default class Type extends ContentType implements TypeInterface {
   private labelSingular: string;
   private labelPlural: string;
   private labelDemonstrative: string;
-  private gender: Gender | null;
+  private gender?: Gender;
   private description: string;
   private icon: Image;
 

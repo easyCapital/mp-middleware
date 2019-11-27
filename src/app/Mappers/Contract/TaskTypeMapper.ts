@@ -1,6 +1,5 @@
-import { TaskTypes, TaskType } from '@robinfinance/js-api';
-
-const Logger = use('Logger');
+import { TaskTypes } from '@robinfinance/js-api';
+import GenericMapper from '../GenericMapper';
 
 const TaskTypeMapping = {
   '1': TaskTypes.KYC,
@@ -14,28 +13,8 @@ const TaskTypeMapping = {
   '9': TaskTypes.SIGNATURE_DIGITAL,
 };
 
-export default class TaskTypeMapper {
-  public static transformValue(value: string): TaskType | undefined {
-    const mappedValue = TaskTypeMapping[value];
-
-    if (mappedValue) {
-      return mappedValue;
-    }
-
-    Logger.info('Missing mapping value in %s for %s', 'TaskTypeMapper', value);
-
-    return undefined;
-  }
-
-  public static reverseTransform(value: TaskType): string | undefined {
-    const key = Object.keys(TaskTypeMapping).find(item => TaskTypeMapping[item] === value);
-
-    if (key) {
-      return key;
-    }
-
-    Logger.info('Missing reverse mapping value in %s for %s', 'TaskTypeMapper', value);
-
-    return undefined;
-  }
+class TaskTypeMapper extends GenericMapper<TaskTypes> {
+  protected readonly mapping = TaskTypeMapping;
 }
+
+export default new TaskTypeMapper();

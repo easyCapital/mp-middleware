@@ -7,7 +7,7 @@ interface ErrorInterface {
 }
 
 export default class Error implements ErrorInterface {
-  private type: ErrorTypes | null;
+  private type?: ErrorTypes;
   private label: string;
 
   constructor(type: string, label: string) {
