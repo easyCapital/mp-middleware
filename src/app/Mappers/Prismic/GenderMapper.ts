@@ -8,7 +8,7 @@ enum GenderMapping {
 }
 
 export default class GenderMapper {
-  public static transformValue(value: string): Gender | null {
+  public static transformValue(value: string): Gender | undefined {
     const mappedValue = GenderMapping[value];
 
     if (mappedValue) {
@@ -17,6 +17,6 @@ export default class GenderMapper {
 
     Logger.info('Missing mapping value in %s for %s', 'GenderMapper', value);
 
-    return null;
+    return undefined;
   }
 }

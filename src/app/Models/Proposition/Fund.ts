@@ -12,7 +12,7 @@ export default class Fund implements FundInterface {
   private weight?: number;
   private isin: string;
   private name: string;
-  private type: FundType | null;
+  private type?: FundType;
   private morningStarId: string;
   private diciUrl?: string;
   private srri: number;

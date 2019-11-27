@@ -13,7 +13,7 @@ const FundTypeMapping = {
 };
 
 export default class FundTypeMapper {
-  public static transformValue(value: string): FundType | null {
+  public static transformValue(value: string): FundType | undefined {
     const mappedValue = FundTypeMapping[value];
 
     if (mappedValue) {
@@ -22,6 +22,6 @@ export default class FundTypeMapper {
 
     Logger.info('Missing mapping value in %s for %s', 'FundTypeMapper', value);
 
-    return null;
+    return undefined;
   }
 }
