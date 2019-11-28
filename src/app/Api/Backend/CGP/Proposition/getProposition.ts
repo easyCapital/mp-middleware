@@ -4,15 +4,11 @@ import { ArrayToObject } from '../../../../Helpers';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function getCustomerProposition(
-  this: BackendApi,
-  customerId: string,
-  id: string,
-): Promise<Proposition> {
+export default async function getProposition(this: BackendApi, id: string): Promise<Proposition> {
   try {
     const response = await this.backendClient.get({
       url: 'proposition/cgp/search',
-      filters: { user_id: customerId, id },
+      filters: { id },
     });
     const data = await response.json();
 
