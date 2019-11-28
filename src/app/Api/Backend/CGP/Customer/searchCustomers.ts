@@ -12,7 +12,12 @@ export default async function searchCustomers(
   filters?: Filters,
 ): Promise<{ results: Customer[]; meta: Meta }> {
   try {
-    const response = await this.backendClient.get({ url: 'customer/cgp/search', filters, pagination });
+    const response = await this.backendClient.get({
+      url: 'customer/cgp/search',
+      filters,
+      pagination,
+      orderBy: { key: 'last_modified', type: 'desc' },
+    });
     const data = await response.json();
 
     const customers = data.map(item => new Customer(item));
