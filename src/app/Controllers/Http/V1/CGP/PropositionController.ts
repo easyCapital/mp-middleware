@@ -1,6 +1,7 @@
 import { Filters } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
+import { Proposition } from '../../../../Models/Proposition';
 import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPPropositionController {
@@ -30,6 +31,15 @@ class CGPPropositionController {
     const { id } = params;
 
     const proposition = await backendApi.getCGPProposition(id);
+
+    response.status(200).send(proposition);
+  }
+
+  public async generate(context: Context) {
+    const { request, response, backendApi, universe } = context;
+    const { customerId }: any = request.post();
+
+    const proposition: Proposition = await backendApi.generateCGPCustomerProposition(universe, customerId);
 
     response.status(200).send(proposition);
   }
