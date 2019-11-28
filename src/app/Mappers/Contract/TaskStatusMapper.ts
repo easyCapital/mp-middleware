@@ -1,6 +1,5 @@
-import { TaskStatuses, TaskStatus } from '@robinfinance/js-api';
-
-const Logger = use('Logger');
+import { TaskStatuses } from '@robinfinance/js-api';
+import GenericMapper from '../GenericMapper';
 
 const TaskStatusMapping = {
   '1': TaskStatuses.TODO,
@@ -11,28 +10,8 @@ const TaskStatusMapping = {
   '6': TaskStatuses.DISABLED,
 };
 
-export default class TaskStatusMapper {
-  public static transformValue(value: string): TaskStatus | undefined {
-    const mappedValue = TaskStatusMapping[value];
-
-    if (mappedValue) {
-      return mappedValue;
-    }
-
-    Logger.info('Missing mapping value in %s for %s', 'TaskStatusMapper', value);
-
-    return undefined;
-  }
-
-  public static reverseTransform(value: TaskStatus): string | undefined {
-    const key = Object.keys(TaskStatusMapping).find(item => TaskStatusMapping[item] === value);
-
-    if (key) {
-      return key;
-    }
-
-    Logger.info('Missing reverse mapping value in %s for %s', 'TaskStatusMapper', value);
-
-    return undefined;
-  }
+class TaskTypeMapper extends GenericMapper<TaskStatuses> {
+  protected readonly mapping = TaskStatusMapping;
 }
+
+export default new TaskTypeMapper();

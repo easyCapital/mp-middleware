@@ -1,22 +1,13 @@
-import { Genders, Gender } from '@robinfinance/js-api';
+import { Genders } from '@robinfinance/js-api';
+import GenericMapper from '../GenericMapper';
 
-const Logger = use('Logger');
+const GenderMapping = {
+  masculin: Genders.MALE,
+  féminin: Genders.FEMALE,
+};
 
-enum GenderMapping {
-  'masculin' = Genders.MALE,
-  'féminin' = Genders.FEMALE,
+class GenderMapper extends GenericMapper<Genders> {
+  protected readonly mapping = GenderMapping;
 }
 
-export default class GenderMapper {
-  public static transformValue(value: string): Gender | undefined {
-    const mappedValue = GenderMapping[value];
-
-    if (mappedValue) {
-      return mappedValue;
-    }
-
-    Logger.info('Missing mapping value in %s for %s', 'GenderMapper', value);
-
-    return undefined;
-  }
-}
+export default new GenderMapper();

@@ -16,7 +16,7 @@ interface QuestionInterface {
 export default class Question implements QuestionInterface {
   private id: string;
   private label?: string;
-  private type: InputType | null;
+  private type?: InputType;
   private placeholder?: string;
   private required: boolean = false;
   private min?: number;

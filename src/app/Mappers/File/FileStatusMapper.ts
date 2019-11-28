@@ -1,6 +1,5 @@
-import { FileStatuses, FileStatus } from '@robinfinance/js-api';
-
-const Logger = use('Logger');
+import { FileStatuses } from '@robinfinance/js-api';
+import GenericMapper from '../GenericMapper';
 
 const FileStatusMapping = {
   '0': FileStatuses.UNKNOWN,
@@ -16,28 +15,8 @@ const FileStatusMapping = {
   '10': FileStatuses.SIGNING,
 };
 
-export default class FileStatusMapper {
-  public static transformValue(value: string): FileStatus | undefined {
-    const mappedValue = FileStatusMapping[value];
-
-    if (mappedValue) {
-      return mappedValue;
-    }
-
-    Logger.info('Missing mapping value in %s for %s', 'FileStatusMapper', value);
-
-    return undefined;
-  }
-
-  public static reverseTransform(value: FileStatus): string | undefined {
-    const key = Object.keys(FileStatusMapping).find(item => FileStatusMapping[item] === value);
-
-    if (key) {
-      return key;
-    }
-
-    Logger.info('Missing reverse mapping value in %s for %s', 'FileStatusMapper', value);
-
-    return undefined;
-  }
+class FileStatusMapper extends GenericMapper<FileStatuses> {
+  protected readonly mapping = FileStatusMapping;
 }
+
+export default new FileStatusMapper();
