@@ -1,4 +1,4 @@
-import { Answer, Customer } from '@robinfinance/js-api';
+import { Answer } from '@robinfinance/js-api';
 
 import { Exception, NotFoundException } from '../../../../Exceptions';
 import { AnswerException, BackendException } from '../../Exceptions';
@@ -7,13 +7,13 @@ import BackendApi from '../..';
 
 export default async function createCustomerAnswers(
   this: BackendApi,
-  customer: Customer,
+  customerId: string | number,
   answers: Answer,
 ): Promise<void> {
   const formattedAnswers = formatAnswerBody(answers);
 
   try {
-    await this.backendClient.post({ url: `answer/customer/${customer}/cgp/create` }, formattedAnswers);
+    await this.backendClient.post({ url: `answer/customer/${customerId}/cgp/create` }, formattedAnswers);
   } catch (exception) {
     if (exception.status === 404) {
       throw new NotFoundException();

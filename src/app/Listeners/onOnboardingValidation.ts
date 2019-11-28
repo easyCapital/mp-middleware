@@ -13,7 +13,7 @@ async function onOnboardingValidation(context: Context, answers: Answer, extra?:
       return MieuxplacerEvents.onOnboardingValidation(context, answers, extra);
 
     case Apps.CONSEIL:
-      return ConseilEvents.onOnboardingValidation(context, extra);
+      return ConseilEvents.onOnboardingValidation(context, answers, extra);
 
     default:
       break;
