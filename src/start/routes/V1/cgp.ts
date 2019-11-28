@@ -44,6 +44,7 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/', 'V1/CGP/PropositionController.search');
   Route.post('/', 'V1/CGP/PropositionController.create');
+  Route.post('/generate', 'V1/CGP/PropositionController.generate');
 })
   .prefix('api/1.0/cgp/customer/:customer/proposition')
   .middleware(['auth']);

@@ -11,7 +11,7 @@ export default async function generateCustomerProposition(
   try {
     const response = await this.backendClient.post(
       { url: 'proposition/cgp/generate' },
-      { universe, prospect: customerId },
+      { universe, customer: customerId },
     );
 
     const data = await response.json();
