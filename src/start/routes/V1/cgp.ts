@@ -17,6 +17,7 @@ Route.group(() => {
 |--------------------------------------------------------------------------
 */
 Route.group(() => {
+  Route.post('/', 'V1/CGP/CustomerController.create');
   Route.get('/', 'V1/CGP/CustomerController.search');
   Route.get('/:id', 'V1/CGP/CustomerController.get');
 })
