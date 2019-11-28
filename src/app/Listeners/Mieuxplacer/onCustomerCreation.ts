@@ -15,19 +15,6 @@ async function onCustomerCreation(context: Context, data?: any) {
       [FIRST_NAME_KEY]: firstName,
       [LAST_NAME_KEY]: lastName,
     });
-
-    // const index = new CustomerIndex({
-    //   type: '_doc',
-    //   app,
-    //   source,
-    //   medium,
-    //   campaign,
-    //   universe,
-    //   id: data.id,
-    //   index: 'user_index',
-    // });
-
-    // await ElasticApi.createIndex(index);
   }
 }
 
