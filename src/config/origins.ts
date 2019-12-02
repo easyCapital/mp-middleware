@@ -58,8 +58,16 @@ export = {
     app: Apps.MIEUXPLACER,
     backendApiKey: afiBackendApiKey,
   },
+  'https://admin.mieuxplacer.stg.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: mpBackendApiKey,
+  },
   'https://mieuxplacer.stg.robintech.co': {
     app: Apps.MIEUXPLACER,
+    backendApiKey: mpBackendApiKey,
+  },
+  'https://cgp.prd.robintech.co': {
+    app: Apps.CONSEIL,
     backendApiKey: mpBackendApiKey,
   },
   'https://www.mieuxplacer.com': {
