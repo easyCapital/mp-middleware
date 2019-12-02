@@ -18,7 +18,7 @@ export default class Task implements TaskInterface {
     this.id = json.id;
     this.key = json.subject.key;
     this.type = TaskTypeMapper.transformValue(json.subject.type);
-    this.subType = TaskTypeMapper.transformValue(json.subject.subtasks_type);
+    this.subType = json.subject.subtasks_type ? TaskTypeMapper.transformValue(json.subject.subtasks_type) : undefined;
     this.status = TaskStatusMapper.transformValue(json.status);
     this.parentId = json.parent ? json.parent : undefined;
   }
