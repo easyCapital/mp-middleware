@@ -100,4 +100,34 @@ Route.group(() => {
   Route.get('/', 'V1/FundController.search');
 }).prefix('api/1.0/fund');
 
+/*
+|--------------------------------------------------------------------------
+| API V1 - CONTRACT
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.get('/', 'V1/ContractController.index');
+  Route.get('/:contract', 'V1/ContractController.get');
+  Route.get('/:contract/file', 'V1/FileController.search');
+  Route.get('/:contract/complementary-question', 'V1/TaskController.complementaryQuestions');
+}).prefix('api/1.0/contract');
+
+/*
+|--------------------------------------------------------------------------
+| API V1 - TASK
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.get('/complementary-question', 'V1/TaskController.complementaryQuestions');
+}).prefix('api/1.0/task');
+
+/*
+|--------------------------------------------------------------------------
+| API V1 - FILE
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.get('/', 'V1/FileController.search');
+}).prefix('api/1.0/file');
+
 export {};

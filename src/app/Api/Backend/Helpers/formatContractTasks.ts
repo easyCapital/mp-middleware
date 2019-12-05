@@ -7,10 +7,10 @@ function formatContractTasks(tasks: Task[]): Task[] {
   const formattedTasks: { [order: string]: Task } = {};
 
   tasks.forEach(task => {
-    const subType = task.getSubType();
+    const type = task.getType();
 
-    if (subType && subType !== TaskTypes.CONTAINER) {
-      const taskOrder = TaskOrderMapper.transformValue(subType);
+    if (type && type !== TaskTypes.CONTAINER) {
+      const taskOrder = TaskOrderMapper.transformValue(type);
 
       if (taskOrder) {
         if (formattedTasks[taskOrder]) {

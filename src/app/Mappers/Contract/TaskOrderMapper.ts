@@ -9,8 +9,8 @@ const TaskOrderMapping = {
   [TaskTypes.SIGNATURE_PAPER]: 4,
   [TaskTypes.SIGNATURE_DIGITAL]: 4,
   [TaskTypes.SIGNATURE]: 4,
-  [TaskTypes.PAYMENT]: 5,
-  [TaskTypes.APPOINTMENT]: 6,
+  [TaskTypes.APPOINTMENT]: 5,
+  [TaskTypes.PAYMENT]: 6,
 };
 
 export default class TaskOrderMapper {

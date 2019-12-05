@@ -11,7 +11,6 @@ export default async function createContractsFromProposition(
   customerId: string,
   propositionId: string,
 ): Promise<Contract[]> {
-  console.log(customerId, propositionId);
   try {
     const response = await this.backendClient.post(
       {
