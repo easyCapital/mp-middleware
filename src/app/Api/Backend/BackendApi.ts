@@ -49,6 +49,8 @@ export default class BackendApi {
   public createProspect = Prospect.createProspect;
   // Task
   public getContractTasks = Task.getContractTasks;
+  public getSignatureUrl = Task.getSignatureUrl;
+  public validateSignature = Task.validateSignature;
   // CGP - Answer
   public getCGPCustomerAnswers = CGP.getCustomerAnswers;
   public createCGPAnswers = CGP.createCustomerAnswers;
