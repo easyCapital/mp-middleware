@@ -1,4 +1,4 @@
-import { Portfolio as JsonPortfolioInterface } from '@robinfinance/js-api';
+import { Portfolio as JsonPortfolioInterface, FundTypes } from '@robinfinance/js-api';
 
 import { Fund } from '.';
 import { Product } from '../Prismic';
@@ -12,12 +12,12 @@ interface PortfolioInterface {
 }
 
 export default class Portfolio implements PortfolioInterface {
+  public amount?: number;
   private id: number;
   private productIdentifier?: string;
   private product?: Product;
-  private amount?: number;
   private srri: number;
-  private funds: any[] = [];
+  private funds: Fund[] = [];
   private performances?: { [year: string]: number };
 
   constructor(json: any) {
@@ -46,6 +46,7 @@ export default class Portfolio implements PortfolioInterface {
       srri: this.srri,
       funds: this.funds.map(fund => fund.toJSON()),
       performances: this.performances,
+      guaranteedCapitalWeight: this.computeGuaranteedCapitalWeight(),
     };
   }
 
@@ -87,5 +88,17 @@ export default class Portfolio implements PortfolioInterface {
     this.funds.push(fund);
 
     return this;
+  }
+
+  private computeGuaranteedCapitalWeight(): number {
+    let guaranteedCapitalWeight = 0;
+    this.funds.forEach(fund => {
+      if (fund.type === FundTypes.EURO) {
+        if (fund.weight) {
+          guaranteedCapitalWeight += fund.weight;
+        }
+      }
+    });
+    return guaranteedCapitalWeight;
   }
 }

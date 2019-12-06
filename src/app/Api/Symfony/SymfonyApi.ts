@@ -3,7 +3,6 @@ import { SymfonyClientInterface } from '../../Clients/Symfony/SymfonyClient';
 
 export default class SymfonyApi {
   public sendPropositionByEmail = Proposition.sendPropositionByEmail;
-  public downloadProposition = Proposition.downloadProposition;
 
   protected symfonyClient: SymfonyClientInterface;
 

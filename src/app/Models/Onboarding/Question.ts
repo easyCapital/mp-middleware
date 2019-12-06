@@ -62,6 +62,12 @@ export default class Question implements QuestionInterface {
     }
   }
 
+  public findOption(value: string): Option | undefined {
+    if (this.options) {
+      return this.options.find(option => option.value === value);
+    }
+  }
+
   public toJSON(): JsonQuestionInterface | null {
     if (this.type) {
       const json: JsonQuestionInterface = {

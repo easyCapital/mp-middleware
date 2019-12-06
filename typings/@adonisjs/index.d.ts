@@ -7,6 +7,9 @@ import { BackendClientBuilder, BackendClientInterface } from '../../src/app/Clie
 import { ElasticClientInterface } from '../../src/app/Clients/Elastic/ElasticClient';
 import { PrismicClientInterface } from '../../src/app/Clients/Prismic/PrismicClient';
 import { SymfonyClientInterface, SymfonyClientBuilder } from '../../src/app/Clients/Symfony/SymfonyClient';
+import TwigProvider from '../../src/providers/TwigProvider';
+import TwigRenderer from '../../src/app/Helpers/TwigRenderer';
+import WkHtmlToPdf from '../../src/app/Helpers/WkHtmlToPdf';
 
 type WorkInProgress = any;
 type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
@@ -12790,6 +12793,8 @@ declare namespace AdonisNamespaces {
   type PrismicClient = 'PrismicClient';
   type SymfonyClientBuilder = 'SymfonyClientBuilder';
   type ElasticClient = 'ElasticClient';
+  type Twig = 'Twig';
+  type WkHtmlToPdf = 'WkHtmlToPdf';
 }
 
 declare global {
@@ -12827,6 +12832,8 @@ declare global {
   function use(namespace: AdonisNamespaces.PrismicClient): PrismicClientInterface;
   function use(namespace: AdonisNamespaces.SymfonyClientBuilder): SymfonyClientBuilder;
   function use(namespace: AdonisNamespaces.ElasticClient): ElasticClientInterface;
+  function use(namespace: AdonisNamespaces.Twig): TwigRenderer;
+  function use(namespace: AdonisNamespaces.WkHtmlToPdf): WkHtmlToPdf;
 }
 
 declare global {

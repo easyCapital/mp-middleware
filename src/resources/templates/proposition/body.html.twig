@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+  </head>
+  <body class="Recommendation Recommendation--{{universe}}">
+    <div class="Page">
+      <div class="Header">
+        <h1 class="Header__title">La recommandation
+          <img alt="mieuxplacer.com" class="Header__logo" height="32px" src="https://www.mieuxplacer.com/pdf/images/logo.png" width="254px"/></h1>
+        <p class="Header__subtitle">Valable jusqu’au
+          {{ "now" | date_modify("+1 month") | date("d/m/Y") }}</p>
+      </div>
+      {% if universe == 'BANQUE_CASINO' %}
+        <div class="UniverseBanner">
+          <div class="UniverseBanner__header">
+            <div class="UniverseBanner__header-left">
+              <img alt="Logo Banque Casino" height="47px" src="https://www.mieuxplacer.com/pdf/images/logo-banque-casino.png" width="45px"/>
+            </div>
+            <div class="UniverseBanner__header-right">
+              <p classname="UniverseBanner__header-text">vous présente :</p>
+              <div classname="UniverseBanner__header-logo">
+                <img alt="Logo mieuxplacer.com" height="19px" src="https://www.mieuxplacer.com/pdf/images/logo.png" width="150px"/>
+              </div>
+            </div>
+          </div>
+          <div classname="UniverseBanner__content">
+            Voici notre recommandation de placement. En tant que client Banque Casino, vous accédez à des
+            <b>contrats de qualité sans aucun frais d'entrée</b>.
+          </div>
+        </div>
+      {% endif %}
+      {% if universe == 'QUADRIVIUM' %}
+        <div class="UniverseBanner">
+          <div class="UniverseBanner__header">
+            <div class="UniverseBanner__header-left">
+              <img alt="Logo Quadrivium" height="38px" src="https://www.mieuxplacer.com/pdf/images/logo-quadrivium.png" width="165px"/>
+            </div>
+            <div class="UniverseBanner__header-right">
+              <p classname="UniverseBanner__header-text">vous présente :</p>
+              <div classname="UniverseBanner__header-logo">
+                <img alt="Logo mieuxplacer.com" height="19px" src="https://www.mieuxplacer.com/pdf/images/logo.png" width="150px"/>
+              </div>
+            </div>
+          </div>
+          <div classname="UniverseBanner__content">
+            Voici notre recommandation de placement. En tant que client Quadrivium, vous accédez à des
+            <b>contrats de qualité sans aucun frais d'entrée</b>.
+          </div>
+        </div>
+      {% endif %}
+      <p class="Disclaimer">
+        Cette recommandation est basée sur votre profil et vos objectifs. Elle vous est personnelle et n’est pas destinée à une personne de votre entourage.  Ce document n'a qu'une valeur indicative et informative et non contractuelle.
+      </p>
+      <p class="RecommendationLink">
+        Si vous souhaitez retrouver cette recommandation en ligne, cliquez ici :
+        <b>
+          <a href="https://www.mieuxplacer.com/connaissance-client/recommandation/{{token}}">voir ma recommandation</a>
+        </b>
+      </p>
+      <div class="User">
+        <div class="Profile">
+          <p class="Profile__title">Votre profil</p>
+          <div class="Profile__content">
+            <ul class="Profile__list">
+              <li>Objectif(s) :
+                {{ goals | join(', ') | lower }}</li>
+              {% if recommendation.investorType %}
+                <li>Type d’investisseur : investisseur
+                  {{ recommendation.investorType.label }}</li>
+              {% endif %}
+              <li>Montant d’investissement :
+                {{ recommendation.answers['sub_investment_amount1'] | number_format(0, ',', ' ') }}
+                €</li>
+              <li>Horizon de placement :
+                {{ horizon }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="Call">
+          <div class="Call__content">
+            <p>Besoin d’accompagnement pour lire ce document ?</p>
+            <p>Nous vous rappelons gratuitement, il vous suffit de choisir un créneau ou de nous appeler au</p>
+            <p>
+              <b>01 86 26 06 06</b>
+            </p>
+          </div>
+          <a class="Call__action Button" href="https://calendly.com/service-clients-mp/rdv-conseiller-financier" target="_blank">Me faire rappeler
+            <span class="icon"></span>
+          </a>
+        </div>
+      </div>
+      <div class="Products">
+        <p class="Products__title">Nous vous proposons une sélection de
+          {{ recommendation.portfolios | length }}
+          {% if recommendation.portfolios | length == 1 %}produit{% else %}produits
+          {% endif %}
+          :</p>
+        <div class="Products__list">
+          {% for item in recommendation.portfolios %}
+
+            {% set product = item.product %}
+
+            {% if product %}
+
+              {% set supplier = product.supplier %}
+              {% set type = product.type %}
+
+              {% if product and supplier and type %}
+                <div class="Products__item">
+                  <div class="Products__item-container">
+                    <div class="Products__item-supplier">
+                      <img class="Products__item-supplier-logo" src="{{supplier.logo.url}}" alt="{{supplier.logo.alt}}"/>
+                    </div>
+                    <div class="Products__item-info">
+                      <p class="Products__item-title">{{ type.label }}
+                        •
+                        {{ product.title }}</p>
+                      <p class="Products__item-risk">Risque du produit :
+                        {{ item.srri }}
+                        / 7</p>
+                    </div>
+                    <div class="Products__item-amount">
+                      <p class="Products__item-amount-title">Montant</p>
+                      <p class="Products__item-amount-value">{{ item.amount | number_format(0, ',', ' ') }}
+                        €</p>
+                    </div>
+                  </div>
+                  <a class="Products__item-action Button" href="#product-{{ item.product }}">Voir les détails
+                    <span class="icon"></span>
+                  </a>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="Distribution">
+        <p class="Distribution__title">Répartition de votre épargne :</p>
+        <div class="Distribution__text">
+          <p class="Distribution__text-header">Sur vos
+            {{ recommendation.amount | number_format(0, ',', ' ') }}
+            €,</p>
+          <div class="Distribution__text-items">
+            {% for item in recommendation.portfolios %}
+
+            {% set product = item.product %}
+
+              {% if product %}
+    
+                {% set type = product.type %}
+    
+                {% set percentage = item.weight * 100 %}
+
+                {% if type %}
+                  <p class="Distribution__text-item">-
+                    <b>{{ percentage | round(2) }}
+                      %</b>
+                    seront placés sur
+                    {% if type.gender == 'MALE' %}un{% else %}une
+                    {% endif %}
+                    <span class="Distribution__text-item-bullet"></span>
+                    {{ type.label }}
+                    ({{ product.title }})</p>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="Distribution__chart">
+          {% for item in recommendation.portfolios %}
+            {% set percentage = item.weight * 100 %}
+
+            <div class="Distribution__chart-item" style="width: {{percentage}}%">
+              {% if percentage > 20 %}
+                <div>
+                  <span class="Distribution__chart-item-percentage">{{ percentage | round(2) }}
+                    %</span>
+                  <span class="Distribution__chart-item-amount">{{ item.amount | number_format(0, ',', ' ') }}
+                    €</span>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="Page">
+      {% for item in recommendation.portfolios %}
+
+        {% set product = item.product %}
+
+        {% if product %}
+
+          {% set supplier = product.supplier %}
+          {% set type = product.type %}
+
+          {% if supplier and type %}
+            <div class="Product" id="product-{{ item.product }}">
+              <div class="Product__header">
+                <p class="Product__title">Détails concernant le produit :</p>
+                <div class="Products__item">
+                  <div class="Products__item-container">
+                    <div class="Products__item-supplier">
+                      <img class="Products__item-supplier-logo" src="{{supplier.logo.url}}" alt="{{supplier.logo.alt}}"/>
+                    </div>
+                    <div class="Products__item-info">
+                      <p class="Products__item-title">{{ type.label }}
+                        •
+                        {{ product.title }}</p>
+                      <p class="Products__item-risk">Risque du produit :
+                        {{ item.srri }}
+                        / 7</p>
+                    </div>
+                    <div class="Products__item-amount">
+                      <p class="Products__item-amount-title">Montant</p>
+                      <p class="Products__item-amount-value">{{ item.amount | number_format(0, ',', ' ') }}
+                        €</p>
+                    </div>
+                  </div>
+                  <a class="Products__item-action Button" href="https://www.mieuxplacer.com/produits/{{type.slug}}/{{product.slug}}">Voir la fiche du produit en ligne
+                    <span class="icon"></span>
+                  </a>
+                </div>
+              </div>
+              {% if type.recommandationExplanations | length > 0 %}
+                <div class="TypeExplanation">
+                  <p class="TypeExplanation__title">{{ type.labelSingular | capitalize }}, pourquoi ?</p>
+                  <ul class="TypeExplanation__items">
+                    {% for explanation in type.recommandationExplanations %}
+                      <li class="TypeExplanation__item">
+                        {% for paragraph in explanation.paragraphs %}
+                          <p>{{paragraph.text}}</p>
+                        {% endfor %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+              {% if type.attentionPoints.paragraphs | length > 0 %}
+                <div class="AttentionPoint">
+                  <p class="AttentionPoint__title">Point d’attention</p>
+                  <p class="AttentionPoint__content">
+                    {% for paragraph in type.attentionPoints.paragraphs %}
+                      {{paragraph.text}}
+                    {% endfor %}
+                  </p>
+                </div>
+              {% endif %}
+              {% if product.recommendation.paragraphs | length > 0 %}
+                <div class="ProductExplanation">
+                  <p class="ProductExplanation__title">{{ supplier.name }}
+                    {{ product.title }}, pourquoi ?</p>
+                  <ul class="ProductExplanation__items">
+                    {% for paragraph in product.recommendation.paragraphs %}
+                      <li class="ProductExplanation__item">
+                        {{paragraph.text}}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+              <div class="Funds">
+                {% if product.type.id == 'W1Cv1SUAACQAFgdg' or product.type.id == 'W2hBuiQAACYAOxpJ' %}
+                  {# Assurance vie || PERP #}
+                  <div class="Funds__body">
+                    <p class="Funds__title">Quelle allocation ?</p>
+                    <div class="Funds__alert">
+                      <p>Nous avons soigneusement sélectionné
+                        {% if item.funds | length > 1 %}les
+                          {{ item.funds | length }}
+                          fonds les plus adéquats{% else %}le fonds le plus adéquat
+                        {% endif %}
+                        parmi plusieurs centaines de fonds.</p>
+                    </div>
+                    <div class="Funds__table Funds__table--type">
+                      <div class="Funds__table-header">
+                        <p class="Funds__table-header-column Funds__table-header-column--type">Type</p>
+                        <p class="Funds__table-header-column Funds__table-header-column--name">Nom du fonds</p>
+                        <p class="Funds__table-header-column Funds__table-header-column--isin">ISIN</p>
+                        <p class="Funds__table-header-column Funds__table-header-column--performance">Perf. annualisée (3 ans)</p>
+                        <p class="Funds__table-header-column Funds__table-header-column--srri">SRRI</p>
+                        <p class="Funds__table-header-column Funds__table-header-column--amount">Montant</p>
+                      </div>
+                      <div class="Funds__table-body">
+                        {% for fund in item.funds | sortByAmount %}
+                          <div class="Funds__table-row">
+                            <div class="Funds__table-row-content">
+                              <p class="Funds__table-column Funds__table-column--type">{{fund.type}}</p>
+                              <p class="Funds__table-column Funds__table-column--name">
+                                {% if fund.morningStarId %}
+                                  <a href="http://www.morningstar.fr/fr/funds/snapshot/snapshot.aspx?id={{fund.morningStarId}}" target="_blank">{{fund.name}}</a>
+                                {% else %}
+                                  {{fund.name}}
+                                {% endif %}
+                              </p>
+                              <p class="Funds__table-column Funds__table-column--isin">
+                                {% if fund.isin %}
+                                  {{fund.isin}}
+                                {% else %}
+                                  -
+                                {% endif %}
+                              </p>
+                              <p class="Funds__table-column Funds__table-column--performance">
+                                {% if fund.performance %}
+                                  {{ fund.performance | number_format(2, ',', ' ')}}
+                                  %
+                                {% else %}
+                                  -
+                                {% endif %}
+                              </p>
+                              <p class="Funds__table-column Funds__table-column--srri">
+                                {% if fund.srri and fund.type == 'EURO' and fund.srri == 1 %}
+                                  -
+                                {% elseif fund.srri %}
+                                  {{ fund.srri }}/7
+                                {% else %}
+                                  -
+                                {% endif %}
+                              </p>
+                              <p class="Funds__table-column Funds__table-column--amount">{{ (item.amount * fund.weight) | number_format(0, ',', ' ') }}
+                                €</p>
+                            </div>
+                            {% if fund.diciUrl %}
+                              <a class="Funds__action Button" href="{{fund.diciUrl}}" target="_blank">DIC
+                                <span class="icon"></span>
+                              </a>
+                            {% endif %}
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="FundsExplanation">
+                    <p class="FundsExplanation__title">Pourquoi cette allocation ?</p>
+                    <ul class="FundsExplanation__items">
+                      {% set guaranteedCapitalType = null %}
+                      {% set riskType = null %}
+
+                      {% set guaranteedCapitalPercentage = item.guaranteedCapitalWeight * 100 | round(0) %}
+
+                      {% if item.guaranteedCapitalWeight == 1 %}
+                        {% set guaranteedCapitalType = '100% fonds euros' %}
+                      {% elseif item.guaranteedCapitalWeight == 0.5 %}
+                        {% set guaranteedCapitalType = '50% fonds euros' %}
+                      {% elseif item.guaranteedCapitalWeight == 0 %}
+                        {% set guaranteedCapitalType = '0% fonds euros' %}
+                      {% else %}
+                        {% set guaranteedCapitalType = 'XX% fonds euros' %}
+                      {% endif %}
+
+                      {% if item.guaranteedCapitalWeight == 1 %}
+                        {% set riskType = 'risque - 100% fonds euros' %}
+                      {% elseif item.risk < 3 %}
+                        {% set riskType = 'risque - 1-3' %}
+                      {% elseif item.risk < 5 %}
+                        {% set riskType = 'risque - 3-5' %}
+                      {% else %}
+                        {% set riskType = 'risque - 5-7' %}
+                      {% endif %}
+
+                      {% for explanation in type.allocationExplanations %}
+                        {% if explanation.type == guaranteedCapitalType %}
+                          <li class="FundsExplanation__item">
+                            {% for paragraph in explanation.value.paragraphs %}
+                              {{paragraph.text | preg_replace('{VALUE}', guaranteedCapitalPercentage) }}
+                            {% endfor %}
+                          </li>
+                        {% endif %}
+
+                        {% if explanation.type == riskType %}
+                          <li class="FundsExplanation__item">
+                            {% for paragraph in explanation.value.paragraphs %}
+                              {{paragraph.text }}
+                            {% endfor %}
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% elseif product.type.id == 'W2FigikAACkAd9Uw' %}
+                  {# SCPI #}
+                  <div class="Funds__body">
+                    <p class="Funds__title">Taux de distribution</p>
+                    <div class="Funds__table Funds__table--tdvm">
+                      <div class="Funds__table-header">
+                        <p class="Funds__table-header-column Funds__table-header-column--title">{{type.label}}</p>
+                        {% for tdvm in product.tdvms %}
+                          <p class="Funds__table-header-column Funds__table-header-column--tdvm">TDVM
+                            {{tdvm.label}}</p>
+                        {% endfor %}
+                        <p class="Funds__table-header-column Funds__table-header-column--srri">SRRI</p>
+                        <p class="Funds__table-header-column Funds__table-header-column--amount">Montant</p>
+                      </div>
+                      <div class="Funds__table-body">
+                        {% for fund in item.funds | sortByAmount %}
+                          <div class="Funds__table-row">
+                            <div class="Funds__table-row-content">
+                              <p class="Funds__table-column Funds__table-column--title">
+                                {% if fund.morningStarId %}
+                                  <a href="http://www.morningstar.fr/fr/funds/snapshot/snapshot.aspx?id={{fund.morningStarId}}" target="_blank">{{fund.name}}</a>
+                                {% else %}
+                                  {{fund.name}}
+                                {% endif %}
+                              </p>
+                              {% for tdvm in product.tdvms %}
+                                <p class="Funds__table-column Funds__table-column--tdvm">
+                                  {{tdvm.value}}
+                                </p>
+                              {% endfor %}
+                              <p class="Funds__table-column Funds__table-column--srri">
+                                {% if fund.srri %}
+                                  {{ fund.srri }}/7
+                                {% else %}
+                                  -
+                                {% endif %}
+                              </p>
+                              <p class="Funds__table-column Funds__table-column--amount">{{item.amount * fund.weight | number_format(0, ',', ' ')}}
+                                €</p>
+                            </div>
+                            {% if fund.diciUrl %}
+                              <a class="Funds__action Button" href="{{fund.diciUrl}}" target="_blank">DIC
+                                <span class="icon"></span>
+                              </a>
+                            {% endif %}
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                  {% if product.investmentDestination.paragraphs | length > 0 %}
+                    <div class="Destination">
+                      <p class="Destination__title">Où sera investit mon argent ?</p>
+                      <div class="Destination__content">
+                        {% for paragraph in product.investmentDestination.paragraphs %}
+                          <p>{{paragraph.text}}</p>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endif %}
+                {% elseif product.type.id == 'W2hCPyQAACUAOxxW' %}
+                  {# OPCI #}
+                  <div class="Funds__body">
+                    <p class="Funds__title">Performance</p>
+                    <div class="Funds__table Funds__table--performance">
+                      <div class="Funds__table-header">
+                        <p class="Funds__table-header-column Funds__table-header-column--title">{{type.label}}</p>
+                        {% for performance in product.performances %}
+                          <p class="Funds__table-header-column Funds__table-header-column--performance">Perf.
+                            {{performance.label}}</p>
+                        {% endfor %}
+                        <p class="Funds__table-header-column Funds__table-header-column--srri">SRRI</p>
+                        <p class="Funds__table-header-column Funds__table-header-column--amount">Montant</p>
+                      </div>
+                      <div class="Funds__table-body">
+                        {% for fund in item.funds | sortByAmount %}
+                          <div class="Funds__table-row">
+                            <div class="Funds__table-row-content">
+                              <p class="Funds__table-column Funds__table-column--title">
+                                {% if fund.morningStarId %}
+                                  <a href="http://www.morningstar.fr/fr/funds/snapshot/snapshot.aspx?id={{fund.morningStarId}}" target="_blank">{{fund.name}}</a>
+                                {% else %}
+                                  {{fund.name}}
+                                {% endif %}
+                              </p>
+                              {% for performance in product.performances %}
+                                <p class="Funds__table-column Funds__table-column--performance">
+                                  {{performance.value}}
+                                </p>
+                              {% endfor %}
+                              <p class="Funds__table-column Funds__table-column--srri">
+                                {% if fund.srri %}
+                                  {{ fund.srri }}/7
+                                {% else %}
+                                  -
+                                {% endif %}
+                              </p>
+                              <p class="Funds__table-column Funds__table-column--amount">{{item.amount * fund.weight | number_format(0, ',', ' ')}}
+                                €</p>
+                            </div>
+                            {% if fund.diciUrl %}
+                              <a class="Funds__action Button" href="{{fund.diciUrl}}" target="_blank">DIC
+                                <span class="icon"></span>
+                              </a>
+                            {% endif %}
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                  {% if product.investmentDestination.paragraphs | length > 0 %}
+                    <div class="Destination">
+                      <p class="Destination__title">Où sera investit mon argent ?</p>
+                      <div class="Destination__content">
+                        {% for paragraph in product.investmentDestination.paragraphs %}
+                          <p>{{paragraph.text}}</p>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% if product.oneTimeFees | length > 0 or product.annualFees | length > 0 or product.bonuses | length > 0 %}
+                <div class="Fees">
+                  <p class="Fees__title">Qu’en est-il des frais ?</p>
+                  {% if product.oneTimeFees | length > 0 %}
+                    <div class="Fees__block">
+                      <div class="Fees__block-title">Coûts ponctuels</div>
+                      <div class="Fees__block-items">
+                        {% for fee in product.oneTimeFees %}
+                          <div class="Fees__block-item">
+                            <p class="Fees__block-item-label">{{fee.label}}</p>
+                            <p class="Fees__block-item-value">{{fee.value}}</p>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if product.annualFees | length > 0 %}
+                    <div class="Fees__block">
+                      <div class="Fees__block-title">Coûts annuels</div>
+                      <div class="Fees__block-items">
+                        {% for fee in product.annualFees %}
+                          <div class="Fees__block-item">
+                            <p class="Fees__block-item-label">{{fee.label}}</p>
+                            <p class="Fees__block-item-value">{{fee.value}}</p>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if product.bonuses | length > 0 %}
+                    <div class="Fees__bonuses">
+                      {% for bonus in product.bonuses %}
+                        <div class="Fees__bonus">
+                          <div class="Fees__bonus-title">{{bonus.title}}</div>
+                          <div class="Fees__bonus-content">
+                            {% for paragraph in bonus.description.paragraphs %}
+                              <p>{{paragraph.text}}</p>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+              {% if product.blocks | length > 0 %}
+                <div class="Downloads">
+                  <h4 class="Downloads__title">
+                    Téléchargements
+                  </h4>
+                  <div class="Downloads__items">
+                    {% for block in product.blocks %}
+                      {% if block.slice_type == 'downloads' %}
+                        {% for item in block.items %}
+                          {% if item.download_file and item.download_file.url and item.download_icon and item.download_icon.url and item.download_title %}
+                            <a class="Downloads__item" href="{{item.download_file.url | url_decode}}" target="_blank" rel="nofollow noopener noreferrer">
+                              <div class="Downloads__item-container">
+                                <span class="Downloads__label">{{item.download_title}}</span>
+                                <img class="Downloads__icon" src={{item.download_icon.url}} alt="Download icon" title="Download icon"/>
+                              </div>
+                            </a>
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="Page">
+      <div class="Contact">
+        <div class="Contact__header">
+          <p class="Contact__title">Vous souhaitez plus d’informations ?</p>
+          <img alt="mieuxplacer.com" class="Contact__logo" height="32px" src="https://www.mieuxplacer.com/pdf/images/logo.png" width="254px"/>
+        </div>
+        <p class="Contact__subtitle">Vous souhaitez souscrire à ces produits ?</p>
+        <div class="Contact__content">
+          <p>Nous vous invitons à vous rapprocher de notre service client en appelant le :</p>
+          <p class="Contact__phone">01 86 26 06 06</p>
+          <p>Nous pouvons également vous rappeler, il vous suffit de choisir le moment qui vous convient :</p>
+          <a class="Contact__action Button" href="https://calendly.com/service-clients-mp/rdv-conseiller-financier" target="_blank">Me faire rappeler
+            <span class="icon"></span>
+          </a>
+        </div>
+      </div>
+      <div class="Terms">
+        <p class="Terms__text">En souscrivant à ces produits, vous acceptez les conditions générales d’utilisation de mieuxplacer.com</p>
+        <a class="Terms__action Button" href="https://www.mieuxplacer.com/documents/CGU-MP.pdf" target="_blank">Lire les CGU
+          <span class="icon"></span>
+        </a>
+      </div>
+      <div class="AttentionPoint">
+        <p class="AttentionPoint__title">Point d’attention</p>
+        <p class="AttentionPoint__content">
+          Performances au 31/12/2018. Les performances passées ne préjugent pas des performances futures et ne sont pas constantes dans le temps.Les performances des SCPI correspondent au Taux de Distribution sur Valeur de Marché (rapport entre l’ensemble des dividendes versés sur la période  et le prix moyen de la part sur la période).Une partie de votre placement  est placée sur des « Unités de Comptes « UC » dont le capital n’est pas garanti mais sont sujets à des fluctuations à la hausse comme à la baisse dépendant en particulier de l’évolution des marchés financiers et/ou immobiliers. Les supports en unités de compte présentent donc un risque de perte en capital pouvant être partielle ou totale. L'assureur ne s'engage que sur le nombre d'unités de compte, mais pas sur leur valeur.
+        </p>
+      </div>
+      <p class="Legal">
+        Mieuxplacer.com est la propriété de Robin’Finance SAS au capital de 163 876,50 € RCS Bordeaux n°820 036 473, 9 rue André Darbon 33300 Bordeaux - Conseiller en Investissement Financier (CIF), membre de la CNCIF n°D017709, agréée par l’Autorité des Marchés Financiers (AMF) - Courtier d’Opérations d’Assurance (COA) inscrits à l’Orias n°16004247, régulée par l’Autorité de Contrôle Prudentiel et de Résolution (ACPR) – Assurance RC Professionnelle n°RCP61403 de la compagnie CGPA.
+      </p>
+    </div>
+  </body>
+</html>

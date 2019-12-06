@@ -1,4 +1,9 @@
-import { Proposition as JsonPropositionInterface, Origin, Origins } from '@robinfinance/js-api';
+import {
+  Proposition as JsonPropositionInterface,
+  PropositionPortfolio as JsonPropositionPortfolioInterface,
+  Origin,
+  Origins,
+} from '@robinfinance/js-api';
 
 import { Portfolio } from '.';
 import { Advice } from '../Prismic';
@@ -67,6 +72,7 @@ export default class Proposition implements PropositionInterface {
   }
 
   public toJSON(): JsonPropositionInterface {
+    const totalAmount = this.getAmount();
     return {
       id: this.id,
       token: this.token,
@@ -78,8 +84,15 @@ export default class Proposition implements PropositionInterface {
       weightedSrri: this.weightedSrri,
       answers: formatAnswers(this.answers),
       investorType: this.investorType && this.investorType.toJSON(),
-      portfolios: this.portfolios.map(portfolio => portfolio.toJSON()),
+      portfolios: this.portfolios.map(portfolio => {
+        const jsonPortfolio = portfolio.toJSON() as JsonPropositionPortfolioInterface;
+        if (jsonPortfolio.amount) {
+          jsonPortfolio.weight = jsonPortfolio.amount / totalAmount;
+        }
+        return jsonPortfolio;
+      }),
       contracts: this.contracts,
+      amount: totalAmount,
     };
   }
 
@@ -109,5 +122,16 @@ export default class Proposition implements PropositionInterface {
     this.portfolios.push(portfolio);
 
     return this;
+  }
+
+  private getAmount(): number {
+    let totalAmount = 0;
+    this.portfolios.forEach(portfolio => {
+      const portfolioAmount = portfolio.amount;
+      if (portfolioAmount) {
+        totalAmount += portfolioAmount;
+      }
+    });
+    return totalAmount;
   }
 }
