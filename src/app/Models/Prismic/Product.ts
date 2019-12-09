@@ -95,7 +95,7 @@ export default class Product extends ContentType implements ProductInterface {
       });
     }
     if (json.data.annual_fees) {
-      this.oneTimeFees = json.data.annual_fees.map(item => {
+      this.annualFees = json.data.annual_fees.map(item => {
         return {
           label: item.fee_label,
           value: item.fee_value,

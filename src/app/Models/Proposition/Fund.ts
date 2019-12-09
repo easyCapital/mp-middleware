@@ -39,7 +39,9 @@ export default class Fund implements FundInterface {
       type: this.type,
       grade: this.grade,
       morningStarId: this.morningStarId,
-      diciUrl: `http://www.morningstar.fr/fr/funds/snapshot/snapshot.aspx?id=${this.morningStarId}&tab=12`,
+      diciUrl:
+        this.morningStarId &&
+        `http://www.morningstar.fr/fr/funds/snapshot/snapshot.aspx?id=${this.morningStarId}&tab=12`,
       performance: this.performance,
       srri: this.srri,
       partPrice: this.price,
