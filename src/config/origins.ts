@@ -27,6 +27,10 @@ const local = {
     app: Apps.CONSEIL,
     backendApiKey: mpBackendApiKey,
   },
+  'http://demo.cgp.mieuxplacer.local': {
+    app: Apps.CONSEIL,
+    backendApiKey: demoCGPBackendApiKey,
+  },
 };
 
 /*
