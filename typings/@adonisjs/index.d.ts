@@ -4,7 +4,6 @@ import events from 'events';
 import GE from '@adonisjs/generic-exceptions';
 
 import { BackendClientBuilder, BackendClientInterface } from '../../src/app/Clients/Backend/BackendClient';
-import { ElasticClientInterface } from '../../src/app/Clients/Elastic/ElasticClient';
 import { PrismicClientInterface } from '../../src/app/Clients/Prismic/PrismicClient';
 import { SymfonyClientInterface, SymfonyClientBuilder } from '../../src/app/Clients/Symfony/SymfonyClient';
 import TwigProvider from '../../src/providers/TwigProvider';
@@ -12792,7 +12791,6 @@ declare namespace AdonisNamespaces {
   type BackendClientBuilder = 'BackendClientBuilder';
   type PrismicClient = 'PrismicClient';
   type SymfonyClientBuilder = 'SymfonyClientBuilder';
-  type ElasticClient = 'ElasticClient';
   type Twig = 'Twig';
   type WkHtmlToPdf = 'WkHtmlToPdf';
 }
@@ -12831,7 +12829,6 @@ declare global {
   function use(namespace: AdonisNamespaces.BackendClientBuilder): BackendClientBuilder;
   function use(namespace: AdonisNamespaces.PrismicClient): PrismicClientInterface;
   function use(namespace: AdonisNamespaces.SymfonyClientBuilder): SymfonyClientBuilder;
-  function use(namespace: AdonisNamespaces.ElasticClient): ElasticClientInterface;
   function use(namespace: AdonisNamespaces.Twig): TwigRenderer;
   function use(namespace: AdonisNamespaces.WkHtmlToPdf): WkHtmlToPdf;
 }
