@@ -1,4 +1,4 @@
-import { Filters, TaskTypes } from '@robinfinance/js-api';
+import { Filters } from '@robinfinance/js-api';
 
 import { Contract } from '../../../../Models/Contract';
 import { Exception } from '../../../../Exceptions';
@@ -23,9 +23,7 @@ export default async function getCustomerContracts(
 
     await Promise.all(
       contracts.map(async (item: Contract) => {
-        const tasks = await this.getGCPContractTasks(item.getId().toString(), {
-          type: TaskTypes.CONTAINER,
-        });
+        const tasks = await this.getGCPContractTasks(item.getId().toString());
 
         item.setTasks(formatContractTasks(tasks));
 
