@@ -7,7 +7,7 @@ class OnboardingController {
     const withAuthentication = request.input('with-authentication') || false;
 
     let data = await backendApi.getOnboarding(withAuthentication);
-    const extra = await onOnboardingFetch(context, data.questions);
+    const extra = await onOnboardingFetch(context);
 
     if (extra) {
       data = { ...data, ...extra };
@@ -21,7 +21,7 @@ class OnboardingController {
     const ids = request.input('ids') || [];
 
     let data = await backendApi.getBlocks(ids);
-    const extra = await onOnboardingFetch(context, data.questions);
+    const extra = await onOnboardingFetch(context);
 
     if (extra) {
       data = { ...data, ...extra };
@@ -35,7 +35,7 @@ class OnboardingController {
     const ids = request.input('ids') || [];
 
     const questions = await backendApi.getQuestions(ids);
-    const extra = await onOnboardingFetch(context, questions);
+    const extra = await onOnboardingFetch(context);
 
     let data = { questions };
 
