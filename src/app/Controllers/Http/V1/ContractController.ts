@@ -6,6 +6,11 @@ class ContractController {
   public async index({ request, response, backendApi }: Context) {
     const filters = request.input('filters') as Filters;
 
+    // this would be more explicit with:
+    // filters.proposition__risk_advice__isnull = false
+    // but it doesn't work (see https://robinfinance.atlassian.net/browse/RDB-3488)
+    filters._proposition__risk_advice__isnull = 1;
+
     const contracts = await backendApi.getContracts(filters);
 
     response.status(200).send(contracts);
