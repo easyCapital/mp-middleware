@@ -69,6 +69,7 @@ export default class BackendApi {
   public prevalidateCGPPortfolio = CGP.prevalidatePortfolio;
   // CGP - Product
   public getProduct = CGP.getProduct;
+  public getProducts = CGP.getProducts;
   // CGP - Proposition
   public generateCGPCustomerProposition = CGP.generateCustomerProposition;
   public getCGPCustomerPropositions = CGP.getCustomerPropositions;

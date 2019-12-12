@@ -6,33 +6,33 @@ const Route = use('Route');
 |--------------------------------------------------------------------------
 */
 Route.group(() => {
-  Route.get('/', 'V1/PageController.index');
-  Route.get('/search', 'V1/PageController.search');
-  Route.get('/:slug', 'V1/PageController.get');
-}).prefix('api/1.0/page');
+  Route.get('/', 'V1/Prismic/PageController.index');
+  Route.get('/search', 'V1/Prismic/PageController.search');
+  Route.get('/:slug', 'V1/Prismic/PageController.get');
+}).prefix('api/1.0/prismic/page');
 
 Route.group(() => {
-  Route.get('/', 'V1/ProductController.index');
-  Route.get('/search', 'V1/ProductController.search');
-  Route.get('/:slug', 'V1/ProductController.get');
-}).prefix('api/1.0/product');
+  Route.get('/', 'V1/Prismic/ProductController.index');
+  Route.get('/search', 'V1/Prismic/ProductController.search');
+  Route.get('/:slug', 'V1/Prismic/ProductController.get');
+}).prefix('api/1.0/prismic/product');
 
 Route.group(() => {
-  Route.get('/', 'V1/ProductTypeController.index');
-  Route.get('/search', 'V1/ProductTypeController.search');
-  Route.get('/:slug', 'V1/ProductTypeController.get');
-}).prefix('api/1.0/type');
+  Route.get('/', 'V1/Prismic/ProductTypeController.index');
+  Route.get('/search', 'V1/Prismic/ProductTypeController.search');
+  Route.get('/:slug', 'V1/Prismic/ProductTypeController.get');
+}).prefix('api/1.0/prismic/type');
 
 Route.group(() => {
-  Route.get('/', 'V1/SupplierController.index');
-  Route.get('/search', 'V1/SupplierController.search');
-  Route.get('/:slug', 'V1/SupplierController.get');
-}).prefix('api/1.0/supplier');
+  Route.get('/', 'V1/Prismic/SupplierController.index');
+  Route.get('/search', 'V1/Prismic/SupplierController.search');
+  Route.get('/:slug', 'V1/Prismic/SupplierController.get');
+}).prefix('api/1.0/prismic/supplier');
 
 Route.group(() => {
-  Route.get('/', 'V1/AdviceController.index');
-  Route.get('/search', 'V1/AdviceController.search');
-}).prefix('api/1.0/advice');
+  Route.get('/', 'V1/Prismic/AdviceController.index');
+  Route.get('/search', 'V1/Prismic/AdviceController.search');
+}).prefix('api/1.0/prismic/advice');
 
 /*
 |--------------------------------------------------------------------------

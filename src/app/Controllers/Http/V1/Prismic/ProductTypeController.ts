@@ -1,6 +1,6 @@
-import * as PrismicApi from '../../../Api/Prismic';
-import { InvalidArgumentException } from '../../../Exceptions';
-import { Context } from '../../../../types';
+import * as PrismicApi from '../../../../Api/Prismic';
+import { InvalidArgumentException } from '../../../../Exceptions';
+import { Context } from '../../../../../types';
 
 class ProductTypeController {
   public async index({ response }: Context) {
