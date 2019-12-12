@@ -17,6 +17,7 @@ interface PropositionInterface {
 }
 
 export default class Proposition implements PropositionInterface {
+  public configKey: string | undefined;
   private id: number;
   private created: string;
   private universe: string;
@@ -69,6 +70,7 @@ export default class Proposition implements PropositionInterface {
     if (json.contracts) {
       this.contracts = json.contracts;
     }
+    this.configKey = json.config_key;
   }
 
   public toJSON(): JsonPropositionInterface {

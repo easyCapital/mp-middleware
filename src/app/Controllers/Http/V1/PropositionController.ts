@@ -64,10 +64,8 @@ class PropositionController {
 
   public async downloadByToken({ params, response, backendApi, universe }: Context) {
     const { token } = params;
-    const [questions, proposition] = await Promise.all([
-      backendApi.getQuestions(['sub_contract_goal1', 'sub_horizon1']),
-      backendApi.getPropositionByToken(token),
-    ]);
+    const proposition = await backendApi.getPropositionByToken(token);
+    const questions = await backendApi.getQuestions(proposition.configKey, ['sub_contract_goal1', 'sub_horizon1']);
     const htmlContent = await twig.renderTemplate(
       'proposition/body.html',
       toTwigModel(proposition, universe, questions),

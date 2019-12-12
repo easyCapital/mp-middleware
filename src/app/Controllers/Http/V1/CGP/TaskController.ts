@@ -12,8 +12,9 @@ class CGPTaskController {
     response.status(200).send(contracts);
   }
 
-  public async complementaryQuestions({ params, response, backendApi }: Context) {
+  public async complementaryQuestions({ params, request, response, backendApi }: Context) {
     const { contract } = params;
+    const configKey = request.input('config-key');
 
     const tasks = await backendApi.getGCPContractTasks(contract, {
       type: TaskTypes.QUESTION,
@@ -24,7 +25,7 @@ class CGPTaskController {
     let questions = {};
 
     if (questionIds.length > 0) {
-      questions = await backendApi.getQuestions(questionIds);
+      questions = await backendApi.getQuestions(configKey, questionIds);
     }
 
     response.status(200).send(Object.values(questions));

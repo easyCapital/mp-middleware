@@ -17,7 +17,7 @@ class TaskController {
     let questions = {};
 
     if (questionIds.length > 0) {
-      questions = await backendApi.getQuestions(questionIds);
+      questions = await backendApi.getQuestions(undefined, questionIds);
     }
 
     response.status(200).send(Object.values(questions));

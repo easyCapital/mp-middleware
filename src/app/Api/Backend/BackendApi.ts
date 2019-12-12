@@ -81,6 +81,8 @@ export default class BackendApi {
   // CGP - User
   public getCGPDetails = CGP.getCGPDetails;
 
+  protected getStepsAndBlocks = Onboarding.getStepsAndBlocks;
+
   protected backendClient: BackendClientInterface;
 
   constructor(backendApiKey: string, token?: BackendToken) {
