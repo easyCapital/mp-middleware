@@ -79,6 +79,14 @@ const staging = {
     app: Apps.CONSEIL,
     backendApiKey: mpBackendApiKey,
   },
+  'https://demo.courtier.stg.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: demoInsuranceBrokerBackendApiKey,
+  },
+  'https://demo.cgp.stg.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: demoCGPBackendApiKey,
+  },
 };
 
 /*
