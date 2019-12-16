@@ -4,7 +4,7 @@ import { Context } from '../../../../types';
 
 class ContractController {
   public async index({ request, response, backendApi }: Context) {
-    const filters = request.input('filters') as Filters;
+    const filters = request.input('filters', {}) as Filters;
 
     // this would be more explicit with:
     // filters.proposition__risk_advice__isnull = false
