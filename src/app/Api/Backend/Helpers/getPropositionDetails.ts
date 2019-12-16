@@ -30,16 +30,20 @@ export default async function getPropositionDetails(backendApi: BackendApi, data
       const portfolio = portfoliosById[item.portfolio];
       const product = productsById[item.product_identifier];
 
-      if (!product || !portfolio) {
+      if (!product) {
         Logger.warning('Product with identifier %s could not be found in Prismic', item.product_identifier);
       }
 
-      portfolio
-        .setProduct(product)
-        .setSrri(item.srri)
-        .setAmount(item.amount);
+      if (portfolio) {
+        portfolio
+          .setProduct(product)
+          .setSrri(item.srri)
+          .setAmount(item.amount);
 
-      proposition.addPortfolio(portfolio);
+        proposition.addPortfolio(portfolio);
+      } else {
+        Logger.warning('Portfolio with identifier %s could not be found', item.portfolio);
+      }
     });
   }
 

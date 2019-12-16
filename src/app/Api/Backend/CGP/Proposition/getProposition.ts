@@ -4,6 +4,8 @@ import { ArrayToObject } from '../../../../Helpers';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
+const Logger = use('Logger');
+
 export default async function getProposition(this: BackendApi, id: string): Promise<Proposition> {
   try {
     const response = await this.backendClient.get({
@@ -28,12 +30,16 @@ export default async function getProposition(this: BackendApi, id: string): Prom
         rawProposition.contents.forEach(item => {
           const portfolio = portfoliosById[item.portfolio];
 
-          portfolio
-            .setSrri(item.srri)
-            .setAmount(item.amount)
-            .setProductIdentifier(item.product_identifier);
+          if (portfolio) {
+            portfolio
+              .setSrri(item.srri)
+              .setAmount(item.amount)
+              .setProductIdentifier(item.product_identifier);
 
-          proposition.addPortfolio(portfolio);
+            proposition.addPortfolio(portfolio);
+          } else {
+            Logger.warning('Portfolio with identifier %s could not be found', item.portfolio);
+          }
         });
       }
 
