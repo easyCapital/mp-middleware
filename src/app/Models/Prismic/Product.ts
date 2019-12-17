@@ -28,6 +28,7 @@ export default class Product extends ContentType implements ProductInterface {
   private recommendation?: Paragraphs;
   private investmentDestination?: Paragraphs;
   private performances?: any[];
+  private performancesTooltip?: string;
   private oneTimeFees?: any[];
   private annualFees?: any[];
   private bonuses?: any[];
@@ -72,12 +73,15 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.tdvm && json.data.tdvm.length > 0) {
       this.tdvms = json.data.tdvm.map(item => new TDVM(item));
     }
+
     if (json.data.recommandation) {
       this.recommendation = new Paragraphs(json.data.recommandation);
     }
+
     if (json.data.investment_destination) {
       this.investmentDestination = new Paragraphs(json.data.investment_destination);
     }
+
     if (json.data.product_performances) {
       this.performances = json.data.product_performances.map(item => {
         return {
@@ -86,6 +90,11 @@ export default class Product extends ContentType implements ProductInterface {
         };
       });
     }
+
+    if (json.data.product_performances_tooltip) {
+      this.performancesTooltip = json.data.product_performances_tooltip;
+    }
+
     if (json.data.one_time_fees) {
       this.oneTimeFees = json.data.one_time_fees.map(item => {
         return {
@@ -94,6 +103,7 @@ export default class Product extends ContentType implements ProductInterface {
         };
       });
     }
+
     if (json.data.annual_fees) {
       this.annualFees = json.data.annual_fees.map(item => {
         return {
@@ -102,6 +112,7 @@ export default class Product extends ContentType implements ProductInterface {
         };
       });
     }
+
     if (json.data.bonusses) {
       this.bonuses = json.data.bonusses.map(item => {
         return {
@@ -110,6 +121,7 @@ export default class Product extends ContentType implements ProductInterface {
         };
       });
     }
+
     if (json.data.body) {
       this.blocks = json.data.body;
     }
@@ -137,6 +149,7 @@ export default class Product extends ContentType implements ProductInterface {
       recommendation: this.recommendation && this.recommendation.toJSON(),
       investmentDestination: this.investmentDestination && this.investmentDestination.toJSON(),
       performances: this.performances,
+      performancesTooltip: this.performancesTooltip,
       oneTimeFees: this.oneTimeFees,
       annualFees: this.annualFees,
       bonuses: this.bonuses,
