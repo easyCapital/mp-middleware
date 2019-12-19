@@ -38,7 +38,7 @@ class CGPPropositionController {
   public async generate(context: Context) {
     const { params, request, response, backendApi, universe } = context;
     const { customer } = params;
-    const configKey = request.input('config-key');
+    const configKey = (request.post() as any).configKey;
 
     const proposition: Proposition = await backendApi.generateCGPCustomerProposition(universe, customer, configKey);
 
