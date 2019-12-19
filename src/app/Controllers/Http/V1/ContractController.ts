@@ -7,9 +7,9 @@ class ContractController {
     const filters = request.input('filters', {}) as Filters;
 
     // this would be more explicit with:
-    // filters.proposition__risk_advice__isnull = false
+    // filters.roles__user__proposition__risk_advice__isnull = false
     // but it doesn't work (see https://robinfinance.atlassian.net/browse/RDB-3488)
-    filters._proposition__risk_advice__isnull = 1;
+    filters._roles__user__proposition__risk_advice__isnull = 1;
 
     const contracts = await backendApi.getContracts(filters);
 
