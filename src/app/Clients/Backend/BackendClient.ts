@@ -150,8 +150,11 @@ export default class BackendClient implements BackendClientInterface {
 
     if (!response.ok) {
       if (response.headers.get('content-type') !== 'application/json') {
-        throw new ExpectedJsonResponseException();
+        const message = await response.text();
+
+        throw new ExpectedJsonResponseException(message);
       }
+
       throw response;
     }
 
