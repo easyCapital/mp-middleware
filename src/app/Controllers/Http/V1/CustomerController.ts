@@ -25,6 +25,7 @@ class CustomerController {
       utm_source: utmSource,
       utm_medium: utmMedium,
     });
+
     context.updateToken({ customerToken: data.token });
 
     session.clear();
