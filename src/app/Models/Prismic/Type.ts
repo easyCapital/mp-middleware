@@ -1,6 +1,6 @@
 import { Type as JsonTypeInterface, Gender } from '@robinfinance/js-api';
 
-import { ContentType, Image } from '.';
+import { ContentType, Image, Paragraphs } from '.';
 import { GenderMapper } from '../../Mappers/Prismic';
 
 interface TypeInterface {
@@ -13,9 +13,12 @@ export default class Type extends ContentType implements TypeInterface {
   private labelSingular: string;
   private labelPlural: string;
   private labelDemonstrative: string;
-  private gender: Gender | null;
+  private gender?: Gender;
   private description: string;
   private icon: Image;
+  private recommandationExplanations: Paragraphs[];
+  private attentionPoints: Paragraphs;
+  private allocationExplanations: any;
 
   constructor(json: any) {
     super(json);
@@ -28,6 +31,13 @@ export default class Type extends ContentType implements TypeInterface {
     this.gender = GenderMapper.transformValue(json.data.gender);
     this.description = json.data.description;
     this.icon = new Image(json.data.icon);
+    this.recommandationExplanations = json.data.recommandation_explanations.map(
+      (item: any) => new Paragraphs(item.recommandation_explanation_text),
+    );
+    this.attentionPoints = new Paragraphs(json.data.attention_points);
+    this.allocationExplanations = json.data.allocation_explanations.map(item => {
+      return { type: item.explanation_type, value: new Paragraphs(item.explanation_value) };
+    });
   }
 
   public toJSON(): JsonTypeInterface {
@@ -42,6 +52,14 @@ export default class Type extends ContentType implements TypeInterface {
       gender: this.gender,
       description: this.description,
       icon: this.icon.toJSON(),
+      recommandationExplanations: this.recommandationExplanations.map(item => item.toJSON()),
+      attentionPoints: this.attentionPoints.toJSON(),
+      allocationExplanations: this.allocationExplanations.map(item => {
+        return {
+          type: item.type,
+          value: item.value.toJSON(),
+        };
+      }),
     };
   }
 }

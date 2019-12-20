@@ -11,7 +11,4 @@ export = {
     host: Env.getOrFail('PRISMIC_API_HOST'),
     apiKey: Env.getOrFail('PRISMIC_API_TOKEN'),
   },
-  elastic: {
-    host: Env.getOrFail('ELASTIC_API_HOST'),
-  },
 };

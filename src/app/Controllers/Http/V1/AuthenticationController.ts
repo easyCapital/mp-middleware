@@ -8,6 +8,9 @@ class AuthenticationController {
 
     const data = await ctx.backendApi.login(email, password, userType);
 
+    ctx.updateToken({ [`${userType}Token`]: data.token });
+    ctx.session.clear();
+
     if (userType === 'customer') {
       const customer = await ctx.backendApi.getCustomerDetails();
 
@@ -19,10 +22,6 @@ class AuthenticationController {
         throw new EmailNotVerifiedException();
       }
     }
-
-    ctx.updateToken({ [`${userType}Token`]: data.token });
-
-    ctx.session.clear();
 
     ctx.response.status(200).send(data);
   }

@@ -13,8 +13,4 @@ export = {
     name: 'outil-conseil',
     userType: 'cgp',
   },
-  ADMIN: {
-    name: 'outil-conseil',
-    userType: 'cgp',
-  },
 };

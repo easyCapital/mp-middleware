@@ -7,16 +7,19 @@ import {
 import { Condition, Error, Option } from '.';
 
 import { InputTypeMapper } from '../../Mappers/Onboarding';
+import { NotFoundException } from '../../Mappers/Exceptions';
 
 interface QuestionInterface {
   toJSON(): JsonQuestionInterface | null;
   getId(): string;
 }
 
+const Logger = use('Logger');
+
 export default class Question implements QuestionInterface {
   private id: string;
   private label?: string;
-  private type: InputType | null;
+  private type?: InputType;
   private placeholder?: string;
   private required: boolean = false;
   private min?: number;
@@ -31,7 +34,13 @@ export default class Question implements QuestionInterface {
   constructor(json: any) {
     this.id = json.key;
     this.label = json.label;
-    this.type = InputTypeMapper.transformValue(json.input_type);
+    try {
+      this.type = InputTypeMapper.transformValue(json.input_type, true);
+    } catch (exception) {
+      if (exception instanceof NotFoundException) {
+        Logger.info(`${exception.message} (question key : %s)`, this.id);
+      }
+    }
     this.placeholder = json.placeholder;
     this.required = json.required;
     this.min = json.min;
@@ -50,6 +59,12 @@ export default class Question implements QuestionInterface {
 
     if (json.errors) {
       this.errors = Object.keys(json.errors).map(type => new Error(type, json.errors[type]));
+    }
+  }
+
+  public findOption(value: string): Option | undefined {
+    if (this.options) {
+      return this.options.find(option => option.value === value);
     }
   }
 

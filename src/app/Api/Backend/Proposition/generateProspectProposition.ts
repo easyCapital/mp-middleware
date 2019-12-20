@@ -1,10 +1,9 @@
 import { Answer } from '@robinfinance/js-api';
 
-import { formatAnswerBody } from '../Helpers';
 import { Exception } from '../../../Exceptions';
 import { Proposition } from '../../../Models/Proposition';
+import { formatAnswerBody, getPropositionDetails } from '../Helpers';
 import BackendApi from '..';
-import getPropositionDetails from '../Helpers/getPropositionDetails';
 
 export default async function generateProspectProposition(
   this: BackendApi,

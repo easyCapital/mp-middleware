@@ -5,7 +5,7 @@ import { BackendToken } from '../../src/app/Clients/Backend/BackendClient';
 
 export interface Context extends Http.Context {
   backendApi: BackendApi;
-  app: any;
+  app: { name: string; userType: string };
   authenticated: boolean;
   backendApiKey: string;
   symfonySession?: any;

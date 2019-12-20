@@ -1,4 +1,4 @@
-import { Portfolio as JsonPortfolioInterface } from '@robinfinance/js-api';
+import { Portfolio as JsonPortfolioInterface, FundTypes } from '@robinfinance/js-api';
 
 import { Fund } from '.';
 import { Product } from '../Prismic';
@@ -12,16 +12,25 @@ interface PortfolioInterface {
 }
 
 export default class Portfolio implements PortfolioInterface {
+  public amount?: number;
   private id: number;
+  private productIdentifier?: string;
   private product?: Product;
-  private amount?: number;
   private srri: number;
-  private funds: any[] = [];
+  private funds: Fund[] = [];
   private performances?: { [year: string]: number };
 
   constructor(json: any) {
-    this.id = json.id;
+    this.id = json.id || json.portfolio;
     this.srri = json.srri;
+
+    if (json.amount) {
+      this.amount = json.amount;
+    }
+
+    if (json.product_identifier) {
+      this.productIdentifier = json.product_identifier;
+    }
 
     if (json.performances && Object.keys(json.performances).length > 0) {
       this.performances = json.performances;
@@ -31,12 +40,18 @@ export default class Portfolio implements PortfolioInterface {
   public toJSON(): JsonPortfolioInterface {
     return {
       id: this.id,
+      productIdentifier: this.productIdentifier,
       product: this.product && this.product.toJSON(),
       amount: this.amount,
       srri: this.srri,
       funds: this.funds.map(fund => fund.toJSON()),
       performances: this.performances,
+      guaranteedCapitalWeight: this.computeGuaranteedCapitalWeight(),
     };
+  }
+
+  public getId(): number {
+    return this.id;
   }
 
   public setProduct(product: Product): Portfolio {
@@ -47,10 +62,20 @@ export default class Portfolio implements PortfolioInterface {
     return this;
   }
 
+  public setProductIdentifier(product: string): Portfolio {
+    this.productIdentifier = product;
+
+    return this;
+  }
+
   public setSrri(srri: number): Portfolio {
     this.srri = srri;
 
     return this;
+  }
+
+  public getAmount(): number | undefined {
+    return this.amount;
   }
 
   public setAmount(amount: number): Portfolio {
@@ -63,5 +88,17 @@ export default class Portfolio implements PortfolioInterface {
     this.funds.push(fund);
 
     return this;
+  }
+
+  private computeGuaranteedCapitalWeight(): number {
+    let guaranteedCapitalWeight = 0;
+    this.funds.forEach(fund => {
+      if (fund.type === FundTypes.EURO) {
+        if (fund.weight) {
+          guaranteedCapitalWeight += fund.weight;
+        }
+      }
+    });
+    return guaranteedCapitalWeight;
   }
 }

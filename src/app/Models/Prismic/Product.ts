@@ -1,6 +1,6 @@
 import { Product as JsonProductInterface } from '@robinfinance/js-api';
 
-import { ContentType, Type, Supplier, RichText, Cost } from '.';
+import { ContentType, Type, Supplier, RichText, Cost, TDVM, Paragraphs } from '.';
 import { BooleanMapper } from '../../Mappers/Prismic';
 
 interface ProductInterface {
@@ -23,6 +23,16 @@ export default class Product extends ContentType implements ProductInterface {
   private costs?: Cost[];
   private taxeExemptionRate?: string;
   private investmentPeriod?: string;
+  private supplierConditions?: RichText[];
+  private tdvms?: TDVM[];
+  private recommendation?: Paragraphs;
+  private investmentDestination?: Paragraphs;
+  private performances?: any[];
+  private performancesTooltip?: string;
+  private oneTimeFees?: any[];
+  private annualFees?: any[];
+  private bonuses?: any[];
+  private blocks?: any[];
 
   constructor(json: any) {
     super(json);
@@ -55,6 +65,66 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.investment_period) {
       this.investmentPeriod = json.data.investment_period;
     }
+
+    if (json.data.supplier_conditions && json.data.supplier_conditions.length > 0) {
+      this.supplierConditions = json.data.supplier_conditions.map(item => new RichText(item));
+    }
+
+    if (json.data.tdvm && json.data.tdvm.length > 0) {
+      this.tdvms = json.data.tdvm.map(item => new TDVM(item));
+    }
+
+    if (json.data.recommandation) {
+      this.recommendation = new Paragraphs(json.data.recommandation);
+    }
+
+    if (json.data.investment_destination) {
+      this.investmentDestination = new Paragraphs(json.data.investment_destination);
+    }
+
+    if (json.data.product_performances) {
+      this.performances = json.data.product_performances.map(item => {
+        return {
+          label: item.product_performance_label,
+          value: item.product_performance_value,
+        };
+      });
+    }
+
+    if (json.data.product_performances_tooltip) {
+      this.performancesTooltip = json.data.product_performances_tooltip;
+    }
+
+    if (json.data.one_time_fees) {
+      this.oneTimeFees = json.data.one_time_fees.map(item => {
+        return {
+          label: item.fee_label,
+          value: item.fee_value,
+        };
+      });
+    }
+
+    if (json.data.annual_fees) {
+      this.annualFees = json.data.annual_fees.map(item => {
+        return {
+          label: item.fee_label,
+          value: item.fee_value,
+        };
+      });
+    }
+
+    if (json.data.bonusses) {
+      this.bonuses = json.data.bonusses.map(item => {
+        return {
+          title: item.bonus_title,
+          description: new Paragraphs(item.bonus_description).toJSON(),
+        };
+      });
+    }
+
+    if (json.data.body) {
+      this.blocks = json.data.body;
+    }
   }
 
   public toJSON(): JsonProductInterface {
@@ -74,6 +144,16 @@ export default class Product extends ContentType implements ProductInterface {
       costs: this.costs && this.costs.map(item => item.toJSON()),
       taxeExemptionRate: this.taxeExemptionRate,
       investmentPeriod: this.investmentPeriod,
+      supplierConditions: this.supplierConditions && this.supplierConditions.map(item => item.toJSON()),
+      tdvms: this.tdvms && this.tdvms.map(item => item.toJSON()),
+      recommendation: this.recommendation && this.recommendation.toJSON(),
+      investmentDestination: this.investmentDestination && this.investmentDestination.toJSON(),
+      performances: this.performances,
+      performancesTooltip: this.performancesTooltip,
+      oneTimeFees: this.oneTimeFees,
+      annualFees: this.annualFees,
+      bonuses: this.bonuses,
+      blocks: this.blocks,
     };
   }
 

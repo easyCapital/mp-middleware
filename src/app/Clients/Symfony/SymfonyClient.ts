@@ -28,24 +28,28 @@ export default class SymfonyClient implements SymfonyClientInterface {
 
   public async proxy(req: IncomingMessage, res: ServerResponse, synfonyPath: string): Promise<void> {
     const symfonyUrl = this.buildUrl(synfonyPath).href;
+
     this.logger.info('Proxying %s to %s', req.url, symfonyUrl);
-    // "Unless listen(..) is invoked on the object, this does not create a webserver."
-    // see https://github.com/http-party/node-http-proxy#core-concept
+
     const proxy = httpProxy.createProxyServer();
     const responseEndPromise = this.buildProxyResponseEndPromise(proxy, req, symfonyUrl);
+
     proxy.web(req, res, this.proxyParams(symfonyUrl));
+
     return responseEndPromise;
   }
 
   private proxyParams(symfonyUrl: string): httpProxy.ServerOptions {
     const params: httpProxy.ServerOptions = {
-      target: symfonyUrl, // we provide the full synfony URL here
-      ignorePath: true, // we don't want to use the original request path
-      changeOrigin: true, // we don't want to use the original request host header
+      target: symfonyUrl,
+      ignorePath: true,
+      changeOrigin: true,
     };
+
     if (this.customerToken) {
       params.headers = { Authorization: this.customerToken };
     }
+
     return params;
   }
 
@@ -56,12 +60,16 @@ export default class SymfonyClient implements SymfonyClientInterface {
     return new Promise<void>((resolve, reject) => {
       proxy.on('error', error => {
         this.logger.error('Error while proxying %s to %s: %s', req.url, symfonyUrl, error);
+
         reject(error);
       });
+
       proxy.on('proxyRes', proxyRes => {
         removeSymfonyHeaders(proxyRes.headers);
+
         proxyRes.on('end', () => {
           this.logger.debug('Done proxying %s to %s done', req.url, symfonyUrl);
+
           resolve();
         });
       });

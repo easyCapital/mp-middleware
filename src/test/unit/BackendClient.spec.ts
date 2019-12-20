@@ -15,8 +15,8 @@ test('validate mieuxplacer backend API token', async ({ assert, client }) => {
   await assertBackendApiTokenFromOrigin(client, assert, 'http://mif.mieuxplacer.local', 'mieuxplacerbackendapitoken');
 });
 
-test('validate afi backend API token', async ({ assert, client }) => {
-  await assertBackendApiTokenFromOrigin(client, assert, 'http://mif.afi.local', 'afibackendapitoken');
+test('validate demo backend API token', async ({ assert, client }) => {
+  await assertBackendApiTokenFromOrigin(client, assert, 'http://demo.cgp.mieuxplacer.local', 'democgpbackendapitoken');
 });
 
 test('validate backend API token from Referer', async ({ assert, client }) => {

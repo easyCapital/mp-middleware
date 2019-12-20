@@ -15,6 +15,10 @@ export default class ProspectException extends HttpException {
           errorMessageType = { global: ErrorTypes.USED_EMAIL };
           break;
 
+        case BackendErrorTypes.EmailValidationError:
+          errorMessageType = { email: ErrorTypes.DEFAULT };
+          break;
+
         case BackendErrorTypes.InvalidEmailStatus:
           errorMessageType = { email: ErrorTypes.INVALID_EMAIL };
           break;

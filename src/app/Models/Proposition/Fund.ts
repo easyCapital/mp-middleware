@@ -8,13 +8,12 @@ interface FundInterface {
 }
 
 export default class Fund implements FundInterface {
+  public weight?: number;
+  public type?: FundType;
   private id: number;
-  private weight?: number;
   private isin: string;
   private name: string;
-  private type: FundType | null;
   private morningStarId: string;
-  private diciUrl?: string;
   private srri: number;
   private grade?: number;
   private performance?: number;
@@ -40,7 +39,9 @@ export default class Fund implements FundInterface {
       type: this.type,
       grade: this.grade,
       morningStarId: this.morningStarId,
-      diciUrl: this.diciUrl,
+      diciUrl:
+        this.morningStarId &&
+        `http://www.morningstar.fr/fr/funds/snapshot/snapshot.aspx?id=${this.morningStarId}&tab=12`,
       performance: this.performance,
       srri: this.srri,
       partPrice: this.price,

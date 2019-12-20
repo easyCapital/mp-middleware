@@ -3,6 +3,7 @@ import { Answer } from '@robinfinance/js-api';
 import { Context } from '../../types';
 
 import * as MieuxplacerEvents from './Mieuxplacer';
+import * as ConseilEvents from './Conseil';
 
 const Apps = use('Config').get('mpApps');
 
@@ -10,6 +11,9 @@ async function onOnboardingValidation(context: Context, answers: Answer, extra?:
   switch (context.app) {
     case Apps.MIEUXPLACER:
       return MieuxplacerEvents.onOnboardingValidation(context, answers, extra);
+
+    case Apps.CONSEIL:
+      return ConseilEvents.onOnboardingValidation(context, answers, extra);
 
     default:
       break;

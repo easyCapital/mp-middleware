@@ -1,7 +1,14 @@
-import { Proposition as JsonPropositionInterface, Answer } from '@robinfinance/js-api';
+import {
+  Proposition as JsonPropositionInterface,
+  PropositionPortfolio as JsonPropositionPortfolioInterface,
+  Origin,
+  Origins,
+} from '@robinfinance/js-api';
 
 import { Portfolio } from '.';
 import { Advice } from '../Prismic';
+import { Answer } from '../Answer';
+import { formatAnswers } from '../../Api/Backend/Helpers';
 
 interface PropositionInterface {
   toJSON(): JsonPropositionInterface;
@@ -10,21 +17,25 @@ interface PropositionInterface {
 }
 
 export default class Proposition implements PropositionInterface {
+  public configKey: string | undefined;
   private id: number;
   private created: string;
   private universe: string;
   private userId?: number;
   private userEmail?: string;
+  private origin: Origin;
   private token: string;
   private weightedSrri: number;
-  private answers: Answer = {};
+  private answers: Answer[] = [];
   private investorType?: Advice;
   private portfolios: Portfolio[] = [];
+  private contracts: number[] = [];
 
   constructor(json: any) {
     this.id = json.id;
     this.created = json.created;
     this.universe = json.universe;
+    this.origin = json.cgp === null ? Origins.MIEUXPLACER : Origins.CGP;
     this.token = json.token;
     this.weightedSrri = json.srri_weighted;
 
@@ -37,21 +48,33 @@ export default class Proposition implements PropositionInterface {
     }
 
     if (json.answers) {
-      json.answers.forEach(answer => {
-        if (this.answers[answer.question]) {
-          const existingAnswer = this.answers[answer.question];
+      const answers: { [key: string]: Answer } = {};
 
-          this.answers[answer.question] = Array.isArray(existingAnswer)
-            ? [...existingAnswer, answer.value]
-            : [existingAnswer, answer.value];
+      json.answers.forEach(answer => {
+        if (answers[answer.question]) {
+          answers[answer.question].addValue(answer.value);
         } else {
-          this.answers[answer.question] = answer.value;
+          answers[answer.question] = new Answer(answer);
         }
       });
+
+      this.answers = Object.values(answers);
     }
+
+    if (json.contents) {
+      json.contents.map(portfolio => {
+        this.portfolios.push(new Portfolio(portfolio));
+      });
+    }
+
+    if (json.contracts) {
+      this.contracts = json.contracts;
+    }
+    this.configKey = json.config_key;
   }
 
   public toJSON(): JsonPropositionInterface {
+    const totalAmount = this.getAmount();
     return {
       id: this.id,
       token: this.token,
@@ -59,10 +82,19 @@ export default class Proposition implements PropositionInterface {
       universe: this.universe,
       userId: this.userId,
       userEmail: this.userEmail,
+      origin: this.origin,
       weightedSrri: this.weightedSrri,
-      answers: this.answers,
+      answers: formatAnswers(this.answers),
       investorType: this.investorType && this.investorType.toJSON(),
-      portfolios: this.portfolios.map(portfolio => portfolio.toJSON()),
+      portfolios: this.portfolios.map(portfolio => {
+        const jsonPortfolio = portfolio.toJSON() as JsonPropositionPortfolioInterface;
+        if (jsonPortfolio.amount) {
+          jsonPortfolio.weight = jsonPortfolio.amount / totalAmount;
+        }
+        return jsonPortfolio;
+      }),
+      contracts: this.contracts,
+      amount: totalAmount,
     };
   }
 
@@ -82,9 +114,26 @@ export default class Proposition implements PropositionInterface {
     return this;
   }
 
+  public setPortfolios(portfolios: Portfolio[]): Proposition {
+    this.portfolios = portfolios;
+
+    return this;
+  }
+
   public addPortfolio(portfolio: Portfolio): Proposition {
     this.portfolios.push(portfolio);
 
     return this;
+  }
+
+  private getAmount(): number {
+    let totalAmount = 0;
+    this.portfolios.forEach(portfolio => {
+      const portfolioAmount = portfolio.amount;
+      if (portfolioAmount) {
+        totalAmount += portfolioAmount;
+      }
+    });
+    return totalAmount;
   }
 }

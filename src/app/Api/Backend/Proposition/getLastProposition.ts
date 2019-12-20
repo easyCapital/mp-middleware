@@ -1,7 +1,7 @@
 import { Proposition } from '../../../Models/Proposition';
-import BackendApi from '..';
 import { Exception } from '../../../Exceptions';
-import getPropositionDetails from '../Helpers/getPropositionDetails';
+import { getPropositionDetails } from '../Helpers';
+import BackendApi from '..';
 
 export default async function getLastProposition(this: BackendApi): Promise<Proposition> {
   try {

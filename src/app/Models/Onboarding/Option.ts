@@ -5,8 +5,8 @@ interface OptionInterface {
 }
 
 export default class Option implements OptionInterface {
-  private value: string;
-  private label: string;
+  public value: string;
+  public label: string;
   private exclusive: boolean;
   private data?: any;
 

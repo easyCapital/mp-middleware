@@ -1,6 +1,5 @@
-import { FundTypes, FundType } from '@robinfinance/js-api';
-
-const Logger = use('Logger');
+import { FundTypes } from '@robinfinance/js-api';
+import GenericMapper from '../GenericMapper';
 
 const FundTypeMapping = {
   '1': FundTypes.FCPI,
@@ -12,16 +11,8 @@ const FundTypeMapping = {
   '8': FundTypes.OPCI,
 };
 
-export default class FundTypeMapper {
-  public static transformValue(value: string): FundType | null {
-    const mappedValue = FundTypeMapping[value];
-
-    if (mappedValue) {
-      return mappedValue;
-    }
-
-    Logger.info('Missing mapping value in %s for %s', 'FundTypeMapper', value);
-
-    return null;
-  }
+class FundTypeMapper extends GenericMapper<FundTypes> {
+  protected readonly mapping = FundTypeMapping;
 }
+
+export default new FundTypeMapper();

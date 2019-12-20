@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        <style>
+          @font-face {
+            font-family: 'Larsseit';
+            src: url('https://www.mieuxplacer.com/pdf/fonts/Larsseit.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+          }
+
+          @font-face {
+            font-family: 'Larsseit';
+            src: url('https://www.mieuxplacer.com/pdf/fonts/Larsseit-Light.ttf') format('truetype');
+            font-weight: 300;
+            font-style: normal;
+          }
+
+          @font-face {
+            font-family: 'Larsseit';
+            src: url('https://www.mieuxplacer.com/pdf/fonts/Larsseit-Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+          }
+
+          @font-face {
+            font-family: 'Larsseit';
+            src: url('https://www.mieuxplacer.com/pdf/fonts/Larsseit-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+          }
+
+          html {
+            font-size: 100%;
+          }
+
+          body {
+            position: relative;
+            margin: 0;
+            background-color: #ffffff;
+            font-family: 'Larsseit', -apple-system, BlinkMacSystemFont, Helvetica, Arial,
+            sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+          }
+
+          .Footer {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+                    align-items: center;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+                    justify-content: space-between;
+            padding: 0 2.4rem;
+          }
+
+          .Footer__contact,
+          .Footer__page {
+            margin: 0;
+            color: #223b5d;
+            font-size: 1.1rem;
+            line-height: 1.82;
+          }
+
+          .Footer__contact {
+            font-weight: 300;
+          }
+        </style>
+
+        <script>
+          function substitutePdfVariables() {
+              function getParameterByName(name) {
+                  var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+                  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+              }
+
+              function substitute(name) {
+                  var value = getParameterByName(name);
+                  var elements = document.getElementsByClassName(name);
+
+                  for (var i = 0; elements && i < elements.length; i++) {
+                      elements[i].textContent = value;
+                  }
+              }
+
+              ['frompage', 'topage', 'page', 'webpage', 'section', 'subsection', 'subsubsection']
+                  .forEach(function(param) {
+                      substitute(param);
+                  });
+          }
+      </script>
+    </head>
+    <body onload="substitutePdfVariables()">
+        <div class="Footer">
+          <p class="Footer__contact">Service client : 01 86 26 06 06 - hello@mieuxplacer.com</p>
+          <p class="Footer__page">Page <span class="page"></span></p>
+        </div>
+    </body>
+</html>
