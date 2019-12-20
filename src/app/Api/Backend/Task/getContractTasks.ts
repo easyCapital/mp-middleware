@@ -9,11 +9,23 @@ import BackendApi from '..';
 export default async function getContractTasks(this: BackendApi, filters?: Filters): Promise<Task[]> {
   if (filters) {
     if ('type' in filters) {
-      filters.type = TaskTypeMapper.reverseTransform(filters.type);
+      if (Array.isArray(filters.type)) {
+        filters.type__in = filters.type.map(type => TaskTypeMapper.reverseTransform(type));
+
+        delete filters.type;
+      } else {
+        filters.type = TaskTypeMapper.reverseTransform(filters.type);
+      }
     }
 
     if ('status' in filters) {
-      filters.status = TaskStatusMapper.reverseTransform(filters.status);
+      if (Array.isArray(filters.status)) {
+        filters.status__in = filters.status.map(status => TaskStatusMapper.reverseTransform(status));
+
+        delete filters.status;
+      } else {
+        filters.status = TaskStatusMapper.reverseTransform(filters.status);
+      }
     }
   }
 

@@ -14,11 +14,23 @@ export default async function getContractTasks(
   const formattedFilters: Filters = filters ? { ...filters, contract: contractId } : { contract: contractId };
 
   if ('type' in formattedFilters) {
-    formattedFilters.type = TaskTypeMapper.reverseTransform(formattedFilters.type);
+    if (Array.isArray(formattedFilters.type)) {
+      formattedFilters.type__in = formattedFilters.type.map(type => TaskTypeMapper.reverseTransform(type));
+
+      delete formattedFilters.type;
+    } else {
+      formattedFilters.type = TaskTypeMapper.reverseTransform(formattedFilters.type);
+    }
   }
 
   if ('status' in formattedFilters) {
-    formattedFilters.status = TaskStatusMapper.reverseTransform(formattedFilters.status);
+    if (Array.isArray(formattedFilters.status)) {
+      formattedFilters.status__in = formattedFilters.status.map(status => TaskStatusMapper.reverseTransform(status));
+
+      delete formattedFilters.status;
+    } else {
+      formattedFilters.status = TaskStatusMapper.reverseTransform(formattedFilters.status);
+    }
   }
 
   try {
