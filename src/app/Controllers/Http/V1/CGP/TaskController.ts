@@ -18,7 +18,7 @@ class CGPTaskController {
 
     const tasks = await backendApi.getGCPContractTasks(contract, {
       type: TaskTypes.QUESTION,
-      status: TaskStatuses.TODO,
+      status: [TaskStatuses.TODO, TaskStatuses.PENDING],
     });
 
     const questionIds = tasks.map(task => task.getKey());
