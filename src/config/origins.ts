@@ -2,8 +2,8 @@ const Apps = use('Config').get('mpApps');
 const Env = use('Env');
 
 const mpBackendApiKey = Env.getOrFail('MP_BACKEND_API_TOKEN');
-const demoInsuranceBrokerBackendApiKey = Env.getOrFail('DEMO_INSURANCE_BROKER_API_TOKEN');
-const demoCGPBackendApiKey = Env.getOrFail('DEMO_CGP_API_TOKEN');
+const demoInsuranceBrokerBackendApiKey = Env.get('DEMO_INSURANCE_BROKER_API_TOKEN') || '';
+const demoCGPBackendApiKey = Env.get('DEMO_CGP_API_TOKEN') || '';
 
 /*
 |--------------------------------------------------------------------------
