@@ -34,13 +34,6 @@ export default class Question implements QuestionInterface {
   constructor(json: any) {
     this.id = json.key;
     this.label = json.label;
-    try {
-      this.type = InputTypeMapper.transformValue(json.input_type, true);
-    } catch (exception) {
-      if (exception instanceof NotFoundException) {
-        Logger.info(`${exception.message} (question key : %s)`, this.id);
-      }
-    }
     this.placeholder = json.placeholder;
     this.required = json.required;
     this.min = json.min;
@@ -48,6 +41,14 @@ export default class Question implements QuestionInterface {
     this.sensitive = json.is_sensitive;
     this.active = json.is_active;
     this.showIfAuthenticated = json.show_if_authenticated;
+
+    try {
+      this.type = InputTypeMapper.transformValue(json.input_type, true);
+    } catch (exception) {
+      if (exception instanceof NotFoundException) {
+        Logger.info(`${exception.message} (question key : %s)`, this.id);
+      }
+    }
 
     if (json.condition) {
       this.conditions = json.condition.split(' and ').map(condition => new Condition(condition));

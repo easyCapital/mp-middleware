@@ -1,6 +1,10 @@
-import { Filters, TaskTypes, TaskStatuses } from '@robinfinance/js-api';
+import { Filters, TaskTypes, TaskStatuses, FileTypes } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
+import { FileTypeKeyMapper, FileTypeMapper } from '../../../../Mappers/File';
+import { File } from '../../../../Models/File';
+import { Task } from '../../../../Models/Contract';
+import { Question } from '../../../../Models/Onboarding';
 
 class CGPTaskController {
   public async search({ params, request, response, backendApi }: Context) {
@@ -16,19 +20,64 @@ class CGPTaskController {
     const { contract } = params;
     const configKey = request.input('config-key');
 
-    const tasks = await backendApi.getGCPContractTasks(contract, {
+    const tasks: Task<Question>[] = await backendApi.getGCPContractTasks(contract, {
       type: TaskTypes.QUESTION,
       status: [TaskStatuses.TODO, TaskStatuses.PENDING],
     });
 
     const questionIds = tasks.map(task => task.getKey());
-    let questions = {};
 
     if (questionIds.length > 0) {
-      questions = await backendApi.getQuestions(configKey, questionIds);
+      const questions = await backendApi.getQuestions(configKey, questionIds);
+
+      tasks.forEach(task => {
+        const question = questions[task.getKey()];
+
+        if (question) {
+          task.setData(question);
+        }
+      });
+
+      tasks.sort((a, b) => Object.keys(questions).indexOf(a.getKey()) - Object.keys(questions).indexOf(b.getKey()));
     }
 
-    response.status(200).send(Object.values(questions));
+    response.status(200).send(Object.values(tasks));
+  }
+
+  public async supportingDocuments({ params, request, response, backendApi }: Context) {
+    const { contract } = params;
+    const filters = request.input('filters') as Filters;
+
+    const tasks: Task<File>[] = await backendApi.getGCPContractTasks(contract, {
+      type: TaskTypes.FILE,
+      status: [TaskStatuses.TODO, TaskStatuses.PENDING],
+    });
+
+    const fileTypes = tasks.map(task => FileTypeKeyMapper.transformValue(task.getKey()));
+
+    if (fileTypes.length > 0) {
+      const files = await backendApi.getCGPCustomerFiles({ ...filters, type__in: fileTypes });
+
+      tasks.forEach(task => {
+        const taskKey = FileTypeKeyMapper.transformValue(task.getKey());
+
+        const file = files.find(item => FileTypeMapper.reverseTransform(item.getType() as FileTypes) === taskKey);
+
+        if (taskKey) {
+          const key = FileTypeMapper.transformValue(taskKey);
+
+          if (key) {
+            task.setKey(key);
+          }
+        }
+
+        if (file) {
+          task.setData(file);
+        }
+      });
+    }
+
+    response.status(200).send(Object.values(tasks));
   }
 }
 

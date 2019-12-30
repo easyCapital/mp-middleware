@@ -85,6 +85,7 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.get('/', 'V1/CGP/FileController.search');
+  Route.post('/', 'V1/CGP/FileController.create');
 })
   .prefix('api/1.0/cgp/customer/:customer/file')
   .middleware(['auth']);
@@ -110,8 +111,7 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/:contract/task', 'V1/CGP/TaskController.search');
   Route.get('/:contract/task/complementary-question', 'V1/CGP/TaskController.complementaryQuestions');
-
-  Route.get('/:contract/file', 'V1/CGP/FileController.search');
+  Route.get('/:contract/task/supporting-document', 'V1/CGP/TaskController.supportingDocuments');
 })
   .prefix('api/1.0/cgp/contract')
   .middleware(['auth']);

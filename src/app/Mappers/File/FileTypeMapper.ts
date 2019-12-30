@@ -1,4 +1,5 @@
 import { FileTypes } from '@robinfinance/js-api';
+
 import GenericMapper from '../GenericMapper';
 
 const FileTypeMapping = {
@@ -21,8 +22,8 @@ const FileTypeMapping = {
   '16': FileTypes.SUB_PEA_PORTFOLIO,
 };
 
-class TaskTypeMapper extends GenericMapper<FileTypes> {
+class FileTypeMapper extends GenericMapper<FileTypes> {
   protected readonly mapping = FileTypeMapping;
 }
 
-export default new TaskTypeMapper();
+export default new FileTypeMapper();

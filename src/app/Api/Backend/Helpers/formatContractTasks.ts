@@ -3,8 +3,8 @@ import { TaskTypes } from '@robinfinance/js-api';
 import { Task } from '../../../Models/Contract';
 import { TaskOrderMapper, TaskStatusMapper } from '../../../Mappers/Contract';
 
-function formatContractTasks(tasks: Task[]): Task[] {
-  const formattedTasks: { [order: string]: Task } = {};
+function formatContractTasks(tasks: Task<any>[]): Task<any>[] {
+  const formattedTasks: { [order: string]: Task<any> } = {};
 
   tasks.forEach(task => {
     const type = task.getType();

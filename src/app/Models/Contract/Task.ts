@@ -2,15 +2,16 @@ import { Task as JsonTaskInterface, TaskStatus, TaskType } from '@robinfinance/j
 
 import { TaskTypeMapper, TaskStatusMapper } from '../../Mappers/Contract';
 
-interface TaskInterface {
-  toJSON(): JsonTaskInterface;
+interface TaskInterface<Type> {
+  toJSON(): JsonTaskInterface<Type>;
 }
 
-export default class Task implements TaskInterface {
+export default class Task<Type> implements TaskInterface<Type> {
   private id: number;
   private key: string;
   private type?: TaskType;
   private status?: TaskStatus;
+  private data?: Type;
 
   constructor(json: any) {
     this.id = json.id;
@@ -19,17 +20,24 @@ export default class Task implements TaskInterface {
     this.status = TaskStatusMapper.transformValue(json.status);
   }
 
-  public toJSON(): JsonTaskInterface {
+  public toJSON(): JsonTaskInterface<Type> {
     return {
       id: this.id,
       key: this.key,
       status: this.status,
       type: this.type,
+      data: this.data,
     };
   }
 
   public getKey(): string {
     return this.key;
+  }
+
+  public setKey(key: string): Task<Type> {
+    this.key = key;
+
+    return this;
   }
 
   public getType(): TaskType | undefined {
@@ -38,5 +46,11 @@ export default class Task implements TaskInterface {
 
   public getStatus(): TaskStatus | undefined {
     return this.status;
+  }
+
+  public setData(data: Type): Task<Type> {
+    this.data = data;
+
+    return this;
   }
 }

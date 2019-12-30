@@ -6,7 +6,7 @@ import { Exception } from '../../../Exceptions';
 import { BackendException } from '../Exceptions';
 import BackendApi from '..';
 
-export default async function getContractTasks(this: BackendApi, filters?: Filters): Promise<Task[]> {
+export default async function getContractTasks(this: BackendApi, filters?: Filters): Promise<Task<any>[]> {
   if (filters) {
     if ('type' in filters) {
       if (Array.isArray(filters.type)) {
@@ -36,7 +36,7 @@ export default async function getContractTasks(this: BackendApi, filters?: Filte
     });
     const data = await response.json();
 
-    const tasks = data.map(item => new Task(item));
+    const tasks = data.map(item => new Task<any>(item));
 
     return tasks;
   } catch (exception) {

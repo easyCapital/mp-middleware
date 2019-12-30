@@ -10,7 +10,7 @@ export default async function getContractTasks(
   this: BackendApi,
   contractId: string,
   filters?: Filters,
-): Promise<Task[]> {
+): Promise<Task<any>[]> {
   const formattedFilters: Filters = filters ? { ...filters, contract: contractId } : { contract: contractId };
 
   if ('type' in formattedFilters) {
@@ -40,7 +40,7 @@ export default async function getContractTasks(
     });
     const data = await response.json();
 
-    const tasks = data.map(item => new Task(item));
+    const tasks = data.map(item => new Task<any>(item));
 
     return tasks;
   } catch (exception) {

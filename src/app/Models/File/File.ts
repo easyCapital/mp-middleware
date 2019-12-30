@@ -8,7 +8,6 @@ interface FileInterface {
 
 export default class File implements FileInterface {
   private id: number;
-  private file: string;
   private type?: FileType;
   private status?: FileStatus;
   private signed: boolean;
@@ -16,7 +15,6 @@ export default class File implements FileInterface {
 
   constructor(json: any) {
     this.id = json.id;
-    this.file = json.file;
     this.type = FileTypeMapper.transformValue(json.type);
     this.status = FileStatusMapper.transformValue(json.status);
     this.signed = json.signed;
@@ -26,11 +24,14 @@ export default class File implements FileInterface {
   public toJSON(): JsonFileInterface {
     return {
       id: this.id,
-      file: this.file,
       type: this.type,
       status: this.status,
       signed: this.signed,
       updateDate: this.updateDate,
     };
+  }
+
+  public getType(): FileType | undefined {
+    return this.type;
   }
 }
