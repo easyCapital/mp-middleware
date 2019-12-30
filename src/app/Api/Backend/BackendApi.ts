@@ -30,6 +30,7 @@ export default class BackendApi {
   public createCustomer = Customer.createCustomer;
   public getCustomerDetails = Customer.getCustomerDetails;
   // File
+  public createFile = File.createFile;
   public getFiles = File.getFiles;
   // Fund
   public findFunds = Fund.findFunds;
