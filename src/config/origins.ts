@@ -55,6 +55,10 @@ const development = {
     app: Apps.CONSEIL,
     backendApiKey: mpBackendApiKey,
   },
+  'http://cgp.dev.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: mpBackendApiKey,
+  },
   'http://demo.courtier.dev.robintech.co': {
     app: Apps.CONSEIL,
     backendApiKey: demoInsuranceBrokerBackendApiKey,
