@@ -21,6 +21,7 @@ export default async function getFiles(this: BackendApi, filters: Filters): Prom
     const response = await this.backendClient.get({
       url: 'file/customer/search',
       filters,
+      latestBy: 'type',
     });
     const data = await response.json();
 

@@ -23,6 +23,7 @@ export interface RequestOptions {
   pagination?: Pagination;
   filters?: Filters;
   orderBy?: OrderBy;
+  latestBy?: string;
 }
 
 export default class BackendClient implements BackendClientInterface {
@@ -106,6 +107,10 @@ export default class BackendClient implements BackendClientInterface {
       } else {
         headers.set('ORDER', `-${options.orderBy.key}`);
       }
+    }
+
+    if (options.latestBy) {
+      headers.set('Latest-By', options.latestBy);
     }
 
     const requestParameters: any = {

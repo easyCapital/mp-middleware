@@ -21,6 +21,7 @@ export default async function getCustomerFiles(this: BackendApi, filters?: Filte
     const response = await this.backendClient.get({
       url: 'file/cgp/search',
       filters,
+      latestBy: 'type',
     });
     const data = await response.json();
 
