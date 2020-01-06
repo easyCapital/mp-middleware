@@ -12,5 +12,6 @@ export = {
   CONSEIL: {
     name: 'outil-conseil',
     userType: 'cgp',
+    signatureCallback: '/outil-client/{customer}/contrats/{contract}/signature',
   },
 };

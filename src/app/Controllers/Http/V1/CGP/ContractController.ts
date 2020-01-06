@@ -20,6 +20,25 @@ class CGPContractController {
 
     response.status(200).send(contracts);
   }
+
+  public async signatureUrl({ params, response, backendApi, app, origin }: Context) {
+    const { customer, contract } = params;
+    const callbackUrl = app.signatureCallback
+      ? origin + app.signatureCallback.interpolate({ customer, contract })
+      : null;
+
+    const url = await backendApi.getCGPSignatureUrl(contract, callbackUrl);
+
+    response.status(200).send(url);
+  }
+
+  public async validateSignature({ params, response, backendApi }: Context) {
+    const { contract } = params;
+
+    const data = await backendApi.validateCGPSignature(contract);
+
+    response.status(200).send(data);
+  }
 }
 
 export = CGPContractController;

@@ -104,6 +104,8 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/', 'V1/CGP/ContractController.search');
   Route.post('/:proposition', 'V1/CGP/ContractController.create');
+  Route.get('/:contract/signature', 'V1/CGP/ContractController.signatureUrl');
+  Route.get('/:contract/signed', 'V1/CGP/ContractController.validateSignature');
 })
   .prefix('api/1.0/cgp/customer/:customer/contract')
   .middleware(['auth']);

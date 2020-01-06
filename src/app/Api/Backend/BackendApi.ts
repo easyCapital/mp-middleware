@@ -80,6 +80,8 @@ export default class BackendApi {
   public downloadCGPMissionReport = CGP.downloadMissionReport;
   // CGP - Task
   public getGCPContractTasks = CGP.getContractTasks;
+  public getCGPSignatureUrl = CGP.getSignatureUrl;
+  public validateCGPSignature = CGP.validateSignature;
   // CGP - User
   public getCGPDetails = CGP.getCGPDetails;
 
