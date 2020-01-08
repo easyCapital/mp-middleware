@@ -92,6 +92,7 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/:id/download', 'V1/CGP/FileController.download');
+  Route.get('/:id/signed', 'V1/CGP/FileController.signed');
 })
   .prefix('api/1.0/cgp/file')
   .middleware(['auth']);

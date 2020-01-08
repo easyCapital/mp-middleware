@@ -44,6 +44,14 @@ class CGPContractFileController {
       response.status(200).send(files);
     }
   }
+
+  public async signed({ params, backendApi, response }: Context) {
+    const { id } = params;
+
+    const file = await backendApi.signedCGPCustomerFile(id);
+
+    response.status(200).send(file);
+  }
 }
 
 export = CGPContractFileController;

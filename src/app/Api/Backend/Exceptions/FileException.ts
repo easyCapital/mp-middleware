@@ -19,6 +19,9 @@ export default class FileException extends HttpException {
         case BackendErrorTypes.FileTooBigError:
           throw new InvalidArgumentException('Le document dépasse la taille maximale autorisée de 5Mo.');
 
+        case BackendErrorTypes.NotFound:
+          throw new InvalidArgumentException('Le document n’a pas pu être trouvé, merci de vérifier l’id fournit.');
+
         default:
           Logger.info('Missing Error mapping value in %s for %s', 'FileException', errorKey);
           break;
