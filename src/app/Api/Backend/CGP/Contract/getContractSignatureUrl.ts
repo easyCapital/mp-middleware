@@ -2,10 +2,10 @@ import { Exception, NotFoundException } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function getSignatureUrl(
+export default async function getContractSignatureUrl(
   this: BackendApi,
   contractId: string,
-  callbackUrl,
+  callbackUrl: string,
 ): Promise<{ url: string }> {
   try {
     const response = await this.backendClient.post(
@@ -14,6 +14,7 @@ export default async function getSignatureUrl(
       },
       { callback_url: callbackUrl },
     );
+
     const data = await response.json();
 
     if (data.signature_url) {

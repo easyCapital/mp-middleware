@@ -371,10 +371,10 @@
     "@nodelib/fs.scandir" "2.1.2"
     fastq "^1.6.0"
 
-"@robinfinance/js-api@^2.14.0":
-  version "2.14.0"
-  resolved "https://npm.pkg.github.com/download/@robinfinance/js-api/2.14.0/c550cca59ce61ad81d1ba5e2ac6a2824e315e669870a06ff8992507d4b40ea49#30eb146ba2aaa9be3ae1efbd8f6ac807e8949c58"
-  integrity sha512-ZEw1Ei3KDGTjRPtKcPRV5tqPddc9W6qbY/34bPtIr8X/sC7whUR33chX/K6cuvMOXbty78ATaridPsA5SeJEVw==
+"@robinfinance/js-api@^2.15.0":
+  version "2.15.0"
+  resolved "https://npm.pkg.github.com/download/@robinfinance/js-api/2.15.0/9847f5bf17270d838e87aa099c9d1a4cd0dbb847fe3e1ae94775651d7e21c73e#e051d56f9cc7817c81a584c06142b6250bee6256"
+  integrity sha512-9Rm6FTg1dkX+Ysy5c8Z6OZMUoHObj0Yxtb6kydFTG6kW0hzC82ptXkU1Rkjc4M2mjE9A+9ckMGHOfk5KtQ4VUA==
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"

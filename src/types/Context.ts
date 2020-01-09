@@ -5,7 +5,7 @@ import { BackendToken } from '../../src/app/Clients/Backend/BackendClient';
 
 export interface Context extends Http.Context {
   backendApi: BackendApi;
-  app: { name: string; userType: string; signatureCallback?: string };
+  app: { name: string; userType: string; signatureCallback?: string; contractSignatureCallback?: string };
   origin: string;
   authenticated: boolean;
   backendApiKey: string;

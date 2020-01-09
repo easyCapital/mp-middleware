@@ -20,6 +20,7 @@ const FileTypeMapping = {
   '14': FileTypes.HOST_ID_VERSO,
   '15': FileTypes.HOST_HEBERGEMENT_CERTIFICAT,
   '16': FileTypes.SUB_PEA_PORTFOLIO,
+  '17': FileTypes.DER,
 };
 
 class FileTypeMapper extends GenericMapper<FileTypes> {

@@ -2,6 +2,7 @@ import { Filters, FileType } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { File } from '../../../../Models/File';
+import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPContractFileController {
   public async search({ params, request, response, backendApi }: Context) {
@@ -19,6 +20,12 @@ class CGPContractFileController {
     const { id } = params;
 
     await backendApi.downloadCGPCustomerFile(req, res, id);
+  }
+
+  public async downloadTemplate({ params, req, res, backendApi }: Context) {
+    const { type } = params;
+
+    await backendApi.downloadCGPTemplateFile(req, res, type);
   }
 
   public async create({ params, request, response, backendApi }: Context) {
@@ -43,6 +50,22 @@ class CGPContractFileController {
     } else {
       response.status(200).send(files);
     }
+  }
+
+  public async signatureUrl({ params, response, backendApi, app, origin }: Context) {
+    const { customer, type } = params;
+
+    const callbackUrl = app.signatureCallback
+      ? origin + app.signatureCallback.interpolate({ customer, type })
+      : undefined;
+
+    if (!callbackUrl) {
+      throw new InvalidArgumentException("Aucune URL de callback n'a été fourni.");
+    }
+
+    const url = await backendApi.getCGPFileSignatureUrl(customer, type, callbackUrl);
+
+    response.status(200).send(url);
   }
 
   public async signed({ params, backendApi, response }: Context) {

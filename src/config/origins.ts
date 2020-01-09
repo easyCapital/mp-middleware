@@ -31,6 +31,10 @@ const local = {
     app: Apps.CONSEIL,
     backendApiKey: demoCGPBackendApiKey,
   },
+  'http://demo.courtier.mieuxplacer.local': {
+    app: Apps.CONSEIL,
+    backendApiKey: demoInsuranceBrokerBackendApiKey,
+  },
 };
 
 /*

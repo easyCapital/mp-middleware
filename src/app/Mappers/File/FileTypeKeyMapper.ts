@@ -18,6 +18,7 @@ const FileTypeKeyMapping = {
   host_id_verso: '14',
   host_hebergement_certificat: '15',
   sub_pea_portfolio: '16',
+  der: '17',
 };
 
 class FileTypeKeyMapper extends GenericMapper<string> {

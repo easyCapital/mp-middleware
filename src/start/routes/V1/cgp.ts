@@ -86,11 +86,13 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/', 'V1/CGP/FileController.search');
   Route.post('/', 'V1/CGP/FileController.create');
+  Route.get('/:type/signature', 'V1/CGP/FileController.signatureUrl');
 })
   .prefix('api/1.0/cgp/customer/:customer/file')
   .middleware(['auth']);
 
 Route.group(() => {
+  Route.get('/template/:type/download', 'V1/CGP/FileController.downloadTemplate');
   Route.get('/:id/download', 'V1/CGP/FileController.download');
   Route.get('/:id/signed', 'V1/CGP/FileController.signed');
 })

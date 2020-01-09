@@ -1,17 +1,12 @@
-import { Contract } from '../../../../Models/Contract';
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function validateSignature(this: BackendApi, contractId: string): Promise<Contract> {
+export default async function validateContractSignature(this: BackendApi, contractId: string): Promise<void> {
   try {
     await this.backendClient.get({
       url: `cgp/contract/${contractId}/signed`,
     });
-
-    const contract = await this.getContract(contractId);
-
-    return contract;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();
