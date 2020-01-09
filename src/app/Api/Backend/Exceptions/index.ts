@@ -6,3 +6,4 @@ export { default as FileException } from './FileException';
 export { default as PortfolioException } from './PortfolioException';
 export { default as PropositionException } from './PropositionException';
 export { default as ProspectException } from './ProspectException';
+export { default as SignatureException } from './SignatureException';

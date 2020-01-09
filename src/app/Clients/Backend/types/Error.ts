@@ -36,6 +36,8 @@ export enum BackendErrorTypes {
   InvalidBase64FileContentError = 'InvalidBase64FileContentError',
   UnsupportedFileContentTypeError = 'UnsupportedFileContentTypeError',
   FileTooBigError = 'FileTooBigError',
+
+  FileAlreadySignedError = 'FileAlreadySignedError',
 }
 
 export type BackendError = {

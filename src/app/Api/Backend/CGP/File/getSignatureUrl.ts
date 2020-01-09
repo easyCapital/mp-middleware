@@ -2,7 +2,7 @@ import { FileType } from '@robinfinance/js-api';
 
 import { FileTypeMapper, FileTypeKeyMapper } from '../../../../Mappers/File';
 import { Exception, NotFoundException } from '../../../../Exceptions';
-import { BackendException } from '../../Exceptions';
+import { SignatureException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function getSignatureUrl(
@@ -34,7 +34,7 @@ export default async function getSignatureUrl(
         if (typeof exception.json === 'function') {
           const error = await exception.json();
 
-          throw new BackendException(error);
+          throw new SignatureException(error);
         }
 
         throw new Exception(exception);
