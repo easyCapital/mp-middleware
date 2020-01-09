@@ -1,7 +1,7 @@
 import { TaskTypes } from '@robinfinance/js-api';
 
 import { Task } from '../../../Models/Contract';
-import { TaskOrderMapper, TaskStatusMapper } from '../../../Mappers/Contract';
+import { TaskOrderMapper, TaskStatusOrderMapper } from '../../../Mappers/Contract';
 
 function formatContractTasks(tasks: Task<any>[]): Task<any>[] {
   const formattedTasks: { [order: string]: Task<any> } = {};
@@ -20,8 +20,8 @@ function formatContractTasks(tasks: Task<any>[]): Task<any>[] {
 
           if (previousStatus) {
             if (taskStatus) {
-              const taskStatusOrder = TaskStatusMapper.reverseTransform(taskStatus);
-              const previousStatusOrder = TaskStatusMapper.reverseTransform(previousStatus);
+              const taskStatusOrder = TaskStatusOrderMapper.transformValue(taskStatus);
+              const previousStatusOrder = TaskStatusOrderMapper.transformValue(previousStatus);
 
               if (previousStatusOrder) {
                 if (taskStatusOrder) {
