@@ -1,4 +1,4 @@
-import { Answer } from '@robinfinance/js-api';
+import { QuestionAnswer } from '@robinfinance/js-api';
 
 import { Context } from '../../types';
 
@@ -7,7 +7,7 @@ import * as ConseilEvents from './Conseil';
 
 const Apps = use('Config').get('mpApps');
 
-async function onOnboardingValidation(context: Context, answers: Answer, extra?: any) {
+async function onOnboardingValidation(context: Context, answers: QuestionAnswer, extra?: any) {
   switch (context.app) {
     case Apps.MIEUXPLACER:
       return MieuxplacerEvents.onOnboardingValidation(context, answers, extra);

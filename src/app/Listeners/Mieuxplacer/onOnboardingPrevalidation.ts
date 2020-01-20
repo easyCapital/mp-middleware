@@ -1,8 +1,8 @@
-import { Answer } from '@robinfinance/js-api';
+import { QuestionAnswer } from '@robinfinance/js-api';
 
 import { Context } from '../../../types';
 
-async function onOnboardingPrevalidation(context: Context, answers: Answer) {
+async function onOnboardingPrevalidation(context: Context, answers: QuestionAnswer) {
   const { session, authenticated, backendApi } = context;
 
   if (authenticated) {

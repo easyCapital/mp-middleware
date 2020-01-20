@@ -1,7 +1,7 @@
-import { Answer } from '@robinfinance/js-api';
+import { QuestionAnswer } from '@robinfinance/js-api';
 
-function formatAnswerBody(answers: Answer): { question: string; value: string }[] {
-  const formattedAnswers: { question: string; value: string }[] = [];
+function formatAnswerBody(answers: QuestionAnswer): { question: string; value: string | null }[] {
+  const formattedAnswers: { question: string; value: string | null }[] = [];
 
   Object.keys(answers).forEach(key => {
     const answer = answers[key];

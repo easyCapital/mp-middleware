@@ -1,4 +1,4 @@
-import { Answer } from '@robinfinance/js-api';
+import { QuestionAnswer } from '@robinfinance/js-api';
 
 import { Exception } from '../../../Exceptions';
 import { Proposition } from '../../../Models/Proposition';
@@ -9,7 +9,7 @@ export default async function generateProspectProposition(
   this: BackendApi,
   universe: string | undefined,
   prospectId: string,
-  answers: Answer,
+  answers: QuestionAnswer,
 ): Promise<Proposition> {
   const formattedAnswers = formatAnswerBody(answers);
 

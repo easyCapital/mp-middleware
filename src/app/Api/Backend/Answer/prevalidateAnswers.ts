@@ -1,11 +1,11 @@
-import { Answer } from '@robinfinance/js-api';
+import { QuestionAnswer } from '@robinfinance/js-api';
 
 import { Exception } from '../../../Exceptions';
 import { AnswerException } from '../Exceptions';
 import { formatAnswerBody } from '../Helpers';
 import BackendApi from '..';
 
-export default async function prevalidateAnswers(this: BackendApi, answers: Answer): Promise<void> {
+export default async function prevalidateAnswers(this: BackendApi, answers: QuestionAnswer): Promise<void> {
   const formattedAnswers = formatAnswerBody(answers);
 
   try {

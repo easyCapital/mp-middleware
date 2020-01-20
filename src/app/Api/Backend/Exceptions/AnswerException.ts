@@ -6,7 +6,7 @@ import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types'
 const Logger = use('Logger');
 
 export default class AnswerException extends HttpException {
-  constructor(answers: { question: string; value: string }[], errors: BackendError[]) {
+  constructor(answers: { question: string; value: string | null }[], errors: BackendError[]) {
     const errorMessages = {};
 
     errors.forEach((error, index) => {
