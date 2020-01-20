@@ -1,9 +1,9 @@
-import { Answer, ErrorTypes } from '@robinfinance/js-api';
+import { QuestionAnswer, ErrorTypes } from '@robinfinance/js-api';
 
 import { InvalidArgumentException } from '../../Exceptions';
 import { Context } from '../../../types';
 
-async function onOnboardingValidation(context: Context, answers: Answer, prospectData?: any) {
+async function onOnboardingValidation(context: Context, answers: QuestionAnswer, prospectData?: any) {
   const { session, authenticated, backendApi } = context;
 
   if (!authenticated) {

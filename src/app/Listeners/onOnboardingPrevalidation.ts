@@ -1,4 +1,4 @@
-import { Answer } from '@robinfinance/js-api';
+import { QuestionAnswer } from '@robinfinance/js-api';
 
 import { Context } from '../../types';
 
@@ -6,7 +6,7 @@ import * as MieuxplacerEvents from './Mieuxplacer';
 
 const Apps = use('Config').get('mpApps');
 
-async function onOnboardingPrevalidation(context: Context, answers: Answer, extra?: any) {
+async function onOnboardingPrevalidation(context: Context, answers: QuestionAnswer, extra?: any) {
   switch (context.app) {
     case Apps.MIEUXPLACER:
       return MieuxplacerEvents.onOnboardingPrevalidation(context, answers);

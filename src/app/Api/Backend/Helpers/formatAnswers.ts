@@ -1,4 +1,4 @@
-import { Answer as JsonAnswer } from '@robinfinance/js-api';
+import { QuestionAnswer as JsonAnswer } from '@robinfinance/js-api';
 
 import { Answer } from '../../../Models/Answer';
 

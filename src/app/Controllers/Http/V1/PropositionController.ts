@@ -94,10 +94,12 @@ function toTwigModel(proposition: Proposition, universe: string | undefined, que
 
 function findGoalsLabels(recommendation: JsonPropositionInterface, questions: { [key: string]: Question }) {
   let goalsValues = recommendation.answers.sub_contract_goal1;
-  if (!Array.isArray(goalsValues)) {
-    goalsValues = [goalsValues];
+  if (goalsValues) {
+    if (!Array.isArray(goalsValues)) {
+      goalsValues = [goalsValues];
+    }
+    return goalsValues.map((optionValue: string) => findOptionLabel(questions, 'sub_contract_goal1', optionValue));
   }
-  return goalsValues.map((optionValue: string) => findOptionLabel(questions, 'sub_contract_goal1', optionValue));
 }
 
 function findOptionLabel(

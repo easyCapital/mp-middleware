@@ -1,11 +1,11 @@
-import { Answer } from '@robinfinance/js-api';
+import { QuestionAnswer } from '@robinfinance/js-api';
 
 import { Context } from '../../../types';
 
 async function onOnboardingFetch(context: Context) {
   const { session, authenticated, backendApi } = context;
 
-  let answers: Answer = {};
+  let answers: QuestionAnswer = {};
 
   if (authenticated) {
     const rawAnswers = await backendApi.getAnswers();

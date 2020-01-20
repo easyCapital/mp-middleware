@@ -1,4 +1,4 @@
-import { Answer } from '@robinfinance/js-api';
+import { QuestionAnswer } from '@robinfinance/js-api';
 
 import { Exception, NotFoundException } from '../../../../Exceptions';
 import { AnswerException, BackendException } from '../../Exceptions';
@@ -8,7 +8,7 @@ import BackendApi from '../..';
 export default async function createCustomerAnswers(
   this: BackendApi,
   customerId: string | number,
-  answers: Answer,
+  answers: QuestionAnswer,
 ): Promise<void> {
   const formattedAnswers = formatAnswerBody(answers);
 
