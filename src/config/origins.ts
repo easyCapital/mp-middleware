@@ -31,6 +31,10 @@ const local = {
     app: Apps.CONSEIL,
     backendApiKey: demoCGPBackendApiKey,
   },
+  'http://demo.courtier.mieuxplacer.local': {
+    app: Apps.CONSEIL,
+    backendApiKey: demoInsuranceBrokerBackendApiKey,
+  },
 };
 
 /*
@@ -52,6 +56,10 @@ const development = {
     backendApiKey: mpBackendApiKey,
   },
   'http://admin.mieuxplacer.dev.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: mpBackendApiKey,
+  },
+  'http://cgp.dev.robintech.co': {
     app: Apps.CONSEIL,
     backendApiKey: mpBackendApiKey,
   },

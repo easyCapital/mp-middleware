@@ -16,7 +16,7 @@ export default class Contract implements ContractInterface {
   private subscriptionFee: number;
   private totalAmount: number;
   private includedSubscriptionFee: boolean;
-  private tasks: Task[] = [];
+  private tasks: Task<any>[] = [];
 
   constructor(json: any) {
     this.id = json.id;
@@ -50,7 +50,7 @@ export default class Contract implements ContractInterface {
     return this.id;
   }
 
-  public setTasks(tasks: Task[]): Contract {
+  public setTasks(tasks: Task<any>[]): Contract {
     this.tasks = tasks;
 
     return this;

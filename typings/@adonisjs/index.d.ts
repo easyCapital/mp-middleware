@@ -12867,3 +12867,9 @@ declare global {
 
   const iocResolver: Fold.ResolverManager;
 }
+
+declare global {
+  interface String {
+      interpolate(params: any) : string;
+  }
+}

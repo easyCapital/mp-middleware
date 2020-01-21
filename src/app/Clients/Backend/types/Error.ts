@@ -2,8 +2,10 @@ export enum BackendErrorTypes {
   BlankError = 'BlankError',
   NotFound = 'NotFound',
   PermissionDenied = 'PermissionDenied',
+  InvalidTokenError = 'InvalidTokenError',
   InvalidCustomerTokenError = 'InvalidCustomerTokenError',
   InvalidCGPTokenError = 'InvalidCGPTokenError',
+  MissingTokenError = 'MissingTokenError',
   MissingCustomerTokenError = 'MissingCustomerTokenError',
   InvalidCredentialsError = 'InvalidCredentialsError',
 
@@ -29,6 +31,13 @@ export enum BackendErrorTypes {
   InitialAmountTooHighError = 'InitialAmountTooHighError',
   InconsistentContractInitialDepositError = 'InconsistentContractInitialDepositError',
   ConstraintsError = 'ConstraintsError',
+
+  InvalidFileTypeKeyError = 'InvalidFileTypeKeyError',
+  InvalidBase64FileContentError = 'InvalidBase64FileContentError',
+  UnsupportedFileContentTypeError = 'UnsupportedFileContentTypeError',
+  FileTooBigError = 'FileTooBigError',
+
+  FileAlreadySignedError = 'FileAlreadySignedError',
 }
 
 export type BackendError = {

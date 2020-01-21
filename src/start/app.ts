@@ -59,3 +59,10 @@ const aliases: any = {};
 const commands: any = [];
 
 export = { providers, aceProviders, aliases, commands };
+
+String.prototype.interpolate = function(params) {
+  return this.replace(/{([^{}]*)}/g, (a, b) => {
+    const r = params[b];
+    return r;
+  });
+};

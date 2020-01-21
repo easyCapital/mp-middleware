@@ -85,12 +85,16 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.get('/', 'V1/CGP/FileController.search');
+  Route.post('/', 'V1/CGP/FileController.create');
+  Route.get('/:type/signature', 'V1/CGP/FileController.signatureUrl');
 })
   .prefix('api/1.0/cgp/customer/:customer/file')
   .middleware(['auth']);
 
 Route.group(() => {
+  Route.get('/template/:type/download', 'V1/CGP/FileController.downloadTemplate');
   Route.get('/:id/download', 'V1/CGP/FileController.download');
+  Route.get('/:id/signed', 'V1/CGP/FileController.signed');
 })
   .prefix('api/1.0/cgp/file')
   .middleware(['auth']);
@@ -103,6 +107,8 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/', 'V1/CGP/ContractController.search');
   Route.post('/:proposition', 'V1/CGP/ContractController.create');
+  Route.get('/:contract/signature', 'V1/CGP/ContractController.signatureUrl');
+  Route.get('/:contract/signed', 'V1/CGP/ContractController.validateSignature');
 })
   .prefix('api/1.0/cgp/customer/:customer/contract')
   .middleware(['auth']);
@@ -110,8 +116,7 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/:contract/task', 'V1/CGP/TaskController.search');
   Route.get('/:contract/task/complementary-question', 'V1/CGP/TaskController.complementaryQuestions');
-
-  Route.get('/:contract/file', 'V1/CGP/FileController.search');
+  Route.get('/:contract/task/supporting-document', 'V1/CGP/TaskController.supportingDocuments');
 })
   .prefix('api/1.0/cgp/contract')
   .middleware(['auth']);

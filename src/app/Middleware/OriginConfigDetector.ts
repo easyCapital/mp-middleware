@@ -16,6 +16,7 @@ class OriginConfigDetector {
     }
 
     ctx.app = originConfig.app;
+    ctx.origin = origin;
     ctx.backendApiKey = originConfig.backendApiKey;
 
     await next();

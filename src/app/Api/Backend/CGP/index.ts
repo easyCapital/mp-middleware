@@ -5,5 +5,4 @@ export * from './File';
 export * from './Portfolio';
 export * from './Product';
 export * from './Proposition';
-export * from './Task';
 export * from './User';

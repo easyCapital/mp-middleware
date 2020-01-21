@@ -110,6 +110,7 @@ Route.group(() => {
   Route.get('/:contract', 'V1/ContractController.get');
   Route.get('/:contract/file', 'V1/FileController.search');
   Route.get('/:contract/complementary-question', 'V1/TaskController.complementaryQuestions');
+  Route.get('/:contract/supporting-document', 'V1/TaskController.supportingDocuments');
   Route.get('/:contract/signature', 'V1/TaskController.signatureUrl');
   Route.get('/:contract/signed', 'V1/TaskController.validateSignature');
 }).prefix('api/1.0/contract');
@@ -121,6 +122,7 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.get('/complementary-question', 'V1/TaskController.complementaryQuestions');
+  Route.get('/supporting-document', 'V1/TaskController.supportingDocuments');
 }).prefix('api/1.0/task');
 
 /*
@@ -130,6 +132,7 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.get('/', 'V1/FileController.search');
+  Route.post('/', 'V1/FileController.create');
 }).prefix('api/1.0/file');
 
 export {};

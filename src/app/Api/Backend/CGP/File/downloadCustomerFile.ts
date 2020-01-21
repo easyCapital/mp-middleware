@@ -1,7 +1,5 @@
 import { IncomingMessage, ServerResponse } from 'http';
 
-// import { Exception } from '../../../../Exceptions';
-// import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function downloadCustomerFile(
