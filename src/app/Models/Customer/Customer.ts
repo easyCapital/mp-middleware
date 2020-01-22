@@ -9,9 +9,13 @@ interface CustomerInterface {
 export default class Customer implements CustomerInterface {
   private id: number;
   private email: string;
+  private firstName?: string;
+  private lastName?: string;
+  private mobileNumber?: string;
   private active: boolean;
   private emailValidated: boolean;
   private dateJoined: string;
+  private lastModified: string;
   private universe: string;
 
   constructor(json: any) {
@@ -20,6 +24,7 @@ export default class Customer implements CustomerInterface {
     this.active = json.is_active;
     this.emailValidated = json.email_validated;
     this.dateJoined = json.date_joined;
+    this.lastModified = json.last_modified;
     this.universe = json.universe;
   }
 
@@ -27,11 +32,37 @@ export default class Customer implements CustomerInterface {
     return {
       id: this.id,
       email: this.email,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      mobileNumber: this.mobileNumber,
       isActive: this.active,
       emailIsValidated: this.emailValidated,
       dateJoined: this.dateJoined,
+      lastModified: this.lastModified,
       universe: this.universe,
     };
+  }
+
+  public getId(): number {
+    return this.id;
+  }
+
+  public setFirstName(firstName: string): this {
+    this.firstName = firstName;
+
+    return this;
+  }
+
+  public setLastName(lastName: string): this {
+    this.lastName = lastName;
+
+    return this;
+  }
+
+  public setMobileNumber(mobileNumber: string): this {
+    this.mobileNumber = mobileNumber;
+
+    return this;
   }
 
   public isActive(): boolean {

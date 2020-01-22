@@ -18,13 +18,68 @@ export default async function searchCustomers(
       pagination,
       orderBy: { key: 'last_modified', type: 'desc' },
     });
+
     const data = await response.json();
-
-    const customers = data.map(item => new Customer(item));
-
     const meta = formatMeta(response.headers, pagination);
 
-    return { results: customers, meta };
+    const customers: Map<string, Customer> = new Map();
+    const customerIds: string[] = [];
+
+    data.forEach(item => {
+      const customer = new Customer(item);
+
+      customers.set(customer.getId().toString(), customer);
+      customerIds.push(customer.getId().toString());
+    });
+
+    if (customerIds.length > 0) {
+      let answers: { [userId: string]: { [key: string]: string } } = {};
+
+      const answersResponse = await this.getCGPAnswersByCustomer({
+        user_id__in: customerIds,
+        question_id__in: ['DQ7', 'DQ6', 'mobile_number'],
+      });
+
+      answers = answersResponse.results;
+
+      const answerResponsePromises: Promise<{
+        results: { [userId: string]: { [key: string]: string } };
+        meta: Meta;
+      }>[] = [];
+
+      if (answersResponse.meta.nextPage && answersResponse.meta.totalPages) {
+        for (let nextPage = answersResponse.meta.nextPage; nextPage <= answersResponse.meta.totalPages; nextPage += 1) {
+          answerResponsePromises.push(
+            this.getCGPAnswersByCustomer(
+              {
+                user_id__in: customerIds,
+                question_id__in: ['DQ7', 'DQ6', 'mobile_number'],
+              },
+              { page: nextPage, perPage: answersResponse.meta.perPage },
+            ),
+          );
+        }
+      }
+
+      const answerResponses = await Promise.all(answerResponsePromises);
+
+      answerResponses.forEach(answerResponse => {
+        answers = { ...answers, ...answerResponse.results };
+      });
+
+      Object.keys(answers).forEach(customerId => {
+        const customer = customers.get(customerId);
+        const customerAnswers = answers[customerId];
+
+        if (customer && customerAnswers) {
+          customer.setFirstName(customerAnswers.DQ7);
+          customer.setLastName(customerAnswers.DQ6);
+          customer.setMobileNumber(customerAnswers.mobile_number);
+        }
+      });
+    }
+
+    return { results: Array.from(customers.values()), meta };
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();
