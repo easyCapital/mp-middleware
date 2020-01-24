@@ -8,6 +8,7 @@ export default async function createCustomer(
 ): Promise<{ id: string; token: string }> {
   try {
     const response = await this.backendClient.post({ url: 'customer/cgp/create' }, { ...customerData });
+
     return await response.json();
   } catch (exception) {
     if (typeof exception.json === 'function') {

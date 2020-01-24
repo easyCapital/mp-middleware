@@ -4,18 +4,25 @@ import InvalidArgumentException from '../../../../Exceptions/InvalidArgumentExce
 import { Context } from '../../../../../types';
 
 class CGPCustomerController {
-  public async create(context: Context) {
-    const { request, response, backendApi, universe } = context;
-    const { email }: any = request.post();
+  public async create({ request, response, backendApi, universe }: Context) {
+    const { email, ...answers }: any = request.post();
 
     if (!universe) {
       throw new InvalidArgumentException("L'entête MP-Universe est obligatoire.");
+    }
+
+    if (answers && Object.keys(answers).length > 0) {
+      await backendApi.prevalidateAnswers(answers);
     }
 
     const data = await backendApi.createCGPCustomer({
       email,
       universe,
     });
+
+    if (answers && Object.keys(answers).length > 0) {
+      await backendApi.createCGPAnswers(data.id, answers);
+    }
 
     response.status(200).send({ id: data.id });
   }
