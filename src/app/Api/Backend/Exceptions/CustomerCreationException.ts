@@ -27,6 +27,12 @@ export default class CustomerCreationException extends HttpException {
           });
           break;
 
+        case BackendErrorTypes.BlankError:
+          error[errorKey].fields.forEach(field => {
+            errorMessages[field] = ErrorTypes.REQUIRED;
+          });
+          break;
+
         case BackendErrorTypes.InvalidEmailStatus:
           error[errorKey].fields.forEach(field => {
             errorMessages[field] = ErrorTypes.INVALID_EMAIL;
