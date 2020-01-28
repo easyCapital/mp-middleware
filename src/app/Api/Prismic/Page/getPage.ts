@@ -1,10 +1,9 @@
-import { ContentTypes } from '@robinfinance/js-api';
-
 import { Page } from '../../../Models/Prismic';
 import { getOne } from '..';
 
-export default async function getPage(slug: string): Promise<Page> {
-  const response = await getOne(ContentTypes.PAGE, slug);
+export default async function getPage(id: string): Promise<Page> {
+  const response = await getOne(id);
+
   const page = new Page(response);
 
   return page;

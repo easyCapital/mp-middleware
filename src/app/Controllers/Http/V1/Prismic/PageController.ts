@@ -10,9 +10,9 @@ class PageController {
   }
 
   public async get({ params, response }) {
-    const { slug } = params;
+    const { id } = params;
 
-    const page = await PrismicApi.getPage(slug);
+    const page = await PrismicApi.getPage(id);
 
     response.status(200).send(page);
   }
@@ -27,6 +27,18 @@ class PageController {
     const pages = await PrismicApi.findPages(filters);
 
     response.status(200).send(pages);
+  }
+
+  public async find({ request, response }: Context) {
+    const filters = request.input('filters');
+
+    if (!filters) {
+      throw new InvalidArgumentException("Aucun filtre n'a été fourni");
+    }
+
+    const page = await PrismicApi.findPage(filters);
+
+    response.status(200).send(page);
   }
 }
 

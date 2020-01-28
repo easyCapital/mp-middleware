@@ -1,10 +1,8 @@
-import { ContentTypes } from '@robinfinance/js-api';
-
 import { Supplier } from '../../../Models/Prismic';
 import { getOne } from '..';
 
-export default async function getSupplier(slug: string): Promise<Supplier> {
-  const response = await getOne(ContentTypes.SUPPLIER, slug);
+export default async function getSupplier(id: string): Promise<Supplier> {
+  const response = await getOne(id);
 
   const supplier = new Supplier(response);
 

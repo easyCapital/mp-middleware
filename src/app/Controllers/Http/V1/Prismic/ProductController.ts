@@ -10,9 +10,9 @@ class ProductController {
   }
 
   public async get({ params, response }: Context) {
-    const { slug } = params;
+    const { id } = params;
 
-    const product = await PrismicApi.getProduct(slug);
+    const product = await PrismicApi.getProduct(id);
 
     response.status(200).send(product);
   }
@@ -27,6 +27,18 @@ class ProductController {
     const products = await PrismicApi.findProducts(filters);
 
     response.status(200).send(products);
+  }
+
+  public async find({ request, response }: Context) {
+    const filters = request.input('filters');
+
+    if (!filters) {
+      throw new InvalidArgumentException("Aucun filtre n'a été fourni");
+    }
+
+    const product = await PrismicApi.findProduct(filters);
+
+    response.status(200).send(product);
   }
 }
 
