@@ -10,9 +10,9 @@ class SupplierController {
   }
 
   public async get({ params, response }: Context) {
-    const { slug } = params;
+    const { id } = params;
 
-    const supplier = await PrismicApi.getSupplier(slug);
+    const supplier = await PrismicApi.getSupplier(id);
 
     response.status(200).send(supplier);
   }
@@ -27,6 +27,18 @@ class SupplierController {
     const suppliers = await PrismicApi.findSuppliers(filters);
 
     response.status(200).send(suppliers);
+  }
+
+  public async find({ request, response }: Context) {
+    const filters = request.input('filters');
+
+    if (!filters) {
+      throw new InvalidArgumentException("Aucun filtre n'a été fourni");
+    }
+
+    const supplier = await PrismicApi.findSupplier(filters);
+
+    response.status(200).send(supplier);
   }
 }
 

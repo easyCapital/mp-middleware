@@ -1,13 +1,12 @@
 import Prismic from 'prismic-javascript';
-import { ContentType } from '@robinfinance/js-api';
 
 import { Exception, NotFoundException } from '../../Exceptions';
 
 const PrismicClient = use('PrismicClient');
 
-export default async function getOne(type: ContentType, slug: string): Promise<any> {
+export default async function getOne(id: string): Promise<any> {
   try {
-    const response = await PrismicClient.query({ query: Prismic.Predicates.at(`my.${type}.uid`, slug) });
+    const response = await PrismicClient.query({ query: Prismic.Predicates.at('document.id', id) });
 
     if (response.results.length > 0) {
       return response.results[0];

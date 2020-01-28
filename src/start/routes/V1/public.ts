@@ -7,26 +7,30 @@ const Route = use('Route');
 */
 Route.group(() => {
   Route.get('/', 'V1/Prismic/PageController.index');
+  Route.get('/find', 'V1/Prismic/PageController.find');
   Route.get('/search', 'V1/Prismic/PageController.search');
-  Route.get('/:slug', 'V1/Prismic/PageController.get');
+  Route.get('/:id', 'V1/Prismic/PageController.get');
 }).prefix('api/1.0/prismic/page');
 
 Route.group(() => {
   Route.get('/', 'V1/Prismic/ProductController.index');
+  Route.get('/find', 'V1/Prismic/ProductController.find');
   Route.get('/search', 'V1/Prismic/ProductController.search');
-  Route.get('/:slug', 'V1/Prismic/ProductController.get');
+  Route.get('/:id', 'V1/Prismic/ProductController.get');
 }).prefix('api/1.0/prismic/product');
 
 Route.group(() => {
   Route.get('/', 'V1/Prismic/ProductTypeController.index');
+  Route.get('/find', 'V1/Prismic/ProductTypeController.find');
   Route.get('/search', 'V1/Prismic/ProductTypeController.search');
-  Route.get('/:slug', 'V1/Prismic/ProductTypeController.get');
+  Route.get('/:id', 'V1/Prismic/ProductTypeController.get');
 }).prefix('api/1.0/prismic/type');
 
 Route.group(() => {
   Route.get('/', 'V1/Prismic/SupplierController.index');
+  Route.get('/find', 'V1/Prismic/SupplierController.find');
   Route.get('/search', 'V1/Prismic/SupplierController.search');
-  Route.get('/:slug', 'V1/Prismic/SupplierController.get');
+  Route.get('/:id', 'V1/Prismic/SupplierController.get');
 }).prefix('api/1.0/prismic/supplier');
 
 Route.group(() => {

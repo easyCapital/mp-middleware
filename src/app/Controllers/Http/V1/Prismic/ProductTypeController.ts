@@ -10,9 +10,9 @@ class ProductTypeController {
   }
 
   public async get({ params, response }: Context) {
-    const { slug } = params;
+    const { id } = params;
 
-    const type = await PrismicApi.getType(slug);
+    const type = await PrismicApi.getType(id);
 
     response.status(200).send(type);
   }
@@ -27,6 +27,18 @@ class ProductTypeController {
     const types = await PrismicApi.findTypes(filters);
 
     response.status(200).send(types);
+  }
+
+  public async find({ request, response }: Context) {
+    const filters = request.input('filters');
+
+    if (!filters) {
+      throw new InvalidArgumentException("Aucun filtre n'a été fourni");
+    }
+
+    const type = await PrismicApi.findType(filters);
+
+    response.status(200).send(type);
   }
 }
 
