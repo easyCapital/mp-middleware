@@ -18,5 +18,5 @@ import './routes/V1/public';
 import './routes/V1/cgp';
 
 Route.any('*', () => {
-  throw new NotFoundException();
+  throw new NotFoundException('Cette route est introuvable.');
 });

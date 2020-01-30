@@ -1,6 +1,7 @@
 import { Type as JsonTypeInterface, Gender } from '@robinfinance/js-api';
 
-import { ContentType, Image, Paragraphs } from '.';
+import { ContentType, Image } from '.';
+import { Slice, RichText } from './Elements';
 import { GenderMapper } from '../../Mappers/Prismic';
 
 interface TypeInterface {
@@ -15,10 +16,16 @@ export default class Type extends ContentType implements TypeInterface {
   private labelDemonstrative: string;
   private gender?: Gender;
   private description: string;
+  private explanation: string;
+  private tooltip: string;
   private icon: Image;
-  private recommandationExplanations: Paragraphs[];
-  private attentionPoints: Paragraphs;
-  private allocationExplanations: any;
+  private color: string;
+  private backgroundColor: string;
+  private recommandationExplanations?: RichText[][];
+  private attentionPoints?: RichText[];
+  private mandatoryInformation?: RichText[];
+  private allocationExplanations?: { type: string; value: RichText[] }[];
+  private blocks: Slice[] = [];
 
   constructor(json: any) {
     super(json);
@@ -30,13 +37,24 @@ export default class Type extends ContentType implements TypeInterface {
     this.labelDemonstrative = json.data.label_demonstrative;
     this.gender = GenderMapper.transformValue(json.data.gender);
     this.description = json.data.description;
+    this.explanation = json.data.explanation;
+    this.tooltip = json.data.tooltip;
     this.icon = new Image(json.data.icon);
-    this.recommandationExplanations = json.data.recommandation_explanations.map(
-      (item: any) => new Paragraphs(item.recommandation_explanation_text),
+    this.color = json.data.color;
+    this.backgroundColor = json.data.background_color;
+    this.attentionPoints = json.data.attention_points.map(item => new RichText(item));
+    this.mandatoryInformation = json.data.mandatory_information.map(item => new RichText(item));
+
+    this.recommandationExplanations = json.data.recommandation_explanations.map((item: any) =>
+      item.recommandation_explanation_text.map(element => new RichText(element)),
     );
-    this.attentionPoints = new Paragraphs(json.data.attention_points);
+
     this.allocationExplanations = json.data.allocation_explanations.map(item => {
-      return { type: item.explanation_type, value: new Paragraphs(item.explanation_value) };
+      return { type: item.explanation_type, value: item.explanation_value.map(element => new RichText(element)) };
+    });
+
+    json.data.body.forEach(item => {
+      this.blocks.push(new Slice(item));
     });
   }
 
@@ -51,15 +69,23 @@ export default class Type extends ContentType implements TypeInterface {
       labelDemonstrative: this.labelDemonstrative,
       gender: this.gender,
       description: this.description,
+      explanation: this.explanation,
+      tooltip: this.tooltip,
       icon: this.icon.toJSON(),
-      recommandationExplanations: this.recommandationExplanations.map(item => item.toJSON()),
-      attentionPoints: this.attentionPoints.toJSON(),
-      allocationExplanations: this.allocationExplanations.map(item => {
+      color: this.color,
+      backgroundColor: this.backgroundColor,
+      recommandationExplanations: this.recommandationExplanations?.map(item =>
+        item.map(paragraphs => paragraphs.toJSON()),
+      ),
+      attentionPoints: this.attentionPoints?.map(item => item.toJSON()),
+      mandatoryInformation: this.mandatoryInformation?.map(item => item.toJSON()),
+      allocationExplanations: this.allocationExplanations?.map(item => {
         return {
           type: item.type,
-          value: item.value.toJSON(),
+          value: item.value.map(paragraphs => paragraphs.toJSON()),
         };
       }),
+      blocks: this.blocks.map(item => item.toJSON()),
     };
   }
 }

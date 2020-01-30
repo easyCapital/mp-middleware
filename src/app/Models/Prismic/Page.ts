@@ -1,7 +1,6 @@
 import { Page as JsonPageInterface } from '@robinfinance/js-api';
 
-import Slice from './Elements/Slice';
-import { ContentType } from '.';
+import { ContentType, Slice } from '.';
 
 interface PageInterface {
   toJSON(): JsonPageInterface;
@@ -22,8 +21,8 @@ export default class Page extends ContentType implements PageInterface {
     this.description = json.data.page_description;
     this.gaTitle = json.data.ga_page_name;
 
-    json.data.body.forEach(element => {
-      this.blocks.push(new Slice(element));
+    json.data.body.forEach(item => {
+      this.blocks.push(new Slice(item));
     });
   }
 
@@ -35,7 +34,7 @@ export default class Page extends ContentType implements PageInterface {
       title: this.title,
       description: this.description,
       gaTitle: this.gaTitle,
-      blocks: this.blocks.map(element => element.toJSON()),
+      blocks: this.blocks.map(item => item.toJSON()),
     };
   }
 }

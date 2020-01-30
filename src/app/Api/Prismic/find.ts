@@ -10,9 +10,11 @@ export default async function find(
   filters: {
     [filter: string]: string | string[];
   },
+  orderBy?: string,
 ): Promise<any[]> {
   try {
     const query: string[] = [];
+    let orderings: string | undefined;
 
     Object.keys(filters).forEach(filter => {
       const value = filters[filter];
@@ -24,7 +26,11 @@ export default async function find(
       }
     });
 
-    const response = await PrismicClient.query({ query });
+    if (orderBy) {
+      orderings = `my.${type}.${orderBy}`;
+    }
+
+    const response = await PrismicClient.query({ query, orderings });
 
     return response.results;
   } catch (error) {
