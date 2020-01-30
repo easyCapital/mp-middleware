@@ -17,6 +17,7 @@ export interface RequestOptions {
   filters?: {
     [key: string]: any;
   };
+  orderings?: string;
 }
 
 export default class PrismicClient implements PrismicClientInterface {
@@ -40,6 +41,10 @@ export default class PrismicClient implements PrismicClientInterface {
     if (options.pagination) {
       queryOptions.pageSize = options.pagination.perPage || 20;
       queryOptions.page = options.pagination.page || 1;
+    }
+
+    if (options.orderings) {
+      queryOptions.orderings = `[${options.orderings}]`;
     }
 
     const startTime = process.hrtime();

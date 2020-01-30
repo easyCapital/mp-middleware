@@ -2,21 +2,21 @@ import * as PrismicApi from '../../../../Api/Prismic';
 import { InvalidArgumentException } from '../../../../Exceptions';
 import { Context } from '../../../../../types';
 
-class ProductTypeController {
+class ObjectiveController {
   public async index({ request, response }: Context) {
     const orderBy = request.input('orderBy');
 
-    const types = await PrismicApi.getTypes(orderBy);
+    const objectives = await PrismicApi.getObjectives(orderBy);
 
-    response.status(200).send(types);
+    response.status(200).send(objectives);
   }
 
   public async get({ params, response }: Context) {
     const { id } = params;
 
-    const type = await PrismicApi.getType(id);
+    const objective = await PrismicApi.getObjective(id);
 
-    response.status(200).send(type);
+    response.status(200).send(objective);
   }
 
   public async search({ request, response }: Context) {
@@ -27,9 +27,9 @@ class ProductTypeController {
       throw new InvalidArgumentException("Aucun filtre n'a été fourni");
     }
 
-    const types = await PrismicApi.findTypes(filters, orderBy);
+    const objectives = await PrismicApi.findObjectives(filters, orderBy);
 
-    response.status(200).send(types);
+    response.status(200).send(objectives);
   }
 
   public async find({ request, response }: Context) {
@@ -39,10 +39,10 @@ class ProductTypeController {
       throw new InvalidArgumentException("Aucun filtre n'a été fourni");
     }
 
-    const type = await PrismicApi.findType(filters);
+    const objective = await PrismicApi.findObjective(filters);
 
-    response.status(200).send(type);
+    response.status(200).send(objective);
   }
 }
 
-export = ProductTypeController;
+export = ObjectiveController;

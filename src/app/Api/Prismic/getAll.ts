@@ -6,11 +6,18 @@ import { getMetaData } from './Helpers';
 
 const PrismicClient = use('PrismicClient');
 
-export default async function getAll(type: ContentType): Promise<any[]> {
+export default async function getAll(type: ContentType, orderBy?: string): Promise<any[]> {
+  let orderings: string | undefined;
+
+  if (orderBy) {
+    orderings = `my.${type}.${orderBy}`;
+  }
+
   try {
     const response = await PrismicClient.query({
       query: Prismic.Predicates.at('document.type', type),
       pagination: { perPage: 100 },
+      orderings,
     });
 
     const meta = getMetaData(response);

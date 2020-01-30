@@ -34,6 +34,13 @@ Route.group(() => {
 }).prefix('api/1.0/prismic/supplier');
 
 Route.group(() => {
+  Route.get('/', 'V1/Prismic/ObjectiveController.index');
+  Route.get('/find', 'V1/Prismic/ObjectiveController.find');
+  Route.get('/search', 'V1/Prismic/ObjectiveController.search');
+  Route.get('/:id', 'V1/Prismic/ObjectiveController.get');
+}).prefix('api/1.0/prismic/objective');
+
+Route.group(() => {
   Route.get('/', 'V1/Prismic/AdviceController.index');
   Route.get('/search', 'V1/Prismic/AdviceController.search');
 }).prefix('api/1.0/prismic/advice');

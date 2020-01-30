@@ -3,8 +3,11 @@ import { ContentTypes } from '@robinfinance/js-api';
 import { Type } from '../../../Models/Prismic';
 import { find } from '..';
 
-export default async function findTypes(filters: { [filter: string]: string | string[] }): Promise<Type[]> {
-  const response = await find(ContentTypes.TYPE, filters);
+export default async function findTypes(
+  filters: { [filter: string]: string | string[] },
+  orderBy?: string,
+): Promise<Type[]> {
+  const response = await find(ContentTypes.TYPE, filters, orderBy);
   const types: Type[] = [];
 
   response.forEach(item => {
