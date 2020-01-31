@@ -9,28 +9,34 @@ interface TaskInterface<Type> {
 
 export default class Task<Type> implements TaskInterface<Type> {
   private id: number;
+  private label: string;
   private subject: TaskSubject;
   private status?: TaskStatus;
   private data?: Type;
   private parent?: number;
   private next?: number;
+  private order: number;
 
   constructor(json: any) {
     this.id = json.id;
+    this.label = json.label;
     this.subject = new TaskSubject(json.subject);
     this.status = TaskStatusMapper.transformValue(json.status);
     this.parent = json.parent;
     this.next = json.next_action;
+    this.order = json.execution_order;
   }
 
   public toJSON(): JsonTaskInterface<Type> {
     return {
       id: this.id,
+      label: this.label,
       status: this.status,
       subject: this.subject.toJSON(),
       data: this.data,
       parent: this.parent,
       next: this.next,
+      order: this.order,
     };
   }
 

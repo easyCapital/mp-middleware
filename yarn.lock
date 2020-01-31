@@ -348,10 +348,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@robinfinance/js-api@^2.17.1":
-  version "2.17.1"
-  resolved "https://npm.pkg.github.com/download/@robinfinance/js-api/2.17.1/963199b3874628fe1a6c1f325db69d3076be984c0cd0e17c87b954ae1eb0e2d3#c0bd448d3d7720ac82c6d84161a894ac028548cd"
-  integrity sha512-zlsH17+22TUi3jsKiwAyF0K7OKIMBMBdLs6RfvBA2RfuK9q1Pxx0HwWwIXP6oTEbq+u3JJVHXHzlLZuwoqz9SA==
+"@robinfinance/js-api@^2.18.0":
+  version "2.18.0"
+  resolved "https://npm.pkg.github.com/download/@robinfinance/js-api/2.18.0/3216d92c07ccbc56a4624d53b7a83888c4ea8484455a520bacc5767f63a6fd53#4b04f011f7ccc4f079dc6a1ebab9949662ec3f19"
+  integrity sha512-de+pyw0aKsoMMoIaaQLlLtkT7HQhcnsrNhjlE5J0TwEe/34/N24Rkn3c/CXbRCmCvQP31NBXtNf/hZzeSOodTg==
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"

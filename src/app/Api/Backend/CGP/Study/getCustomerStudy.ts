@@ -14,7 +14,7 @@ export default async function getCustomerStudy(
     const response = await this.backendClient.get({
       url: 'cgp/study/search',
       filters: filters ? { ...filters, customer: customerId } : { customer: customerId },
-      orderBy: { key: 'created', type: 'desc' },
+      orderBy: { key: 'created', type: 'asc' },
     });
     const data = await response.json();
 
