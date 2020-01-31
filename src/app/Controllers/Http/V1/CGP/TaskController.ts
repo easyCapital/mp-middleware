@@ -3,7 +3,7 @@ import { Filters, TaskTypes, TaskStatuses, FileTypes } from '@robinfinance/js-ap
 import { Context } from '../../../../../types';
 import { FileTypeKeyMapper, FileTypeMapper } from '../../../../Mappers/File';
 import { File } from '../../../../Models/File';
-import { Task } from '../../../../Models/Contract';
+import { Task } from '../../../../Models/Task';
 import { Question } from '../../../../Models/Onboarding';
 
 class CGPTaskController {

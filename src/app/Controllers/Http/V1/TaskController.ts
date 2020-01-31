@@ -2,7 +2,7 @@ import { Filters, TaskTypes, FileTypes } from '@robinfinance/js-api';
 
 import { Context } from '../../../../types';
 import { Question } from '../../../Models/Onboarding';
-import { Task } from '../../../Models/Contract';
+import { Task } from '../../../Models/Task';
 import { File } from '../../../Models/File';
 import { FileTypeKeyMapper, FileTypeMapper } from '../../../Mappers/File';
 

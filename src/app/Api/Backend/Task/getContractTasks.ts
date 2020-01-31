@@ -1,6 +1,6 @@
 import { Filters } from '@robinfinance/js-api';
 
-import { Task } from '../../../Models/Contract';
+import { Task } from '../../../Models/Task';
 import { TaskTypeMapper, TaskStatusMapper } from '../../../Mappers/Contract';
 import { Exception } from '../../../Exceptions';
 import { BackendException } from '../Exceptions';

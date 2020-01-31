@@ -1,7 +1,7 @@
 import { Contract as JsonContractInterface, ContractStatus } from '@robinfinance/js-api';
 
 import { ContractStatusMapper } from '../../Mappers/Contract';
-import { Task } from '.';
+import { Task } from '../Task';
 
 interface ContractInterface {
   toJSON(): JsonContractInterface;
@@ -39,10 +39,7 @@ export default class Contract implements ContractInterface {
       subscriptionFee: this.subscriptionFee,
       totalAmount: this.totalAmount,
       includedSubscriptionFee: this.includedSubscriptionFee,
-      tasks: this.tasks.map(item => ({
-        status: item.getStatus(),
-        type: item.getType(),
-      })),
+      tasks: this.tasks.map(item => item.toJSON()),
     };
   }
 
