@@ -14,7 +14,10 @@ export default async function createStudy(this: BackendApi, customerId: string, 
       },
     );
 
-    return await response.json();
+    const data = await response.json();
+    const study = new Study(data);
+
+    return study;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();

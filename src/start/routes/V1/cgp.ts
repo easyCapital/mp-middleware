@@ -121,6 +121,11 @@ Route.group(() => {
   .prefix('api/1.0/cgp/contract')
   .middleware(['auth']);
 
+/*
+|--------------------------------------------------------------------------
+| API V1 - CGP - STUDY
+|--------------------------------------------------------------------------
+*/
 Route.group(() => {
   Route.get('/', 'V1/CGP/StudyController.search');
   Route.post('/', 'V1/CGP/StudyController.create');
