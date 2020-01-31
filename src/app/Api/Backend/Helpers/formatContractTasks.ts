@@ -1,6 +1,6 @@
 import { TaskTypes } from '@robinfinance/js-api';
 
-import { Task } from '../../../Models/Contract';
+import { Task } from '../../../Models/Task';
 import { TaskOrderMapper, TaskStatusOrderMapper } from '../../../Mappers/Contract';
 
 function formatContractTasks(tasks: Task<any>[]): Task<any>[] {
