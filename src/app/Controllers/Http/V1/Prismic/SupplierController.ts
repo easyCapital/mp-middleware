@@ -3,8 +3,10 @@ import { InvalidArgumentException } from '../../../../Exceptions';
 import { Context } from '../../../../../types';
 
 class SupplierController {
-  public async index({ response }: Context) {
-    const suppliers = await PrismicApi.getSuppliers();
+  public async index({ request, response }: Context) {
+    const orderBy = request.input('orderBy');
+
+    const suppliers = await PrismicApi.getSuppliers(orderBy);
 
     response.status(200).send(suppliers);
   }
@@ -19,12 +21,13 @@ class SupplierController {
 
   public async search({ request, response }: Context) {
     const filters = request.input('filters');
+    const orderBy = request.input('orderBy');
 
     if (!filters) {
       throw new InvalidArgumentException("Aucun filtre n'a été fourni");
     }
 
-    const suppliers = await PrismicApi.findSuppliers(filters);
+    const suppliers = await PrismicApi.findSuppliers(filters, orderBy);
 
     response.status(200).send(suppliers);
   }

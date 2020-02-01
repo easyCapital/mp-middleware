@@ -3,8 +3,8 @@ import { ContentTypes } from '@robinfinance/js-api';
 import { Supplier } from '../../../Models/Prismic';
 import { getAll } from '..';
 
-export default async function getSuppliers(): Promise<Supplier[]> {
-  const response = await getAll(ContentTypes.SUPPLIER);
+export default async function getSuppliers(orderBy?: string): Promise<Supplier[]> {
+  const response = await getAll(ContentTypes.SUPPLIER, orderBy);
   const suppliers: Supplier[] = [];
 
   response.forEach(item => {
