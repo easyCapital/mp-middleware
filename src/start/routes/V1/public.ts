@@ -6,6 +6,10 @@ const Route = use('Route');
 |--------------------------------------------------------------------------
 */
 Route.group(() => {
+  Route.get('/', 'V1/Prismic/HomeController.index');
+}).prefix('api/1.0/prismic/home');
+
+Route.group(() => {
   Route.get('/', 'V1/Prismic/PageController.index');
   Route.get('/find', 'V1/Prismic/PageController.find');
   Route.get('/search', 'V1/Prismic/PageController.search');
