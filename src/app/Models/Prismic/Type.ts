@@ -74,15 +74,13 @@ export default class Type extends ContentType implements TypeInterface {
       icon: this.icon.toJSON(),
       color: this.color,
       backgroundColor: this.backgroundColor,
-      recommandationExplanations: this.recommandationExplanations?.map(item =>
-        item.map(paragraphs => paragraphs.toJSON()),
-      ),
+      recommandationExplanations: this.recommandationExplanations?.map(item => item.map(element => element.toJSON())),
       attentionPoints: this.attentionPoints?.map(item => item.toJSON()),
       mandatoryInformation: this.mandatoryInformation?.map(item => item.toJSON()),
       allocationExplanations: this.allocationExplanations?.map(item => {
         return {
           type: item.type,
-          value: item.value.map(paragraphs => paragraphs.toJSON()),
+          value: item.value.map(element => element.toJSON()),
         };
       }),
       blocks: this.blocks.map(item => item.toJSON()),
