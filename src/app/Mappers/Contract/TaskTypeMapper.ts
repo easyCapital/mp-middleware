@@ -11,6 +11,9 @@ const TaskTypeMapping = {
   '7': TaskTypes.CONTAINER,
   '8': TaskTypes.SIGNATURE_PAPER,
   '9': TaskTypes.SIGNATURE_DIGITAL,
+  '10': TaskTypes.GROUP,
+  '11': TaskTypes.PROPOSITION_AUTO,
+  '12': TaskTypes.PROPOSITION_MANUAL,
 };
 
 class TaskTypeMapper extends GenericMapper<TaskTypes> {
