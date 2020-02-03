@@ -13,8 +13,8 @@ export default class Task<Type> implements TaskInterface<Type> {
   private subject: TaskSubject;
   private status?: TaskStatus;
   private data?: Type;
-  private parent?: number;
-  private next?: number;
+  private parent: number | null;
+  private next: number | null;
   private order: number;
 
   constructor(json: any) {
@@ -50,11 +50,11 @@ export default class Task<Type> implements TaskInterface<Type> {
     return this;
   }
 
-  public getNext(): number | undefined {
+  public getNext(): number | null {
     return this.next;
   }
 
-  public getParent(): number | undefined {
+  public getParent(): number | null {
     return this.parent;
   }
 
