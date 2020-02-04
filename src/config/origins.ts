@@ -115,6 +115,14 @@ const production = {
     app: Apps.CONSEIL,
     backendApiKey: mpBackendApiKey,
   },
+  'https://demo.courtier.prd.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: demoInsuranceBrokerBackendApiKey,
+  },
+  'https://demo.cgp.prd.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: demoCGPBackendApiKey,
+  },
 };
 
 export = {
