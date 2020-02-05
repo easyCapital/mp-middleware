@@ -224,6 +224,7 @@ export default class Product extends ContentType implements ProductInterface {
     return {
       id: this.id,
       slug: this.slug,
+      updatedAt: this.updated,
       identifier: this.identifier,
       title: this.title,
       gaTitle: this.gaTitle,

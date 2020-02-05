@@ -62,6 +62,7 @@ export default class Type extends ContentType implements TypeInterface {
     return {
       id: this.id,
       slug: this.slug,
+      updatedAt: this.updated,
       gaTitle: this.gaTitle,
       label: this.label,
       labelSingular: this.labelSingular,
