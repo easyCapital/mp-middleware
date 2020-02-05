@@ -4,7 +4,7 @@ import { Type } from '../../../Models/Prismic';
 import { find } from '..';
 
 export default async function findTypes(
-  filters: { [filter: string]: string | string[] },
+  filters?: { [filter: string]: string | string[] },
   orderBy?: string,
 ): Promise<Type[]> {
   const response = await find(ContentTypes.TYPE, filters, orderBy);
