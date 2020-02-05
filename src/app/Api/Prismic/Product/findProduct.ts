@@ -5,7 +5,7 @@ import { findOne } from '..';
 import { getType } from '../Type';
 import { getSupplier } from '../Supplier';
 
-export default async function findProduct(filters: { [filter: string]: string | string[] }): Promise<Product> {
+export default async function findProduct(filters?: { [filter: string]: string | string[] }): Promise<Product> {
   const response = await findOne(ContentTypes.PRODUCT, filters);
   const product = new Product(response);
 

@@ -5,7 +5,7 @@ import { find } from '.';
 
 export default async function findOne(
   type: ContentType,
-  filters: {
+  filters?: {
     [filter: string]: string | string[];
   },
 ): Promise<any> {

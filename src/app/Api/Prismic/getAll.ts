@@ -1,12 +1,18 @@
-import Prismic from 'prismic-javascript';
 import { ContentType } from '@robinfinance/js-api';
 
 import { Exception } from '../../Exceptions';
-import { getMetaData } from './Helpers';
+import { getMetaData, createQuery } from './Helpers';
 
 const PrismicClient = use('PrismicClient');
 
-export default async function getAll(type: ContentType, orderBy?: string): Promise<any[]> {
+export default async function getAll(
+  type: ContentType,
+  filters?: {
+    [filter: string]: string | string[];
+  },
+  orderBy?: string,
+): Promise<any[]> {
+  const query = createQuery(type, filters);
   let orderings: string | undefined;
 
   if (orderBy) {
@@ -15,7 +21,7 @@ export default async function getAll(type: ContentType, orderBy?: string): Promi
 
   try {
     const response = await PrismicClient.query({
-      query: Prismic.Predicates.at('document.type', type),
+      query,
       pagination: { perPage: 100 },
       orderings,
     });
@@ -26,8 +32,9 @@ export default async function getAll(type: ContentType, orderBy?: string): Promi
 
     while (nextPage) {
       const nextResponse = await PrismicClient.query({
-        query: Prismic.Predicates.at('document.type', type),
+        query,
         pagination: { perPage: 100, page: nextPage },
+        orderings,
       });
 
       const nextMeta = getMetaData(nextResponse);

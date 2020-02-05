@@ -1,10 +1,12 @@
 import * as PrismicApi from '../../../../Api/Prismic';
-import { InvalidArgumentException } from '../../../../Exceptions';
 import { Context } from '../../../../../types';
 
 class ProductController {
-  public async index({ response }: Context) {
-    const products = await PrismicApi.getProducts();
+  public async index({ request, response }: Context) {
+    const orderBy = request.input('orderBy');
+    const filters = request.input('filters');
+
+    const products = await PrismicApi.getProducts(filters, orderBy);
 
     response.status(200).send(products);
   }
@@ -18,23 +20,16 @@ class ProductController {
   }
 
   public async search({ request, response }: Context) {
+    const orderBy = request.input('orderBy');
     const filters = request.input('filters');
 
-    if (!filters) {
-      throw new InvalidArgumentException("Aucun filtre n'a été fourni");
-    }
-
-    const products = await PrismicApi.findProducts(filters);
+    const products = await PrismicApi.findProducts(filters, orderBy);
 
     response.status(200).send(products);
   }
 
   public async find({ request, response }: Context) {
     const filters = request.input('filters');
-
-    if (!filters) {
-      throw new InvalidArgumentException("Aucun filtre n'a été fourni");
-    }
 
     const product = await PrismicApi.findProduct(filters);
 

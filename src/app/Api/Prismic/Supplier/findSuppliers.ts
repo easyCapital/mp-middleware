@@ -4,7 +4,7 @@ import { Supplier } from '../../../Models/Prismic';
 import { find } from '..';
 
 export default async function findSuppliers(
-  filters: { [filter: string]: string | string[] },
+  filters?: { [filter: string]: string | string[] },
   orderBy?: string,
 ): Promise<Supplier[]> {
   const response = await find(ContentTypes.SUPPLIER, filters, orderBy);

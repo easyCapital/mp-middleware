@@ -6,8 +6,13 @@ import { find } from '..';
 import { findTypes } from '../Type';
 import { findSuppliers } from '../Supplier';
 
-export default async function findProducts(filters: { [filter: string]: string | string[] }): Promise<Product[] | any> {
-  const response = await find(ContentTypes.PRODUCT, filters);
+export default async function findProducts(
+  filters?: {
+    [filter: string]: string | string[];
+  },
+  orderBy?: string,
+): Promise<Product[] | any> {
+  const response = await find(ContentTypes.PRODUCT, filters, orderBy);
   const products: Product[] = [];
 
   const typeUids: string[] = [];
