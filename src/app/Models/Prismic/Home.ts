@@ -49,6 +49,7 @@ export default class Home extends ContentType implements HomeInterface {
   public toJSON(): JsonHomeInterface {
     return {
       id: this.id,
+      updatedAt: this.updated,
       title: this.title,
       description: this.description,
       gaTitle: this.gaTitle,

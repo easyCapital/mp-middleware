@@ -47,6 +47,7 @@ export default class Objective extends ContentType implements ObjectiveInterface
     return {
       id: this.id,
       slug: this.slug,
+      updatedAt: this.updated,
       gaTitle: this.gaTitle,
       metaDescription: this.metaDescription,
       description: this.description,

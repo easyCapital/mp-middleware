@@ -35,6 +35,7 @@ function findOrigin(ctx: Context): string {
   if (origin) {
     return origin;
   }
+
   const referer = ctx.request.header('Referer');
 
   if (referer) {
