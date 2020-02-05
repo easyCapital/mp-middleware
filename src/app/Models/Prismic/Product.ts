@@ -1,6 +1,6 @@
 import { Product as JsonProductInterface } from '@robinfinance/js-api';
 
-import { ContentType, Type, Supplier, RichText, Cost, TDVM } from '.';
+import { ContentType, Type, Supplier, RichText, Cost, TDVM, Image, Link } from '.';
 import { BooleanMapper } from '../../Mappers/Prismic';
 
 interface ProductInterface {
@@ -22,7 +22,9 @@ export default class Product extends ContentType implements ProductInterface {
   private subscribable: boolean;
   private order?: number;
   private riskLevel?: number;
+  private maximumRate?: number;
   private riskLevelEnabled: boolean;
+  private availableForSubscription: boolean;
   private investPeriod?: number;
   private investPeriodLabel?: string;
   private withdrawLimit?: string;
@@ -35,18 +37,30 @@ export default class Product extends ContentType implements ProductInterface {
   private calendlyUrl?: string;
   private listingFirstFeatureLabel?: string;
   private listingFirstFeatureValue?: string;
+  private performancesLabel?: string;
+  private performancesTooltip?: string;
+  private yield?: string;
+  private levelOfTaxAdvantage?: string;
   private riskProfiles: string[] = [];
   private investorTypologies: string[] = [];
+  private managementModes: string[] = [];
+  private taxSystems: string[] = [];
   private costs?: Cost[];
   private supplierConditions?: RichText[];
   private tdvms?: TDVM[];
   private recommendation?: RichText[];
   private investmentDestination?: RichText[];
+  private returnedBonusesAlert?: RichText[];
+  private performance?: RichText[];
+  private subscriptionDocument?: Link;
+  private subscriptionCalendly?: Link;
   private performances?: { label: string; value: string }[];
-  private performancesTooltip?: string;
   private oneTimeFees?: { label: string; value: string }[];
   private annualFees?: { label: string; value: string }[];
+  private occupancyRates?: { label: string; value: string }[];
+  private distributedIncomesPerUnit?: { label: string; value: string }[];
   private bonuses?: { title: string; description: RichText[] }[];
+  private rewards?: { label: string; image: Image }[];
   private blocks?: any[];
 
   constructor(json: any) {
@@ -60,6 +74,7 @@ export default class Product extends ContentType implements ProductInterface {
     this.supplier = json.data.supplier.id;
     this.subscribable = BooleanMapper.transformValue(json.data.subscribable);
     this.riskLevelEnabled = json.data.risk_level_disabled === 'Activer';
+    this.availableForSubscription = json.data.available_for_slection === 'Oui';
 
     if (json.data.order) {
       this.order = json.data.order;
@@ -67,6 +82,10 @@ export default class Product extends ContentType implements ProductInterface {
 
     if (json.data.risk_level) {
       this.riskLevel = json.data.risk_level;
+    }
+
+    if (json.data.maximum_rate) {
+      this.maximumRate = json.data.maximum_rate;
     }
 
     if (json.data.invest_period) {
@@ -119,6 +138,22 @@ export default class Product extends ContentType implements ProductInterface {
         json.data.performance___rendement___taux_d_occupation___revenu_distribue___tdvm__title__default_value;
     }
 
+    if (json.data.product_performances_label) {
+      this.performancesLabel = json.data.product_performances_label;
+    }
+
+    if (json.data.product_performances_tooltip) {
+      this.performancesTooltip = json.data.product_performances_tooltip;
+    }
+
+    if (json.data.yield) {
+      this.yield = json.data.yield;
+    }
+
+    if (json.data.level_of_tax_advantage) {
+      this.levelOfTaxAdvantage = json.data.level_of_tax_advantage;
+    }
+
     if (json.data.summary && json.data.summary.length > 0) {
       this.summary = json.data.summary.map(item => new RichText(item));
     }
@@ -151,6 +186,22 @@ export default class Product extends ContentType implements ProductInterface {
       });
     }
 
+    if (json.data.management_modes && json.data.management_modes.length > 0) {
+      json.data.management_modes.forEach(item => {
+        if (item.management_mode) {
+          this.managementModes.push(item.management_mode);
+        }
+      });
+    }
+
+    if (json.data.tax_systems && json.data.tax_systems.length > 0) {
+      json.data.tax_systems.forEach(item => {
+        if (item.tax_system) {
+          this.taxSystems.push(item.tax_system);
+        }
+      });
+    }
+
     if (json.data.costs && json.data.costs.length > 0) {
       this.costs = json.data.costs.map(item => new Cost(item));
     }
@@ -171,34 +222,84 @@ export default class Product extends ContentType implements ProductInterface {
       this.investmentDestination = json.data.investment_destination.map(item => new RichText(item));
     }
 
+    if (json.data.listing__returned_bonuses) {
+      this.returnedBonusesAlert = json.data.listing__returned_bonuses.map(item => new RichText(item));
+    }
+
+    if (json.data.performance) {
+      this.performance = json.data.performance.map(item => new RichText(item));
+    }
+
+    if (json.data.information_document) {
+      this.subscriptionDocument = new Link(json.data.information_document);
+    }
+
+    if (json.data.subscription_calendly) {
+      this.subscriptionCalendly = new Link(json.data.subscription_calendly);
+    }
+
     if (json.data.product_performances) {
-      this.performances = json.data.product_performances.map(item => {
-        return {
-          label: item.product_performance_label,
-          value: item.product_performance_value,
-        };
+      this.performances = [];
+
+      json.data.product_performances.forEach(item => {
+        if (item.product_performance_label && item.product_performance_value) {
+          this.performances?.push({
+            label: item.product_performance_label,
+            value: item.product_performance_value,
+          });
+        }
       });
     }
 
-    if (json.data.product_performances_tooltip) {
-      this.performancesTooltip = json.data.product_performances_tooltip;
-    }
-
     if (json.data.one_time_fees) {
-      this.oneTimeFees = json.data.one_time_fees.map(item => {
-        return {
-          label: item.fee_label,
-          value: item.fee_value,
-        };
+      this.oneTimeFees = [];
+
+      json.data.one_time_fees.forEach(item => {
+        if (item.fee_label && item.fee_value) {
+          this.oneTimeFees?.push({
+            label: item.fee_label,
+            value: item.fee_value,
+          });
+        }
       });
     }
 
     if (json.data.annual_fees) {
-      this.annualFees = json.data.annual_fees.map(item => {
-        return {
-          label: item.fee_label,
-          value: item.fee_value,
-        };
+      this.annualFees = [];
+
+      json.data.annual_fees.forEach(item => {
+        if (item.fee_label && item.fee_value) {
+          this.annualFees?.push({
+            label: item.fee_label,
+            value: item.fee_value,
+          });
+        }
+      });
+    }
+
+    if (json.data.occupancy_rate) {
+      this.occupancyRates = [];
+
+      json.data.occupancy_rate.forEach(item => {
+        if (item.occupancy_rate_label && item.occupancy_rate_value) {
+          this.occupancyRates?.push({
+            label: item.occupancy_rate_label,
+            value: item.occupancy_rate_value,
+          });
+        }
+      });
+    }
+
+    if (json.data.distributed_income_per_unit) {
+      this.distributedIncomesPerUnit = [];
+
+      json.data.distributed_income_per_unit.forEach(item => {
+        if (item.distributed_income_per_unit_label && item.distributed_income_per_unit_value) {
+          this.distributedIncomesPerUnit?.push({
+            label: item.distributed_income_per_unit_label,
+            value: item.distributed_income_per_unit_value,
+          });
+        }
       });
     }
 
@@ -210,6 +311,19 @@ export default class Product extends ContentType implements ProductInterface {
           this.bonuses?.push({
             title: item.bonus_title,
             description: item.bonus_description.map(element => new RichText(element)),
+          });
+        }
+      });
+    }
+
+    if (json.data.rewards) {
+      this.rewards = [];
+
+      json.data.rewards.forEach(item => {
+        if (item.reward_label) {
+          this.rewards?.push({
+            label: item.reward_label,
+            image: new Image(item.reward_image),
           });
         }
       });
@@ -237,7 +351,9 @@ export default class Product extends ContentType implements ProductInterface {
       subscribable: this.subscribable,
       order: this.order,
       riskLevel: this.riskLevel,
+      maximumRate: this.maximumRate,
       riskLevelEnabled: this.riskLevelEnabled,
+      availableForSubscription: this.availableForSubscription,
       investPeriod: this.investPeriod,
       investPeriodLabel: this.investPeriodLabel,
       withdrawLimit: this.withdrawLimit,
@@ -248,8 +364,14 @@ export default class Product extends ContentType implements ProductInterface {
       calendlyUrl: this.calendlyUrl,
       listingFirstFeatureLabel: this.listingFirstFeatureLabel,
       listingFirstFeatureValue: this.listingFirstFeatureValue,
+      performancesLabel: this.performancesLabel,
+      performancesTooltip: this.performancesTooltip,
+      yield: this.yield,
+      levelOfTaxAdvantage: this.levelOfTaxAdvantage,
       riskProfiles: this.riskProfiles,
       investorTypologies: this.investorTypologies,
+      managementModes: this.managementModes,
+      taxSystems: this.taxSystems,
       costs: this.costs && this.costs.map(item => item.toJSON()),
       taxeExemptionRate: this.taxeExemptionRate,
       investmentPeriod: this.investmentPeriod,
@@ -257,13 +379,22 @@ export default class Product extends ContentType implements ProductInterface {
       tdvms: this.tdvms?.map(item => item.toJSON()),
       recommendation: this.recommendation?.map(item => item.toJSON()),
       investmentDestination: this.investmentDestination?.map(item => item.toJSON()),
+      returnedBonusesAlert: this.returnedBonusesAlert?.map(item => item.toJSON()),
+      performance: this.performance?.map(item => item.toJSON()),
+      subscriptionDocument: this.subscriptionDocument?.toJSON(),
+      subscriptionCalendly: this.subscriptionCalendly?.toJSON(),
       performances: this.performances,
-      performancesTooltip: this.performancesTooltip,
       oneTimeFees: this.oneTimeFees,
       annualFees: this.annualFees,
+      occupancyRates: this.occupancyRates,
+      distributedIncomesPerUnit: this.distributedIncomesPerUnit,
       bonuses: this.bonuses?.map(item => ({
         title: item.title,
         description: item.description.map(element => element.toJSON()),
+      })),
+      rewards: this.rewards?.map(item => ({
+        label: item.label,
+        image: item.image.toJSON(),
       })),
       blocks: this.blocks,
     };
