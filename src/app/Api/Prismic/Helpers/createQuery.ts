@@ -14,7 +14,13 @@ function createQuery(
     Object.keys(filters).forEach(filter => {
       const value = filters[filter];
 
-      if (Array.isArray(value)) {
+      if (filter === 'id') {
+        if (Array.isArray(value)) {
+          query.push(Prismic.Predicates.in('document.id', value));
+        } else {
+          query.push(Prismic.Predicates.at('document.id', value));
+        }
+      } else if (Array.isArray(value)) {
         query.push(Prismic.Predicates.any(`my.${type}.${filter}`, value));
       } else if (value.indexOf('!') !== -1) {
         query.push(Prismic.Predicates.not(`my.${type}.${filter}`, value.replace('!', '')));

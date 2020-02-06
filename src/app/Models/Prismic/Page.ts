@@ -37,6 +37,7 @@ export default class Page extends ContentType implements PageInterface {
     return {
       id: this.id,
       slug: this.slug,
+      updatedAt: this.updated,
       name: this.name,
       title: this.title,
       description: this.description,
