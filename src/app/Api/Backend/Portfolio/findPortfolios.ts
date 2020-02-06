@@ -26,9 +26,11 @@ export default async function findPortfolios(
       jsonPortfolio.lines.forEach(item => {
         const fund = fundsById[item.line];
 
-        fund.setWeight(item.weight);
+        if (fund) {
+          fund.setWeight(item.weight);
 
-        portfolio.addFund(fund);
+          portfolio.addFund(fund);
+        }
 
         portfolios.push(portfolio);
       });
