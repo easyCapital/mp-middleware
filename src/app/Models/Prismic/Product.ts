@@ -1,6 +1,6 @@
 import { Product as JsonProductInterface } from '@robinfinance/js-api';
 
-import { ContentType, Type, Supplier, RichText, Cost, TDVM, Image, Link } from '.';
+import { ContentType, Type, Supplier, RichText, Cost, TDVM, Image, Link, Slice } from '.';
 import { BooleanMapper } from '../../Mappers/Prismic';
 
 interface ProductInterface {
@@ -11,20 +11,20 @@ interface ProductInterface {
 
 export default class Product extends ContentType implements ProductInterface {
   private identifier?: string;
-  private title: string;
-  private gaTitle: string;
-  private metaDescription: string;
+  private title?: string;
+  private gaTitle?: string;
+  private metaDescription?: string;
   private summary?: RichText[];
   private description?: RichText[];
-  private type: Type | string;
-  private supplier: Supplier | string;
-  private objectives: string[] = [];
-  private subscribable: boolean;
+  private type?: Type | string;
+  private supplier?: Supplier | string;
+  private objectives?: string[];
+  private subscribable?: boolean;
   private order?: number;
   private riskLevel?: number;
   private maximumRate?: number;
-  private riskLevelEnabled: boolean;
-  private availableForSubscription: boolean;
+  private riskLevelEnabled?: boolean;
+  private availableForSubscription?: boolean;
   private investPeriod?: number;
   private investPeriodLabel?: string;
   private withdrawLimit?: string;
@@ -41,10 +41,10 @@ export default class Product extends ContentType implements ProductInterface {
   private performancesTooltip?: string;
   private yield?: string;
   private levelOfTaxAdvantage?: string;
-  private riskProfiles: string[] = [];
-  private investorTypologies: string[] = [];
-  private managementModes: string[] = [];
-  private taxSystems: string[] = [];
+  private riskProfiles?: string[];
+  private investorTypologies?: string[];
+  private managementModes?: string[];
+  private taxSystems?: string[];
   private costs?: Cost[];
   private supplierConditions?: RichText[];
   private tdvms?: TDVM[];
@@ -61,20 +61,38 @@ export default class Product extends ContentType implements ProductInterface {
   private distributedIncomesPerUnit?: { label: string; value: string }[];
   private bonuses?: { title: string; description: RichText[] }[];
   private rewards?: { label: string; image: Image }[];
-  private blocks?: any[];
+  private blocks?: Slice[];
 
   constructor(json: any) {
     super(json);
 
     this.identifier = json.data.backend_key;
-    this.title = json.data.title[0].text;
     this.gaTitle = json.data.ga_page_name;
     this.metaDescription = json.data.meta_description;
-    this.type = json.data.type.id;
-    this.supplier = json.data.supplier.id;
-    this.subscribable = BooleanMapper.transformValue(json.data.subscribable);
-    this.riskLevelEnabled = json.data.risk_level_disabled === 'Activer';
-    this.availableForSubscription = json.data.available_for_slection === 'Oui';
+
+    if (json.data.title && json.data.title.length > 0) {
+      this.title = json.data.title[0].text;
+    }
+
+    if (json.data.type) {
+      this.type = json.data.type.id;
+    }
+
+    if (json.data.supplier) {
+      this.supplier = json.data.supplier.id;
+    }
+
+    if (json.data.subscribable) {
+      this.subscribable = BooleanMapper.transformValue(json.data.subscribable);
+    }
+
+    if (json.data.available_for_slection) {
+      this.availableForSubscription = BooleanMapper.transformValue(json.data.available_for_slection);
+    }
+
+    if (json.data.risk_level_disabled) {
+      this.riskLevelEnabled = json.data.risk_level_disabled === 'Activer';
+    }
 
     if (json.data.order) {
       this.order = json.data.order;
@@ -155,49 +173,59 @@ export default class Product extends ContentType implements ProductInterface {
     }
 
     if (json.data.summary && json.data.summary.length > 0) {
-      this.summary = json.data.summary.map(item => new RichText(item));
+      this.summary = json.data.summary.filter(item => item.text.length > 0).map(item => new RichText(item));
     }
 
     if (json.data.description && json.data.description.length > 0) {
-      this.description = json.data.description.map(item => new RichText(item));
+      this.description = json.data.description.filter(item => item.text.length > 0).map(item => new RichText(item));
     }
 
     if (json.data.objectives && json.data.objectives.length > 0) {
+      this.objectives = [];
+
       json.data.objectives.forEach(item => {
         if (item.objective) {
-          this.objectives.push(item.objective.id);
+          this.objectives?.push(item.objective.id);
         }
       });
     }
 
     if (json.data.risk_profiles && json.data.risk_profiles.length > 0) {
+      this.riskProfiles = [];
+
       json.data.risk_profiles.forEach(item => {
         if (item.risk_profile) {
-          this.riskProfiles.push(item.risk_profile);
+          this.riskProfiles?.push(item.risk_profile);
         }
       });
     }
 
     if (json.data.investor_typologies && json.data.investor_typologies.length > 0) {
+      this.investorTypologies = [];
+
       json.data.investor_typologies.forEach(item => {
         if (item.investor_typology) {
-          this.investorTypologies.push(item.investor_typology);
+          this.investorTypologies?.push(item.investor_typology);
         }
       });
     }
 
     if (json.data.management_modes && json.data.management_modes.length > 0) {
+      this.managementModes = [];
+
       json.data.management_modes.forEach(item => {
         if (item.management_mode) {
-          this.managementModes.push(item.management_mode);
+          this.managementModes?.push(item.management_mode);
         }
       });
     }
 
     if (json.data.tax_systems && json.data.tax_systems.length > 0) {
+      this.taxSystems = [];
+
       json.data.tax_systems.forEach(item => {
         if (item.tax_system) {
-          this.taxSystems.push(item.tax_system);
+          this.taxSystems?.push(item.tax_system);
         }
       });
     }
@@ -207,7 +235,9 @@ export default class Product extends ContentType implements ProductInterface {
     }
 
     if (json.data.supplier_conditions && json.data.supplier_conditions.length > 0) {
-      this.supplierConditions = json.data.supplier_conditions.map(item => new RichText(item));
+      this.supplierConditions = json.data.supplier_conditions
+        .filter(item => item.text.length > 0)
+        .map(item => new RichText(item));
     }
 
     if (json.data.tdvm && json.data.tdvm.length > 0) {
@@ -215,19 +245,25 @@ export default class Product extends ContentType implements ProductInterface {
     }
 
     if (json.data.recommandation) {
-      this.recommendation = json.data.recommandation.map(item => new RichText(item));
+      this.recommendation = json.data.recommandation
+        .filter(item => item.text.length > 0)
+        .map(item => new RichText(item));
     }
 
     if (json.data.investment_destination) {
-      this.investmentDestination = json.data.investment_destination.map(item => new RichText(item));
+      this.investmentDestination = json.data.investment_destination
+        .filter(item => item.text.length > 0)
+        .map(item => new RichText(item));
     }
 
     if (json.data.listing__returned_bonuses) {
-      this.returnedBonusesAlert = json.data.listing__returned_bonuses.map(item => new RichText(item));
+      this.returnedBonusesAlert = json.data.listing__returned_bonuses
+        .filter(item => item.text.length > 0)
+        .map(item => new RichText(item));
     }
 
     if (json.data.performance) {
-      this.performance = json.data.performance.map(item => new RichText(item));
+      this.performance = json.data.performance.filter(item => item.text.length > 0).map(item => new RichText(item));
     }
 
     if (json.data.information_document) {
@@ -310,7 +346,9 @@ export default class Product extends ContentType implements ProductInterface {
         if (item.bonus_description) {
           this.bonuses?.push({
             title: item.bonus_title,
-            description: item.bonus_description.map(element => new RichText(element)),
+            description: item.bonus_description
+              .filter(element => element.text.length > 0)
+              .map(element => new RichText(element)),
           });
         }
       });
@@ -330,7 +368,11 @@ export default class Product extends ContentType implements ProductInterface {
     }
 
     if (json.data.body) {
-      this.blocks = json.data.body;
+      this.blocks = [];
+
+      json.data.body.forEach(item => {
+        this.blocks?.push(new Slice(item));
+      });
     }
   }
 
@@ -345,9 +387,9 @@ export default class Product extends ContentType implements ProductInterface {
       metaDescription: this.metaDescription,
       summary: this.summary?.map(item => item.toJSON()),
       description: this.description?.map(item => item.toJSON()),
-      type: typeof this.type === 'string' ? this.type : this.type.toJSON(),
+      type: typeof this.type === 'string' ? this.type : this.type?.toJSON(),
       objectives: this.objectives,
-      supplier: typeof this.supplier === 'string' ? this.supplier : this.supplier.toJSON(),
+      supplier: typeof this.supplier === 'string' ? this.supplier : this.supplier?.toJSON(),
       subscribable: this.subscribable,
       order: this.order,
       riskLevel: this.riskLevel,
@@ -396,7 +438,7 @@ export default class Product extends ContentType implements ProductInterface {
         label: item.label,
         image: item.image.toJSON(),
       })),
-      blocks: this.blocks,
+      blocks: this.blocks?.map(item => item.toJSON()),
     };
   }
 

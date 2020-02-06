@@ -7,16 +7,24 @@ interface SupplierInterface {
 }
 
 export default class Supplier extends ContentType implements SupplierInterface {
-  private name: string;
-  private logo: Image;
-  private link: string;
+  private name?: string;
+  private logo?: Image;
+  private link?: string;
 
   constructor(json: any) {
     super(json);
 
-    this.name = json.data.name[0].text;
-    this.logo = new Image(json.data.logo);
-    this.link = json.data.link.url;
+    if (json.data.name && json.data.name.length > 0) {
+      this.name = json.data.name[0].text;
+    }
+
+    if (json.data.logo) {
+      this.logo = new Image(json.data.logo);
+    }
+
+    if (json.data.link) {
+      this.link = json.data.link.url;
+    }
   }
 
   public toJSON(): JsonSupplierInterface {
@@ -24,7 +32,7 @@ export default class Supplier extends ContentType implements SupplierInterface {
       id: this.id,
       slug: this.slug,
       name: this.name,
-      logo: this.logo.toJSON(),
+      logo: this.logo?.toJSON(),
       link: this.link,
     };
   }

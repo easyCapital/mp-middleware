@@ -3,10 +3,12 @@ import { Context } from '../../../../../types';
 
 class ObjectiveController {
   public async index({ request, response }: Context) {
-    const orderBy = request.input('orderBy');
     const filters = request.input('filters');
+    const linked = request.input('linked');
+    const fields = request.input('fields');
+    const orderBy = request.input('orderBy');
 
-    const objectives = await PrismicApi.getObjectives(filters, orderBy);
+    const objectives = await PrismicApi.getObjectives(filters, linked, fields, orderBy);
 
     response.status(200).send(objectives);
   }
@@ -21,17 +23,21 @@ class ObjectiveController {
 
   public async search({ request, response }: Context) {
     const filters = request.input('filters');
+    const linked = request.input('linked');
+    const fields = request.input('fields');
     const orderBy = request.input('orderBy');
 
-    const objectives = await PrismicApi.findObjectives(filters, orderBy);
+    const objectives = await PrismicApi.findObjectives(filters, linked, fields, orderBy);
 
     response.status(200).send(objectives);
   }
 
   public async find({ request, response }: Context) {
     const filters = request.input('filters');
+    const linked = request.input('linked');
+    const fields = request.input('fields');
 
-    const objective = await PrismicApi.findObjective(filters);
+    const objective = await PrismicApi.findObjective(filters, linked, fields);
 
     response.status(200).send(objective);
   }

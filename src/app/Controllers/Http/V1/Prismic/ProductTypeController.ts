@@ -3,10 +3,12 @@ import { Context } from '../../../../../types';
 
 class ProductTypeController {
   public async index({ request, response }: Context) {
-    const orderBy = request.input('orderBy');
     const filters = request.input('filters');
+    const linked = request.input('linked');
+    const fields = request.input('fields');
+    const orderBy = request.input('orderBy');
 
-    const types = await PrismicApi.getTypes(filters, orderBy);
+    const types = await PrismicApi.getTypes(filters, linked, fields, orderBy);
 
     response.status(200).send(types);
   }
@@ -20,18 +22,22 @@ class ProductTypeController {
   }
 
   public async search({ request, response }: Context) {
-    const orderBy = request.input('orderBy');
     const filters = request.input('filters');
+    const linked = request.input('linked');
+    const fields = request.input('fields');
+    const orderBy = request.input('orderBy');
 
-    const types = await PrismicApi.findTypes(filters, orderBy);
+    const types = await PrismicApi.findTypes(filters, linked, fields, orderBy);
 
     response.status(200).send(types);
   }
 
   public async find({ request, response }: Context) {
     const filters = request.input('filters');
+    const linked = request.input('linked');
+    const fields = request.input('fields');
 
-    const type = await PrismicApi.findType(filters);
+    const type = await PrismicApi.findType(filters, linked, fields);
 
     response.status(200).send(type);
   }

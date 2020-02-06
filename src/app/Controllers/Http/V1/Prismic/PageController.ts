@@ -3,10 +3,12 @@ import { Context } from '../../../../../types';
 
 class PageController {
   public async index({ request, response }: Context) {
-    const orderBy = request.input('orderBy');
     const filters = request.input('filters');
+    const linked = request.input('linked');
+    const fields = request.input('fields');
+    const orderBy = request.input('orderBy');
 
-    const pages = await PrismicApi.getPages(filters, orderBy);
+    const pages = await PrismicApi.getPages(filters, linked, fields, orderBy);
 
     response.status(200).send(pages);
   }
@@ -20,18 +22,22 @@ class PageController {
   }
 
   public async search({ request, response }: Context) {
-    const orderBy = request.input('orderBy');
     const filters = request.input('filters');
+    const linked = request.input('linked');
+    const fields = request.input('fields');
+    const orderBy = request.input('orderBy');
 
-    const pages = await PrismicApi.findPages(filters, orderBy);
+    const pages = await PrismicApi.findPages(filters, linked, fields, orderBy);
 
     response.status(200).send(pages);
   }
 
   public async find({ request, response }: Context) {
     const filters = request.input('filters');
+    const linked = request.input('linked');
+    const fields = request.input('fields');
 
-    const page = await PrismicApi.findPage(filters);
+    const page = await PrismicApi.findPage(filters, linked, fields);
 
     response.status(200).send(page);
   }

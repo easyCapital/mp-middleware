@@ -10,10 +10,18 @@ export default async function getAll(
   filters?: {
     [filter: string]: string | string[];
   },
+  linked?: { [key: string]: string | string[] },
+  fields?: string | string[],
   orderBy?: string,
 ): Promise<any[]> {
-  const query = createQuery(type, filters);
+  const query = createQuery(type, filters, linked);
+
+  let formattedFields: string | undefined;
   let orderings: string | undefined;
+
+  if (fields) {
+    formattedFields = Array.isArray(fields) ? fields.map(item => `${type}.${item}`).join(',') : `${type}.${fields}`;
+  }
 
   if (orderBy) {
     orderings = `my.${type}.${orderBy}`;
@@ -23,6 +31,7 @@ export default async function getAll(
     const response = await PrismicClient.query({
       query,
       pagination: { perPage: 100 },
+      fields: formattedFields,
       orderings,
     });
 
@@ -34,6 +43,7 @@ export default async function getAll(
       const nextResponse = await PrismicClient.query({
         query,
         pagination: { perPage: 100, page: nextPage },
+        fields: formattedFields,
         orderings,
       });
 

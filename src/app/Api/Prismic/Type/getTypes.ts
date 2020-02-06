@@ -5,9 +5,11 @@ import { getAll } from '..';
 
 export default async function getTypes(
   filters?: { [filter: string]: string | string[] },
+  linked?: { [key: string]: string | string[] },
+  fields?: string | string[],
   orderBy?: string,
 ): Promise<Type[]> {
-  const response = await getAll(ContentTypes.TYPE, filters, orderBy);
+  const response = await getAll(ContentTypes.TYPE, filters, linked, fields, orderBy);
   const types: Type[] = [];
 
   response.forEach(item => {
