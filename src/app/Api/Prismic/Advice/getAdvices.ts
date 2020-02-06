@@ -5,9 +5,11 @@ import { getAll } from '..';
 
 export default async function getAdvices(
   filters?: { [filter: string]: string | string[] },
+  linked?: { [key: string]: string | string[] },
+  fields?: string | string[],
   orderBy?: string,
 ): Promise<Advice[]> {
-  const response = await getAll(ContentTypes.ADVICE, filters, orderBy);
+  const response = await getAll(ContentTypes.ADVICE, filters, linked, fields, orderBy);
   const advices: Advice[] = [];
 
   response.forEach(item => {

@@ -18,6 +18,7 @@ export interface RequestOptions {
     [key: string]: any;
   };
   orderings?: string;
+  fields?: string;
 }
 
 export default class PrismicClient implements PrismicClientInterface {
@@ -45,6 +46,10 @@ export default class PrismicClient implements PrismicClientInterface {
 
     if (options.orderings) {
       queryOptions.orderings = `[${options.orderings}]`;
+    }
+
+    if (options.fields) {
+      queryOptions.fetch = options.fields;
     }
 
     const startTime = process.hrtime();

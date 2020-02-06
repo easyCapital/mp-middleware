@@ -10,9 +10,11 @@ export default async function findProducts(
   filters?: {
     [filter: string]: string | string[];
   },
+  linked?: { [key: string]: string | string[] },
+  fields?: string | string[],
   orderBy?: string,
 ): Promise<Product[] | any> {
-  const response = await find(ContentTypes.PRODUCT, filters, orderBy);
+  const response = await find(ContentTypes.PRODUCT, filters, linked, fields, orderBy);
   const products: Product[] = [];
 
   const typeUids: string[] = [];

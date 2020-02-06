@@ -8,9 +8,11 @@ export default async function findOne(
   filters?: {
     [filter: string]: string | string[];
   },
+  linked?: { [key: string]: string | string[] },
+  fields?: string | string[],
 ): Promise<any> {
   try {
-    const results = await find(type, filters);
+    const results = await find(type, filters, linked, fields);
 
     if (results.length > 0) {
       return results[0];

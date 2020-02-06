@@ -10,17 +10,25 @@ export default async function find(
   filters?: {
     [filter: string]: string | string[];
   },
+  linked?: { [key: string]: string | string[] },
+  fields?: string | string[],
   orderBy?: string,
 ): Promise<any[]> {
+  const query: string[] = createQuery(type, filters, linked);
+
+  let formattedFields: string | undefined;
+  let orderings: string | undefined;
+
+  if (fields) {
+    formattedFields = Array.isArray(fields) ? fields.map(item => `${type}.${item}`).join(',') : `${type}.${fields}`;
+  }
+
+  if (orderBy) {
+    orderings = `my.${type}.${orderBy}`;
+  }
+
   try {
-    const query: string[] = createQuery(type, filters);
-    let orderings: string | undefined;
-
-    if (orderBy) {
-      orderings = `my.${type}.${orderBy}`;
-    }
-
-    const response = await PrismicClient.query({ query, orderings });
+    const response = await PrismicClient.query({ query, fields: formattedFields, orderings });
 
     return response.results;
   } catch (error) {

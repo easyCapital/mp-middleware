@@ -17,7 +17,7 @@ export default class Home extends ContentType implements HomeInterface {
   private bannerLink?: Link;
   private bannerLinkText?: string;
   private bannerColor?: string;
-  private blocks: Slice[] = [];
+  private blocks?: Slice[];
 
   constructor(json: any) {
     super(json);
@@ -30,7 +30,7 @@ export default class Home extends ContentType implements HomeInterface {
     this.bannerColor = json.data.banner_color;
 
     if (json.data.banner_text) {
-      this.bannerText = json.data.banner_text.map(item => new RichText(item));
+      this.bannerText = json.data.banner_text.filter(item => item.text.length > 0).map(item => new RichText(item));
     }
 
     if (json.data.banner_picto) {
@@ -41,9 +41,13 @@ export default class Home extends ContentType implements HomeInterface {
       this.bannerLink = new Link(json.data.banner_link);
     }
 
-    json.data.body.forEach(item => {
-      this.blocks.push(new Slice(item));
-    });
+    if (json.data.body) {
+      this.blocks = [];
+
+      json.data.body.forEach(item => {
+        this.blocks?.push(new Slice(item));
+      });
+    }
   }
 
   public toJSON(): JsonHomeInterface {
@@ -59,7 +63,7 @@ export default class Home extends ContentType implements HomeInterface {
       bannerLink: this.bannerLink?.toJSON(),
       bannerLinkText: this.bannerLinkText,
       bannerColor: this.bannerColor,
-      blocks: this.blocks.map(item => item.toJSON()),
+      blocks: this.blocks?.map(item => item.toJSON()),
     };
   }
 }

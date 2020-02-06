@@ -6,6 +6,7 @@ function createQuery(
   filters?: {
     [filter: string]: string | string[];
   },
+  linked?: { [key: string]: string | string[] },
 ): string[] {
   const query: string[] = [Prismic.Predicates.at('document.type', type)];
 
@@ -19,6 +20,19 @@ function createQuery(
         query.push(Prismic.Predicates.not(`my.${type}.${filter}`, value.replace('!', '')));
       } else {
         query.push(Prismic.Predicates.at(`my.${type}.${filter}`, value));
+      }
+    });
+  }
+
+  if (linked) {
+    Object.keys(linked).forEach(link => {
+      const value = linked[link];
+      const formattedValue = Array.isArray(value) ? value : [value];
+
+      if (link === 'type') {
+        query.push(Prismic.Predicates.any(`my.${type}.type`, formattedValue));
+      } else if (link === 'objective') {
+        query.push(Prismic.Predicates.any(`my.${type}.objectives.objective`, formattedValue));
       }
     });
   }

@@ -5,9 +5,11 @@ import { find } from '..';
 
 export default async function findSuppliers(
   filters?: { [filter: string]: string | string[] },
+  linked?: { [key: string]: string | string[] },
+  fields?: string | string[],
   orderBy?: string,
 ): Promise<Supplier[]> {
-  const response = await find(ContentTypes.SUPPLIER, filters, orderBy);
+  const response = await find(ContentTypes.SUPPLIER, filters, linked, fields, orderBy);
   const suppliers: Supplier[] = [];
 
   response.forEach(item => {

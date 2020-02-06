@@ -5,9 +5,11 @@ import { find } from '..';
 
 export default async function findTypes(
   filters?: { [filter: string]: string | string[] },
+  linked?: { [key: string]: string | string[] },
+  fields?: string | string[],
   orderBy?: string,
 ): Promise<Type[]> {
-  const response = await find(ContentTypes.TYPE, filters, orderBy);
+  const response = await find(ContentTypes.TYPE, filters, linked, fields, orderBy);
   const types: Type[] = [];
 
   response.forEach(item => {
