@@ -38,6 +38,7 @@ export enum BackendErrorTypes {
   FileTooBigError = 'FileTooBigError',
 
   FileAlreadySignedError = 'FileAlreadySignedError',
+  SignNoFileToSignError = 'SignNoFileToSignError',
 }
 
 export type BackendError = {
