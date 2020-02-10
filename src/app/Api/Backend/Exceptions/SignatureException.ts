@@ -12,6 +12,9 @@ export default class SignatureException extends HttpException {
         case BackendErrorTypes.FileAlreadySignedError:
           throw new Exception('Le fichier a déjà été signé, veuillez contacter notre support.');
 
+        case BackendErrorTypes.SignNoFileToSignError:
+          throw new Exception('Aucun fichier à signer, veuillez contacter notre support.');
+
         default:
           Logger.info('Missing Error mapping value in %s for %s', 'SignatureException', errorKey);
           break;
