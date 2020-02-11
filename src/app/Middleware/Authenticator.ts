@@ -6,7 +6,16 @@ import { BackendToken } from '../Clients/Backend/BackendClient';
 class Authenticator {
   protected async handle(ctx: Context, next) {
     ctx.updateToken = updateToken;
-    ctx.updateToken({ [`${ctx.app.userType}Token`]: ctx.request.header('Authorization') });
+
+    let authorizationToken: string | undefined;
+
+    if (ctx.request.header('Authorization')) {
+      authorizationToken = ctx.request.header('Authorization');
+    } else if ('authorization' in ctx.request.get()) {
+      authorizationToken = ctx.request.get()['authorization'];
+    }
+
+    ctx.updateToken({ [`${ctx.app.userType}Token`]: authorizationToken });
 
     await next();
   }
