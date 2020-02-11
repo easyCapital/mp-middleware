@@ -17,7 +17,7 @@ class RequestLogger {
         method: request.request.method,
         status: request.response.statusCode,
         duration: `${elapsedTime}ms`,
-        url: request.request.url,
+        url: request.request.url.substring(0, request.request.url.indexOf('?')),
       });
     });
 

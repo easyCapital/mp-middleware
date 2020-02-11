@@ -94,7 +94,9 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/template/:type/download', 'V1/CGP/FileController.downloadTemplate');
+  Route.get('/template/:type/view', 'V1/CGP/FileController.viewTemplate');
   Route.get('/:id/download', 'V1/CGP/FileController.download');
+  Route.get('/:id/view', 'V1/CGP/FileController.view');
   Route.get('/:id/signed', 'V1/CGP/FileController.signed');
 })
   .prefix('api/1.0/cgp/file')
