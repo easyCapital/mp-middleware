@@ -87,6 +87,7 @@ Route.group(() => {
   Route.get('/', 'V1/CGP/FileController.search');
   Route.post('/', 'V1/CGP/FileController.create');
   Route.get('/:type/signature', 'V1/CGP/FileController.signatureUrl');
+  Route.get('/:type/sign', 'V1/CGP/FileController.sign');
 })
   .prefix('api/1.0/cgp/customer/:customer/file')
   .middleware(['auth']);
