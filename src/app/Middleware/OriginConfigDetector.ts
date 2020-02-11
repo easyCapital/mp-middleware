@@ -12,6 +12,7 @@ class OriginConfigDetector {
 
     if (!originConfig) {
       Logger.warning('%s could not be found in origins config', origin);
+
       throw new ForbiddenException();
     }
 
@@ -48,7 +49,13 @@ function findOrigin(ctx: Context): string {
     }
   }
 
-  Logger.warning('Missing both Origin and Referer headers');
+  if ('origin' in ctx.request.get()) {
+    const queryOrigin = ctx.request.get()['origin'];
+
+    return queryOrigin;
+  }
+
+  Logger.warning('Origin could not be found in Origin or Referer header, or in the query params');
 
   throw new ForbiddenException();
 }
