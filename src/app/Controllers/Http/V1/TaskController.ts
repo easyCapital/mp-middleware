@@ -4,7 +4,7 @@ import { Context } from '../../../../types';
 import { Question } from '../../../Models/Onboarding';
 import { Task } from '../../../Models/Task';
 import { File } from '../../../Models/File';
-import { FileTypeKeyMapper, FileTypeMapper } from '../../../Mappers/File';
+import { FileTypeMapper } from '../../../Mappers/File';
 
 class TaskController {
   public async complementaryQuestions({ params, request, response, backendApi }: Context) {
@@ -46,23 +46,13 @@ class TaskController {
 
     const tasks: Task<File>[] = await backendApi.getContractTasks(formattedFilters);
 
-    const fileTypes = tasks.map(task => FileTypeKeyMapper.transformValue(task.getKey()));
+    const fileTypes = tasks.map(task => FileTypeMapper.reverseTransform(task.getKey() as FileTypes));
 
     if (fileTypes.length > 0) {
       const files = await backendApi.getFiles({ type__in: fileTypes });
 
       tasks.forEach(task => {
-        const taskKey = FileTypeKeyMapper.transformValue(task.getKey());
-
-        const file = files.find(item => FileTypeMapper.reverseTransform(item.getType() as FileTypes) === taskKey);
-
-        if (taskKey) {
-          const key = FileTypeMapper.transformValue(taskKey);
-
-          if (key) {
-            task.setKey(key);
-          }
-        }
+        const file = files.find(item => (item.getType() as FileTypes) === task.getKey());
 
         if (file) {
           task.setData(file);
