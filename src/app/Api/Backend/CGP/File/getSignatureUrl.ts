@@ -1,6 +1,5 @@
 import { FileType } from '@robinfinance/js-api';
 
-import { FileTypeMapper, FileTypeKeyMapper } from '../../../../Mappers/File';
 import { Exception, NotFoundException } from '../../../../Exceptions';
 import { SignatureException } from '../../Exceptions';
 import BackendApi from '../..';
@@ -11,35 +10,27 @@ export default async function getSignatureUrl(
   type: FileType,
   callbackUrl: string,
 ): Promise<{ url: string }> {
-  const formattedType = FileTypeMapper.reverseTransform(type);
+  try {
+    const response = await this.backendClient.post(
+      {
+        url: `cgp/customer/${customerId}/file/${type}/sign`,
+      },
+      { callback_url: callbackUrl },
+    );
 
-  if (formattedType) {
-    const formattedTypeKey = FileTypeKeyMapper.reverseTransform(formattedType);
+    const data = await response.json();
 
-    if (formattedTypeKey) {
-      try {
-        const response = await this.backendClient.post(
-          {
-            url: `cgp/customer/${customerId}/file/${formattedTypeKey}/sign`,
-          },
-          { callback_url: callbackUrl },
-        );
-
-        const data = await response.json();
-
-        if (data.signature_url) {
-          return { url: data.signature_url };
-        }
-      } catch (exception) {
-        if (typeof exception.json === 'function') {
-          const error = await exception.json();
-
-          throw new SignatureException(error);
-        }
-
-        throw new Exception(exception);
-      }
+    if (data.signature_url) {
+      return { url: data.signature_url };
     }
+  } catch (exception) {
+    if (typeof exception.json === 'function') {
+      const error = await exception.json();
+
+      throw new SignatureException(error);
+    }
+
+    throw new Exception(exception);
   }
 
   throw new NotFoundException();

@@ -1,10 +1,10 @@
 import { Filters, TaskTypes, TaskStatuses, FileTypes } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
-import { FileTypeKeyMapper, FileTypeMapper } from '../../../../Mappers/File';
 import { File } from '../../../../Models/File';
 import { Task } from '../../../../Models/Task';
 import { Question } from '../../../../Models/Onboarding';
+import { FileTypeMapper } from '../../../../Mappers/File';
 
 class CGPTaskController {
   public async search({ params, request, response, backendApi }: Context) {
@@ -53,23 +53,13 @@ class CGPTaskController {
       status: [TaskStatuses.TODO, TaskStatuses.PENDING],
     });
 
-    const fileTypes = tasks.map(task => FileTypeKeyMapper.transformValue(task.getKey()));
+    const fileTypes = tasks.map(task => FileTypeMapper.reverseTransform(task.getKey() as FileTypes));
 
     if (fileTypes.length > 0) {
       const files = await backendApi.getCGPCustomerFiles({ ...filters, type__in: fileTypes });
 
       tasks.forEach(task => {
-        const taskKey = FileTypeKeyMapper.transformValue(task.getKey());
-
-        const file = files.find(item => FileTypeMapper.reverseTransform(item.getType() as FileTypes) === taskKey);
-
-        if (taskKey) {
-          const key = FileTypeMapper.transformValue(taskKey);
-
-          if (key) {
-            task.setKey(key);
-          }
-        }
+        const file = files.find(item => (item.getType() as FileTypes) === task.getKey());
 
         if (file) {
           task.setData(file);
