@@ -12,7 +12,9 @@ class Authenticator {
     if (ctx.request.header('Authorization')) {
       authorizationToken = ctx.request.header('Authorization');
     } else if ('authorization' in ctx.request.get()) {
-      authorizationToken = ctx.request.get()['authorization'];
+      const { authorization } = ctx.request.get() as any;
+
+      authorizationToken = authorization;
     }
 
     ctx.updateToken({ [`${ctx.app.userType}Token`]: authorizationToken });
