@@ -50,7 +50,7 @@ function findOrigin(ctx: Context): string {
   }
 
   if ('origin' in ctx.request.get()) {
-    const queryOrigin = ctx.request.get()['origin'];
+    const { origin: queryOrigin } = ctx.request.get() as any;
 
     return queryOrigin;
   }
