@@ -80,12 +80,12 @@ class CGPContractFileController {
     response.status(200).send(data);
   }
 
-  public async sign({ params, response, backendApi, app, origin }: Context) {
+  public async sign({ params, request, response, backendApi, app, origin }: Context) {
     const { customer, type } = params;
+    const { callback }: any = request.get();
 
-    const callbackUrl = app.signatureCallback
-      ? origin + app.signatureCallback.interpolate({ customer, type })
-      : undefined;
+    const callbackUrl =
+      callback || (app.signatureCallback ? origin + app.signatureCallback.interpolate({ customer, type }) : undefined);
 
     if (!callbackUrl) {
       throw new InvalidArgumentException("Aucune URL de callback n'a été fourni.");
