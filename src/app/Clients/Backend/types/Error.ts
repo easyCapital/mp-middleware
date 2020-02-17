@@ -1,5 +1,6 @@
 export enum BackendErrorTypes {
   BlankError = 'BlankError',
+  NullError = 'NullError',
   NotFound = 'NotFound',
   PermissionDenied = 'PermissionDenied',
   InvalidTokenError = 'InvalidTokenError',
