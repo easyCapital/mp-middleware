@@ -28,6 +28,7 @@ export default class CustomerCreationException extends HttpException {
           break;
 
         case BackendErrorTypes.BlankError:
+        case BackendErrorTypes.NullError:
           error[errorKey].fields.forEach(field => {
             errorMessages[field] = ErrorTypes.REQUIRED;
           });
