@@ -9,7 +9,7 @@ function formatContractTasks(tasks: Task<any>[]): Task<any>[] {
   tasks.forEach(task => {
     const type = task.getType();
 
-    if (type && type !== TaskTypes.CONTAINER) {
+    if (type && type !== TaskTypes.CONTAINER && type !== TaskTypes.GROUP) {
       const taskOrder = TaskOrderMapper.transformValue(type);
 
       if (taskOrder) {
