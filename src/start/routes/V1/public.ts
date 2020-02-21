@@ -103,6 +103,7 @@ Route.group(() => {
   Route.post('/', 'V1/PropositionController.validate').middleware(['auth']);
   Route.get('/:token', 'V1/PropositionController.getByToken');
   Route.post('/generate', 'V1/PropositionController.generate');
+  Route.post('/risk-advice', 'V1/PropositionController.getRiskAdvice');
   Route.get('/download/:token', 'V1/PropositionController.downloadByToken');
 }).prefix('api/1.0/proposition');
 

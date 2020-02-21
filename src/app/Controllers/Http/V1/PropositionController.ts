@@ -62,6 +62,15 @@ class PropositionController {
     response.status(200).send();
   }
 
+  public async getRiskAdvice(context: Context) {
+    const { request, response, backendApi, universe } = context;
+    const answers: any = request.post();
+
+    const riskAdvice = await backendApi.getRiskAdvice(universe, answers);
+
+    response.status(200).send(riskAdvice);
+  }
+
   public async downloadByToken({ params, response, backendApi, universe }: Context) {
     const { token } = params;
     const proposition = await backendApi.getPropositionByToken(token);
