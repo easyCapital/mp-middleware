@@ -45,6 +45,7 @@ export default class BackendApi {
   public generateProspectProposition = Proposition.generateProspectProposition;
   public getLastProposition = Proposition.getLastProposition;
   public getPropositionByToken = Proposition.getPropositionByToken;
+  public getRiskAdvice = Proposition.getRiskAdvice;
   public validateProposition = Proposition.validateProposition;
   // Prospect
   public createProspect = Prospect.createProspect;
