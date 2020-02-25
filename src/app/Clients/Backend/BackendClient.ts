@@ -9,6 +9,7 @@ export type BackendClientBuilder = (backendApiKey: string, token?: BackendToken)
 
 export interface BackendClientInterface {
   get(options: RequestOptions): Promise<any>;
+  patch(options: RequestOptions): Promise<any>;
   post(options: RequestOptions, body?: any): Promise<any>;
   proxy(req: IncomingMessage, res: ServerResponse, options: RequestOptions): Promise<any>;
 }
@@ -40,6 +41,10 @@ export default class BackendClient implements BackendClientInterface {
 
   public async get(options: RequestOptions): Promise<any> {
     return this.call('GET', options);
+  }
+
+  public async patch(options: RequestOptions): Promise<any> {
+    return this.call('PATCH', options);
   }
 
   public async post(options: RequestOptions, body?: any): Promise<any> {

@@ -136,4 +136,15 @@ Route.group(() => {
   .prefix('api/1.0/cgp/customer/:customer/study')
   .middleware(['auth']);
 
+/*
+|--------------------------------------------------------------------------
+| API V1 - CGP - STUDY TASK
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.get('/finish', 'V1/CGP/StudyController.finishTask');
+})
+  .prefix('api/1.0/cgp/customer/:customer/study/:study/task/:task')
+  .middleware(['auth']);
+
 export {};
