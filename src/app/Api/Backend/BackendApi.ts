@@ -89,6 +89,8 @@ export default class BackendApi {
   // CGP - Study
   public createCGPStudy = CGP.createStudy;
   public getCGPCustomerStudies = CGP.getCustomerStudy;
+  // CGP - Study Task
+  public finishStudyTask = CGP.finishStudyTask;
   // CGP - User
   public getCGPDetails = CGP.getCGPDetails;
 

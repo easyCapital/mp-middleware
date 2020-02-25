@@ -21,6 +21,14 @@ class CGPStudyController {
 
     response.status(200).send(studies);
   }
+
+  public async finishTask({ params, response, backendApi }: Context) {
+    const { customer, study, task } = params;
+
+    await backendApi.finishStudyTask(customer, study, task);
+
+    response.status(200).send();
+  }
 }
 
 export = CGPStudyController;
