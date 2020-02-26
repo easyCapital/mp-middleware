@@ -61,6 +61,12 @@ Route.group(() => {
   .middleware(['auth']);
 
 Route.group(() => {
+  Route.get('/', 'V1/CGP/PropositionController.getStudyProposition');
+})
+  .prefix('api/1.0/cgp/customer/:customer/study/:study/proposition')
+  .middleware(['auth']);
+
+Route.group(() => {
   Route.get('/:id', 'V1/CGP/PropositionController.get');
   Route.get('/:id/mission-report', 'V1/CGP/PropositionController.downloadMissionReport');
 })
