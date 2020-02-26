@@ -84,6 +84,7 @@ export default class BackendApi {
   public generateCGPCustomerProposition = CGP.generateCustomerProposition;
   public getCGPCustomerPropositions = CGP.getCustomerPropositions;
   public getCGPProposition = CGP.getProposition;
+  public getCGPStudyProposition = CGP.getStudyProposition;
   public createCGPCustomerProposition = CGP.createCustomerProposition;
   public downloadCGPMissionReport = CGP.downloadMissionReport;
   // CGP - Study
