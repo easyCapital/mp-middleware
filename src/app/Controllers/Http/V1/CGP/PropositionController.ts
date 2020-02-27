@@ -1,4 +1,4 @@
-import { Filters } from '@robinfinance/js-api';
+import { Filters, Origins } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
@@ -48,7 +48,7 @@ class CGPPropositionController {
     const { customer, study } = params;
     const configKey = request.input('configKey') as string | undefined;
 
-    let proposition = await backendApi.getCGPStudyProposition(customer, study);
+    let proposition = await backendApi.getCGPStudyProposition(customer, study, Origins.MIEUXPLACER);
 
     if (!proposition) {
       proposition = await backendApi.generateCGPCustomerProposition(customer, universe, configKey, study);

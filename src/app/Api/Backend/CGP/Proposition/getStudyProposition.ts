@@ -1,3 +1,5 @@
+import { Origin, Origins } from '@robinfinance/js-api';
+
 import { Proposition } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
@@ -8,6 +10,7 @@ export default async function getStudyProposition(
   this: BackendApi,
   customerId: string,
   studyId: string,
+  type?: Origin,
 ): Promise<Proposition | undefined> {
   try {
     const response = await this.backendClient.get({
@@ -17,8 +20,18 @@ export default async function getStudyProposition(
     });
     const data = await response.json();
 
-    if (data.length > 0) {
-      return getPropositionDetails(this, data[0]);
+    let propositions: any = data;
+
+    if (propositions.length > 0) {
+      if (type) {
+        if (type === Origins.CGP) {
+          propositions = propositions.filter(item => item.cgp !== null);
+        } else if (type === Origins.MIEUXPLACER) {
+          propositions = propositions.filter(item => item.cgp === null);
+        }
+      }
+
+      return getPropositionDetails(this, propositions[0]);
     }
   } catch (exception) {
     if (typeof exception.json === 'function') {
