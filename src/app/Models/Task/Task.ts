@@ -16,6 +16,7 @@ export default class Task<Type> implements TaskInterface<Type> {
   private parent: number | null;
   private next: number | null;
   private order: number;
+  private contract?: number;
 
   constructor(json: any) {
     this.id = json.id;
@@ -25,6 +26,7 @@ export default class Task<Type> implements TaskInterface<Type> {
     this.parent = json.parent;
     this.next = json.next_action;
     this.order = json.execution_order;
+    this.contract = json.contract;
   }
 
   public toJSON(): JsonTaskInterface<Type> {
@@ -37,6 +39,7 @@ export default class Task<Type> implements TaskInterface<Type> {
       parent: this.parent,
       next: this.next,
       order: this.order,
+      contract: this.contract,
     };
   }
 
