@@ -13,7 +13,7 @@ export default async function createCustomerAnswers(
   const formattedAnswers = formatAnswerBody(answers);
 
   try {
-    await this.backendClient.post({ url: `answer/customer/${customerId}/cgp/create` }, formattedAnswers);
+    await this.backendClient.post({ url: `cgp/customer/${customerId}/answer/create` }, formattedAnswers);
   } catch (exception) {
     if (exception.status === 404) {
       throw new NotFoundException();
