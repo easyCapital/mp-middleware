@@ -153,4 +153,15 @@ Route.group(() => {
   .prefix('api/1.0/cgp/customer/:customer/study/:study/task/:task')
   .middleware(['auth']);
 
+/*
+|--------------------------------------------------------------------------
+| API V1 - CGP - STUDY ANSWER
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.post('/', 'V1/CGP/AnswerController.create');
+})
+  .prefix('api/1.0/cgp/customer/:customer/study/:study/answer')
+  .middleware(['auth']);
+
 export {};
