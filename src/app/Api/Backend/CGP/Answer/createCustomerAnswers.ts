@@ -9,11 +9,19 @@ export default async function createCustomerAnswers(
   this: BackendApi,
   customerId: string | number,
   answers: QuestionAnswer,
+  studyId?: string,
 ): Promise<void> {
   const formattedAnswers = formatAnswerBody(answers);
 
   try {
-    await this.backendClient.post({ url: `cgp/customer/${customerId}/answer/create` }, formattedAnswers);
+    if (studyId) {
+      await this.backendClient.post(
+        { url: `cgp/customer/${customerId}/study/${studyId}/answer/create` },
+        formattedAnswers,
+      );
+    } else {
+      await this.backendClient.post({ url: `cgp/customer/${customerId}/answer/create` }, formattedAnswers);
+    }
   } catch (exception) {
     if (exception.status === 404) {
       throw new NotFoundException();
