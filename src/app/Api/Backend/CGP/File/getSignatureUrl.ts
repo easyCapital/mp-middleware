@@ -1,5 +1,3 @@
-import { FileType } from '@robinfinance/js-api';
-
 import { Exception, NotFoundException } from '../../../../Exceptions';
 import { SignatureException } from '../../Exceptions';
 import BackendApi from '../..';
@@ -7,13 +5,13 @@ import BackendApi from '../..';
 export default async function getSignatureUrl(
   this: BackendApi,
   customerId: string,
-  type: FileType,
+  fileId: string,
   callbackUrl: string,
 ): Promise<{ url: string }> {
   try {
-    const response = await this.backendClient.post(
+    const response = await this.backendClient.patch(
       {
-        url: `cgp/customer/${customerId}/file/${type}/sign`,
+        url: `cgp/customer/${customerId}/file/${fileId}/sign`,
       },
       { callback_url: callbackUrl },
     );

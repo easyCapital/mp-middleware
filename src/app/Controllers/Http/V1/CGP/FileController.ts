@@ -65,33 +65,33 @@ class CGPContractFileController {
   }
 
   public async signatureUrl({ params, response, backendApi, app, origin }: Context) {
-    const { customer, type } = params;
+    const { customer, file } = params;
 
     const callbackUrl = app.signatureCallback
-      ? origin + app.signatureCallback.interpolate({ customer, type })
+      ? origin + app.signatureCallback.interpolate({ customer, file })
       : undefined;
 
     if (!callbackUrl) {
       throw new InvalidArgumentException("Aucune URL de callback n'a été fourni.");
     }
 
-    const data = await backendApi.getCGPFileSignatureUrl(customer, type, callbackUrl);
+    const data = await backendApi.getCGPFileSignatureUrl(customer, file, callbackUrl);
 
     response.status(200).send(data);
   }
 
   public async sign({ params, request, response, backendApi, app, origin }: Context) {
-    const { customer, type } = params;
+    const { customer, file } = params;
     const { callback }: any = request.get();
 
     const callbackUrl =
-      callback || (app.signatureCallback ? origin + app.signatureCallback.interpolate({ customer, type }) : undefined);
+      callback || (app.signatureCallback ? origin + app.signatureCallback.interpolate({ customer, file }) : undefined);
 
     if (!callbackUrl) {
       throw new InvalidArgumentException("Aucune URL de callback n'a été fourni.");
     }
 
-    const data = await backendApi.getCGPFileSignatureUrl(customer, type, callbackUrl);
+    const data = await backendApi.getCGPFileSignatureUrl(customer, file, callbackUrl);
 
     response.redirect(data.url);
   }
