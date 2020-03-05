@@ -12,8 +12,8 @@ export default async function getCustomerAnswers(
 ): Promise<Answer[]> {
   try {
     const response = await this.backendClient.get({
-      url: 'answer/cgp/search',
-      filters: filters ? { ...filters, user: customerId } : { user: customerId },
+      url: 'cgp/answer/search',
+      filters: filters ? { ...filters, user: customerId, is_active: 'True' } : { user: customerId, is_active: 'True' },
     });
     const data = await response.json();
 
