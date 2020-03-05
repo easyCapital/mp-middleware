@@ -13,8 +13,8 @@ export default async function getAnswersByCustomer(
 ): Promise<{ results: { [userId: string]: { [key: string]: string } }; meta: Meta }> {
   try {
     const response = await this.backendClient.get({
-      url: 'answer/cgp/search',
-      filters,
+      url: 'cgp/answer/search',
+      filters: filters ? { ...filters, is_active: 'True' } : { is_active: 'True' },
       pagination,
       latestBy: 'user_id, question_id',
     });
