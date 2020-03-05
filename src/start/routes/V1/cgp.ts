@@ -79,6 +79,7 @@ Route.group(() => {
 |--------------------------------------------------------------------------
 */
 Route.group(() => {
+  Route.get('/', 'V1/CGP/PortfolioController.index');
   Route.post('/prevalidate', 'V1/CGP/PortfolioController.prevalidate');
 })
   .prefix('api/1.0/cgp/portfolio')

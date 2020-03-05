@@ -1,17 +1,26 @@
-import { Filters } from '@robinfinance/js-api';
+import { Filters, Pagination, Meta } from '@robinfinance/js-api';
 
-import { ArrayToObject } from '../../../Helpers';
-import { Fund, Portfolio } from '../../../Models/Proposition';
-import { Exception } from '../../../Exceptions';
-import BackendApi from '..';
+import { Portfolio, Fund } from '../../../../Models/Proposition';
+import { Exception } from '../../../../Exceptions';
+import { formatMeta } from '../../Helpers';
+import BackendApi from '../..';
+import { ArrayToObject } from '../../../../Helpers';
 
-export default async function findPortfolios(this: BackendApi, filters: Filters): Promise<Portfolio[]> {
+export default async function searchPortfolios(
+  this: BackendApi,
+  pagination: Pagination = { page: 1, perPage: 100 },
+  filters?: Filters,
+): Promise<{ results: Portfolio[]; meta: Meta }> {
   try {
     const response = await this.backendClient.get({
       url: 'portfolio/search',
       filters,
+      pagination,
+      orderBy: { key: 'updated', type: 'desc' },
     });
     const data = await response.json();
+
+    const meta = formatMeta(response.headers, pagination);
 
     const portfolios: Portfolio[] = [];
 
@@ -35,7 +44,7 @@ export default async function findPortfolios(this: BackendApi, filters: Filters)
       portfolios.push(portfolio);
     }
 
-    return portfolios;
+    return { results: portfolios, meta };
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();
