@@ -22,15 +22,15 @@ export default async function getStudyProposition(
 
     let propositions: any = data;
 
-    if (propositions.length > 0) {
-      if (type) {
-        if (type === Origins.CGP) {
-          propositions = propositions.filter(item => item.cgp !== null);
-        } else if (type === Origins.MIEUXPLACER) {
-          propositions = propositions.filter(item => item.cgp === null);
-        }
+    if (type) {
+      if (type === Origins.CGP) {
+        propositions = propositions.filter(item => item.cgp !== null);
+      } else if (type === Origins.MIEUXPLACER) {
+        propositions = propositions.filter(item => item.cgp === null);
       }
+    }
 
+    if (propositions.length > 0) {
       return getPropositionDetails(this, propositions[0]);
     }
   } catch (exception) {
