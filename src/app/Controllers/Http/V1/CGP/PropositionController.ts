@@ -1,4 +1,4 @@
-import { Filters, Origins } from '@robinfinance/js-api';
+import { Filters, Origins, Origin } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
@@ -44,7 +44,16 @@ class CGPPropositionController {
     response.status(200).send(proposition);
   }
 
-  public async getStudyProposition({ params, request, response, backendApi, universe }: Context) {
+  public async getStudyProposition({ params, request, response, backendApi }: Context) {
+    const { customer, study } = params;
+    const origin = request.input('origin') as Origin | undefined;
+
+    const proposition = await backendApi.getCGPStudyProposition(customer, study, origin);
+
+    response.status(200).send(proposition);
+  }
+
+  public async getOrGenerateStudyProposition({ params, request, response, backendApi, universe }: Context) {
     const { customer, study } = params;
     const configKey = request.input('configKey') as string | undefined;
 
@@ -53,6 +62,19 @@ class CGPPropositionController {
     if (!proposition) {
       proposition = await backendApi.generateCGPCustomerProposition(customer, universe, configKey, study);
     }
+
+    response.status(200).send(proposition);
+  }
+
+  public async createStudyProposition({ params, request, response, backendApi, universe }: Context) {
+    const { customer, study } = params;
+    const portfolios = request.post() as any[];
+
+    if (!universe) {
+      throw new InvalidArgumentException("Aucun univers n'a été fourni.");
+    }
+
+    const proposition = await backendApi.createCGPStudyProposition(customer, study, universe, portfolios);
 
     response.status(200).send(proposition);
   }

@@ -62,6 +62,8 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/', 'V1/CGP/PropositionController.getStudyProposition');
+  Route.get('/generated', 'V1/CGP/PropositionController.getOrGenerateStudyProposition');
+  Route.post('/', 'V1/CGP/PropositionController.createStudyProposition');
 })
   .prefix('api/1.0/cgp/customer/:customer/study/:study/proposition')
   .middleware(['auth']);

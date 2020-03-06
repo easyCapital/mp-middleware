@@ -16,6 +16,7 @@ export default class Contract implements ContractInterface {
   private subscriptionFee: number;
   private totalAmount: number;
   private includedSubscriptionFee: boolean;
+  private proposition: number;
   private tasks: Task<any>[] = [];
 
   constructor(json: any) {
@@ -27,6 +28,7 @@ export default class Contract implements ContractInterface {
     this.subscriptionFee = json.subscription_fee;
     this.totalAmount = json.total_amount;
     this.includedSubscriptionFee = json.is_included_subscription_fee;
+    this.proposition = json.proposition;
   }
 
   public toJSON(): JsonContractInterface {
@@ -39,6 +41,7 @@ export default class Contract implements ContractInterface {
       subscriptionFee: this.subscriptionFee,
       totalAmount: this.totalAmount,
       includedSubscriptionFee: this.includedSubscriptionFee,
+      proposition: this.proposition,
       tasks: this.tasks.map(item => item.toJSON()),
     };
   }
