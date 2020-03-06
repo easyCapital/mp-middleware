@@ -8,6 +8,7 @@ const TaskStatusMapping = {
   '4': TaskStatuses.KO,
   '5': TaskStatuses.INACCESSIBLE,
   '6': TaskStatuses.DISABLED,
+  '7': TaskStatuses.WIP,
 };
 
 class TaskTypeMapper extends GenericMapper<TaskStatuses> {
