@@ -49,7 +49,7 @@ class PropositionController {
       proposition = await backendApi.generateProspectProposition(universe, prospectId, answers);
     }
 
-    await onPropositionGeneration(context, proposition.getToken());
+    await onPropositionGeneration(context, proposition);
 
     response.status(200).send(proposition);
   }

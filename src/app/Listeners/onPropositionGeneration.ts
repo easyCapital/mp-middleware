@@ -1,13 +1,14 @@
 import { Context } from '../../types';
 
+import { Proposition } from '../Models/Proposition';
 import * as MieuxplacerEvents from './Mieuxplacer';
 
 const Apps = use('Config').get('mpApps');
 
-async function onPropositionGeneration(context: Context, token: string) {
+async function onPropositionGeneration(context: Context, proposition: Proposition) {
   switch (context.app) {
     case Apps.MIEUXPLACER:
-      return MieuxplacerEvents.onPropositionGeneration(context, token);
+      return MieuxplacerEvents.onPropositionGeneration(context, proposition);
 
     default:
       break;

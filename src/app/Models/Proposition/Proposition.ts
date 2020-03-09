@@ -136,4 +136,12 @@ export default class Proposition implements PropositionInterface {
     });
     return totalAmount;
   }
+
+  public getAnswers(): Answer[] {
+    return this.answers;
+  }
+
+  public getPortfolios(): Portfolio[] {
+    return this.portfolios;
+  }
 }
