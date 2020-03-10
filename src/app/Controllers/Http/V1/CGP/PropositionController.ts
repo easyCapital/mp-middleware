@@ -58,14 +58,12 @@ class CGPPropositionController {
     const { customer, study } = params;
     const configKey = request.input('configKey') as string | undefined;
 
-    let proposition: Proposition | undefined;
-    let propositions = await backendApi.getCGPStudyPropositions(customer, study, Origins.MIEUXPLACER);
+    const propositions = await backendApi.getCGPStudyPropositions(customer, study, Origins.MIEUXPLACER);
 
-    if (propositions.length === 0) {
-      proposition = await backendApi.generateCGPCustomerProposition(customer, universe, configKey, study);
-    } else {
-      proposition = propositions[0];
-    }
+    const proposition =
+      propositions.length > 0
+        ? propositions[0]
+        : await backendApi.generateCGPCustomerProposition(customer, universe, configKey, study);
 
     response.status(200).send(proposition);
   }

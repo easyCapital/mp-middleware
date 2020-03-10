@@ -32,8 +32,8 @@ export default async function getStudyPropositions(
 
     const formattedPropositions: Proposition[] = [];
 
-    for (let index = 0; index < propositions.length; index++) {
-      formattedPropositions.push(await getPropositionDetails(this, propositions[index]));
+    for (const proposition of propositions.length) {
+      formattedPropositions.push(await getPropositionDetails(this, proposition));
     }
 
     return formattedPropositions;
