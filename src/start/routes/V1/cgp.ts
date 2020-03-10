@@ -61,7 +61,7 @@ Route.group(() => {
   .middleware(['auth']);
 
 Route.group(() => {
-  Route.get('/', 'V1/CGP/PropositionController.getStudyProposition');
+  Route.get('/', 'V1/CGP/PropositionController.getStudyPropositions');
   Route.get('/generated', 'V1/CGP/PropositionController.getOrGenerateStudyProposition');
   Route.post('/', 'V1/CGP/PropositionController.createStudyProposition');
 })

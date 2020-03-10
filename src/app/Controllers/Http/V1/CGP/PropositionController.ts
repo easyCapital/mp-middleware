@@ -2,6 +2,7 @@ import { Filters, Origins, Origin } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
+import { Proposition } from '../../../../Models/Proposition';
 
 class CGPPropositionController {
   public async search({ params, request, response, backendApi }: Context) {
@@ -44,23 +45,26 @@ class CGPPropositionController {
     response.status(200).send(proposition);
   }
 
-  public async getStudyProposition({ params, request, response, backendApi }: Context) {
+  public async getStudyPropositions({ params, request, response, backendApi }: Context) {
     const { customer, study } = params;
     const origin = request.input('origin') as Origin | undefined;
 
-    const proposition = await backendApi.getCGPStudyProposition(customer, study, origin);
+    const propositions = await backendApi.getCGPStudyPropositions(customer, study, origin);
 
-    response.status(200).send(proposition);
+    response.status(200).send(propositions);
   }
 
   public async getOrGenerateStudyProposition({ params, request, response, backendApi, universe }: Context) {
     const { customer, study } = params;
     const configKey = request.input('configKey') as string | undefined;
 
-    let proposition = await backendApi.getCGPStudyProposition(customer, study, Origins.MIEUXPLACER);
+    let proposition: Proposition | undefined;
+    let propositions = await backendApi.getCGPStudyPropositions(customer, study, Origins.MIEUXPLACER);
 
-    if (!proposition) {
+    if (propositions.length === 0) {
       proposition = await backendApi.generateCGPCustomerProposition(customer, universe, configKey, study);
+    } else {
+      proposition = propositions[0];
     }
 
     response.status(200).send(proposition);
