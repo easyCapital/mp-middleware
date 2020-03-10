@@ -2,7 +2,6 @@ import { Filters, Origins, Origin } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
-import { Proposition } from '../../../../Models/Proposition';
 
 class CGPPropositionController {
   public async search({ params, request, response, backendApi }: Context) {
