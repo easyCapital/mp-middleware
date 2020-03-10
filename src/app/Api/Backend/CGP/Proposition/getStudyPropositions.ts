@@ -32,7 +32,7 @@ export default async function getStudyPropositions(
 
     const formattedPropositions: Proposition[] = [];
 
-    for (const proposition of propositions.length) {
+    for (const proposition of propositions) {
       formattedPropositions.push(await getPropositionDetails(this, proposition));
     }
 
