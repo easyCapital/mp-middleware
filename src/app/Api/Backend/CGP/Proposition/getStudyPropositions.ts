@@ -6,12 +6,12 @@ import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 import { getPropositionDetails } from '../../Helpers';
 
-export default async function getStudyProposition(
+export default async function getStudyPropositions(
   this: BackendApi,
   customerId: string,
   studyId: string,
   type?: Origin,
-): Promise<Proposition | undefined> {
+): Promise<Proposition[]> {
   try {
     const response = await this.backendClient.get({
       url: 'proposition/cgp/search',
@@ -30,9 +30,13 @@ export default async function getStudyProposition(
       }
     }
 
-    if (propositions.length > 0) {
-      return getPropositionDetails(this, propositions[0]);
+    const formattedPropositions: Proposition[] = [];
+
+    for (let index = 0; index < propositions.length; index++) {
+      formattedPropositions.push(await getPropositionDetails(this, propositions[index]));
     }
+
+    return formattedPropositions;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();
