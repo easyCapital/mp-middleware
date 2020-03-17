@@ -8,7 +8,7 @@ const Logger = use('Logger');
 
 export default class CustomerCreationException extends HttpException {
   constructor(error: BackendError) {
-    const errorMessages = {};
+    const errorMessages: { [key: string]: ErrorTypes } = {};
 
     Object.keys(error).forEach(errorKey => {
       switch (errorKey) {
@@ -61,6 +61,12 @@ export default class CustomerCreationException extends HttpException {
         case BackendErrorTypes.NumericPasswordError:
           error[errorKey].fields.forEach(field => {
             errorMessages[field] = ErrorTypes.NUMERIC_PASSWORD;
+          });
+          break;
+
+        case BackendErrorTypes.TemporaryCustomerAlreadyExists:
+          error[errorKey].fields.forEach(() => {
+            errorMessages.email = ErrorTypes.USER_EXISTS;
           });
           break;
 

@@ -22,6 +22,7 @@ export enum BackendErrorTypes {
   CommonPasswordError = 'CommonPasswordError',
   NumericPasswordError = 'NumericPasswordError',
 
+  TemporaryCustomerAlreadyExists = 'TemporaryCustomerAlreadyExists',
   EmailUniqueConstraintError = 'EmailUniqueConstraintError',
   EmailAlreadyAssignedToUserError = 'EmailAlreadyAssignedToUserError',
   ToManyEmailRevalidation = 'ToManyEmailRevalidation',
