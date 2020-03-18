@@ -16,10 +16,11 @@ class CGPContractFileController {
     response.status(200).send(files);
   }
 
-  public async download({ params, req, res, backendApi }: Context) {
+  public async download({ params, request, req, res, backendApi }: Context) {
     const { id } = params;
+    const type = request.input('type') as string;
 
-    await backendApi.downloadCGPCustomerFile(req, res, id);
+    await backendApi.downloadCGPCustomerFile(req, res, id, type);
   }
 
   public async downloadTemplate({ params, req, res, backendApi }: Context) {
