@@ -47,7 +47,8 @@ export type BackendError = {
   [key in BackendErrorTypes]: {
     detail: string;
     fields: string[];
-    value: any;
+    value?: any;
+    limit_value?: any;
     constraints: string[];
   };
 };

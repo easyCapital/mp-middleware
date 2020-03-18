@@ -12,6 +12,11 @@ export default class PortfolioException extends HttpException {
         case BackendErrorTypes.InitialAmountTooLowError:
           throw new InvalidArgumentException("Le montant de placement initial n'est pas atteint sur ce contrat.");
 
+        case BackendErrorTypes.MinValueError:
+          throw new InvalidArgumentException(
+            `Le montant de placement initial n'est pas atteint sur ce contrat (${error[errorKey].limit_value} €).`,
+          );
+
         case BackendErrorTypes.InitialAmountTooHighError:
           throw new InvalidArgumentException('Le montant de placement initial est trop élevé sur ce contrat.');
 
