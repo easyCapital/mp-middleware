@@ -6,11 +6,12 @@ const TaskOrderMapping = {
   [TaskTypes.KYC]: 1,
   [TaskTypes.QUESTION]: 2,
   [TaskTypes.FILE]: 3,
-  [TaskTypes.SIGNATURE_PAPER]: 4,
-  [TaskTypes.SIGNATURE_DIGITAL]: 4,
-  [TaskTypes.SIGNATURE]: 4,
-  [TaskTypes.APPOINTMENT]: 5,
-  [TaskTypes.PAYMENT]: 6,
+  [TaskTypes.GENERATE]: 4,
+  [TaskTypes.SIGNATURE_PAPER]: 5,
+  [TaskTypes.SIGNATURE_DIGITAL]: 5,
+  [TaskTypes.SIGNATURE]: 5,
+  [TaskTypes.APPOINTMENT]: 6,
+  [TaskTypes.PAYMENT]: 7,
 };
 
 export default class TaskOrderMapper {
