@@ -13,15 +13,14 @@ export default async function createCustomerAnswers(
 ): Promise<void> {
   const formattedAnswers = formatAnswerBody(answers);
 
+  let url: string = `cgp/customer/${customerId}/answer/create`;
+
   try {
     if (studyId) {
-      await this.backendClient.post(
-        { url: `cgp/customer/${customerId}/study/${studyId}/answer/create` },
-        formattedAnswers,
-      );
-    } else {
-      await this.backendClient.post({ url: `cgp/customer/${customerId}/answer/create` }, formattedAnswers);
+      url = `cgp/customer/${customerId}/study/${studyId}/answer/create`;
     }
+
+    await this.backendClient.post({ url }, formattedAnswers);
   } catch (exception) {
     if (exception.status === 404) {
       throw new NotFoundException();

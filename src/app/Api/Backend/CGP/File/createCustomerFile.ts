@@ -10,14 +10,22 @@ export default async function createCustomerFile(
   customerId: string,
   type: FileType,
   file: string,
+  studyId?: string,
 ): Promise<File> {
   try {
+    let url: string = 'file/cgp/create';
+
+    if (studyId) {
+      url = `cgp/study/${studyId}/file/create`;
+    }
+
     const response = await this.backendClient.post(
       {
-        url: 'file/cgp/create',
+        url,
       },
       { customer_id: customerId, file_type: type, file },
     );
+
     const data = await response.json();
 
     const createdFile = new File(data);

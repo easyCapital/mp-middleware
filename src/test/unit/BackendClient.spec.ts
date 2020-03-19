@@ -16,7 +16,7 @@ test('validate mieuxplacer backend API token', async ({ assert, client }) => {
 });
 
 test('validate demo backend API token', async ({ assert, client }) => {
-  await assertBackendApiTokenFromOrigin(client, assert, 'http://demo.cgp.mieuxplacer.local', 'democgpbackendapitoken');
+  await assertBackendApiTokenFromOrigin(client, assert, 'http://demo.cgp.robintech.local', 'democgpbackendapitoken');
 });
 
 test('validate backend API token from Referer', async ({ assert, client }) => {

@@ -167,4 +167,15 @@ Route.group(() => {
   .prefix('api/1.0/cgp/customer/:customer/study/:study/answer')
   .middleware(['auth']);
 
+/*
+|--------------------------------------------------------------------------
+| API V1 - CGP - STUDY FILE
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.post('/', 'V1/CGP/FileController.create');
+})
+  .prefix('api/1.0/cgp/customer/:customer/study/:study/file')
+  .middleware(['auth']);
+
 export {};
