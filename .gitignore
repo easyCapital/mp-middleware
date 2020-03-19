@@ -6,6 +6,10 @@ tmp
 
 # Environment variables, never commit this file
 .env
+.env.local
+.env.dev
+.env.stg
+.env.prd
 
 # Generated files
 dist/
