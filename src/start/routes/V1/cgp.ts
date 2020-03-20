@@ -94,7 +94,6 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.get('/', 'V1/CGP/FileController.search');
-  Route.post('/', 'V1/CGP/FileController.create');
   Route.get('/:file/signature', 'V1/CGP/FileController.signatureUrl');
   Route.get('/:file/sign', 'V1/CGP/FileController.sign');
 })

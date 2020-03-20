@@ -50,7 +50,7 @@ class CGPContractFileController {
 
     for await (const key of Object.keys(data)) {
       try {
-        const file = await backendApi.createCGPCustomerFile(customer, key as FileType, data[key], study);
+        const file = await backendApi.createCGPCustomerFile(customer, study, key as FileType, data[key]);
 
         files.push(file);
       } catch (exception) {
