@@ -101,6 +101,12 @@ Route.group(() => {
   .middleware(['auth']);
 
 Route.group(() => {
+  Route.get('/download', 'V1/CGP/FileController.downloadContractFiles');
+})
+  .prefix('api/1.0/cgp/contract/:contract/file')
+  .middleware(['auth']);
+
+Route.group(() => {
   Route.get('/template/:type/download', 'V1/CGP/FileController.downloadTemplate');
   Route.get('/template/:type/view', 'V1/CGP/FileController.viewTemplate');
   Route.get('/:id/download', 'V1/CGP/FileController.download');

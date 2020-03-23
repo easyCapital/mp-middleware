@@ -29,6 +29,12 @@ class CGPContractFileController {
     await backendApi.downloadCGPTemplateFile(req, res, type);
   }
 
+  public async downloadContractFiles({ params, req, res, backendApi }: Context) {
+    const { contract } = params;
+
+    await backendApi.downloadCGPContractFiles(req, res, contract);
+  }
+
   public async view({ params, req, res, backendApi }: Context) {
     const { id } = params;
 
