@@ -7,7 +7,7 @@ const Logger = use('Logger');
 
 export default class AnswerException extends HttpException {
   constructor(answers: { question: string; value: string | null }[], errors: BackendError[]) {
-    const errorMessages = {};
+    const errorMessages: { [key: string]: ErrorType } = {};
 
     errors.forEach((error, index) => {
       const answer = answers[index];

@@ -14,6 +14,7 @@ interface PortfolioInterface {
 export default class Portfolio implements PortfolioInterface {
   public amount?: number;
   private id: number;
+  private productId?: number;
   private productIdentifier?: string;
   private product?: Product;
   private srri: number;
@@ -28,6 +29,10 @@ export default class Portfolio implements PortfolioInterface {
       this.amount = json.amount;
     }
 
+    if (json.product) {
+      this.productId = json.product;
+    }
+
     if (json.product_identifier) {
       this.productIdentifier = json.product_identifier;
     }
@@ -40,6 +45,7 @@ export default class Portfolio implements PortfolioInterface {
   public toJSON(): JsonPortfolioInterface {
     return {
       id: this.id,
+      productId: this.productId,
       productIdentifier: this.productIdentifier,
       product: this.product && this.product.toJSON(),
       amount: this.amount,

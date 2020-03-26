@@ -1,3 +1,5 @@
+import { PortfolioDTO } from '@robinfinance/js-api';
+
 import { Proposition } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
 import { BackendException, PortfolioException } from '../../Exceptions';
@@ -9,8 +11,10 @@ export default async function createStudyProposition(
   customerId: string,
   study: string,
   universe: string,
-  portfolios: { id: number; amount: number }[],
+  portfolios: PortfolioDTO[],
 ): Promise<Proposition> {
+  await this.prevalidateCGPPortfolios(universe, portfolios);
+
   try {
     const response = await this.backendClient.post(
       {
@@ -20,7 +24,7 @@ export default async function createStudyProposition(
         user: customerId,
         study,
         universe,
-        contents: portfolios.map(item => ({ portfolio: item.id, amount: item.amount })),
+        contents: portfolios.map(item => ({ portfolio: item.portfolio, amount: item.amount })),
       },
     );
 
@@ -32,7 +36,7 @@ export default async function createStudyProposition(
       const error = await exception.json();
 
       if (error.contents && error.contents.length > 0) {
-        throw new PortfolioException(error.contents[0]);
+        throw new PortfolioException(error.contents);
       }
 
       throw new BackendException(error);

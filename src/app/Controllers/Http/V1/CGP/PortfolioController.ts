@@ -1,6 +1,7 @@
 import { Filters, Pagination } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
+import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPPortfolioController {
   public async index({ request, response, backendApi }: Context) {
@@ -12,10 +13,14 @@ class CGPPortfolioController {
     response.status(200).send(portfolios);
   }
 
-  public async prevalidate({ request, response, backendApi }: Context) {
+  public async prevalidate({ request, response, backendApi, universe }: Context) {
     const portfolio = request.post() as any;
 
-    await backendApi.prevalidateCGPPortfolio(portfolio);
+    if (!universe) {
+      throw new InvalidArgumentException("Aucun univers n'a été fourni.");
+    }
+
+    await backendApi.prevalidateCGPPortfolios(universe, [portfolio]);
 
     response.status(204);
   }
