@@ -5,21 +5,25 @@ const Logger = use('Logger');
 
 class RequestLogger {
   protected async handle({ request, response }, next) {
-    const startTime = process.hrtime();
+    const bestFormat = request.accepts(['json', 'html', 'text', 'image/*']);
 
-    onFinished(response.response, () => {
-      const endTime = process.hrtime(startTime);
-      const elapsedTime = Math.floor((endTime[0] * 1e9 + endTime[1]) / 1e6);
+    if (bestFormat === 'json') {
+      const startTime = process.hrtime();
 
-      Logger.transport('api').info('Middleware API request', {
-        time: format(new Date(), 'dd-MM-yyyy hh:mm:ss'),
-        app: 'Middleware',
-        method: request.request.method,
-        status: request.response.statusCode,
-        duration: `${elapsedTime}ms`,
-        url: request.request.url.substring(0, request.request.url.indexOf('?')),
+      onFinished(response.response, () => {
+        const endTime = process.hrtime(startTime);
+        const elapsedTime = Math.floor((endTime[0] * 1e9 + endTime[1]) / 1e6);
+
+        Logger.transport('api').info('Middleware API request', {
+          time: format(new Date(), 'dd-MM-yyyy hh:mm:ss'),
+          app: 'Middleware',
+          method: request.method(),
+          status: request.response.statusCode,
+          duration: `${elapsedTime}ms`,
+          url: request.url(),
+        });
       });
-    });
+    }
 
     await next();
   }

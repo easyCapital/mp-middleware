@@ -5,19 +5,21 @@ import { BackendToken } from '../Clients/Backend/BackendClient';
 
 class Authenticator {
   protected async handle(ctx: Context, next) {
-    ctx.updateToken = updateToken;
+    if (ctx.app) {
+      ctx.updateToken = updateToken;
 
-    let authorizationToken: string | undefined;
+      let authorizationToken: string | undefined;
 
-    if (ctx.request.header('Authorization')) {
-      authorizationToken = ctx.request.header('Authorization');
-    } else if ('authorization' in ctx.request.get()) {
-      const { authorization } = ctx.request.get() as any;
+      if (ctx.request.header('Authorization')) {
+        authorizationToken = ctx.request.header('Authorization');
+      } else if ('authorization' in ctx.request.get()) {
+        const { authorization } = ctx.request.get() as any;
 
-      authorizationToken = authorization;
+        authorizationToken = authorization;
+      }
+
+      ctx.updateToken({ [`${ctx.app.userType}Token`]: authorizationToken });
     }
-
-    ctx.updateToken({ [`${ctx.app.userType}Token`]: authorizationToken });
 
     await next();
   }
