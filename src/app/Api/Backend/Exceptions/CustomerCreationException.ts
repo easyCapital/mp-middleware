@@ -1,5 +1,5 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
-import { ErrorTypes } from '@robinfinance/js-api';
+import { ErrorTypes, ErrorType } from '@robinfinance/js-api';
 
 import { Exception } from '../../../Exceptions';
 import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
@@ -8,7 +8,7 @@ const Logger = use('Logger');
 
 export default class CustomerCreationException extends HttpException {
   constructor(error: BackendError) {
-    const errorMessages = {};
+    const errorMessages: { [key: string]: ErrorType } = {};
 
     Object.keys(error).forEach(errorKey => {
       switch (errorKey) {
@@ -61,6 +61,12 @@ export default class CustomerCreationException extends HttpException {
         case BackendErrorTypes.NumericPasswordError:
           error[errorKey].fields.forEach(field => {
             errorMessages[field] = ErrorTypes.NUMERIC_PASSWORD;
+          });
+          break;
+
+        case BackendErrorTypes.TemporaryCustomerAlreadyExists:
+          error[errorKey].fields.forEach(() => {
+            errorMessages.email = ErrorTypes.USER_EXISTS;
           });
           break;
 

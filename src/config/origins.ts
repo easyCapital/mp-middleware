@@ -4,6 +4,7 @@ const Env = use('Env');
 const mpBackendApiKey = Env.getOrFail('MP_BACKEND_API_TOKEN');
 const demoInsuranceBrokerBackendApiKey = Env.get('DEMO_INSURANCE_BROKER_API_TOKEN') || '';
 const demoCGPBackendApiKey = Env.get('DEMO_CGP_API_TOKEN') || '';
+const serenalisBackendApiKey = Env.get('SERENALIS_API_TOKEN') || '';
 
 /*
 |--------------------------------------------------------------------------
@@ -23,17 +24,21 @@ const local = {
     app: Apps.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,
   },
-  'http://admin.mieuxplacer.local': {
+  'http://cgp.robintech.local': {
     app: Apps.CONSEIL,
     backendApiKey: mpBackendApiKey,
   },
-  'http://demo.cgp.mieuxplacer.local': {
+  'http://demo.cgp.robintech.local': {
     app: Apps.CONSEIL,
     backendApiKey: demoCGPBackendApiKey,
   },
-  'http://demo.courtier.mieuxplacer.local': {
+  'http://demo.courtier.robintech.local': {
     app: Apps.CONSEIL,
     backendApiKey: demoInsuranceBrokerBackendApiKey,
+  },
+  'http://serenalis.robintech.local': {
+    app: Apps.CONSEIL,
+    backendApiKey: serenalisBackendApiKey,
   },
 };
 
@@ -55,10 +60,6 @@ const development = {
     app: Apps.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,
   },
-  'http://admin.mieuxplacer.dev.robintech.co': {
-    app: Apps.CONSEIL,
-    backendApiKey: mpBackendApiKey,
-  },
   'http://cgp.dev.robintech.co': {
     app: Apps.CONSEIL,
     backendApiKey: mpBackendApiKey,
@@ -70,6 +71,10 @@ const development = {
   'http://demo.cgp.dev.robintech.co': {
     app: Apps.CONSEIL,
     backendApiKey: demoCGPBackendApiKey,
+  },
+  'http://serenalis.dev.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: serenalisBackendApiKey,
   },
 };
 
@@ -83,10 +88,6 @@ const staging = {
     app: Apps.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,
   },
-  'https://admin.mieuxplacer.stg.robintech.co': {
-    app: Apps.CONSEIL,
-    backendApiKey: mpBackendApiKey,
-  },
   'https://cgp.stg.robintech.co': {
     app: Apps.CONSEIL,
     backendApiKey: mpBackendApiKey,
@@ -98,6 +99,10 @@ const staging = {
   'https://demo.cgp.stg.robintech.co': {
     app: Apps.CONSEIL,
     backendApiKey: demoCGPBackendApiKey,
+  },
+  'https://serenalis.stg.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: serenalisBackendApiKey,
   },
 };
 
@@ -122,6 +127,10 @@ const production = {
   'https://demo.cgp.prd.robintech.co': {
     app: Apps.CONSEIL,
     backendApiKey: demoCGPBackendApiKey,
+  },
+  'https://serenalis.prd.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: serenalisBackendApiKey,
   },
 };
 

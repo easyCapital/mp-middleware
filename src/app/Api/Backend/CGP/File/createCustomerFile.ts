@@ -8,16 +8,18 @@ import BackendApi from '../..';
 export default async function createCustomerFile(
   this: BackendApi,
   customerId: string,
+  studyId: string,
   type: FileType,
   file: string,
 ): Promise<File> {
   try {
     const response = await this.backendClient.post(
       {
-        url: 'file/cgp/create',
+        url: `cgp/study/${studyId}/file/create`,
       },
       { customer_id: customerId, file_type: type, file },
     );
+
     const data = await response.json();
 
     const createdFile = new File(data);

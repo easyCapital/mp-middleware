@@ -1,34 +1,56 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
 
 import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
-import { Exception, InvalidArgumentException } from '../../../Exceptions';
+import { Exception } from '../../../Exceptions';
 
 const Logger = use('Logger');
 
 export default class PortfolioException extends HttpException {
-  constructor(error: BackendError) {
-    Object.keys(error).forEach(errorKey => {
-      switch (errorKey) {
-        case BackendErrorTypes.InitialAmountTooLowError:
-          throw new InvalidArgumentException("Le montant de placement initial n'est pas atteint sur ce contrat.");
+  constructor(errors: BackendError[]) {
+    const portfolioErrors: string[][] = [];
 
-        case BackendErrorTypes.InitialAmountTooHighError:
-          throw new InvalidArgumentException('Le montant de placement initial est trop élevé sur ce contrat.');
+    errors.forEach(error => {
+      const errorMessage: string[] = [];
 
-        case BackendErrorTypes.InconsistentContractInitialDepositError:
-          throw new InvalidArgumentException("Le montant total des fonds n'est pas égal au placement initial.");
+      Object.keys(error).forEach(errorKey => {
+        switch (errorKey) {
+          case BackendErrorTypes.InitialAmountTooLowError:
+            errorMessage.push("Le montant de placement initial n'est pas atteint sur ce contrat.");
+            break;
 
-        case BackendErrorTypes.ConstraintsError:
-          throw new InvalidArgumentException(
-            `Les contraintes fournisseur suivantes ne sont pas respectées : ${error[errorKey].constraints.join(', ')}.`,
-          );
+          case BackendErrorTypes.MinValueError:
+            errorMessage.push(
+              `Le montant de placement initial n'est pas atteint sur ce contrat (${error[errorKey].limit_value} €).`,
+            );
+            break;
 
-        default:
-          Logger.info('Missing Error mapping value in %s for %s', 'PortfolioException', errorKey);
-          break;
-      }
+          case BackendErrorTypes.InitialAmountTooHighError:
+            errorMessage.push('Le montant de placement initial est trop élevé sur ce contrat.');
+            break;
+
+          case BackendErrorTypes.InconsistentContractInitialDepositError:
+            errorMessage.push("Le montant total des fonds n'est pas égal au placement initial.");
+            break;
+
+          case BackendErrorTypes.ConstraintsError:
+            errorMessage.push(
+              `Les contraintes fournisseur suivantes ne sont pas respectées : ${error[errorKey].constraints.join(
+                ', ',
+              )}.`,
+            );
+            break;
+
+          default:
+            Logger.info('Missing Error mapping value in %s for %s', 'PortfolioException', errorKey);
+            errorMessage.push(Exception.defaultMessage);
+            break;
+        }
+      });
+
+      portfolioErrors.push(errorMessage);
     });
 
-    super(Exception.defaultMessage, 500);
+    // @ts-ignore
+    super(portfolioErrors, 400);
   }
 }

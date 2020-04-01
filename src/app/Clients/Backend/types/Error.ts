@@ -22,6 +22,7 @@ export enum BackendErrorTypes {
   CommonPasswordError = 'CommonPasswordError',
   NumericPasswordError = 'NumericPasswordError',
 
+  TemporaryCustomerAlreadyExists = 'TemporaryCustomerAlreadyExists',
   EmailUniqueConstraintError = 'EmailUniqueConstraintError',
   EmailAlreadyAssignedToUserError = 'EmailAlreadyAssignedToUserError',
   ToManyEmailRevalidation = 'ToManyEmailRevalidation',
@@ -46,7 +47,8 @@ export type BackendError = {
   [key in BackendErrorTypes]: {
     detail: string;
     fields: string[];
-    value: any;
+    value?: any;
+    limit_value?: any;
     constraints: string[];
   };
 };

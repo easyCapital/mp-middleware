@@ -94,11 +94,16 @@ Route.group(() => {
 */
 Route.group(() => {
   Route.get('/', 'V1/CGP/FileController.search');
-  Route.post('/', 'V1/CGP/FileController.create');
   Route.get('/:file/signature', 'V1/CGP/FileController.signatureUrl');
   Route.get('/:file/sign', 'V1/CGP/FileController.sign');
 })
   .prefix('api/1.0/cgp/customer/:customer/file')
+  .middleware(['auth']);
+
+Route.group(() => {
+  Route.get('/download', 'V1/CGP/FileController.downloadContractFiles');
+})
+  .prefix('api/1.0/cgp/contract/:contract/file')
   .middleware(['auth']);
 
 Route.group(() => {
@@ -165,6 +170,17 @@ Route.group(() => {
   Route.post('/', 'V1/CGP/AnswerController.create');
 })
   .prefix('api/1.0/cgp/customer/:customer/study/:study/answer')
+  .middleware(['auth']);
+
+/*
+|--------------------------------------------------------------------------
+| API V1 - CGP - STUDY FILE
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.post('/', 'V1/CGP/FileController.create');
+})
+  .prefix('api/1.0/cgp/customer/:customer/study/:study/file')
   .middleware(['auth']);
 
 export {};

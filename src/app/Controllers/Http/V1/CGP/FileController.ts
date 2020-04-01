@@ -16,16 +16,23 @@ class CGPContractFileController {
     response.status(200).send(files);
   }
 
-  public async download({ params, req, res, backendApi }: Context) {
+  public async download({ params, request, req, res, backendApi }: Context) {
     const { id } = params;
+    const type = request.input('type') as string;
 
-    await backendApi.downloadCGPCustomerFile(req, res, id);
+    await backendApi.downloadCGPCustomerFile(req, res, id, type);
   }
 
   public async downloadTemplate({ params, req, res, backendApi }: Context) {
     const { type } = params;
 
     await backendApi.downloadCGPTemplateFile(req, res, type);
+  }
+
+  public async downloadContractFiles({ params, req, res, backendApi }: Context) {
+    const { contract } = params;
+
+    await backendApi.downloadCGPContractFiles(req, res, contract);
   }
 
   public async view({ params, req, res, backendApi }: Context) {
@@ -41,7 +48,7 @@ class CGPContractFileController {
   }
 
   public async create({ params, request, response, backendApi }: Context) {
-    const { customer } = params;
+    const { customer, study } = params;
     const data: any = request.post();
 
     const files: File[] = [];
@@ -49,7 +56,7 @@ class CGPContractFileController {
 
     for await (const key of Object.keys(data)) {
       try {
-        const file = await backendApi.createCGPCustomerFile(customer, key as FileType, data[key]);
+        const file = await backendApi.createCGPCustomerFile(customer, study, key as FileType, data[key]);
 
         files.push(file);
       } catch (exception) {

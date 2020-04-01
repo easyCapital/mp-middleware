@@ -1,36 +1,33 @@
+import { PortfolioDTO } from '@robinfinance/js-api';
+
 import { Portfolio } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
-import { PortfolioDTO } from '../../DTO';
 import BackendApi from '../..';
 
 export default async function createPortfolio(
   this: BackendApi,
   universe: string,
-  portfolioDTO: PortfolioDTO,
+  portfolio: PortfolioDTO,
 ): Promise<Portfolio> {
   try {
-    const product = await this.getProduct({ identifier: portfolioDTO.product });
-
-    const formattedFunds = portfolioDTO.funds.map(fund => ({ line: fund.id, weight: fund.weight }));
-
     const response = await this.backendClient.post(
       {
         url: 'portfolio/cgp/create',
       },
       {
         universe,
-        product: product.getId(),
-        lines: formattedFunds,
+        product: portfolio.product,
+        lines: portfolio.funds.map(fund => ({ line: fund.id, weight: fund.weight })),
       },
     );
 
     const data = await response.json();
-    const portfolio = new Portfolio(data);
+    const createdPortfolio = new Portfolio(data);
 
-    portfolio.setAmount(portfolioDTO.amount);
+    createdPortfolio.setAmount(portfolio.amount);
 
-    return portfolio;
+    return createdPortfolio;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();
