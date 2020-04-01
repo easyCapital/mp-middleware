@@ -6,6 +6,8 @@ import GE from '@adonisjs/generic-exceptions';
 import { BackendClientBuilder, BackendClientInterface } from '../../src/app/Clients/Backend/BackendClient';
 import { PrismicClientInterface } from '../../src/app/Clients/Prismic/PrismicClient';
 import { SymfonyClientInterface, SymfonyClientBuilder } from '../../src/app/Clients/Symfony/SymfonyClient';
+import { SlackClientInterface } from '../../src/app/Clients/Slack/SlackClient';
+import { SendgridClientInterface } from '../../src/app/Clients/Sendgrid/SendgridClient';
 import TwigProvider from '../../src/providers/TwigProvider';
 import TwigRenderer from '../../src/app/Helpers/TwigRenderer';
 import WkHtmlToPdf from '../../src/app/Helpers/WkHtmlToPdf';
@@ -1238,7 +1240,7 @@ declare interface File {
    * @param options
    * @return
    */
-  move(location: string, options?: MoveOptions): Promise<void>;
+  move(location: string, options?: any): Promise<void>;
 
   /**
    * Returns the error if any
@@ -12247,11 +12249,9 @@ interface Drive {
  * Adonis assert is based on Chai
  * https://adonisjs.com/docs/4.0/testing#_context
  */
-interface Assert extends Chai.Assert {
+interface Assert extends Chai.Assert {}
 
-}
-
-type TestParam = {client: any, assert: Assert};
+type TestParam = { client: any; assert: Assert };
 
 type TestCallBack = (testContext: TestParam) => Promise<void>;
 
@@ -12791,6 +12791,8 @@ declare namespace AdonisNamespaces {
   type BackendClientBuilder = 'BackendClientBuilder';
   type PrismicClient = 'PrismicClient';
   type SymfonyClientBuilder = 'SymfonyClientBuilder';
+  type SlackClient = 'SlackClient';
+  type SendgridClient = 'SendgridClient';
   type Twig = 'Twig';
   type WkHtmlToPdf = 'WkHtmlToPdf';
 }
@@ -12829,6 +12831,8 @@ declare global {
   function use(namespace: AdonisNamespaces.BackendClientBuilder): BackendClientBuilder;
   function use(namespace: AdonisNamespaces.PrismicClient): PrismicClientInterface;
   function use(namespace: AdonisNamespaces.SymfonyClientBuilder): SymfonyClientBuilder;
+  function use(namespace: AdonisNamespaces.SlackClient): SlackClientInterface;
+  function use(namespace: AdonisNamespaces.SendgridClient): SendgridClientInterface;
   function use(namespace: AdonisNamespaces.Twig): TwigRenderer;
   function use(namespace: AdonisNamespaces.WkHtmlToPdf): WkHtmlToPdf;
 }
@@ -12870,6 +12874,6 @@ declare global {
 
 declare global {
   interface String {
-      interpolate(params: any) : string;
+    interpolate(params: any): string;
   }
 }

@@ -183,4 +183,15 @@ Route.group(() => {
   .prefix('api/1.0/cgp/customer/:customer/study/:study/file')
   .middleware(['auth']);
 
+/*
+|--------------------------------------------------------------------------
+| API V1 - CGP - FEEDBACK
+|--------------------------------------------------------------------------
+*/
+Route.group(() => {
+  Route.post('/', 'V1/CGP/FeedbackController.send');
+})
+  .prefix('api/1.0/cgp/feedback')
+  .middleware(['auth']);
+
 export {};

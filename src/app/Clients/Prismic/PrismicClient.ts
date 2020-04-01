@@ -63,7 +63,7 @@ export default class PrismicClient implements PrismicClientInterface {
       time: format(new Date(), 'dd-MM-yyyy hh:mm:ss'),
       app: 'Prismic',
       method: 'GET',
-      status: 'response.status',
+      status: 200,
       duration: `${elapsedTime}ms`,
       query: options.query,
     });

@@ -3,12 +3,11 @@ import util from 'util';
 import uuidv4 from 'uuid/v4';
 import { spawn, ChildProcess } from 'child_process';
 import { tmpdir } from 'os';
+
 import { Logger } from '../../../typings/@adonisjs';
 
 export default class WkHtmlToPdf {
-  constructor(private readonly logger: Logger) {
-    logger.info('Initialising WkHtmlToPdf');
-  }
+  constructor(private readonly logger: Logger) {}
 
   /**
    * Converts a HTML string into a PDF buffer using wkhtmltopdf binary.
@@ -36,12 +35,15 @@ export default class WkHtmlToPdf {
     const pdfFilePath = `${tmpdir()}/tmp-pdf-${uuidv4()}.pdf`;
     const htmlFooterPath = `${tmpdir()}/tmp-pdf-footer-${uuidv4()}.html`;
     const args: string[] = await this.buildArgs(pdfFilePath, htmlFooterPath, options);
+
     try {
-      this.logger.info(`Calling wkhtmltopdf with args: ${args}`);
       const wkhtmlChildProcess = spawn('wkhtmltopdf', args);
       const wkhtmlClosePromise = this.buildChildProcessPromise(wkhtmlChildProcess);
+
       wkhtmlChildProcess.stdin.end(htmlContent);
+
       await wkhtmlClosePromise; // wait for pdf file to be fully written
+
       return await util.promisify(fs.readFile)(pdfFilePath);
     } finally {
       fs.unlink(pdfFilePath, () => {});
@@ -51,6 +53,7 @@ export default class WkHtmlToPdf {
 
   private async buildArgs(pdfFilePath: string, htmlFooterPath: string, options?: object) {
     const args: string[] = [];
+
     if (options) {
       for (const [key, value] of Object.entries(options)) {
         if (key === 'footer') {
@@ -63,27 +66,32 @@ export default class WkHtmlToPdf {
         }
       }
     }
+
     args.push('-', pdfFilePath);
+
     return args;
   }
 
   private buildChildProcessPromise(childProcess: ChildProcess): Promise<void> {
     const start = new Date();
+
     return new Promise<void>((resolve, reject) => {
       let stderrOutput = '';
+
       if (childProcess.stderr) {
         childProcess.stderr.on('data', data => {
           stderrOutput += data;
         });
       }
+
       childProcess.on('close', code => {
         if (code === 0) {
-          this.logger.info(
-            `wkhtmltopdf executed successfully (took ${new Date().getTime() - start.getTime()} milliseconds)`,
-          );
+          this.logger.info(`wkhtmltopdf executed successfully (took ${new Date().getTime() - start.getTime()}ms)`);
+
           resolve();
         } else {
           this.logger.error(`wkhtmltopdf returned an error ${code}: ${stderrOutput}`);
+
           reject(Error(stderrOutput));
         }
       });
