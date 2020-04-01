@@ -1,6 +1,5 @@
 import { WebClient, KnownBlock, Block, ErrorCode } from '@slack/web-api';
 import { format } from 'date-fns';
-import { Exception } from '../../Exceptions';
 
 export interface SlackClientInterface {
   postMessage(channelId: string, data: (KnownBlock | Block)[]): Promise<any>;
@@ -16,28 +15,32 @@ export default class SlackClient implements SlackClientInterface {
   public async postMessage(channelId: string, blocks: (KnownBlock | Block)[]): Promise<void> {
     const startTime = process.hrtime();
 
+    let statusCode: number | undefined;
+
     try {
       await this.client.chat.postMessage({ channel: channelId, text: '', blocks });
+
+      statusCode = 200;
     } catch (error) {
       if (error.code === ErrorCode.PlatformError) {
-        throw new Exception(`Posting message to Slack failed with the following error: ${error.data.error}.`);
+        this.logger.crit(`Posting message to Slack failed with the following error: ${error.data.error}.`);
       } else {
-        throw new Exception('Posting message to Slack failed.');
+        this.logger.crit('Posting message to Slack failed.');
       }
     }
 
     const endTime = process.hrtime(startTime);
     const elapsedTime = Math.floor((endTime[0] * 1e9 + endTime[1]) / 1e6);
 
-    this.log(elapsedTime);
+    this.log(elapsedTime, statusCode);
   }
 
-  private log(time: number) {
+  private log(time: number, statusCode?: number) {
     this.logger.transport('api').info('Slack API request', {
       time: format(new Date(), 'dd-MM-yyyy hh:mm:ss'),
       app: 'Slack',
       method: 'POST',
-      status: 200,
+      status: statusCode || '-',
       duration: `${time}ms`,
     });
   }
