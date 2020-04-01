@@ -23,10 +23,10 @@ async function sendFeedbackMessage(
         type: 'mrkdwn',
         text: `
             Une nouvelle demande a été envoyée par un CGP :\n
-            - *type:* ${type}\n
-            - *titre:* ${title || '-'}\n
-            - *description:* ${description}\n
-            - *email:* ${email}
+            - *type :* ${type}\n
+            - *titre :* ${title || '-'}\n
+            - *description :* ${description}\n
+            - *email :* ${email}
           `,
       },
     };
@@ -41,11 +41,11 @@ async function sendFeedbackMessage(
 
       section.text.text = `
         Une nouvelle demande a été envoyée par un CGP :\n
-        - *type:* ${type}\n
-        - *titre:* ${title || '-'}\n
-        - *description:* ${description}\n
-        - *email:* ${email}\n
-        - *image:* ${Config.get('app.url')}/${fileName}
+        - *type :* ${type}\n
+        - *titre :* ${title || '-'}\n
+        - *description :* ${description}\n
+        - *email :* ${email}\n
+        - *image :* ${Config.get('app.url')}/${fileName}
       `;
     }
 
