@@ -225,7 +225,7 @@ export = {
     },
 
     api: {
-      driver: Env.get('APP_ENV') === 'local' ? 'console' : 'file',
+      driver: ['local', 'testing'].includes(Env.get('APP_ENV')) ? 'console' : 'file',
       filename: '/var/log/middleware/middleware.api.log',
       name: 'mieuxplacer-middleware-api',
       level: 'info',
