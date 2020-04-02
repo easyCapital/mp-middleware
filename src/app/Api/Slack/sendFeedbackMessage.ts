@@ -18,11 +18,11 @@ async function sendFeedbackMessage(
   const files: string[] = [];
 
   if (rawFiles && rawFiles.length > 0) {
-    for await (const rawFile of rawFiles) {
+    for await (const [index, rawFile] of rawFiles.entries()) {
       const file = Buffer.from(rawFile, 'base64');
       const [, extension] = getFileTypeFromBase64(rawFile);
       const creationDate = format(new Date(), 'dd-MM-yyyy_hh-mm-ss');
-      const fileName = `uploads/upload_${creationDate}${extension}`;
+      const fileName = `uploads/upload_${creationDate}-${index + 1}${extension}`;
 
       await Drive.put(fileName, file);
 
@@ -35,18 +35,16 @@ async function sendFeedbackMessage(
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: `
-            Une nouvelle demande a été envoyée par un CGP :\n
-            - *type :* ${type}\n
-            - *titre :* ${title || '-'}\n
-            - *description :* ${description}\n
-            - *email :* ${email}\n
-            ${files.map(item => `- *image :* ${Config.get('app.url')}/${item}\n`)}
-          `,
+        text: `Une nouvelle demande a été envoyée par un CGP :\n  - *type :* ${type}\n  - *titre :* ${title ||
+          '-'}\n  - *description :* ${description}\n  - *email :* ${email}`,
       },
     };
 
     if (files.length > 0) {
+      files.forEach(item => {
+        section.text.text += `\n  - *image :* ${Config.get('app.url')}/${item}`;
+      });
+
       const firstFile = files[0];
 
       section.accessory = {
