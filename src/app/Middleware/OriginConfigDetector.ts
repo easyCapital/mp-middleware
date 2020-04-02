@@ -7,22 +7,18 @@ const Logger = use('Logger');
 
 class OriginConfigDetector {
   protected async handle(ctx: Context, next) {
-    const bestFormat = ctx.request.accepts(['json', 'html', 'text', 'image/*']);
+    const origin: string = findOrigin(ctx);
+    const originConfig = Config.get('origins')[origin];
 
-    if (bestFormat === 'json') {
-      const origin: string = findOrigin(ctx);
-      const originConfig = Config.get('origins')[origin];
+    if (!originConfig) {
+      Logger.warning('%s could not be found in origins config', origin);
 
-      if (!originConfig) {
-        Logger.warning('%s could not be found in origins config', origin);
-
-        throw new ForbiddenException();
-      }
-
-      ctx.app = originConfig.app;
-      ctx.origin = origin;
-      ctx.backendApiKey = originConfig.backendApiKey;
+      throw new ForbiddenException();
     }
+
+    ctx.app = originConfig.app;
+    ctx.origin = origin;
+    ctx.backendApiKey = originConfig.backendApiKey;
 
     await next();
   }

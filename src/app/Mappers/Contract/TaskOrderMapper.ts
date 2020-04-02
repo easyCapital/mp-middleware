@@ -12,6 +12,7 @@ const TaskOrderMapping = {
   [TaskTypes.SIGNATURE]: 5,
   [TaskTypes.APPOINTMENT]: 6,
   [TaskTypes.PAYMENT]: 7,
+  [TaskTypes.DOWNLOAD]: 8,
 };
 
 export default class TaskOrderMapper {

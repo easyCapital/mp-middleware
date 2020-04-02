@@ -9,14 +9,7 @@ const Server = use('Server');
 | match.
 |
 */
-const globalMiddleware: string[] = [
-  'Adonis/Middleware/BodyParser',
-  'Adonis/Middleware/Session',
-  'App/Middleware/RequestLogger',
-  'App/Middleware/OriginConfigDetector',
-  'App/Middleware/Authenticator',
-  'App/Middleware/UniverseDetector',
-];
+const globalMiddleware: string[] = ['Adonis/Middleware/BodyParser', 'Adonis/Middleware/Session'];
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +29,10 @@ const globalMiddleware: string[] = [
 |
 */
 const namedMiddleware: { [key: string]: string } = {
+  requestLogger: 'App/Middleware/RequestLogger',
+  originConfigDetector: 'App/Middleware/OriginConfigDetector',
+  universeDetector: 'App/Middleware/UniverseDetector',
+  authenticator: 'App/Middleware/Authenticator',
   auth: 'App/Middleware/Auth',
 };
 

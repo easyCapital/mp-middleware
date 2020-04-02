@@ -2,6 +2,9 @@ import { Context } from '../../types';
 import BackendApi from '../Api/Backend';
 import SymfonyApi from '../Api/Symfony';
 import { BackendToken } from '../Clients/Backend/BackendClient';
+import { ForbiddenException } from '../Exceptions';
+
+const Logger = use('Logger');
 
 class Authenticator {
   protected async handle(ctx: Context, next) {
@@ -19,6 +22,10 @@ class Authenticator {
       }
 
       ctx.updateToken({ [`${ctx.app.userType}Token`]: authorizationToken });
+    } else {
+      Logger.warning('No app was configured to authenticate the user');
+
+      throw new ForbiddenException();
     }
 
     await next();
