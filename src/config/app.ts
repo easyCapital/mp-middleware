@@ -225,7 +225,7 @@ export = {
     },
 
     api: {
-      driver: Env.getOrFail('NODE_ENV') === 'production' ? 'file' : 'console',
+      driver: Env.get('APP_ENV') === 'local' ? 'console' : 'file',
       filename: '/var/log/middleware/middleware.api.log',
       name: 'mieuxplacer-middleware-api',
       level: 'info',

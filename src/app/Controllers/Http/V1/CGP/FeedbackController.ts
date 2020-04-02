@@ -6,12 +6,12 @@ import * as SendgridAPI from '../../../../Api/Sendgrid';
 
 class CGPFeedbackController {
   public async send({ request, response }: Context) {
-    const { type, title, description, email, file: rawFile } = request.post() as FeedbackDTO;
+    const { type, title, description, email, files } = request.post() as FeedbackDTO;
 
     try {
       await Promise.all([
-        SlackAPI.sendFeedbackMessage(type, description, email, title, rawFile),
-        SendgridAPI.sendFeedbackMessage(type, description, email, title, rawFile),
+        SlackAPI.sendFeedbackMessage(type, description, email, title, files),
+        SendgridAPI.sendFeedbackMessage(type, description, email, title, files),
       ]);
     } catch {
       return response.status(400).send();
