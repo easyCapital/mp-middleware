@@ -17,6 +17,12 @@ const Route = use('Route');
 import './routes/V1/public';
 import './routes/V1/cgp';
 
-Route.any('*', () => {
-  throw new NotFoundException('Cette route est introuvable.');
+Route.any('*', ({ request, response }) => {
+  const bestFormat = request.accepts(['json', 'html']);
+
+  if (bestFormat === 'json') {
+    throw new NotFoundException('Cette route est introuvable.');
+  }
+
+  response.redirect('https://mieuxplacer.tech/');
 });
