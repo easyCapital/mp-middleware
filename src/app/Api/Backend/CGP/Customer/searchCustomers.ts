@@ -5,6 +5,7 @@ import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import { formatMeta } from '../../Helpers';
 import BackendApi from '../..';
+import { Task } from '../../../../Models/Task';
 
 export default async function searchCustomers(
   this: BackendApi,
@@ -42,14 +43,11 @@ export default async function searchCustomers(
 
       answers = answersResponse.results;
 
-      const answerResponsePromises: Promise<{
-        results: { [userId: string]: { [key: string]: string } };
-        meta: Meta;
-      }>[] = [];
+      const dataPromises: Promise<any>[] = [this.getLatestCustomerTask(customerIds)];
 
       if (answersResponse.meta.nextPage && answersResponse.meta.totalPages) {
         for (let nextPage = answersResponse.meta.nextPage; nextPage <= answersResponse.meta.totalPages; nextPage += 1) {
-          answerResponsePromises.push(
+          dataPromises.push(
             this.getCGPAnswersByCustomer(
               {
                 user_id__in: customerIds,
@@ -61,7 +59,7 @@ export default async function searchCustomers(
         }
       }
 
-      const answerResponses = await Promise.all(answerResponsePromises);
+      const [tasks, ...answerResponses] = await Promise.all(dataPromises);
 
       answerResponses.forEach(answerResponse => {
         answers = { ...answers, ...answerResponse.results };
@@ -75,6 +73,15 @@ export default async function searchCustomers(
           customer.setFirstName(customerAnswers.DQ7);
           customer.setLastName(customerAnswers.DQ6);
           customer.setMobileNumber(customerAnswers.mobile_number);
+        }
+      });
+
+      Object.keys(tasks).forEach(customerId => {
+        const customer = customers.get(customerId);
+        const customerTask = tasks[customerId] as Task<any>;
+
+        if (customer && customerTask) {
+          customer.setActiveTask(customerTask.getLabel());
         }
       });
     }
