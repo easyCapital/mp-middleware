@@ -49,14 +49,20 @@ class CGPContractFileController {
 
   public async create({ params, request, response, backendApi }: Context) {
     const { customer, study } = params;
-    const data: any = request.post();
+    const data = request.post() as { [key: string]: { data: string; signatureDate?: string } };
 
     const files: File[] = [];
     const errors = {};
 
     for await (const key of Object.keys(data)) {
       try {
-        const file = await backendApi.createCGPCustomerFile(customer, study, key as FileType, data[key]);
+        const file = await backendApi.createCGPCustomerFile(
+          customer,
+          study,
+          key as FileType,
+          data[key].data,
+          data[key].signatureDate,
+        );
 
         files.push(file);
       } catch (exception) {
