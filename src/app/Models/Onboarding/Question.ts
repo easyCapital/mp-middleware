@@ -27,7 +27,7 @@ export default class Question implements QuestionInterface {
   private sensitive: boolean = false;
   private active: boolean = false;
   private showIfAuthenticated: boolean = false;
-  private conditions?: Condition[];
+  private conditions?: Condition[][];
   private options?: Option[];
   private errors: Error[] = [];
 
@@ -51,7 +51,9 @@ export default class Question implements QuestionInterface {
     }
 
     if (json.condition) {
-      this.conditions = json.condition.split(' and ').map(condition => new Condition(condition));
+      this.conditions = json.condition
+        .split(' or ')
+        .map(condition => condition.split(' and ').map(subCondition => new Condition(subCondition)));
     }
 
     if (json.answers) {
@@ -86,13 +88,21 @@ export default class Question implements QuestionInterface {
       };
 
       if (this.conditions) {
-        const conditions: JsonConditionInterface[] = [];
+        const conditions: JsonConditionInterface[][] = [];
 
         this.conditions.forEach(condition => {
-          const jsonCondition = condition.toJSON();
+          const subConditions: JsonConditionInterface[] = [];
 
-          if (jsonCondition) {
-            conditions.push(jsonCondition);
+          condition.forEach(subCondition => {
+            const jsonCondition = subCondition.toJSON();
+
+            if (jsonCondition) {
+              subConditions.push(jsonCondition);
+            }
+          });
+
+          if (subConditions.length > 0) {
+            conditions.push(subConditions);
           }
         });
 
