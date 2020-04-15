@@ -10,14 +10,29 @@ export default async function prevalidatePortfolios(
   portfolios: PortfolioDTO[],
 ): Promise<void> {
   try {
-    const formattedPortfolios = portfolios.map(portfolio => ({
-      product: portfolio.product,
-      initial_deposit: portfolio.amount,
-      lines: portfolio.funds.map(fund => ({
-        line: fund.id,
-        amount: fund.weight * portfolio.amount,
-      })),
-    }));
+    const errors: (string[] | undefined)[] = [];
+
+    const formattedPortfolios = portfolios.map((portfolio, index) => {
+      errors[index] = undefined;
+
+      if (!portfolio.amount) {
+        errors[index] = ["Le montant de placement initial n'est pas renseigné sur ce contrat."];
+      }
+
+      return {
+        product: portfolio.product,
+        initial_deposit: portfolio.amount,
+        lines: portfolio.funds.map(fund => ({
+          line: fund.id,
+          amount: fund.weight * (portfolio.amount || 0),
+        })),
+      };
+    });
+
+    if (errors.filter(error => error !== undefined).length > 0) {
+      // @ts-ignore
+      throw new InvalidArgumentException(errors);
+    }
 
     await this.backendClient.post(
       {

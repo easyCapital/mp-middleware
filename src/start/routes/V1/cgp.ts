@@ -91,6 +91,7 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/PortfolioController.index');
+    Route.post('/', 'V1/CGP/PortfolioController.create');
     Route.post('/prevalidate', 'V1/CGP/PortfolioController.prevalidate');
   }).prefix('portfolio'),
 );

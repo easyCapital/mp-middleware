@@ -14,6 +14,10 @@ export default class PortfolioException extends HttpException {
 
       Object.keys(error).forEach(errorKey => {
         switch (errorKey) {
+          case BackendErrorTypes.InvalidPortfolioWeight:
+            errorMessage.push("La somme des pondérations du portefeuille n'est pas égale à 100 %.");
+            break;
+
           case BackendErrorTypes.InitialAmountTooLowError:
             errorMessage.push("Le montant de placement initial n'est pas atteint sur ce contrat.");
             break;

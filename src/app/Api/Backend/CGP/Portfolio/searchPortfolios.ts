@@ -2,9 +2,9 @@ import { Filters, Pagination, Meta, OrderBy } from '@robinfinance/js-api';
 
 import { Portfolio, Fund } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
+import { ArrayToObject } from '../../../../Helpers';
 import { formatMeta } from '../../Helpers';
 import BackendApi from '../..';
-import { ArrayToObject } from '../../../../Helpers';
 
 export default async function searchPortfolios(
   this: BackendApi,

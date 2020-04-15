@@ -2,7 +2,7 @@ import { PortfolioDTO } from '@robinfinance/js-api';
 
 import { Portfolio } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
-import { BackendException } from '../../Exceptions';
+import { PortfolioException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function createPortfolio(
@@ -25,14 +25,16 @@ export default async function createPortfolio(
     const data = await response.json();
     const createdPortfolio = new Portfolio(data);
 
-    createdPortfolio.setAmount(portfolio.amount);
+    if (portfolio.amount) {
+      createdPortfolio.setAmount(portfolio.amount);
+    }
 
     return createdPortfolio;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new BackendException(error);
+      throw new PortfolioException([error]);
     }
 
     throw new Exception(exception);
