@@ -1,22 +1,23 @@
-import { Filters, Pagination, Meta } from '@robinfinance/js-api';
+import { Filters, Pagination, Meta, OrderBy } from '@robinfinance/js-api';
 
 import { Portfolio, Fund } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
+import { ArrayToObject } from '../../../../Helpers';
 import { formatMeta } from '../../Helpers';
 import BackendApi from '../..';
-import { ArrayToObject } from '../../../../Helpers';
 
 export default async function searchPortfolios(
   this: BackendApi,
   pagination: Pagination = { page: 1, perPage: 100 },
   filters?: Filters,
+  orderBy?: OrderBy,
 ): Promise<{ results: Portfolio[]; meta: Meta }> {
   try {
     const response = await this.backendClient.get({
       url: 'portfolio/search',
-      filters,
       pagination,
-      orderBy: { key: 'updated', type: 'desc' },
+      filters,
+      orderBy,
     });
     const data = await response.json();
 

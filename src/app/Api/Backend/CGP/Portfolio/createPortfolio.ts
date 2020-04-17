@@ -1,8 +1,9 @@
 import { PortfolioDTO } from '@robinfinance/js-api';
 
-import { Portfolio } from '../../../../Models/Proposition';
+import { Portfolio, Fund } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
-import { BackendException } from '../../Exceptions';
+import { ArrayToObject } from '../../../../Helpers';
+import { PortfolioException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function createPortfolio(
@@ -25,14 +26,31 @@ export default async function createPortfolio(
     const data = await response.json();
     const createdPortfolio = new Portfolio(data);
 
-    createdPortfolio.setAmount(portfolio.amount);
+    if (portfolio.amount) {
+      createdPortfolio.setAmount(portfolio.amount);
+    }
+
+    const fundIds = portfolio.funds.map(item => item.id);
+
+    const funds = await this.findFunds(undefined, { id__in: fundIds });
+    const fundsById: { [id: string]: Fund } = ArrayToObject(funds.results);
+
+    portfolio.funds.forEach(item => {
+      const fund = fundsById[item.id];
+
+      if (fund) {
+        fund.setWeight(item.weight);
+
+        createdPortfolio.addFund(fund);
+      }
+    });
 
     return createdPortfolio;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new BackendException(error);
+      throw new PortfolioException([error]);
     }
 
     throw new Exception(exception);

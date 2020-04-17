@@ -12,13 +12,16 @@ export default async function getQuestions(
 
   try {
     const filters: Filters = { key__in: ids };
+
     if (configKey) {
       filters.config_key = configKey;
     }
+
     const stepResponse = await this.backendClient.get({
       url: 'question/search',
       filters,
     });
+
     const data = await stepResponse.json();
 
     data.forEach(item => {

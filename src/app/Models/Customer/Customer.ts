@@ -12,6 +12,7 @@ export default class Customer implements CustomerInterface {
   private firstName?: string;
   private lastName?: string;
   private mobileNumber?: string;
+  private activeTask?: string;
   private active: boolean;
   private emailValidated: boolean;
   private dateJoined: string;
@@ -35,6 +36,7 @@ export default class Customer implements CustomerInterface {
       firstName: this.firstName,
       lastName: this.lastName,
       mobileNumber: this.mobileNumber,
+      activeTask: this.activeTask,
       isActive: this.active,
       emailIsValidated: this.emailValidated,
       dateJoined: this.dateJoined,
@@ -61,6 +63,12 @@ export default class Customer implements CustomerInterface {
 
   public setMobileNumber(mobileNumber: string): this {
     this.mobileNumber = mobileNumber;
+
+    return this;
+  }
+
+  public setActiveTask(label: string): this {
+    this.activeTask = label;
 
     return this;
   }

@@ -11,13 +11,20 @@ export default async function createCustomerFile(
   studyId: string,
   type: FileType,
   file: string,
+  signatureDate?: string,
 ): Promise<File> {
+  const body: any = { customer_id: customerId, file_type: type, file };
+
+  if (signatureDate) {
+    body.sign_date = signatureDate;
+  }
+
   try {
     const response = await this.backendClient.post(
       {
         url: `cgp/study/${studyId}/file/create`,
       },
-      { customer_id: customerId, file_type: type, file },
+      body,
     );
 
     const data = await response.json();

@@ -33,6 +33,7 @@ export enum BackendErrorTypes {
   InitialAmountTooHighError = 'InitialAmountTooHighError',
   InconsistentContractInitialDepositError = 'InconsistentContractInitialDepositError',
   ConstraintsError = 'ConstraintsError',
+  InvalidPortfolioWeight = 'InvalidPortfolioWeight',
 
   InvalidFileTypeKeyError = 'InvalidFileTypeKeyError',
   InvalidBase64FileContentError = 'InvalidBase64FileContentError',

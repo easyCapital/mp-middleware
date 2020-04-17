@@ -7,8 +7,9 @@ export default class TwigRenderer {
 
   constructor(private readonly logger: Logger, helpers: any) {
     const cache = process.env.NODE_ENV !== 'development';
+
     this.templatesPath = `${helpers.resourcesPath()}/templates`;
-    logger.info(`Initialising Twig with${cache ? '' : 'out'} cache`);
+
     twig.cache(cache);
     twig.extendFilter('sortByAmount', sortByAmountFilter as any);
     twig.extendFilter('preg_replace', pregReplaceFilter);
@@ -26,7 +27,9 @@ export default class TwigRenderer {
    */
   public async renderTemplate(template: string, model: object): Promise<string> {
     const templateFile = `${this.templatesPath}/${template}.twig`;
+
     this.logger.info(`Rendering twig template ${templateFile}`);
+
     return util.promisify(twig.renderFile)(templateFile, model as any);
   }
 }
@@ -35,6 +38,7 @@ function sortByAmountFilter(values?: any[]) {
   if (!values) {
     return values;
   }
+
   return values.sort((a, b) => {
     return a.weight - b.weight;
   });

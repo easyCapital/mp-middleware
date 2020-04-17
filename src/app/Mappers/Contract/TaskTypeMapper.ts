@@ -1,4 +1,5 @@
 import { TaskTypes } from '@robinfinance/js-api';
+
 import GenericMapper from '../GenericMapper';
 
 const TaskTypeMapping = {
@@ -17,6 +18,7 @@ const TaskTypeMapping = {
   '13': TaskTypes.GENERATE,
   '14': TaskTypes.MIF,
   '15': TaskTypes.UPLOAD,
+  '16': TaskTypes.DOWNLOAD,
 };
 
 class TaskTypeMapper extends GenericMapper<TaskTypes> {

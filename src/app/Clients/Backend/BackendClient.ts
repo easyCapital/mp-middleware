@@ -121,7 +121,7 @@ export default class BackendClient implements BackendClientInterface {
     const requestParameters: any = {
       method,
       headers,
-      timeout: 10000,
+      // timeout: 10000,
     };
 
     if (options.filters) {

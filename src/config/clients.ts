@@ -11,4 +11,10 @@ export = {
     host: Env.getOrFail('PRISMIC_API_HOST'),
     apiKey: Env.getOrFail('PRISMIC_API_TOKEN'),
   },
+  slack: {
+    apiKey: Env.getOrFail('SLACK_API_TOKEN'),
+  },
+  sendgrid: {
+    apiKey: Env.getOrFail('SENDGRID_API_TOKEN'),
+  },
 };

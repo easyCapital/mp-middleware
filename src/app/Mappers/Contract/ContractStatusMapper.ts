@@ -1,4 +1,5 @@
 import { ContractStatuses } from '@robinfinance/js-api';
+
 import GenericMapper from '../GenericMapper';
 
 const ContractStatusMapping = {
@@ -8,6 +9,7 @@ const ContractStatusMapping = {
   '3': ContractStatuses.PENDING,
   '4': ContractStatuses.PENDING,
   '5': ContractStatuses.PENDING,
+  '10': ContractStatuses.CLOSED,
 };
 
 class ContractStatusMapper extends GenericMapper<ContractStatuses> {

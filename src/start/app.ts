@@ -15,10 +15,13 @@ const providers: string[] = [
   '@adonisjs/cors/providers/CorsProvider',
   '@adonisjs/bodyparser/providers/BodyParserProvider',
   '@adonisjs/session/providers/SessionProvider',
+  '@adonisjs/drive/providers/DriveProvider',
 
   path.join(__dirname, '../providers/BackendProvider'),
   path.join(__dirname, '../providers/PrismicProvider'),
   path.join(__dirname, '../providers/SymfonyProvider'),
+  path.join(__dirname, '../providers/SlackProvider'),
+  path.join(__dirname, '../providers/SendgridProvider'),
   path.join(__dirname, '../providers/TwigProvider'),
   path.join(__dirname, '../providers/WkHtmlToPdfProvider'),
 ];

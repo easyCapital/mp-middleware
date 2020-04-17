@@ -43,6 +43,10 @@ export default class Task<Type> implements TaskInterface<Type> {
     };
   }
 
+  public getLabel(): string {
+    return this.label;
+  }
+
   public getKey(): string {
     return this.subject.getKey();
   }
