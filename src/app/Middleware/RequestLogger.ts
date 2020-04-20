@@ -17,6 +17,7 @@ class RequestLogger {
         method: ctx.request.method(),
         status: ctx.request.response.statusCode,
         duration: `${elapsedTime}ms`,
+        origin: ctx.origin,
         url: ctx.request.url(),
       });
     });
