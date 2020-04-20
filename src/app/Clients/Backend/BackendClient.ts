@@ -3,7 +3,7 @@ import { IncomingMessage, ServerResponse } from 'http';
 import httpProxy from 'http-proxy';
 import { Pagination, Filters, OrderBy } from '@robinfinance/js-api';
 
-import { ExpectedJsonResponseException, MultipleTokenException } from '../../Exceptions';
+import { ExpectedJsonResponseException, MultipleTokenException, FileTooBigException } from '../../Exceptions';
 
 export type BackendClientBuilder = (backendApiKey: string, token?: BackendToken) => BackendClientInterface;
 
@@ -159,6 +159,10 @@ export default class BackendClient implements BackendClientInterface {
     });
 
     if (!response.ok) {
+      if (response.status === 413) {
+        throw new FileTooBigException();
+      }
+
       if (response.headers.get('content-type') !== 'application/json') {
         const message = await response.text();
 
