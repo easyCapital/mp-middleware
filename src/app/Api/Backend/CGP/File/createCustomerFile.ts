@@ -1,7 +1,7 @@
 import { FileType } from '@robinfinance/js-api';
 
 import { File } from '../../../../Models/File';
-import { Exception } from '../../../../Exceptions';
+import { Exception, FileTooBigException } from '../../../../Exceptions';
 import { FileException } from '../../Exceptions';
 import BackendApi from '../..';
 
@@ -33,6 +33,10 @@ export default async function createCustomerFile(
 
     return createdFile;
   } catch (exception) {
+    if (exception.status === 413) {
+      throw new FileTooBigException();
+    }
+
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
