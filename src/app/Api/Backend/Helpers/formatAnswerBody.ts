@@ -7,9 +7,13 @@ function formatAnswerBody(answers: QuestionAnswer): { question: string; value: s
     const answer = answers[key];
 
     if (Array.isArray(answer)) {
-      answer.forEach(item => {
-        formattedAnswers.push({ question: key, value: item });
-      });
+      if (answer.length > 0) {
+        answer.forEach(item => {
+          formattedAnswers.push({ question: key, value: item });
+        });
+      } else {
+        formattedAnswers.push({ question: key, value: null });
+      }
     } else {
       formattedAnswers.push({ question: key, value: answer });
     }
