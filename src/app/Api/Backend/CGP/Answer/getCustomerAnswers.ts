@@ -9,11 +9,13 @@ export default async function getCustomerAnswers(
   this: BackendApi,
   customerId: string,
   filters?: Filters,
+  latestBy?: string,
 ): Promise<Answer[]> {
   try {
     const response = await this.backendClient.get({
       url: 'cgp/answer/search',
       filters: filters ? { ...filters, user: customerId } : { user: customerId },
+      latestBy,
     });
     const data = await response.json();
 

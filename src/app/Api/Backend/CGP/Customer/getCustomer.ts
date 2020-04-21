@@ -15,6 +15,29 @@ export default async function getCustomer(this: BackendApi, id: string): Promise
     if (data.length > 0) {
       const customer = new Customer(data[0]);
 
+      const answers = await this.getCGPCustomerAnswers(
+        customer.getId().toString(),
+        {
+          question_id__in: ['DQ7', 'DQ6', 'mobile_number'],
+          is_active: 'True',
+        },
+        'question_id',
+      );
+
+      answers.forEach(answer => {
+        if (answer.getKey() === 'DQ7') {
+          customer.setFirstName(answer.getValue() as string);
+        }
+
+        if (answer.getKey() === 'DQ6') {
+          customer.setLastName(answer.getValue() as string);
+        }
+
+        if (answer.getKey() === 'mobile_number') {
+          customer.setMobileNumber(answer.getValue() as string);
+        }
+      });
+
       return customer;
     }
   } catch (exception) {
