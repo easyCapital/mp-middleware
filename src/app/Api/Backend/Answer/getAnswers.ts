@@ -20,7 +20,7 @@ export default async function getAnswers(
 
     const answers: { [key: string]: Answer } = {};
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const answer = new Answer(item);
 
       if (answers[answer.getKey()]) {

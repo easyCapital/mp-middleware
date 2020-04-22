@@ -20,7 +20,7 @@ export default async function createCustomerProposition(
   }
 
   try {
-    const formattedPortfolios = portfolios.map(item => ({ portfolio: item.getId(), amount: item.getAmount() }));
+    const formattedPortfolios = portfolios.map((item) => ({ portfolio: item.getId(), amount: item.getAmount() }));
 
     const response = await this.backendClient.post(
       {

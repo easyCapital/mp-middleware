@@ -53,21 +53,21 @@ export default class Question implements QuestionInterface {
     if (json.condition) {
       this.conditions = json.condition
         .split(' or ')
-        .map(condition => condition.split(' and ').map(subCondition => new Condition(subCondition)));
+        .map((condition) => condition.split(' and ').map((subCondition) => new Condition(subCondition)));
     }
 
     if (json.answers) {
-      this.options = json.answers.map(option => new Option(option));
+      this.options = json.answers.map((option) => new Option(option));
     }
 
     if (json.errors) {
-      this.errors = Object.keys(json.errors).map(type => new Error(type, json.errors[type]));
+      this.errors = Object.keys(json.errors).map((type) => new Error(type, json.errors[type]));
     }
   }
 
   public findOption(value: string): Option | undefined {
     if (this.options) {
-      return this.options.find(option => option.value === value);
+      return this.options.find((option) => option.value === value);
     }
   }
 
@@ -90,10 +90,10 @@ export default class Question implements QuestionInterface {
       if (this.conditions) {
         const conditions: JsonConditionInterface[][] = [];
 
-        this.conditions.forEach(condition => {
+        this.conditions.forEach((condition) => {
           const subConditions: JsonConditionInterface[] = [];
 
-          condition.forEach(subCondition => {
+          condition.forEach((subCondition) => {
             const jsonCondition = subCondition.toJSON();
 
             if (jsonCondition) {
@@ -110,10 +110,10 @@ export default class Question implements QuestionInterface {
       }
 
       if (this.options) {
-        json.options = this.options.map(option => option.toJSON());
+        json.options = this.options.map((option) => option.toJSON());
       }
 
-      this.errors.forEach(error => {
+      this.errors.forEach((error) => {
         const jsonError = error.toJSON();
 
         if (jsonError) {

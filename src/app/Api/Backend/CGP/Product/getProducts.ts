@@ -15,7 +15,7 @@ export default async function getProducts(this: BackendApi, filters?: Filters): 
     const data = await response.json();
 
     if (data.length > 0) {
-      const products = data.map(item => new Product(item));
+      const products = data.map((item) => new Product(item));
 
       return products;
     }

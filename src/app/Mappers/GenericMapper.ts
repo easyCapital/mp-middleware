@@ -27,7 +27,7 @@ export default abstract class GenericMapper<Type> {
   }
 
   public reverseTransform(value: Type, throwException: boolean = false): string | undefined {
-    const key = Object.keys(this.mapping).find(item => this.mapping[item] === value);
+    const key = Object.keys(this.mapping).find((item) => this.mapping[item] === value);
 
     if (key) {
       return key;

@@ -12,7 +12,7 @@ export default async function getSuppliers(
   const response = await getAll(ContentTypes.SUPPLIER, filters, linked, fields, orderBy);
   const suppliers: Supplier[] = [];
 
-  response.forEach(item => {
+  response.forEach((item) => {
     const supplier = new Supplier(item);
 
     suppliers.push(supplier);

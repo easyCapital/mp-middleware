@@ -26,7 +26,7 @@ export default class SendgridClient implements SendgridClientInterface {
     };
 
     if (attachments) {
-      message.attachments = attachments.map(attachment => {
+      message.attachments = attachments.map((attachment) => {
         const [type, extension] = getFileTypeFromBase64(attachment);
         const creationDate = format(new Date(), 'dd-MM-yyyy_hh-mm-ss');
 

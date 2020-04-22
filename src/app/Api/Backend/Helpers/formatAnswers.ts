@@ -5,7 +5,7 @@ import { Answer } from '../../../Models/Answer';
 function formatAnswers(answers: Answer[]): JsonAnswer {
   const formattedAnswers: JsonAnswer = {};
 
-  answers.forEach(answer => {
+  answers.forEach((answer) => {
     formattedAnswers[answer.getKey()] = answer.getValue();
   });
 

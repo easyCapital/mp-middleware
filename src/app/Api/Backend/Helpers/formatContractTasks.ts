@@ -6,7 +6,7 @@ import { TaskOrderMapper, TaskStatusOrderMapper } from '../../../Mappers/Contrac
 function formatContractTasks(tasks: Task<any>[]): Task<any>[] {
   const formattedTasks: { [order: string]: Task<any> } = {};
 
-  tasks.forEach(task => {
+  tasks.forEach((task) => {
     const type = task.getType();
 
     if (type && type !== TaskTypes.CONTAINER && type !== TaskTypes.GROUP) {

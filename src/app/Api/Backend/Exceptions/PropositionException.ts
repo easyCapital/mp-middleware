@@ -7,7 +7,7 @@ const Logger = use('Logger');
 
 export default class PropositionException extends HttpException {
   constructor(error: BackendError) {
-    Object.keys(error).forEach(errorKey => {
+    Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
         case BackendErrorTypes.NotFound:
           throw new NotFoundException("Cette proposition n'existe pas.");

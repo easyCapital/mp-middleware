@@ -41,10 +41,7 @@ async function assertBackendApiTokenFromOrigin(
   fetchMock.get('http://backoffice.test/api/proposition/get/token/42', { answers: [], contents: [], risk_advice: 3 });
   fetchMock.get('http://backoffice.test/api/portfolio/search', []);
 
-  const response = await client
-    .get('/api/1.0/proposition/42')
-    .header(headerName, headerValue)
-    .end();
+  const response = await client.get('/api/1.0/proposition/42').header(headerName, headerValue).end();
 
   assert.equal(response.status, 200);
 

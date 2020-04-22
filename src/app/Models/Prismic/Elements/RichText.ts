@@ -14,14 +14,14 @@ export default class RichText implements RichTextInterface {
   constructor(json: any) {
     this.type = json.type;
     this.text = json.text;
-    this.formatting = json.spans.map(item => new Formatting(item));
+    this.formatting = json.spans.map((item) => new Formatting(item));
   }
 
   public toJSON(): JsonRichTextInterface {
     return {
       type: this.type,
       text: this.text,
-      formatting: this.formatting.map(item => item.toJSON()),
+      formatting: this.formatting.map((item) => item.toJSON()),
     };
   }
 }

@@ -35,13 +35,14 @@ async function sendFeedbackMessage(
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: `Une nouvelle demande a été envoyée par un CGP :\n  - *type :* ${type}\n  - *titre :* ${title ||
-          '-'}\n  - *description :* ${description}\n  - *email :* ${email}`,
+        text: `Une nouvelle demande a été envoyée par un CGP :\n  - *type :* ${type}\n  - *titre :* ${
+          title || '-'
+        }\n  - *description :* ${description}\n  - *email :* ${email}`,
       },
     };
 
     if (files.length > 0) {
-      files.forEach(item => {
+      files.forEach((item) => {
         section.text.text += `\n  - *image :* ${Config.get('app.url')}/${item}`;
       });
 

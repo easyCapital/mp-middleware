@@ -24,7 +24,7 @@ export default async function getQuestions(
 
     const data = await stepResponse.json();
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const question = new Question(item);
 
       if (ids !== undefined && ids.length > 0) {

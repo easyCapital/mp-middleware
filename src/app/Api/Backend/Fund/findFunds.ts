@@ -15,7 +15,7 @@ export default async function findFunds(
 
   if ('type' in formattedFilters) {
     if (Array.isArray(formattedFilters.type)) {
-      formattedFilters.line_type__in = formattedFilters.type.map(type => FundTypeMapper.reverseTransform(type));
+      formattedFilters.line_type__in = formattedFilters.type.map((type) => FundTypeMapper.reverseTransform(type));
     } else {
       formattedFilters.line_type = FundTypeMapper.reverseTransform(formattedFilters.type);
     }
@@ -31,7 +31,7 @@ export default async function findFunds(
     });
     const data = await response.json();
 
-    const funds = data.map(item => new Fund(item));
+    const funds = data.map((item) => new Fund(item));
 
     const meta = formatMeta(response.headers, pagination);
 

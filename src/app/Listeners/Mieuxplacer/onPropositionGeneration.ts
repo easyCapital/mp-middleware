@@ -10,7 +10,7 @@ async function onPropositionGeneration(context: Context, proposition: Propositio
 
   let investmentAmount: string | undefined;
 
-  proposition.getAnswers().forEach(answer => {
+  proposition.getAnswers().forEach((answer) => {
     if (answer.getKey() === 'sub_investment_amount1') {
       investmentAmount = answer.getValue() as string;
     }

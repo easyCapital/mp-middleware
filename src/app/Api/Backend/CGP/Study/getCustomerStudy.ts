@@ -18,7 +18,7 @@ export default async function getCustomerStudy(
     });
     const data = await response.json();
 
-    const studies = data.map(item => new Study(item));
+    const studies = data.map((item) => new Study(item));
 
     return studies;
   } catch (exception) {

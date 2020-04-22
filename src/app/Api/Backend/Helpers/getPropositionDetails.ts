@@ -12,8 +12,8 @@ export default async function getPropositionDetails(backendApi: BackendApi, data
   proposition.setPortfolios([]);
 
   if (data.contents && data.contents.length > 0) {
-    const portfolioIds = data.contents.map(item => item.portfolio);
-    const portfolioProducts = data.contents.map(item => item.product_identifier);
+    const portfolioIds = data.contents.map((item) => item.portfolio);
+    const portfolioProducts = data.contents.map((item) => item.product_identifier);
 
     const [portfolios, products, advices] = await Promise.all([
       backendApi.findPortfolios({ id__in: portfolioIds }),
@@ -26,7 +26,7 @@ export default async function getPropositionDetails(backendApi: BackendApi, data
 
     proposition.setInvestorType(advices[0]);
 
-    data.contents.forEach(item => {
+    data.contents.forEach((item) => {
       const portfolio = portfoliosById[item.portfolio];
       const product = productsById[item.product_identifier];
 
@@ -35,10 +35,7 @@ export default async function getPropositionDetails(backendApi: BackendApi, data
       }
 
       if (portfolio) {
-        portfolio
-          .setProduct(product)
-          .setSrri(item.srri)
-          .setAmount(item.amount);
+        portfolio.setProduct(product).setSrri(item.srri).setAmount(item.amount);
 
         proposition.addPortfolio(portfolio);
       } else {

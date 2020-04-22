@@ -18,7 +18,7 @@ export default async function getCustomerContracts(
     });
     const data = await response.json();
 
-    const contracts = data.map(item => new Contract(item));
+    const contracts = data.map((item) => new Contract(item));
 
     return contracts;
   } catch (exception) {

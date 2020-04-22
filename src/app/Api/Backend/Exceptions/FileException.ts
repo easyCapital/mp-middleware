@@ -7,7 +7,7 @@ const Logger = use('Logger');
 
 export default class FileException extends HttpException {
   constructor(error: BackendError) {
-    Object.keys(error).forEach(errorKey => {
+    Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
         case BackendErrorTypes.InvalidFileTypeKeyError:
         case BackendErrorTypes.InvalidBase64FileContentError:

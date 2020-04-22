@@ -18,7 +18,7 @@ export = {
   */
   origin: () => {
     const allowedOriginsPerApp = Config.get('app.allowedOriginsPerApp') || {};
-    const origins = Object.keys(allowedOriginsPerApp).map(key => allowedOriginsPerApp[key]);
+    const origins = Object.keys(allowedOriginsPerApp).map((key) => allowedOriginsPerApp[key]);
 
     return origins.reduce((acc, val) => acc.concat(val), []);
   },

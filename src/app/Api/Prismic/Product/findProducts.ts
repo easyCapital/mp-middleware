@@ -20,7 +20,7 @@ export default async function findProducts(
   const typeUids: string[] = [];
   const supplierUids: string[] = [];
 
-  response.forEach(item => {
+  response.forEach((item) => {
     const typeId = item.data.type.uid;
     const supplierId = item.data.supplier.uid;
 
@@ -38,7 +38,7 @@ export default async function findProducts(
   const typesById: { [id: string]: Type } = ArrayToObject(types);
   const suppliersById: { [id: string]: Supplier } = ArrayToObject(suppliers);
 
-  response.forEach(item => {
+  response.forEach((item) => {
     const product = new Product(item);
 
     product.setType(typesById[item.data.type.id]);

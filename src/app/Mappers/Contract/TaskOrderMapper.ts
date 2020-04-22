@@ -29,7 +29,7 @@ export default class TaskOrderMapper {
   }
 
   public static reverseTransform(value: number): string | undefined {
-    const key = Object.keys(TaskOrderMapping).find(item => TaskOrderMapping[item] === value);
+    const key = Object.keys(TaskOrderMapping).find((item) => TaskOrderMapping[item] === value);
 
     if (key) {
       return key;

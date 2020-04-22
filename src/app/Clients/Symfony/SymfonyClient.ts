@@ -58,13 +58,13 @@ export default class SymfonyClient implements SymfonyClientInterface {
    */
   private buildProxyResponseEndPromise(proxy: httpProxy, req: IncomingMessage, symfonyUrl: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      proxy.on('error', error => {
+      proxy.on('error', (error) => {
         this.logger.error('Error while proxying %s to %s: %s', req.url, symfonyUrl, error);
 
         reject(error);
       });
 
-      proxy.on('proxyRes', proxyRes => {
+      proxy.on('proxyRes', (proxyRes) => {
         removeSymfonyHeaders(proxyRes.headers);
 
         proxyRes.on('end', () => {

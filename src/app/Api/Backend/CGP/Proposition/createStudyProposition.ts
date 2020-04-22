@@ -24,7 +24,7 @@ export default async function createStudyProposition(
         user: customerId,
         study,
         universe,
-        contents: portfolios.map(item => ({ portfolio: item.portfolio, amount: item.amount })),
+        contents: portfolios.map((item) => ({ portfolio: item.portfolio, amount: item.amount })),
       },
     );
 

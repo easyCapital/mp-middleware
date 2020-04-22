@@ -12,7 +12,7 @@ export default async function findObjectives(
   const response = await find(ContentTypes.OBJECTIVE, filters, linked, fields, orderBy);
   const objectives: Objective[] = [];
 
-  response.forEach(item => {
+  response.forEach((item) => {
     const objective = new Objective(item);
 
     objectives.push(objective);

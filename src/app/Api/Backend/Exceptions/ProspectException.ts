@@ -9,7 +9,7 @@ export default class ProspectException extends HttpException {
   constructor(error: BackendError) {
     let errorMessageType: { [key: string]: ErrorType } = { email: ErrorTypes.DEFAULT };
 
-    Object.keys(error).forEach(errorKey => {
+    Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
         case BackendErrorTypes.EmailAlreadyAssignedToUserError:
           errorMessageType = { global: ErrorTypes.USED_EMAIL };

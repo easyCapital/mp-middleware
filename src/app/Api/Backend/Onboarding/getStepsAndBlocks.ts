@@ -25,15 +25,15 @@ export default async function getStepsAndBlocks(
     }
     const stepResponse = await this.backendClient.get({ url: 'step/search', filters });
     const data = await stepResponse.json();
-    data.forEach(item => {
+    data.forEach((item) => {
       const step = new Step(item, withAuthentication);
       steps.push(step);
-      step.getBlocks().forEach(block => {
+      step.getBlocks().forEach((block) => {
         if (!ids || ids.includes(block.getId())) {
           blocks[block.getId()] = block;
           const matches = block.getLabel().match(/\{([\s\S]+?)\}/g);
           if (matches) {
-            matches.forEach(match => {
+            matches.forEach((match) => {
               questionKeys.push(match.replace(/\{|\}/g, ''));
             });
           }

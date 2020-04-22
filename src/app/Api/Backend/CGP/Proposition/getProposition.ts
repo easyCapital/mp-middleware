@@ -21,20 +21,17 @@ export default async function getProposition(this: BackendApi, id: string): Prom
       proposition.setPortfolios([]);
 
       if (rawProposition.contents && rawProposition.contents.length > 0) {
-        const portfolioIds = rawProposition.contents.map(item => item.portfolio);
+        const portfolioIds = rawProposition.contents.map((item) => item.portfolio);
 
         const portfolios = await this.findPortfolios({ id__in: portfolioIds });
 
         const portfoliosById: { [id: string]: Portfolio } = ArrayToObject(portfolios);
 
-        rawProposition.contents.forEach(item => {
+        rawProposition.contents.forEach((item) => {
           const portfolio = portfoliosById[item.portfolio];
 
           if (portfolio) {
-            portfolio
-              .setSrri(item.srri)
-              .setAmount(item.amount)
-              .setProductIdentifier(item.product_identifier);
+            portfolio.setSrri(item.srri).setAmount(item.amount).setProductIdentifier(item.product_identifier);
 
             proposition.addPortfolio(portfolio);
           } else {

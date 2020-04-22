@@ -11,7 +11,7 @@ function createQuery(
   const query: string[] = [Prismic.Predicates.at('document.type', type)];
 
   if (filters) {
-    Object.keys(filters).forEach(filter => {
+    Object.keys(filters).forEach((filter) => {
       const value = filters[filter];
 
       if (filter === 'id') {
@@ -31,7 +31,7 @@ function createQuery(
   }
 
   if (linked) {
-    Object.keys(linked).forEach(link => {
+    Object.keys(linked).forEach((link) => {
       const value = linked[link];
       const formattedValue = Array.isArray(value) ? value : [value];
 

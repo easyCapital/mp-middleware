@@ -22,7 +22,7 @@ export default async function createContractsFromProposition(
 
     const data = await response.json();
 
-    const contracts = data.map(contract => new Contract(contract));
+    const contracts = data.map((contract) => new Contract(contract));
 
     await Promise.all(
       contracts.map(async (item: Contract) => {

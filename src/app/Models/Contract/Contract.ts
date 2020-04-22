@@ -42,7 +42,7 @@ export default class Contract implements ContractInterface {
       totalAmount: this.totalAmount,
       includedSubscriptionFee: this.includedSubscriptionFee,
       proposition: this.proposition,
-      tasks: this.tasks.map(item => item.toJSON()),
+      tasks: this.tasks.map((item) => item.toJSON()),
     };
   }
 

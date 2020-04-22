@@ -9,20 +9,20 @@ export default class AuthenticationException extends HttpException {
   constructor(error: BackendError) {
     const errorMessages: { [key: string]: string } = {};
 
-    Object.keys(error).forEach(errorKey => {
+    Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
         case BackendErrorTypes.InvalidCredentialsError:
           errorMessages.global = ErrorTypes.INVALID_CREDENTIALS;
           break;
 
         case BackendErrorTypes.MissingMandatoryFieldsError:
-          error[errorKey].fields.forEach(field => {
+          error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.REQUIRED;
           });
           break;
 
         case BackendErrorTypes.EmailValidationError:
-          error[errorKey].fields.forEach(field => {
+          error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.DEFAULT;
           });
           break;

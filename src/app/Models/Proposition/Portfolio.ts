@@ -50,7 +50,7 @@ export default class Portfolio implements PortfolioInterface {
       product: this.product && this.product.toJSON(),
       amount: this.amount,
       srri: this.srri,
-      funds: this.funds.map(fund => fund.toJSON()),
+      funds: this.funds.map((fund) => fund.toJSON()),
       performances: this.performances,
       guaranteedCapitalWeight: this.computeGuaranteedCapitalWeight(),
     };
@@ -98,7 +98,7 @@ export default class Portfolio implements PortfolioInterface {
 
   private computeGuaranteedCapitalWeight(): number {
     let guaranteedCapitalWeight = 0;
-    this.funds.forEach(fund => {
+    this.funds.forEach((fund) => {
       if (fund.type === FundTypes.EURO) {
         if (fund.weight) {
           guaranteedCapitalWeight += fund.weight;

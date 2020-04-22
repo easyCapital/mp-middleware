@@ -21,7 +21,7 @@ export default async function getCustomerAnswers(
 
     const answers: { [key: string]: Answer } = {};
 
-    data.forEach(answer => {
+    data.forEach((answer) => {
       if (answers[answer.question]) {
         answers[answer.question].addValue(answer.value);
       } else {

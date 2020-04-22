@@ -10,56 +10,56 @@ export default class CustomerCreationException extends HttpException {
   constructor(error: BackendError) {
     const errorMessages: { [key: string]: ErrorType } = {};
 
-    Object.keys(error).forEach(errorKey => {
+    Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
         case BackendErrorTypes.ToManyEmailRevalidation:
           throw new Exception();
 
         case BackendErrorTypes.EmailUniqueConstraintError:
-          error[errorKey].fields.forEach(field => {
+          error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.USED_EMAIL;
           });
           break;
 
         case BackendErrorTypes.EmailValidationError:
-          error[errorKey].fields.forEach(field => {
+          error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.DEFAULT;
           });
           break;
 
         case BackendErrorTypes.BlankError:
         case BackendErrorTypes.NullError:
-          error[errorKey].fields.forEach(field => {
+          error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.REQUIRED;
           });
           break;
 
         case BackendErrorTypes.InvalidEmailStatus:
-          error[errorKey].fields.forEach(field => {
+          error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.INVALID_EMAIL;
           });
           break;
 
         case BackendErrorTypes.MinimumLengthError:
-          error[errorKey].fields.forEach(field => {
+          error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.MIN;
           });
           break;
 
         case BackendErrorTypes.UserAttributeSimilarityError:
-          error[errorKey].fields.forEach(field => {
+          error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.SIMILAR_PASSWORD;
           });
           break;
 
         case BackendErrorTypes.CommonPasswordError:
-          error[errorKey].fields.forEach(field => {
+          error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.COMMON_PASSWORD;
           });
           break;
 
         case BackendErrorTypes.NumericPasswordError:
-          error[errorKey].fields.forEach(field => {
+          error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.NUMERIC_PASSWORD;
           });
           break;

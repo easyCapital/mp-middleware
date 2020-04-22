@@ -7,7 +7,7 @@ const Logger = use('Logger');
 
 export default class SignatureException extends HttpException {
   constructor(error: BackendError) {
-    Object.keys(error).forEach(errorKey => {
+    Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
         case BackendErrorTypes.FileAlreadySignedError:
           throw new Exception('Le fichier a déjà été signé, veuillez contacter notre support.');

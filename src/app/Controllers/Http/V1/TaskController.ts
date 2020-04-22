@@ -17,12 +17,12 @@ class TaskController {
 
     const tasks: Task<Question>[] = await backendApi.getContractTasks(formattedFilters);
 
-    const questionIds = tasks.map(task => task.getKey());
+    const questionIds = tasks.map((task) => task.getKey());
 
     if (questionIds.length > 0) {
       const questions = await backendApi.getQuestions(undefined, questionIds);
 
-      tasks.forEach(task => {
+      tasks.forEach((task) => {
         const question = questions[task.getKey()];
 
         if (question) {
@@ -46,13 +46,13 @@ class TaskController {
 
     const tasks: Task<File>[] = await backendApi.getContractTasks(formattedFilters);
 
-    const fileTypes = tasks.map(task => FileTypeMapper.reverseTransform(task.getKey() as FileTypes));
+    const fileTypes = tasks.map((task) => FileTypeMapper.reverseTransform(task.getKey() as FileTypes));
 
     if (fileTypes.length > 0) {
       const files = await backendApi.getFiles({ type__in: fileTypes });
 
-      tasks.forEach(task => {
-        const file = files.find(item => (item.getType() as FileTypes) === task.getKey());
+      tasks.forEach((task) => {
+        const file = files.find((item) => (item.getType() as FileTypes) === task.getKey());
 
         if (file) {
           task.setData(file);

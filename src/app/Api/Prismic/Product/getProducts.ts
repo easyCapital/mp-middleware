@@ -12,7 +12,7 @@ export default async function getProducts(
   const response = await getAll(ContentTypes.PRODUCT, filters, linked, fields, orderBy);
   const products: Product[] = [];
 
-  response.forEach(item => {
+  response.forEach((item) => {
     const product = new Product(item);
 
     products.push(product);

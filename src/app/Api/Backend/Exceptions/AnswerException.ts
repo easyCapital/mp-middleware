@@ -12,7 +12,7 @@ export default class AnswerException extends HttpException {
     errors.forEach((error, index) => {
       const answer = answers[index];
 
-      Object.keys(error).forEach(errorKey => {
+      Object.keys(error).forEach((errorKey) => {
         let errorMessageType: ErrorType = ErrorTypes.DEFAULT;
 
         switch (errorKey) {

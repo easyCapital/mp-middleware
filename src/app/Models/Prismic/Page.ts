@@ -27,7 +27,7 @@ export default class Page extends ContentType implements PageInterface {
     if (json.data.body) {
       this.blocks = [];
 
-      json.data.body.forEach(item => {
+      json.data.body.forEach((item) => {
         this.blocks?.push(new Slice(item));
       });
     }
@@ -42,7 +42,7 @@ export default class Page extends ContentType implements PageInterface {
       title: this.title,
       description: this.description,
       gaTitle: this.gaTitle,
-      blocks: this.blocks?.map(item => item.toJSON()),
+      blocks: this.blocks?.map((item) => item.toJSON()),
     };
   }
 }

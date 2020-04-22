@@ -12,7 +12,7 @@ export default async function getObjectives(
   const response = await getAll(ContentTypes.OBJECTIVE, filters, linked, fields, orderBy);
   const objectives: Objective[] = [];
 
-  response.forEach(item => {
+  response.forEach((item) => {
     const objective = new Objective(item);
 
     objectives.push(objective);

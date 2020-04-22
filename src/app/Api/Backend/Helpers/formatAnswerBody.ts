@@ -3,12 +3,12 @@ import { QuestionAnswer } from '@robinfinance/js-api';
 function formatAnswerBody(answers: QuestionAnswer): { question: string; value: string | null }[] {
   const formattedAnswers: { question: string; value: string | null }[] = [];
 
-  Object.keys(answers).forEach(key => {
+  Object.keys(answers).forEach((key) => {
     const answer = answers[key];
 
     if (Array.isArray(answer)) {
       if (answer.length > 0) {
-        answer.forEach(item => {
+        answer.forEach((item) => {
           formattedAnswers.push({ question: key, value: item });
         });
       } else {

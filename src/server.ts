@@ -19,7 +19,4 @@ const Fold = require('@adonisjs/fold');
 
 require('node-fetch'); // global require to make fetch mockable by fetch-mock in tests
 
-new Ignitor(Fold)
-  .appRoot(__dirname)
-  .fireHttpServer()
-  .catch(console.error);
+new Ignitor(Fold).appRoot(__dirname).fireHttpServer().catch(console.error);

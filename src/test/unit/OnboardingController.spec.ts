@@ -15,10 +15,7 @@ beforeEach(async () => {
 });
 
 test('get onboarding', async ({ client, assert }) => {
-  const response = await client
-    .get('/api/1.0/onboarding')
-    .header('Origin', 'http://mif.mieuxplacer.local')
-    .end();
+  const response = await client.get('/api/1.0/onboarding').header('Origin', 'http://mif.mieuxplacer.local').end();
   response.assertStatus(200);
   response.assertJSON({
     steps: [{ id: 'votre-profil', step: 1, blocks: ['1'] }],

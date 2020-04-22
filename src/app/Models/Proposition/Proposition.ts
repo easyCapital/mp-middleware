@@ -50,7 +50,7 @@ export default class Proposition implements PropositionInterface {
     if (json.answers) {
       const answers: { [key: string]: Answer } = {};
 
-      json.answers.forEach(answer => {
+      json.answers.forEach((answer) => {
         if (answers[answer.question]) {
           answers[answer.question].addValue(answer.value);
         } else {
@@ -62,7 +62,7 @@ export default class Proposition implements PropositionInterface {
     }
 
     if (json.contents) {
-      json.contents.map(portfolio => {
+      json.contents.map((portfolio) => {
         this.portfolios.push(new Portfolio(portfolio));
       });
     }
@@ -86,7 +86,7 @@ export default class Proposition implements PropositionInterface {
       weightedSrri: this.weightedSrri,
       answers: formatAnswers(this.answers),
       investorType: this.investorType && this.investorType.toJSON(),
-      portfolios: this.portfolios.map(portfolio => {
+      portfolios: this.portfolios.map((portfolio) => {
         const jsonPortfolio = portfolio.toJSON() as JsonPropositionPortfolioInterface;
         if (jsonPortfolio.amount) {
           jsonPortfolio.weight = jsonPortfolio.amount / totalAmount;
@@ -128,7 +128,7 @@ export default class Proposition implements PropositionInterface {
 
   private getAmount(): number {
     let totalAmount = 0;
-    this.portfolios.forEach(portfolio => {
+    this.portfolios.forEach((portfolio) => {
       const portfolioAmount = portfolio.amount;
       if (portfolioAmount) {
         totalAmount += portfolioAmount;

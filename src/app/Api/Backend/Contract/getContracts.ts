@@ -15,7 +15,7 @@ export default async function getContracts(this: BackendApi, filters?: Filters):
     });
     const data = await response.json();
 
-    const contracts = data.map(item => new Contract(item));
+    const contracts = data.map((item) => new Contract(item));
 
     await Promise.all(
       contracts.map(async (item: Contract) => {

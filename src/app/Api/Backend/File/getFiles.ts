@@ -9,7 +9,7 @@ import BackendApi from '..';
 export default async function getFiles(this: BackendApi, filters: Filters): Promise<File[]> {
   if (filters && 'type' in filters) {
     if (Array.isArray(filters.type)) {
-      filters.type__in = filters.type.map(type => FileTypeMapper.reverseTransform(type));
+      filters.type__in = filters.type.map((type) => FileTypeMapper.reverseTransform(type));
 
       delete filters.type;
     } else {
@@ -25,7 +25,7 @@ export default async function getFiles(this: BackendApi, filters: Filters): Prom
     });
     const data = await response.json();
 
-    const files = data.map(item => new File(item));
+    const files = data.map((item) => new File(item));
 
     return files;
   } catch (exception) {

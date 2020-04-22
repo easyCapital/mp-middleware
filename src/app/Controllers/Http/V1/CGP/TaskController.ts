@@ -25,12 +25,12 @@ class CGPTaskController {
       status: [TaskStatuses.TODO, TaskStatuses.PENDING],
     });
 
-    const questionIds = tasks.map(task => task.getKey());
+    const questionIds = tasks.map((task) => task.getKey());
 
     if (questionIds.length > 0) {
       const questions = await backendApi.getQuestions(configKey, questionIds);
 
-      tasks.forEach(task => {
+      tasks.forEach((task) => {
         const question = questions[task.getKey()];
 
         if (question) {
@@ -53,13 +53,13 @@ class CGPTaskController {
       status: [TaskStatuses.TODO, TaskStatuses.PENDING],
     });
 
-    const fileTypes = tasks.map(task => FileTypeMapper.reverseTransform(task.getKey() as FileTypes));
+    const fileTypes = tasks.map((task) => FileTypeMapper.reverseTransform(task.getKey() as FileTypes));
 
     if (fileTypes.length > 0) {
       const files = await backendApi.getCGPCustomerFiles({ ...filters, type__in: fileTypes });
 
-      tasks.forEach(task => {
-        const file = files.find(item => (item.getType() as FileTypes) === task.getKey());
+      tasks.forEach((task) => {
+        const file = files.find((item) => (item.getType() as FileTypes) === task.getKey());
 
         if (file) {
           task.setData(file);

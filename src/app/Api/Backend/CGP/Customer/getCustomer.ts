@@ -24,7 +24,7 @@ export default async function getCustomer(this: BackendApi, id: string): Promise
         'question_id',
       );
 
-      answers.forEach(answer => {
+      answers.forEach((answer) => {
         if (answer.getKey() === 'DQ7') {
           customer.setFirstName(answer.getValue() as string);
         }

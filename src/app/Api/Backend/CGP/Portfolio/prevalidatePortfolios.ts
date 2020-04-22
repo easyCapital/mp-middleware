@@ -22,14 +22,14 @@ export default async function prevalidatePortfolios(
       return {
         product: portfolio.product,
         initial_deposit: portfolio.amount,
-        lines: portfolio.funds.map(fund => ({
+        lines: portfolio.funds.map((fund) => ({
           line: fund.id,
           amount: fund.weight * (portfolio.amount || 0),
         })),
       };
     });
 
-    if (errors.filter(error => error !== undefined).length > 0) {
+    if (errors.filter((error) => error !== undefined).length > 0) {
       // @ts-ignore
       throw new InvalidArgumentException(errors);
     }

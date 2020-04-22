@@ -18,7 +18,7 @@ export default class Advice extends ContentType implements AdviceInterface {
     this.tooltip = json.data.tooltip;
 
     if (json.data.content && json.data.content.length > 0) {
-      this.content = json.data.content.filter(item => item.text.length > 0).map(item => new RichText(item));
+      this.content = json.data.content.filter((item) => item.text.length > 0).map((item) => new RichText(item));
     }
   }
 
@@ -27,7 +27,7 @@ export default class Advice extends ContentType implements AdviceInterface {
       id: this.id,
       label: this.label,
       tooltip: this.tooltip,
-      content: this.content?.map(item => item.toJSON()),
+      content: this.content?.map((item) => item.toJSON()),
     };
   }
 }

@@ -47,7 +47,7 @@ export default class Objective extends ContentType implements ObjectiveInterface
     if (json.data.body) {
       this.blocks = [];
 
-      json.data.body.forEach(item => {
+      json.data.body.forEach((item) => {
         this.blocks?.push(new Slice(item));
       });
     }
@@ -66,7 +66,7 @@ export default class Objective extends ContentType implements ObjectiveInterface
       answerId: this.answerId,
       icon: this.icon?.toJSON(),
       homeIcon: this.homeIcon?.toJSON(),
-      blocks: this.blocks?.map(item => item.toJSON()),
+      blocks: this.blocks?.map((item) => item.toJSON()),
     };
   }
 }

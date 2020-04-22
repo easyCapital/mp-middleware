@@ -24,9 +24,9 @@ export default async function getStudyPropositions(
 
     if (type) {
       if (type === Origins.CGP) {
-        propositions = propositions.filter(item => item.cgp !== null);
+        propositions = propositions.filter((item) => item.cgp !== null);
       } else if (type === Origins.MIEUXPLACER) {
-        propositions = propositions.filter(item => item.cgp === null);
+        propositions = propositions.filter((item) => item.cgp === null);
       }
     }
 

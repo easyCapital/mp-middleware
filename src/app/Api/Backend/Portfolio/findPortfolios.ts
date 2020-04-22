@@ -17,12 +17,12 @@ export default async function findPortfolios(this: BackendApi, filters: Filters)
 
     for (const jsonPortfolio of data) {
       const portfolio = new Portfolio(jsonPortfolio);
-      const fundIds = jsonPortfolio.lines.map(item => item.line);
+      const fundIds = jsonPortfolio.lines.map((item) => item.line);
 
       const funds = await this.findFunds(undefined, { id__in: fundIds });
       const fundsById: { [id: string]: Fund } = ArrayToObject(funds.results);
 
-      jsonPortfolio.lines.forEach(item => {
+      jsonPortfolio.lines.forEach((item) => {
         const fund = fundsById[item.line];
 
         if (fund) {

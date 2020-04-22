@@ -26,7 +26,7 @@ export default async function searchCustomers(
     const customers: Map<string, Customer> = new Map();
     const customerIds: string[] = [];
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const customer = new Customer(item);
 
       customers.set(customer.getId().toString(), customer);
@@ -61,11 +61,11 @@ export default async function searchCustomers(
 
       const [tasks, ...answerResponses] = await Promise.all(dataPromises);
 
-      answerResponses.forEach(answerResponse => {
+      answerResponses.forEach((answerResponse) => {
         answers = { ...answers, ...answerResponse.results };
       });
 
-      Object.keys(answers).forEach(customerId => {
+      Object.keys(answers).forEach((customerId) => {
         const customer = customers.get(customerId);
         const customerAnswers = answers[customerId];
 
@@ -76,7 +76,7 @@ export default async function searchCustomers(
         }
       });
 
-      Object.keys(tasks).forEach(customerId => {
+      Object.keys(tasks).forEach((customerId) => {
         const customer = customers.get(customerId);
         const customerTask = tasks[customerId] as Task<any>;
 

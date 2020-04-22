@@ -125,10 +125,10 @@ export default class BackendClient implements BackendClientInterface {
     };
 
     if (options.filters) {
-      Object.keys(options.filters).forEach(filter => {
+      Object.keys(options.filters).forEach((filter) => {
         if (options.filters) {
           if (Array.isArray(options.filters[filter])) {
-            options.filters[filter].forEach(item => {
+            options.filters[filter].forEach((item) => {
               url.searchParams.append(filter, item);
             });
           } else {
@@ -180,13 +180,13 @@ export default class BackendClient implements BackendClientInterface {
    */
   private buildProxyResponseEndPromise(proxy: httpProxy, req: IncomingMessage, symfonyUrl: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      proxy.on('error', error => {
+      proxy.on('error', (error) => {
         this.logger.error('Error while proxying %s to %s: %s', req.url, symfonyUrl, error);
 
         reject(error);
       });
 
-      proxy.on('proxyRes', proxyRes => {
+      proxy.on('proxyRes', (proxyRes) => {
         proxyRes.on('end', () => {
           this.logger.debug('Done proxying %s to %s done', req.url, symfonyUrl);
           resolve();

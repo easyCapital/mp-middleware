@@ -20,7 +20,7 @@ export default async function find(
   let orderings: string | undefined;
 
   if (fields) {
-    formattedFields = Array.isArray(fields) ? fields.map(item => `${type}.${item}`).join(',') : `${type}.${fields}`;
+    formattedFields = Array.isArray(fields) ? fields.map((item) => `${type}.${item}`).join(',') : `${type}.${fields}`;
   }
 
   if (orderBy) {

@@ -18,7 +18,7 @@ export default async function getCustomerPropositions(
     });
     const data = await response.json();
 
-    const propositions = data.map(item => new Proposition(item));
+    const propositions = data.map((item) => new Proposition(item));
 
     return propositions;
   } catch (exception) {

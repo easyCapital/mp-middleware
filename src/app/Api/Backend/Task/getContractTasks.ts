@@ -10,7 +10,7 @@ export default async function getContractTasks(this: BackendApi, filters?: Filte
   if (filters) {
     if ('type' in filters) {
       if (Array.isArray(filters.type)) {
-        filters.type__in = filters.type.map(type => TaskTypeMapper.reverseTransform(type));
+        filters.type__in = filters.type.map((type) => TaskTypeMapper.reverseTransform(type));
 
         delete filters.type;
       } else {
@@ -20,7 +20,7 @@ export default async function getContractTasks(this: BackendApi, filters?: Filte
 
     if ('status' in filters) {
       if (Array.isArray(filters.status)) {
-        filters.status__in = filters.status.map(status => TaskStatusMapper.reverseTransform(status));
+        filters.status__in = filters.status.map((status) => TaskStatusMapper.reverseTransform(status));
 
         delete filters.status;
       } else {
@@ -36,7 +36,7 @@ export default async function getContractTasks(this: BackendApi, filters?: Filte
     });
     const data = await response.json();
 
-    const tasks = data.map(item => new Task<any>(item));
+    const tasks = data.map((item) => new Task<any>(item));
 
     return tasks;
   } catch (exception) {

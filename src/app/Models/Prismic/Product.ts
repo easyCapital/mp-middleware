@@ -173,17 +173,17 @@ export default class Product extends ContentType implements ProductInterface {
     }
 
     if (json.data.summary && json.data.summary.length > 0) {
-      this.summary = json.data.summary.filter(item => item.text.length > 0).map(item => new RichText(item));
+      this.summary = json.data.summary.filter((item) => item.text.length > 0).map((item) => new RichText(item));
     }
 
     if (json.data.description && json.data.description.length > 0) {
-      this.description = json.data.description.filter(item => item.text.length > 0).map(item => new RichText(item));
+      this.description = json.data.description.filter((item) => item.text.length > 0).map((item) => new RichText(item));
     }
 
     if (json.data.objectives && json.data.objectives.length > 0) {
       this.objectives = [];
 
-      json.data.objectives.forEach(item => {
+      json.data.objectives.forEach((item) => {
         if (item.objective) {
           this.objectives?.push(item.objective.id);
         }
@@ -193,7 +193,7 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.risk_profiles && json.data.risk_profiles.length > 0) {
       this.riskProfiles = [];
 
-      json.data.risk_profiles.forEach(item => {
+      json.data.risk_profiles.forEach((item) => {
         if (item.risk_profile) {
           this.riskProfiles?.push(item.risk_profile);
         }
@@ -203,7 +203,7 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.investor_typologies && json.data.investor_typologies.length > 0) {
       this.investorTypologies = [];
 
-      json.data.investor_typologies.forEach(item => {
+      json.data.investor_typologies.forEach((item) => {
         if (item.investor_typology) {
           this.investorTypologies?.push(item.investor_typology);
         }
@@ -213,7 +213,7 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.management_modes && json.data.management_modes.length > 0) {
       this.managementModes = [];
 
-      json.data.management_modes.forEach(item => {
+      json.data.management_modes.forEach((item) => {
         if (item.management_mode) {
           this.managementModes?.push(item.management_mode);
         }
@@ -223,7 +223,7 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.tax_systems && json.data.tax_systems.length > 0) {
       this.taxSystems = [];
 
-      json.data.tax_systems.forEach(item => {
+      json.data.tax_systems.forEach((item) => {
         if (item.tax_system) {
           this.taxSystems?.push(item.tax_system);
         }
@@ -231,39 +231,39 @@ export default class Product extends ContentType implements ProductInterface {
     }
 
     if (json.data.costs && json.data.costs.length > 0) {
-      this.costs = json.data.costs.map(item => new Cost(item));
+      this.costs = json.data.costs.map((item) => new Cost(item));
     }
 
     if (json.data.supplier_conditions && json.data.supplier_conditions.length > 0) {
       this.supplierConditions = json.data.supplier_conditions
-        .filter(item => item.text.length > 0)
-        .map(item => new RichText(item));
+        .filter((item) => item.text.length > 0)
+        .map((item) => new RichText(item));
     }
 
     if (json.data.tdvm && json.data.tdvm.length > 0) {
-      this.tdvms = json.data.tdvm.map(item => new TDVM(item));
+      this.tdvms = json.data.tdvm.map((item) => new TDVM(item));
     }
 
     if (json.data.recommandation) {
       this.recommendation = json.data.recommandation
-        .filter(item => item.text.length > 0)
-        .map(item => new RichText(item));
+        .filter((item) => item.text.length > 0)
+        .map((item) => new RichText(item));
     }
 
     if (json.data.investment_destination) {
       this.investmentDestination = json.data.investment_destination
-        .filter(item => item.text.length > 0)
-        .map(item => new RichText(item));
+        .filter((item) => item.text.length > 0)
+        .map((item) => new RichText(item));
     }
 
     if (json.data.listing__returned_bonuses) {
       this.returnedBonusesAlert = json.data.listing__returned_bonuses
-        .filter(item => item.text.length > 0)
-        .map(item => new RichText(item));
+        .filter((item) => item.text.length > 0)
+        .map((item) => new RichText(item));
     }
 
     if (json.data.performance) {
-      this.performance = json.data.performance.filter(item => item.text.length > 0).map(item => new RichText(item));
+      this.performance = json.data.performance.filter((item) => item.text.length > 0).map((item) => new RichText(item));
     }
 
     if (json.data.information_document) {
@@ -277,7 +277,7 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.product_performances) {
       this.performances = [];
 
-      json.data.product_performances.forEach(item => {
+      json.data.product_performances.forEach((item) => {
         if (item.product_performance_label && item.product_performance_value) {
           this.performances?.push({
             label: item.product_performance_label,
@@ -290,7 +290,7 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.one_time_fees) {
       this.oneTimeFees = [];
 
-      json.data.one_time_fees.forEach(item => {
+      json.data.one_time_fees.forEach((item) => {
         if (item.fee_label && item.fee_value) {
           this.oneTimeFees?.push({
             label: item.fee_label,
@@ -303,7 +303,7 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.annual_fees) {
       this.annualFees = [];
 
-      json.data.annual_fees.forEach(item => {
+      json.data.annual_fees.forEach((item) => {
         if (item.fee_label && item.fee_value) {
           this.annualFees?.push({
             label: item.fee_label,
@@ -316,7 +316,7 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.occupancy_rate) {
       this.occupancyRates = [];
 
-      json.data.occupancy_rate.forEach(item => {
+      json.data.occupancy_rate.forEach((item) => {
         if (item.occupancy_rate_label && item.occupancy_rate_value) {
           this.occupancyRates?.push({
             label: item.occupancy_rate_label,
@@ -329,7 +329,7 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.distributed_income_per_unit) {
       this.distributedIncomesPerUnit = [];
 
-      json.data.distributed_income_per_unit.forEach(item => {
+      json.data.distributed_income_per_unit.forEach((item) => {
         if (item.distributed_income_per_unit_label && item.distributed_income_per_unit_value) {
           this.distributedIncomesPerUnit?.push({
             label: item.distributed_income_per_unit_label,
@@ -342,13 +342,13 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.bonusses) {
       this.bonuses = [];
 
-      json.data.bonusses.forEach(item => {
+      json.data.bonusses.forEach((item) => {
         if (item.bonus_description) {
           this.bonuses?.push({
             title: item.bonus_title,
             description: item.bonus_description
-              .filter(element => element.text.length > 0)
-              .map(element => new RichText(element)),
+              .filter((element) => element.text.length > 0)
+              .map((element) => new RichText(element)),
           });
         }
       });
@@ -357,7 +357,7 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.rewards) {
       this.rewards = [];
 
-      json.data.rewards.forEach(item => {
+      json.data.rewards.forEach((item) => {
         if (item.reward_label) {
           this.rewards?.push({
             label: item.reward_label,
@@ -370,7 +370,7 @@ export default class Product extends ContentType implements ProductInterface {
     if (json.data.body) {
       this.blocks = [];
 
-      json.data.body.forEach(item => {
+      json.data.body.forEach((item) => {
         this.blocks?.push(new Slice(item));
       });
     }
@@ -385,8 +385,8 @@ export default class Product extends ContentType implements ProductInterface {
       title: this.title,
       gaTitle: this.gaTitle,
       metaDescription: this.metaDescription,
-      summary: this.summary?.map(item => item.toJSON()),
-      description: this.description?.map(item => item.toJSON()),
+      summary: this.summary?.map((item) => item.toJSON()),
+      description: this.description?.map((item) => item.toJSON()),
       type: typeof this.type === 'string' ? this.type : this.type?.toJSON(),
       objectives: this.objectives,
       supplier: typeof this.supplier === 'string' ? this.supplier : this.supplier?.toJSON(),
@@ -414,15 +414,15 @@ export default class Product extends ContentType implements ProductInterface {
       investorTypologies: this.investorTypologies,
       managementModes: this.managementModes,
       taxSystems: this.taxSystems,
-      costs: this.costs && this.costs.map(item => item.toJSON()),
+      costs: this.costs && this.costs.map((item) => item.toJSON()),
       taxeExemptionRate: this.taxeExemptionRate,
       investmentPeriod: this.investmentPeriod,
-      supplierConditions: this.supplierConditions?.map(item => item.toJSON()),
-      tdvms: this.tdvms?.map(item => item.toJSON()),
-      recommendation: this.recommendation?.map(item => item.toJSON()),
-      investmentDestination: this.investmentDestination?.map(item => item.toJSON()),
-      returnedBonusesAlert: this.returnedBonusesAlert?.map(item => item.toJSON()),
-      performance: this.performance?.map(item => item.toJSON()),
+      supplierConditions: this.supplierConditions?.map((item) => item.toJSON()),
+      tdvms: this.tdvms?.map((item) => item.toJSON()),
+      recommendation: this.recommendation?.map((item) => item.toJSON()),
+      investmentDestination: this.investmentDestination?.map((item) => item.toJSON()),
+      returnedBonusesAlert: this.returnedBonusesAlert?.map((item) => item.toJSON()),
+      performance: this.performance?.map((item) => item.toJSON()),
       subscriptionDocument: this.subscriptionDocument?.toJSON(),
       subscriptionCalendly: this.subscriptionCalendly?.toJSON(),
       performances: this.performances,
@@ -430,15 +430,15 @@ export default class Product extends ContentType implements ProductInterface {
       annualFees: this.annualFees,
       occupancyRates: this.occupancyRates,
       distributedIncomesPerUnit: this.distributedIncomesPerUnit,
-      bonuses: this.bonuses?.map(item => ({
+      bonuses: this.bonuses?.map((item) => ({
         title: item.title,
-        description: item.description.map(element => element.toJSON()),
+        description: item.description.map((element) => element.toJSON()),
       })),
-      rewards: this.rewards?.map(item => ({
+      rewards: this.rewards?.map((item) => ({
         label: item.label,
         image: item.image.toJSON(),
       })),
-      blocks: this.blocks?.map(item => item.toJSON()),
+      blocks: this.blocks?.map((item) => item.toJSON()),
     };
   }
 

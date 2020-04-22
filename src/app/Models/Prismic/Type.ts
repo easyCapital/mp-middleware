@@ -54,31 +54,31 @@ export default class Type extends ContentType implements TypeInterface {
 
     if (json.data.attention_points) {
       this.attentionPoints = json.data.attention_points
-        .filter(item => item.text.length > 0)
-        .map(item => new RichText(item));
+        .filter((item) => item.text.length > 0)
+        .map((item) => new RichText(item));
     }
 
     if (json.data.mandatory_information) {
       this.mandatoryInformation = json.data.mandatory_information
-        .filter(item => item.text.length > 0)
-        .map(item => new RichText(item));
+        .filter((item) => item.text.length > 0)
+        .map((item) => new RichText(item));
     }
 
     if (json.data.recommandation_explanations) {
       this.recommandationExplanations = json.data.recommandation_explanations.map((item: any) =>
         item.recommandation_explanation_text
-          .filter(element => element.text.length > 0)
-          .map(element => new RichText(element)),
+          .filter((element) => element.text.length > 0)
+          .map((element) => new RichText(element)),
       );
     }
 
     if (json.data.allocation_explanations) {
-      this.allocationExplanations = json.data.allocation_explanations.map(item => {
+      this.allocationExplanations = json.data.allocation_explanations.map((item) => {
         return {
           type: item.explanation_type,
           value: item.explanation_value
-            .filter(element => element.text.length > 0)
-            .map(element => new RichText(element)),
+            .filter((element) => element.text.length > 0)
+            .map((element) => new RichText(element)),
         };
       });
     }
@@ -86,7 +86,7 @@ export default class Type extends ContentType implements TypeInterface {
     if (json.data.body) {
       this.blocks = [];
 
-      json.data.body.forEach(item => {
+      json.data.body.forEach((item) => {
         this.blocks?.push(new Slice(item));
       });
     }
@@ -109,16 +109,18 @@ export default class Type extends ContentType implements TypeInterface {
       icon: this.icon?.toJSON(),
       color: this.color,
       backgroundColor: this.backgroundColor,
-      recommandationExplanations: this.recommandationExplanations?.map(item => item.map(element => element.toJSON())),
-      attentionPoints: this.attentionPoints?.map(item => item.toJSON()),
-      mandatoryInformation: this.mandatoryInformation?.map(item => item.toJSON()),
-      allocationExplanations: this.allocationExplanations?.map(item => {
+      recommandationExplanations: this.recommandationExplanations?.map((item) =>
+        item.map((element) => element.toJSON()),
+      ),
+      attentionPoints: this.attentionPoints?.map((item) => item.toJSON()),
+      mandatoryInformation: this.mandatoryInformation?.map((item) => item.toJSON()),
+      allocationExplanations: this.allocationExplanations?.map((item) => {
         return {
           type: item.type,
-          value: item.value.map(element => element.toJSON()),
+          value: item.value.map((element) => element.toJSON()),
         };
       }),
-      blocks: this.blocks?.map(item => item.toJSON()),
+      blocks: this.blocks?.map((item) => item.toJSON()),
     };
   }
 }

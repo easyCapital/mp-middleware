@@ -1,6 +1,6 @@
 import fs from 'fs';
 import util from 'util';
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import { spawn, ChildProcess } from 'child_process';
 import { tmpdir } from 'os';
 
@@ -79,12 +79,12 @@ export default class WkHtmlToPdf {
       let stderrOutput = '';
 
       if (childProcess.stderr) {
-        childProcess.stderr.on('data', data => {
+        childProcess.stderr.on('data', (data) => {
           stderrOutput += data;
         });
       }
 
-      childProcess.on('close', code => {
+      childProcess.on('close', (code) => {
         if (code === 0) {
           this.logger.info(`wkhtmltopdf executed successfully (took ${new Date().getTime() - start.getTime()}ms)`);
 

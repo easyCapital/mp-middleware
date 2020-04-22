@@ -12,7 +12,7 @@ export default async function findAdvices(
   const response = await find(ContentTypes.ADVICE, filters, linked, fields, orderBy);
   const advices: Advice[] = [];
 
-  response.forEach(item => {
+  response.forEach((item) => {
     const advice = new Advice(item);
 
     advices.push(advice);

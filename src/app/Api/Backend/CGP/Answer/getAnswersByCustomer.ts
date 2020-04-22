@@ -22,7 +22,7 @@ export default async function getAnswersByCustomer(
 
     const answers: { [userId: string]: { [key: string]: string } } = {};
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const answer = new Answer(item);
 
       if (answers[item.user]) {

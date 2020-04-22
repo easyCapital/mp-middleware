@@ -23,9 +23,9 @@ export default class Step implements StepInterface {
     if (json.blocks) {
       const blocks: Block[] = [];
 
-      json.blocks.forEach(item => {
+      json.blocks.forEach((item) => {
         const newBlock = new Block(item);
-        const blockIds = blocks.map(block => block.getId());
+        const blockIds = blocks.map((block) => block.getId());
 
         if (!blockIds.includes(newBlock.getId())) {
           if (newBlock.getLabel().includes('password')) {
@@ -48,7 +48,7 @@ export default class Step implements StepInterface {
       step: this.step,
       title: this.title,
       titleMobile: this.titleMobile,
-      blocks: this.blocks.map(block => block.getId()),
+      blocks: this.blocks.map((block) => block.getId()),
     };
   }
 

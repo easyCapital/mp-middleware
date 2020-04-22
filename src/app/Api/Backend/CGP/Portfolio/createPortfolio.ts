@@ -19,7 +19,7 @@ export default async function createPortfolio(
       {
         universe,
         product: portfolio.product,
-        lines: portfolio.funds.map(fund => ({ line: fund.id, weight: fund.weight })),
+        lines: portfolio.funds.map((fund) => ({ line: fund.id, weight: fund.weight })),
       },
     );
 
@@ -30,12 +30,12 @@ export default async function createPortfolio(
       createdPortfolio.setAmount(portfolio.amount);
     }
 
-    const fundIds = portfolio.funds.map(item => item.id);
+    const fundIds = portfolio.funds.map((item) => item.id);
 
     const funds = await this.findFunds(undefined, { id__in: fundIds });
     const fundsById: { [id: string]: Fund } = ArrayToObject(funds.results);
 
-    portfolio.funds.forEach(item => {
+    portfolio.funds.forEach((item) => {
       const fund = fundsById[item.id];
 
       if (fund) {

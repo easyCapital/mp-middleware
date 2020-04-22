@@ -9,10 +9,10 @@ export default class PortfolioException extends HttpException {
   constructor(errors: BackendError[]) {
     const portfolioErrors: string[][] = [];
 
-    errors.forEach(error => {
+    errors.forEach((error) => {
       const errorMessage: string[] = [];
 
-      Object.keys(error).forEach(errorKey => {
+      Object.keys(error).forEach((errorKey) => {
         switch (errorKey) {
           case BackendErrorTypes.InvalidPortfolioWeight:
             errorMessage.push("La somme des pondérations du portefeuille n'est pas égale à 100 %.");

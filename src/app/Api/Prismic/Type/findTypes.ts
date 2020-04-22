@@ -12,7 +12,7 @@ export default async function findTypes(
   const response = await find(ContentTypes.TYPE, filters, linked, fields, orderBy);
   const types: Type[] = [];
 
-  response.forEach(item => {
+  response.forEach((item) => {
     const type = new Type(item);
 
     types.push(type);

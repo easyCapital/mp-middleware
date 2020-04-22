@@ -20,7 +20,7 @@ export default class Study implements StudyInterface {
     this.created = json.created;
     this.updated = json.updated;
     if (json.tasks) {
-      json.tasks.map(task => {
+      json.tasks.map((task) => {
         this.tasks.push(new Task(task));
       });
     }
@@ -40,7 +40,7 @@ export default class Study implements StudyInterface {
       title: this.title,
       created: this.created,
       updated: this.updated,
-      tasks: this.tasks.map(item => item.toJSON()),
+      tasks: this.tasks.map((item) => item.toJSON()),
     };
   }
 }

@@ -15,7 +15,7 @@ export default async function getContractTasks(
 
   if ('type' in formattedFilters) {
     if (Array.isArray(formattedFilters.type)) {
-      formattedFilters.type__in = formattedFilters.type.map(type => TaskTypeMapper.reverseTransform(type));
+      formattedFilters.type__in = formattedFilters.type.map((type) => TaskTypeMapper.reverseTransform(type));
 
       delete formattedFilters.type;
     } else {
@@ -25,7 +25,7 @@ export default async function getContractTasks(
 
   if ('status' in formattedFilters) {
     if (Array.isArray(formattedFilters.status)) {
-      formattedFilters.status__in = formattedFilters.status.map(status => TaskStatusMapper.reverseTransform(status));
+      formattedFilters.status__in = formattedFilters.status.map((status) => TaskStatusMapper.reverseTransform(status));
 
       delete formattedFilters.status;
     } else {
@@ -40,7 +40,7 @@ export default async function getContractTasks(
     });
     const data = await response.json();
 
-    const tasks = data.map(item => new Task<any>(item));
+    const tasks = data.map((item) => new Task<any>(item));
 
     return tasks;
   } catch (exception) {

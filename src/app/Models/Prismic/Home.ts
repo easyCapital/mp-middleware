@@ -30,7 +30,7 @@ export default class Home extends ContentType implements HomeInterface {
     this.bannerColor = json.data.banner_color;
 
     if (json.data.banner_text) {
-      this.bannerText = json.data.banner_text.filter(item => item.text.length > 0).map(item => new RichText(item));
+      this.bannerText = json.data.banner_text.filter((item) => item.text.length > 0).map((item) => new RichText(item));
     }
 
     if (json.data.banner_picto) {
@@ -44,7 +44,7 @@ export default class Home extends ContentType implements HomeInterface {
     if (json.data.body) {
       this.blocks = [];
 
-      json.data.body.forEach(item => {
+      json.data.body.forEach((item) => {
         this.blocks?.push(new Slice(item));
       });
     }
@@ -58,12 +58,12 @@ export default class Home extends ContentType implements HomeInterface {
       description: this.description,
       gaTitle: this.gaTitle,
       bannerIsActivated: this.bannerIsActivated,
-      bannerText: this.bannerText?.map(item => item.toJSON()),
+      bannerText: this.bannerText?.map((item) => item.toJSON()),
       bannerIcon: this.bannerIcon?.toJSON(),
       bannerLink: this.bannerLink?.toJSON(),
       bannerLinkText: this.bannerLinkText,
       bannerColor: this.bannerColor,
-      blocks: this.blocks?.map(item => item.toJSON()),
+      blocks: this.blocks?.map((item) => item.toJSON()),
     };
   }
 }

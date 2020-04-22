@@ -12,7 +12,7 @@ export default async function findPages(
   const response = await find(ContentTypes.PAGE, filters, linked, fields, orderBy);
   const pages: Page[] = [];
 
-  response.forEach(item => {
+  response.forEach((item) => {
     const page = new Page(item);
 
     pages.push(page);
