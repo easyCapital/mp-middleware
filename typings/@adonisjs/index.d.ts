@@ -8,6 +8,7 @@ import { PrismicClientInterface } from '../../src/app/Clients/Prismic/PrismicCli
 import { SymfonyClientInterface, SymfonyClientBuilder } from '../../src/app/Clients/Symfony/SymfonyClient';
 import { SlackClientInterface } from '../../src/app/Clients/Slack/SlackClient';
 import { SendgridClientInterface } from '../../src/app/Clients/Sendgrid/SendgridClient';
+import { HubspotClientInterface } from '../../src/app/Clients/Hubspot/HubspotClient';
 import TwigProvider from '../../src/providers/TwigProvider';
 import TwigRenderer from '../../src/app/Helpers/TwigRenderer';
 import WkHtmlToPdf from '../../src/app/Helpers/WkHtmlToPdf';
@@ -12793,6 +12794,7 @@ declare namespace AdonisNamespaces {
   type SymfonyClientBuilder = 'SymfonyClientBuilder';
   type SlackClient = 'SlackClient';
   type SendgridClient = 'SendgridClient';
+  type HubspotClient = 'HubspotClient';
   type Twig = 'Twig';
   type WkHtmlToPdf = 'WkHtmlToPdf';
 }
@@ -12833,6 +12835,7 @@ declare global {
   function use(namespace: AdonisNamespaces.SymfonyClientBuilder): SymfonyClientBuilder;
   function use(namespace: AdonisNamespaces.SlackClient): SlackClientInterface;
   function use(namespace: AdonisNamespaces.SendgridClient): SendgridClientInterface;
+  function use(namespace: AdonisNamespaces.HubspotClient): HubspotClientInterface;
   function use(namespace: AdonisNamespaces.Twig): TwigRenderer;
   function use(namespace: AdonisNamespaces.WkHtmlToPdf): WkHtmlToPdf;
 }

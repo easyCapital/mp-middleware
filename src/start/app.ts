@@ -22,6 +22,7 @@ const providers: string[] = [
   path.join(__dirname, '../providers/SymfonyProvider'),
   path.join(__dirname, '../providers/SlackProvider'),
   path.join(__dirname, '../providers/SendgridProvider'),
+  path.join(__dirname, '../providers/HubspotProvider'),
   path.join(__dirname, '../providers/TwigProvider'),
   path.join(__dirname, '../providers/WkHtmlToPdfProvider'),
 ];
