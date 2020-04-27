@@ -44,6 +44,7 @@
     "fetch-mock": "^9.4.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.1.6",
+    "nodemon": "^2.0.3",
     "prettier": "^2.0.4",
     "sync-glob": "^1.4.0",
     "tsc-watch": "^4.2.3",
@@ -53,9 +54,9 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "start": "yarn build && yarn watch",
-    "watch": "concurrently npm:watch:*",
-    "watch:app": "tsc-watch --onSuccess 'node ./dist/server.js'",
+    "start": "nodemon ./dist/server.js",
+    "watch": "yarn clean && concurrently npm:watch:*",
+    "watch:app": "tsc-watch",
     "watch:env": "sync-glob --delete false --watch '.env' dist",
     "watch:env-testing": "sync-glob --delete false --watch '.env.testing' dist",
     "watch:package": "sync-glob --delete false --watch 'package.json' dist",

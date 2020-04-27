@@ -12,6 +12,10 @@ const serenalisBackendApiKey = Env.get('SERENALIS_API_TOKEN') || '';
 |--------------------------------------------------------------------------
 */
 const local = {
+  'http://localhost:3300': {
+    app: Apps.MIEUXPLACER,
+    backendApiKey: mpBackendApiKey,
+  },
   'http://mieuxplacer.local': {
     app: Apps.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,

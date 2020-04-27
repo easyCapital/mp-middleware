@@ -55,7 +55,7 @@ export default class HubspotClient implements HubspotClientInterface {
       method,
       status: statusCode,
       duration: `${time}ms`,
-      url: url.replace(this.host, ''),
+      url: url.replace(this.host, '').replace(`hapikey=${this.token}`, 'hapikey=HIDDEN_TOKEN'),
     });
   }
 }
