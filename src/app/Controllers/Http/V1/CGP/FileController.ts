@@ -1,7 +1,6 @@
-import { Filters, FileType } from '@robinfinance/js-api';
+import { Filters, FileType, FileDTO, File as JsonFileInterface } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
-import { File } from '../../../../Models/File';
 import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPContractFileController {
@@ -49,22 +48,30 @@ class CGPContractFileController {
 
   public async create({ params, request, response, backendApi }: Context) {
     const { customer, study } = params;
-    const data = request.post() as { [key: string]: { data: string; signatureDate?: string } };
+    const data = request.post() as FileDTO;
 
-    const files: File[] = [];
+    const files: JsonFileInterface[] = [];
     const errors = {};
 
     for await (const key of Object.keys(data)) {
-      try {
-        const file = await backendApi.createCGPCustomerFile(
-          customer,
-          study,
-          key as FileType,
-          data[key].data,
-          data[key].signatureDate,
-        );
+      const file = data[key];
 
-        files.push(file);
+      try {
+        if (file.data) {
+          const createdFile = await backendApi.createCGPCustomerFile(
+            customer,
+            study,
+            key as FileType,
+            file.data,
+            file.signatureDate,
+          );
+
+          files.push(createdFile.toJSON());
+        } else if (file.file) {
+          await backendApi.linkCGPCustomerFile(study, file.file.id);
+
+          files.push(file.file);
+        }
       } catch (exception) {
         errors[key] = exception.message;
       }
