@@ -1,12 +1,12 @@
-import { Slice as JsonSliceInterface } from '@robinfinance/js-api';
+import { Slice as JsonSliceInterface, Slices } from '@robinfinance/js-api';
 
 interface SliceInterface {
-  toJSON(): JsonSliceInterface;
+  toJSON(): JsonSliceInterface<Slices>;
 }
 
 export default class Slice implements SliceInterface {
   private label?: string;
-  private type: string;
+  private type: JsonSliceInterface<Slices>['type'];
   private primary: any;
   private items: any[];
 
@@ -17,7 +17,7 @@ export default class Slice implements SliceInterface {
     this.items = json.items;
   }
 
-  public toJSON(): JsonSliceInterface {
+  public toJSON(): JsonSliceInterface<Slices> {
     return {
       label: this.label,
       type: this.type,
