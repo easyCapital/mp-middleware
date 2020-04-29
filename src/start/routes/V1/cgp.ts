@@ -194,6 +194,17 @@ addAPIPrefixToGroup(
 
 /*
   |--------------------------------------------------------------------------
+  | API V1 - CGP - CONTRACT ANSWER
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.post('/', 'V1/CGP/AnswerController.create');
+  }).prefix('customer/:customer/study/:study/contract/:contract/answer'),
+);
+
+/*
+  |--------------------------------------------------------------------------
   | API V1 - CGP - FEEDBACK
   |--------------------------------------------------------------------------
   */

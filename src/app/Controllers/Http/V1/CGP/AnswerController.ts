@@ -14,10 +14,10 @@ class CGPAnswerController {
   }
 
   public async create({ params, request, response, backendApi }: Context) {
-    const { customer, study } = params;
+    const { customer, study, contract } = params;
     const answers: any = request.post();
 
-    await backendApi.createCGPAnswers(customer, answers, study);
+    await backendApi.createCGPAnswers(customer, answers, study, contract);
 
     response.status(201).send();
   }

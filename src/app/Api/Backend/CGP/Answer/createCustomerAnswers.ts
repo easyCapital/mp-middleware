@@ -10,6 +10,7 @@ export default async function createCustomerAnswers(
   customerId: string | number,
   answers: QuestionAnswer,
   studyId?: string,
+  contractId?: string,
 ): Promise<void> {
   const formattedAnswers = formatAnswerBody(answers);
 
@@ -17,7 +18,9 @@ export default async function createCustomerAnswers(
 
   try {
     if (studyId) {
-      url = `cgp/customer/${customerId}/study/${studyId}/answer/create`;
+      url = contractId
+        ? `cgp/customer/${customerId}/study/${studyId}/contract/${contractId}/answer/create`
+        : `cgp/customer/${customerId}/study/${studyId}/answer/create`;
     }
 
     await this.backendClient.post({ url }, formattedAnswers);
