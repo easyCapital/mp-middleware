@@ -5,6 +5,7 @@ const mpBackendApiKey = Env.getOrFail('MP_BACKEND_API_TOKEN');
 const demoInsuranceBrokerBackendApiKey = Env.get('DEMO_INSURANCE_BROKER_API_TOKEN') || '';
 const demoCGPBackendApiKey = Env.get('DEMO_CGP_API_TOKEN') || '';
 const serenalisBackendApiKey = Env.get('SERENALIS_API_TOKEN') || '';
+const aPlusFinanceBackendApiKey = Env.get('APLUSFINANCE_API_TOKEN') || '';
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,10 @@ const local = {
     app: Apps.CONSEIL,
     backendApiKey: serenalisBackendApiKey,
   },
+  'http://aplusfinance.robintech.local': {
+    app: Apps.CONSEIL,
+    backendApiKey: aPlusFinanceBackendApiKey,
+  },
 };
 
 /*
@@ -84,6 +89,10 @@ const development = {
     app: Apps.CONSEIL,
     backendApiKey: serenalisBackendApiKey,
   },
+  'http://aplusfinance.dev.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: aPlusFinanceBackendApiKey,
+  },
 };
 
 /*
@@ -112,6 +121,10 @@ const staging = {
     app: Apps.CONSEIL,
     backendApiKey: serenalisBackendApiKey,
   },
+  'https://aplusfinance.stg.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: aPlusFinanceBackendApiKey,
+  },
 };
 
 /*
@@ -139,6 +152,18 @@ const production = {
   'https://serenalis.prd.robintech.co': {
     app: Apps.CONSEIL,
     backendApiKey: serenalisBackendApiKey,
+  },
+  'https://serenalis.mieuxplacer.tech': {
+    app: Apps.CONSEIL,
+    backendApiKey: serenalisBackendApiKey,
+  },
+  'https://aplusfinance.prd.robintech.co': {
+    app: Apps.CONSEIL,
+    backendApiKey: aPlusFinanceBackendApiKey,
+  },
+  'https://aplusfinance.mieuxplacer.tech': {
+    app: Apps.CONSEIL,
+    backendApiKey: aPlusFinanceBackendApiKey,
   },
 };
 
