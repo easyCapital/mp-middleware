@@ -1,3 +1,5 @@
+import { PropositionFeeDTO } from '@robinfinance/js-api';
+
 import { Contract } from '../../../../Models/Contract';
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
@@ -8,6 +10,7 @@ export default async function createContractsFromProposition(
   this: BackendApi,
   customerId: string,
   propositionId: string,
+  fees: PropositionFeeDTO[],
 ): Promise<Contract[]> {
   try {
     const response = await this.backendClient.post(
@@ -17,6 +20,13 @@ export default async function createContractsFromProposition(
       {
         user: Number(customerId),
         proposition: Number(propositionId),
+        fees: fees.map((fee) => ({
+          portfolio_id: fee.portfolioId,
+          values: {
+            management_fee_rate: fee.managementFeeRate || null,
+            subscription_fee_rate: fee.subscriptionFeeRate || null,
+          },
+        })),
       },
     );
 

@@ -1,14 +1,15 @@
-import { Filters } from '@robinfinance/js-api';
+import { Filters, PropositionFeeDTO } from '@robinfinance/js-api';
 
 import { Contract } from '../../../../Models/Contract';
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPContractController {
-  public async create({ params, response, backendApi }: Context) {
+  public async create({ params, request, response, backendApi }: Context) {
     const { customer, proposition } = params;
+    const fees = request.post() as PropositionFeeDTO[];
 
-    const contracts = await backendApi.createCGPContractsFromProposition(customer, proposition);
+    const contracts = await backendApi.createCGPContractsFromProposition(customer, proposition, fees);
 
     response.status(200).send(contracts);
   }
