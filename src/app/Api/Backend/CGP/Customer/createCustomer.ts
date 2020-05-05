@@ -4,12 +4,15 @@ import BackendApi from '../..';
 
 export default async function createCustomer(
   this: BackendApi,
-  customerData: any,
-): Promise<{ id: string; token: string }> {
+  email: string,
+  universe: string,
+): Promise<{ id: number }> {
   try {
-    const response = await this.backendClient.post({ url: 'customer/cgp/create' }, { ...customerData });
+    const response = await this.backendClient.post({ url: 'customer/cgp/create' }, { email, universe });
 
-    return await response.json();
+    const data = await response.json();
+
+    return data;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();

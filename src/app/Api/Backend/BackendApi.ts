@@ -65,6 +65,7 @@ export default class BackendApi {
   public validateCGPContractSignature = CGP.validateContractSignature;
   // CGP - Customer
   public createCGPCustomer = CGP.createCustomer;
+  public createCGPCustomerTags = CGP.createCustomerTags;
   public getCGPCustomer = CGP.getCustomer;
   public searchCGPCustomer = CGP.searchCustomers;
   // CGP - File
