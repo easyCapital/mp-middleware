@@ -1,5 +1,7 @@
 import { Customer as JsonCustomerInterface } from '@robinfinance/js-api';
 
+import Tag from './Tag';
+
 interface CustomerInterface {
   toJSON(): JsonCustomerInterface;
   isActive(): boolean;
@@ -12,21 +14,24 @@ export default class Customer implements CustomerInterface {
   private firstName?: string;
   private lastName?: string;
   private mobileNumber?: string;
-  private activeTask?: string;
   private active: boolean;
   private emailValidated: boolean;
-  private dateJoined: string;
+  private activeTask?: string;
   private lastModified: string;
   private universe: string;
+  private tags?: Tag[];
 
   constructor(json: any) {
     this.id = json.id;
     this.email = json.email;
     this.active = json.is_active;
     this.emailValidated = json.email_validated;
-    this.dateJoined = json.date_joined;
     this.lastModified = json.last_modified;
     this.universe = json.universe;
+
+    if (json.customer_tags) {
+      this.tags = json.customer_tags.map((tag) => new Tag(tag));
+    }
   }
 
   public toJSON(): JsonCustomerInterface {
@@ -37,11 +42,9 @@ export default class Customer implements CustomerInterface {
       lastName: this.lastName,
       mobileNumber: this.mobileNumber,
       activeTask: this.activeTask,
-      isActive: this.active,
-      emailIsValidated: this.emailValidated,
-      dateJoined: this.dateJoined,
       lastModified: this.lastModified,
       universe: this.universe,
+      tags: this.tags?.map((tag) => tag.toJSON()),
     };
   }
 
@@ -69,6 +72,12 @@ export default class Customer implements CustomerInterface {
 
   public setActiveTask(label: string): this {
     this.activeTask = label;
+
+    return this;
+  }
+
+  public setTags(tags: Tag[]): this {
+    this.tags = tags;
 
     return this;
   }

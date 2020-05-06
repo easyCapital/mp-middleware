@@ -1,14 +1,11 @@
-import { Tag as JsonTagInterface } from '@robinfinance/js-api';
+import { Tag as TagDTO } from '@robinfinance/js-api';
 
 import { Tag } from '../../../../Models/Customer';
 import { Exception } from '../../../../Exceptions';
+import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function createCustomerTags(
-  this: BackendApi,
-  customerId: number,
-  tags: JsonTagInterface[],
-): Promise<Tag[]> {
+export default async function createCustomerTags(this: BackendApi, customerId: number, tags: TagDTO[]): Promise<Tag[]> {
   try {
     const response = await this.backendClient.post({ url: `cgp/customer/${customerId}/tags/create` }, { tags });
 
@@ -18,6 +15,12 @@ export default async function createCustomerTags(
 
     return createdTags;
   } catch (exception) {
+    if (typeof exception.json === 'function') {
+      const error = await exception.json();
+
+      throw new BackendException(error);
+    }
+
     throw new Exception(exception);
   }
 }

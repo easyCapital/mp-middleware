@@ -5,7 +5,7 @@ import { Task } from '../../../../../Models/Task';
 
 export default async function getLatestCustomerTask(
   this: BackendApi,
-  customerIds: string[],
+  customerIds: string[] | number[],
 ): Promise<{ [customerId: string]: Task<any> }> {
   try {
     const response = await this.backendClient.get({

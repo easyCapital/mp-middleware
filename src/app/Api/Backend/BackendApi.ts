@@ -65,7 +65,6 @@ export default class BackendApi {
   public validateCGPContractSignature = CGP.validateContractSignature;
   // CGP - Customer
   public createCGPCustomer = CGP.createCustomer;
-  public createCGPCustomerTags = CGP.createCustomerTags;
   public getCGPCustomer = CGP.getCustomer;
   public searchCGPCustomer = CGP.searchCustomers;
   // CGP - File
@@ -95,6 +94,10 @@ export default class BackendApi {
   // CGP - Study
   public createCGPStudy = CGP.createStudy;
   public getCGPCustomerStudies = CGP.getCustomerStudy;
+  // CGP - Tag
+  public createCGPCustomerTags = CGP.createCustomerTags;
+  public deleteCGPCustomerTags = CGP.deleteCustomerTags;
+  public getCGPCustomerTags = CGP.getCustomerTags;
   // CGP - Study Task
   public finishStudyTask = CGP.finishStudyTask;
   public getLatestCustomerTask = CGP.getLatestCustomerTask;

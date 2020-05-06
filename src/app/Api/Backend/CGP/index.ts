@@ -6,4 +6,5 @@ export * from './Portfolio';
 export * from './Product';
 export * from './Proposition';
 export * from './Study';
+export * from './Tag';
 export * from './User';

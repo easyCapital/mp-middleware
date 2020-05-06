@@ -24,26 +24,23 @@ export default async function searchCustomers(
     const meta = formatMeta(response.headers, pagination);
 
     const customers: Map<string, Customer> = new Map();
-    const customerIds: string[] = [];
+    const customerIds: number[] = [];
 
     data.forEach((item) => {
       const customer = new Customer(item);
 
       customers.set(customer.getId().toString(), customer);
-      customerIds.push(customer.getId().toString());
+      customerIds.push(customer.getId());
     });
 
     if (customerIds.length > 0) {
-      let answers: { [userId: string]: { [key: string]: string } } = {};
+      const dataPromises: Promise<any>[] = [this.getLatestCustomerTask(customerIds)];
 
+      // CREATE ALL THE ANWER PROMISES
       const answersResponse = await this.getCGPAnswersByCustomer({
         user_id__in: customerIds,
         question_id__in: ['DQ7', 'DQ6', 'mobile_number'],
       });
-
-      answers = answersResponse.results;
-
-      const dataPromises: Promise<any>[] = [this.getLatestCustomerTask(customerIds)];
 
       if (answersResponse.meta.nextPage && answersResponse.meta.totalPages) {
         for (let nextPage = answersResponse.meta.nextPage; nextPage <= answersResponse.meta.totalPages; nextPage += 1) {
@@ -61,6 +58,9 @@ export default async function searchCustomers(
 
       const [tasks, ...answerResponses] = await Promise.all(dataPromises);
 
+      // SET CUSTOMER ANSWERS
+      let answers: { [customerId: string]: { [key: string]: string } } = { ...answersResponse.results };
+
       answerResponses.forEach((answerResponse) => {
         answers = { ...answers, ...answerResponse.results };
       });
@@ -76,6 +76,7 @@ export default async function searchCustomers(
         }
       });
 
+      // SET CUSTOMER TASKS
       Object.keys(tasks).forEach((customerId) => {
         const customer = customers.get(customerId);
         const customerTask = tasks[customerId] as Task<any>;
