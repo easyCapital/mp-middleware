@@ -6,7 +6,7 @@ import BackendApi from '../../';
 export default async function getCustomerTags(this: BackendApi, customerId: number | string): Promise<Tag[]> {
   try {
     const response = await this.backendClient.get({
-      url: `cgp/customer/${customerId}/tags/search`,
+      url: `cgp/customer/${customerId}/tags`,
     });
 
     const data = await response.json();
