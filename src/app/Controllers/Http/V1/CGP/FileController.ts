@@ -64,6 +64,7 @@ class CGPContractFileController {
             key as FileType,
             file.data,
             file.signatureDate,
+            file.contractId,
           );
 
           files.push(createdFile.toJSON());

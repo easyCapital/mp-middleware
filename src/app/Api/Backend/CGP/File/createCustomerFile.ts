@@ -12,11 +12,16 @@ export default async function createCustomerFile(
   type: FileType,
   file: string,
   signatureDate?: string,
+  contractId?: number,
 ): Promise<File> {
   const body: any = { customer_id: customerId, file_type: type, file };
 
   if (signatureDate) {
     body.sign_date = signatureDate;
+  }
+
+  if (contractId) {
+    body.contract_id = contractId;
   }
 
   try {
