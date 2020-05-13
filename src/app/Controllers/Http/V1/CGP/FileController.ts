@@ -1,4 +1,4 @@
-import { Filters, FileType, FileDTO, File as JsonFileInterface } from '@robinfinance/js-api';
+import { Filters, FileType, FileDTO, File as JsonFileInterface, OrderBy } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
@@ -6,11 +6,11 @@ import { InvalidArgumentException } from '../../../../Exceptions';
 class CGPContractFileController {
   public async search({ params, request, response, backendApi }: Context) {
     const { customer } = params;
-    let filters = request.input('filters') as Filters;
+    const filters = request.input('filters') as Filters | undefined;
+    const orderBy = request.input('orderBy') as OrderBy | undefined;
+    const latestBy = request.input('latestBy') as string | undefined;
 
-    filters = customer ? { ...filters, user: customer } : { ...filters };
-
-    const files = await backendApi.getCGPCustomerFiles(filters);
+    const files = await backendApi.getCGPCustomerFiles(customer, filters, orderBy, latestBy);
 
     response.status(200).send(files);
   }

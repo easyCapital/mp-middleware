@@ -154,8 +154,6 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/:contract/task', 'V1/CGP/TaskController.search');
-    Route.get('/:contract/task/complementary-question', 'V1/CGP/TaskController.complementaryQuestions');
-    Route.get('/:contract/task/supporting-document', 'V1/CGP/TaskController.supportingDocuments');
   }).prefix('contract'),
 );
 

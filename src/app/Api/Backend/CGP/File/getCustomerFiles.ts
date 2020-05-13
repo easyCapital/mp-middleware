@@ -1,4 +1,4 @@
-import { Filters } from '@robinfinance/js-api';
+import { Filters, OrderBy } from '@robinfinance/js-api';
 
 import { File } from '../../../../Models/File';
 import { FileTypeMapper } from '../../../../Mappers/File';
@@ -6,22 +6,35 @@ import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function getCustomerFiles(this: BackendApi, filters?: Filters): Promise<File[]> {
-  if (filters && 'type' in filters) {
-    if (Array.isArray(filters.type)) {
-      filters.type__in = filters.type.map((type) => FileTypeMapper.reverseTransform(type));
+export default async function getCustomerFiles(
+  this: BackendApi,
+  customerId: number | string,
+  filters?: Filters,
+  orderBy?: OrderBy,
+  latestBy?: string,
+): Promise<File[]> {
+  let formattedFilters: Filters = { user: customerId };
+
+  if (filters) {
+    if ('type' in filters) {
+      if (Array.isArray(filters.type)) {
+        formattedFilters.type__in = filters.type.map((type) => FileTypeMapper.reverseTransform(type));
+      } else {
+        formattedFilters.type = FileTypeMapper.reverseTransform(filters.type);
+      }
 
       delete filters.type;
-    } else {
-      filters.type = FileTypeMapper.reverseTransform(filters.type);
     }
+
+    formattedFilters = { ...formattedFilters, ...filters };
   }
 
   try {
     const response = await this.backendClient.get({
       url: 'file/cgp/search',
-      filters,
-      latestBy: 'type',
+      filters: formattedFilters,
+      orderBy,
+      latestBy,
     });
     const data = await response.json();
 
