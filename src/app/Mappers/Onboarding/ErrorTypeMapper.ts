@@ -6,6 +6,7 @@ const ErrorTypeMapping = {
   required: ErrorTypes.REQUIRED,
   min: ErrorTypes.MIN,
   max: ErrorTypes.MAX,
+  invalid_mobile_number: ErrorTypes.INVALID_MOBILE_NUMBER,
 };
 
 class ErrorTypeMapper extends GenericMapper<ErrorTypes> {
