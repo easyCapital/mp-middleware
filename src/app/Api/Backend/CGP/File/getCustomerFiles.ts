@@ -1,7 +1,7 @@
 import { Filters, OrderBy } from '@robinfinance/js-api';
 
 import { File } from '../../../../Models/File';
-import { FileTypeMapper } from '../../../../Mappers/File';
+import { FileTypeMapper, FileStatusMapper } from '../../../../Mappers/File';
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
@@ -24,6 +24,16 @@ export default async function getCustomerFiles(
       }
 
       delete filters.type;
+    }
+
+    if ('status' in filters) {
+      if (Array.isArray(filters.type)) {
+        formattedFilters.status__in = filters.status.map((status) => FileStatusMapper.reverseTransform(status));
+      } else {
+        formattedFilters.status = FileStatusMapper.reverseTransform(filters.status);
+      }
+
+      delete filters.status;
     }
 
     formattedFilters = { ...formattedFilters, ...filters };

@@ -61,8 +61,6 @@ export default class BackendApi {
   public createCGPContractsFromProposition = CGP.createContractsFromProposition;
   public getCGPCustomerContracts = CGP.getCustomerContracts;
   public getGCPContractTasks = CGP.getContractTasks;
-  public getCGPContractSignatureUrl = CGP.getContractSignatureUrl;
-  public validateCGPContractSignature = CGP.validateContractSignature;
   // CGP - Customer
   public createCGPCustomer = CGP.createCustomer;
   public getCGPCustomer = CGP.getCustomer;
@@ -72,6 +70,7 @@ export default class BackendApi {
   public downloadCGPCustomerFile = CGP.downloadCustomerFile;
   public getCGPCustomerFiles = CGP.getCustomerFiles;
   public downloadCGPTemplateFile = CGP.downloadTemplateFile;
+  public generateCGPCustomerFiles = CGP.generateCustomerFiles;
   public downloadCGPContractFiles = CGP.downloadContractFiles;
   public getCGPFileSignatureUrl = CGP.getSignatureUrl;
   public linkCGPCustomerFile = CGP.linkCustomerFile;

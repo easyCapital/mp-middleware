@@ -85,6 +85,15 @@ class CGPContractFileController {
     }
   }
 
+  public async generate({ params, request, response, backendApi }: Context) {
+    const { customer, study } = params;
+    const data = request.post() as any;
+
+    const files = await backendApi.generateCGPCustomerFiles(customer, study, data);
+
+    response.status(200).send(files);
+  }
+
   public async signatureUrl({ params, response, backendApi, app, origin }: Context) {
     const { customer, file } = params;
 
