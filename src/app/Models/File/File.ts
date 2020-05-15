@@ -12,6 +12,7 @@ export default class File implements FileInterface {
   private mimeType?: string;
   private status?: FileStatus;
   private signed: boolean;
+  private outdated: boolean;
   private updateDate: string;
 
   constructor(json: any) {
@@ -20,6 +21,7 @@ export default class File implements FileInterface {
     this.mimeType = json.mime_type;
     this.status = FileStatusMapper.transformValue(json.status);
     this.signed = json.signed;
+    this.outdated = json.outdated_infos;
     this.updateDate = json.update_date;
   }
 
@@ -30,6 +32,7 @@ export default class File implements FileInterface {
       mimeType: this.mimeType,
       status: this.status,
       signed: this.signed,
+      outdated: this.outdated,
       updateDate: this.updateDate,
     };
   }
