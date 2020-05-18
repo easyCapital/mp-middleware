@@ -1,4 +1,4 @@
-import { Filters } from '@robinfinance/js-api';
+import { Filters, QuestionAnswer } from '@robinfinance/js-api';
 
 import { formatAnswers } from '../../../../Api/Backend/Helpers';
 import { Context } from '../../../../../types';
@@ -15,7 +15,7 @@ class CGPAnswerController {
 
   public async create({ params, request, response, backendApi }: Context) {
     const { customer, study, contract } = params;
-    const answers: any = request.post();
+    const answers = request.post() as QuestionAnswer;
 
     await backendApi.createCGPAnswers(customer, answers, study, contract);
 

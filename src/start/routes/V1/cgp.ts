@@ -129,8 +129,6 @@ addAPIPrefixToGroup(
 
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.get('/template/:type/download', 'V1/CGP/FileController.downloadTemplate');
-    Route.get('/template/:type/view', 'V1/CGP/FileController.viewTemplate');
     Route.get('/:id/download', 'V1/CGP/FileController.download');
     Route.get('/:id/view', 'V1/CGP/FileController.view');
     Route.get('/:id/signed', 'V1/CGP/FileController.signed');
@@ -198,6 +196,7 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.post('/', 'V1/CGP/FileController.create');
     Route.post('/generate', 'V1/CGP/FileController.generate');
+    Route.post('/inpacted', 'V1/CGP/FileController.inpactedFiles');
   }).prefix('customer/:customer/study/:study/file'),
 );
 
@@ -210,6 +209,17 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.post('/', 'V1/CGP/AnswerController.create');
   }).prefix('customer/:customer/study/:study/contract/:contract/answer'),
+);
+
+/*
+  |--------------------------------------------------------------------------
+  | API V1 - CGP - CONTRACT FILE
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.post('/inpacted', 'V1/CGP/FileController.inpactedFiles');
+  }).prefix('customer/:customer/study/:study/contract/:contract/file'),
 );
 
 /*

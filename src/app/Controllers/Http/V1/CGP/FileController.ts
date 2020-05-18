@@ -1,4 +1,4 @@
-import { Filters, FileType, FileDTO, File as JsonFileInterface, OrderBy } from '@robinfinance/js-api';
+import { Filters, FileType, FileDTO, File as JsonFileInterface, OrderBy, QuestionAnswer } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
@@ -13,37 +13,6 @@ class CGPContractFileController {
     const files = await backendApi.getCGPCustomerFiles(customer, filters, orderBy, latestBy);
 
     response.status(200).send(files);
-  }
-
-  public async download({ params, request, req, res, backendApi }: Context) {
-    const { id } = params;
-    const type = request.input('type') as string;
-
-    await backendApi.downloadCGPCustomerFile(req, res, id, type);
-  }
-
-  public async downloadTemplate({ params, req, res, backendApi }: Context) {
-    const { type } = params;
-
-    await backendApi.downloadCGPTemplateFile(req, res, type);
-  }
-
-  public async downloadContractFiles({ params, req, res, backendApi }: Context) {
-    const { contract } = params;
-
-    await backendApi.downloadCGPContractFiles(req, res, contract);
-  }
-
-  public async view({ params, req, res, backendApi }: Context) {
-    const { id } = params;
-
-    await backendApi.downloadCGPCustomerFile(req, res, id);
-  }
-
-  public async viewTemplate({ params, req, res, backendApi }: Context) {
-    const { type } = params;
-
-    await backendApi.downloadCGPTemplateFile(req, res, type);
   }
 
   public async create({ params, request, response, backendApi }: Context) {
@@ -85,11 +54,39 @@ class CGPContractFileController {
     }
   }
 
+  public async view({ params, req, res, backendApi }: Context) {
+    const { id } = params;
+
+    await backendApi.downloadCGPCustomerFile(req, res, id);
+  }
+
   public async generate({ params, request, response, backendApi }: Context) {
     const { customer, study } = params;
     const data = request.post() as any;
 
     const files = await backendApi.generateCGPCustomerFiles(customer, study, data);
+
+    response.status(200).send(files);
+  }
+
+  public async download({ params, request, req, res, backendApi }: Context) {
+    const { id } = params;
+    const type = request.input('type') as string;
+
+    await backendApi.downloadCGPCustomerFile(req, res, id, type);
+  }
+
+  public async downloadContractFiles({ params, req, res, backendApi }: Context) {
+    const { contract } = params;
+
+    await backendApi.downloadCGPContractFiles(req, res, contract);
+  }
+
+  public async inpactedFiles({ params, request, response, backendApi }: Context) {
+    const { customer, study, contract } = params;
+    const answers = request.post() as QuestionAnswer;
+
+    const files = await backendApi.getInpactedCustomerFiles(customer, study, answers, contract);
 
     response.status(200).send(files);
   }
