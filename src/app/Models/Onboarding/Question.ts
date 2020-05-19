@@ -28,6 +28,7 @@ export default class Question implements QuestionInterface {
   private active: boolean = false;
   private showIfAuthenticated: boolean = false;
   private isUsedByAlgo: boolean = false;
+  private isForContract: boolean = false;
   private conditions?: Condition[][];
   private options?: Option[];
   private errors: Error[] = [];
@@ -43,6 +44,7 @@ export default class Question implements QuestionInterface {
     this.active = json.is_active;
     this.showIfAuthenticated = json.show_if_authenticated;
     this.isUsedByAlgo = json.used_by_algo;
+    this.isForContract = json.for_contract;
 
     try {
       this.type = InputTypeMapper.transformValue(json.input_type, true);
@@ -87,6 +89,7 @@ export default class Question implements QuestionInterface {
         active: this.active,
         showIfAuthenticated: this.showIfAuthenticated,
         isUsedByAlgo: this.isUsedByAlgo,
+        isForContract: this.isForContract,
         errors: [],
       };
 

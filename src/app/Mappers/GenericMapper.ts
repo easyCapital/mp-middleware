@@ -12,7 +12,7 @@ export default abstract class GenericMapper<Type> {
   public transformValue(value: string, throwException: boolean = false): Type | undefined {
     const mappedValue = this.mapping[value];
 
-    if (mappedValue) {
+    if (mappedValue !== undefined) {
       return mappedValue;
     }
 
