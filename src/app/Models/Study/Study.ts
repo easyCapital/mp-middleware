@@ -19,6 +19,7 @@ export default class Study implements StudyInterface {
     this.title = json.title;
     this.created = json.created;
     this.updated = json.updated;
+
     if (json.tasks) {
       json.tasks.map((task) => {
         this.tasks.push(new Task(task));
