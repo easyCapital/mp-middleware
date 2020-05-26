@@ -203,6 +203,7 @@ const middlewareJsonQuestions = {
     sensitive: false,
     active: true,
     showIfAuthenticated: true,
+    isUsedByAlgo: true,
     errors: [{ type: 'REQUIRED', label: 'Vous devez sélectionner au moins 1 objectif.' }],
     conditions: [],
     options: [
