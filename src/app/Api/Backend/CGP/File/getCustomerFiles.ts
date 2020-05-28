@@ -27,7 +27,7 @@ export default async function getCustomerFiles(
     }
 
     if ('status' in filters) {
-      if (Array.isArray(filters.type)) {
+      if (Array.isArray(filters.status)) {
         formattedFilters.status__in = filters.status.map((status) => FileStatusMapper.reverseTransform(status));
       } else {
         formattedFilters.status = FileStatusMapper.reverseTransform(filters.status);
