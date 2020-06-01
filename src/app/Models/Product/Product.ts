@@ -12,12 +12,16 @@ export default class Product implements ProductInterface {
   private identifier: string;
   private name: string;
   private oneLinePortfolio: boolean;
+  private hasEditableSubscriptionFeeRate: boolean;
+  private hasEditableManagementFeeRate: boolean;
 
   constructor(json: any) {
     this.id = json.id;
     this.identifier = json.identifier;
     this.name = json.name;
     this.oneLinePortfolio = json.one_line_portfolio;
+    this.hasEditableSubscriptionFeeRate = json.is_editable_subscription_fee_rate;
+    this.hasEditableManagementFeeRate = json.is_editable_management_fee_rate;
   }
 
   public toJSON(): JsonProductInterface {
@@ -26,6 +30,8 @@ export default class Product implements ProductInterface {
       identifier: this.identifier,
       name: this.name,
       oneLinePortfolio: this.oneLinePortfolio,
+      hasEditableSubscriptionFeeRate: this.hasEditableSubscriptionFeeRate,
+      hasEditableManagementFeeRate: this.hasEditableManagementFeeRate,
     };
   }
 
