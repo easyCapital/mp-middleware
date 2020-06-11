@@ -16,9 +16,10 @@ const TaskTypeMapping = {
   '11': TaskTypes.PROPOSITION_AUTO,
   '12': TaskTypes.PROPOSITION_MANUAL,
   '13': TaskTypes.GENERATE,
-  '14': TaskTypes.MIF,
+  '14': TaskTypes.TUNNEL,
   '15': TaskTypes.UPLOAD,
   '16': TaskTypes.DOWNLOAD,
+  '17': TaskTypes.RIC,
 };
 
 class TaskTypeMapper extends GenericMapper<TaskTypes> {

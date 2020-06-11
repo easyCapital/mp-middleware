@@ -18,20 +18,29 @@ export default async function getStepsAndBlocks(
   const steps: Step[] = [];
   const blocks: { [key: string]: Block } = {};
   const questionKeys: string[] = [];
+
+  const filters: Filters = {};
+
+  if (configKey) {
+    filters.config_key = configKey;
+  }
+
   try {
-    const filters: Filters = {};
-    if (configKey) {
-      filters.config_key = configKey;
-    }
     const stepResponse = await this.backendClient.get({ url: 'step/search', filters });
+
     const data = await stepResponse.json();
+
     data.forEach((item) => {
       const step = new Step(item, withAuthentication);
+
       steps.push(step);
+
       step.getBlocks().forEach((block) => {
         if (!ids || ids.includes(block.getId())) {
           blocks[block.getId()] = block;
+
           const matches = block.getLabel().match(/\{([\s\S]+?)\}/g);
+
           if (matches) {
             matches.forEach((match) => {
               questionKeys.push(match.replace(/\{|\}/g, ''));
@@ -43,9 +52,12 @@ export default async function getStepsAndBlocks(
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();
+
       throw new Exception(JSON.stringify(error));
     }
+
     throw new Exception(exception);
   }
+
   return { questionKeys, steps, blocks };
 }

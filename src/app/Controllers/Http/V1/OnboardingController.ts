@@ -5,9 +5,10 @@ class OnboardingController {
   public async index(context: Context) {
     const { request, response, backendApi } = context;
     const withAuthentication = request.input('with-authentication') || false;
-    const configKey = request.input('config-key');
+    const stepsConfig = request.input('steps-config');
+    const questionsConfig = request.input('questions-config');
 
-    let data = await backendApi.getOnboarding(withAuthentication, configKey);
+    let data = await backendApi.getOnboarding(withAuthentication, stepsConfig, questionsConfig);
     const extra = await onOnboardingFetch(context);
 
     if (extra) {
@@ -20,9 +21,10 @@ class OnboardingController {
   public async getBlocks(context: Context) {
     const { request, response, backendApi } = context;
     const ids = request.input('ids') || [];
-    const configKey = request.input('config-key');
+    const stepsConfig = request.input('steps-config');
+    const questionsConfig = request.input('questions-config');
 
-    let data = await backendApi.getBlocks(configKey, ids);
+    let data = await backendApi.getBlocks(stepsConfig, questionsConfig, ids);
     const extra = await onOnboardingFetch(context);
 
     if (extra) {
@@ -35,9 +37,9 @@ class OnboardingController {
   public async getQuestions(context: Context) {
     const { request, response, backendApi } = context;
     const ids = request.input('ids') || [];
-    const configKey = request.input('config-key');
+    const questionsConfig = request.input('questions-config');
 
-    const questions = await backendApi.getQuestions(configKey, ids);
+    const questions = await backendApi.getQuestions(questionsConfig, ids);
     const extra = await onOnboardingFetch(context);
 
     let data = { questions };

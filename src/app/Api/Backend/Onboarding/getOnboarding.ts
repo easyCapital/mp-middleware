@@ -4,9 +4,12 @@ import BackendApi from '..';
 export default async function getOnboarding(
   this: BackendApi,
   withAuthentication: boolean,
-  configKey: string | undefined,
+  stepsConfig: string | undefined,
+  questionsConfig: string | undefined,
 ): Promise<{ steps: Step[]; blocks: { [key: string]: Block }; questions: { [key: string]: Question } }> {
-  const { questionKeys, steps, blocks } = await this.getStepsAndBlocks(withAuthentication, configKey);
-  const questions = await this.getQuestions(configKey, questionKeys);
+  const { questionKeys, steps, blocks } = await this.getStepsAndBlocks(withAuthentication, stepsConfig);
+
+  const questions = await this.getQuestions(questionsConfig, questionKeys);
+
   return { steps, blocks, questions };
 }
