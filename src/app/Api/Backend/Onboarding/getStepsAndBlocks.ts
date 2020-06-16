@@ -39,13 +39,7 @@ export default async function getStepsAndBlocks(
         if (!ids || ids.includes(block.getId())) {
           blocks[block.getId()] = block;
 
-          const matches = block.getLabel().match(/\{([\s\S]+?)\}/g);
-
-          if (matches) {
-            matches.forEach((match) => {
-              questionKeys.push(match.replace(/\{|\}/g, ''));
-            });
-          }
+          questionKeys.push(...block.getQuestions());
         }
       });
     });

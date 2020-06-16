@@ -362,10 +362,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@robinfinance/js-api@^2.32.1":
-  version "2.32.1"
-  resolved "https://npm.pkg.github.com/download/@robinfinance/js-api/2.32.1/aa9d3f15217fbe6312a6e7e777ca0cda5d64e6603f2a605481bd0f2d7020db74#a027273035b15fc526df604869292fa8a7d404ab"
-  integrity sha512-JIeK2Ok827L9WdUeJpAAqYfNm5klTigHStWpC08uRmBIfDB2K8uY098HTC3dVqgQ2tGRVVzJGVm3OMAN7iugWg==
+"@robinfinance/js-api@^2.32.2":
+  version "2.32.2"
+  resolved "https://npm.pkg.github.com/download/@robinfinance/js-api/2.32.2/963955a1a10d7775fe01577949d1cfd1d69a35654ba48a22f15dc25b35c4703d#f7843b584d2cd8bcd644bc978a62cd1ef26df588"
+  integrity sha512-alrRo4JalkWa2Jb9z8UjUfTkZXcOw2q1UwrZnZ39Wl3ldZjDvIn3S+DtUn5X0PhJpexPYcpKRLiWQhVc5A8U5Q==
 
 "@sendgrid/client@^7.2.0":
   version "7.2.0"
@@ -3581,10 +3581,10 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-lint-staged@^10.2.9:
-  version "10.2.9"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.2.9.tgz#6013ecfa80829cd422446b545fd30a96bca3098c"
-  integrity sha512-ziRAuXEqvJLSXg43ezBpHxRW8FOJCXISaXU//BWrxRrp5cBdRkIx7g5IsB3OI45xYGE0S6cOacfekSjDyDKF2g==
+lint-staged@^10.2.10:
+  version "10.2.10"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.2.10.tgz#f0f78bf8786bbe90e1775a0dc540f7f12b6a79b2"
+  integrity sha512-dgelFaNH6puUGAcU+OVMgbfpKSerNYsPSn6+nlbRDjovL0KigpsVpCu0PFZG6BJxX8gnHJqaZlR9krZamQsb0w==
   dependencies:
     chalk "^4.0.0"
     cli-truncate "2.1.0"
