@@ -22,10 +22,10 @@ export default async function getCustomerAnswers(
     const answers: { [key: string]: Answer } = {};
 
     data.forEach((answer) => {
-      if (answers[answer.question]) {
-        answers[answer.question].addValue(answer.value);
+      if (answers[answer.question_id]) {
+        answers[answer.question_id].addValue(answer.value);
       } else {
-        answers[answer.question] = new Answer(answer);
+        answers[answer.question_id] = new Answer(answer);
       }
     });
 

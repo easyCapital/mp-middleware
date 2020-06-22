@@ -12,7 +12,7 @@ export default class Answer implements AnswerInterface {
   private value: string | string[];
 
   constructor(json: any) {
-    this.key = json.question;
+    this.key = json.question_id;
     this.value = json.value;
   }
 
