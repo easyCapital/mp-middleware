@@ -224,6 +224,18 @@ addAPIPrefixToGroup(
 
 /*
   |--------------------------------------------------------------------------
+  | API V1 - CGP - OBSERVATION
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/CGP/CGPObservationController.search');
+    Route.post('/', 'V1/CGP/CGPObservationController.create');
+  }).prefix('customer/:customer/study/:study/observation'),
+);
+
+/*
+  |--------------------------------------------------------------------------
   | API V1 - CGP - FEEDBACK
   |--------------------------------------------------------------------------
   */
