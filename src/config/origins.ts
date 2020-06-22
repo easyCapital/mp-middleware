@@ -31,7 +31,8 @@ const local = {
   },
   'http://localhost:3300': {
     app: Apps.CONSEIL,
-    backendApiKey: demoCGPBackendApiKey,
+    // backendApiKey: demoCGPBackendApiKey,
+    backendApiKey: serenalisBackendApiKey,
   },
   'http://cgp.robintech.local': {
     app: Apps.CONSEIL,

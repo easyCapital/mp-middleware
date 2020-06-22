@@ -229,8 +229,8 @@ addAPIPrefixToGroup(
   */
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.get('/', 'V1/CGP/CGPObservationController.search');
-    Route.post('/', 'V1/CGP/CGPObservationController.create');
+    Route.get('/', 'V1/CGP/ObservationController.search');
+    Route.post('/', 'V1/CGP/ObservationController.create');
   }).prefix('customer/:customer/study/:study/observation'),
 );
 
