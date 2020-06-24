@@ -20,6 +20,32 @@ class CGPObservationController {
 
     response.status(200).send(observation);
   }
+
+  public async edit({ params, request, response, backendApi }: Context) {
+    const { customer, study, observation } = params;
+    const data = request.post() as ObservationDTO;
+
+    const updatedObservation = await backendApi.editObservation(customer, study, observation, data);
+
+    response.status(200).send(updatedObservation);
+  }
+
+  public async delete({ params, response, backendApi }: Context) {
+    const { customer, study, observation } = params;
+
+    await backendApi.deleteObservation(customer, study, observation);
+
+    response.status(200).send();
+  }
+
+  public async reorder({ params, request, response, backendApi }: Context) {
+    const { customer, study } = params;
+    const data = request.post() as number[];
+
+    const updatedObservations = await backendApi.reorderObservations(customer, study, data);
+
+    response.status(200).send(updatedObservations);
+  }
 }
 
 export = CGPObservationController;

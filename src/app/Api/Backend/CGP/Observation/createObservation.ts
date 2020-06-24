@@ -12,10 +12,14 @@ export default async function createObservation(
   study: string | number,
   observation: ObservationDTO,
 ): Promise<Observation> {
-  const formattedObservation = {
-    ...observation,
-    category: observation.category && ObservationCategoryMapper.reverseTransform(observation.category),
+  const formattedObservation: { text: string; display_order: number; category?: string } = {
+    text: observation.text || '',
+    display_order: observation.order,
   };
+
+  if (observation.category) {
+    formattedObservation.category = ObservationCategoryMapper.reverseTransform(observation.category);
+  }
 
   try {
     const response = await this.backendClient.post(

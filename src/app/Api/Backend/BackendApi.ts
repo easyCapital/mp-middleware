@@ -77,6 +77,9 @@ export default class BackendApi {
   public signedCGPCustomerFile = CGP.signedCustomerFile;
   // CGP - Observation
   public createObservation = CGP.createObservation;
+  public deleteObservation = CGP.deleteObservation;
+  public editObservation = CGP.editObservation;
+  public reorderObservations = CGP.reorderObservations;
   public searchObservations = CGP.searchObservations;
   // CGP - Portfolio
   public createCGPPortfolio = CGP.createPortfolio;

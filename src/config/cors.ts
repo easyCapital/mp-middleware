@@ -34,7 +34,7 @@ export = {
   | Array - An array of allowed methods
   |
   */
-  methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  methods: ['GET', 'PUT', 'PATCH', 'POST', 'DELETE'],
 
   /*
   |--------------------------------------------------------------------------
