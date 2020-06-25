@@ -13,20 +13,22 @@ export default async function editObservation(
   observation: string | number,
   observationData: ObservationDTO,
 ): Promise<Observation> {
-  const formattedObservation: { id: number; text?: string; display_order?: number; category?: string } = {
+  const formattedObservation: { id: number; text?: string; display_order?: number; category?: string | null } = {
     id: Number(observation),
   };
 
-  if (observationData.text) {
+  if (observationData.text !== undefined) {
     formattedObservation.text = observationData.text;
   }
 
-  if (observationData.order) {
+  if (observationData.order !== undefined) {
     formattedObservation.display_order = observationData.order;
   }
 
-  if (observationData.category) {
-    formattedObservation.category = ObservationCategoryMapper.reverseTransform(observationData.category);
+  if (observationData.category !== undefined) {
+    formattedObservation.category = formattedObservation.category
+      ? ObservationCategoryMapper.reverseTransform(observationData.category)
+      : null;
   }
 
   try {
