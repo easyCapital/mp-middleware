@@ -26,7 +26,7 @@ export default async function editObservation(
   }
 
   if (observationData.category !== undefined) {
-    formattedObservation.category = formattedObservation.category
+    formattedObservation.category = observationData.category
       ? ObservationCategoryMapper.reverseTransform(observationData.category)
       : null;
   }

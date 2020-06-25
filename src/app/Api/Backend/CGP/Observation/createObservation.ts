@@ -15,8 +15,13 @@ export default async function createObservation(
   const formattedObservation: { text: string; display_order: number; category?: string | null } = {
     text: observation.text || '',
     display_order: observation.order,
-    category: observation.category ? ObservationCategoryMapper.reverseTransform(observation.category) : null,
   };
+
+  if (observation.category !== undefined) {
+    formattedObservation.category = observation.category
+      ? ObservationCategoryMapper.reverseTransform(observation.category)
+      : null;
+  }
 
   try {
     const response = await this.backendClient.post(
@@ -33,6 +38,8 @@ export default async function createObservation(
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const errors = await exception.json();
+
+      console.log(errors);
 
       throw new BackendException(errors);
     }
