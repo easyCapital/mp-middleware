@@ -39,8 +39,6 @@ export default async function createObservation(
     if (typeof exception.json === 'function') {
       const errors = await exception.json();
 
-      console.log(errors);
-
       throw new BackendException(errors);
     }
 
