@@ -41,7 +41,7 @@ export default async function getCustomerFiles(
 
   try {
     const response = await this.backendClient.get({
-      url: 'file/cgp/search',
+      url: 'cgp/file/search',
       filters: formattedFilters,
       orderBy,
       latestBy,
