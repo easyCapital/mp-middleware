@@ -39,7 +39,9 @@ export default async function getStepsAndBlocks(
         if (!ids || ids.includes(block.getId())) {
           blocks[block.getId()] = block;
 
-          questionKeys.push(...block.getQuestions());
+          if (block.getQuestions()) {
+            questionKeys.push(...block.getQuestions());
+          }
         }
       });
     });
