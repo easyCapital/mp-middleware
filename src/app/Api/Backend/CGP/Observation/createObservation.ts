@@ -12,10 +12,13 @@ export default async function createObservation(
   study: string | number,
   observation: ObservationDTO,
 ): Promise<Observation> {
-  const formattedObservation: { text: string; display_order: number; category?: string | null } = {
+  const formattedObservation: { text: string; display_order?: number; category?: string | null } = {
     text: observation.text || '',
-    display_order: observation.order,
   };
+
+  if (observation.order !== undefined) {
+    formattedObservation.display_order = observation.order;
+  }
 
   if (observation.category !== undefined) {
     formattedObservation.category = observation.category

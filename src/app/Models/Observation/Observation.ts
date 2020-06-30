@@ -15,7 +15,7 @@ export default class Observation implements ObservationInterface {
     this.id = json.id;
     this.text = json.text;
     this.order = json.display_order;
-    this.category = ObservationCategoryMapper.transformValue(json.category);
+    this.category = json.category !== null ? ObservationCategoryMapper.transformValue(json.category) : undefined;
   }
 
   public toJSON(): JsonObservationInterface {
