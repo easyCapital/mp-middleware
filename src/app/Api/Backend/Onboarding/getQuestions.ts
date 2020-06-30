@@ -2,6 +2,7 @@ import { Question } from '../../../Models/Onboarding';
 import { Exception } from '../../../Exceptions';
 import BackendApi from '..';
 import { Filters } from '@robinfinance/js-api';
+import { formatMeta } from '../Helpers';
 
 export default async function getQuestions(
   this: BackendApi,
@@ -17,12 +18,28 @@ export default async function getQuestions(
       filters.config_key = configKey;
     }
 
-    const stepResponse = await this.backendClient.get({
+    const response = await this.backendClient.get({
       url: 'question/search',
       filters,
+      pagination: { page: 1, perPage: 100 },
     });
 
-    const data = await stepResponse.json();
+    let data = await response.json();
+    const meta = formatMeta(response.headers, { page: 1, perPage: 100 });
+    let nextPage = meta.nextPage;
+
+    while (nextPage) {
+      const nextResponse = await this.backendClient.get({
+        url: 'question/search',
+        filters,
+        pagination: { page: nextPage, perPage: 100 },
+      });
+
+      const nextMeta = formatMeta(nextResponse.headers, { page: nextPage, perPage: 100 });
+
+      nextPage = nextMeta.nextPage;
+      data = data.concat(await nextResponse.json());
+    }
 
     data.forEach((item) => {
       const question = new Question(item);
