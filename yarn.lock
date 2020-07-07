@@ -362,10 +362,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@robinfinance/js-api@^2.33.3":
-  version "2.33.3"
-  resolved "https://npm.pkg.github.com/download/@robinfinance/js-api/2.33.3/59c0e5300dbd8a57a189de79bb4c9c5556e1bfa4be8ea27c155f68b0e3ef3e57#4be545f07e4f0f07b38947898a608d0518c71926"
-  integrity sha512-7iTX8yzVLUYWw9F78JN+6r19jovhTabZHv8ptkZqKDoSfO5TftNz2D6h7+fO4eHAuKdnTWhsL9f8YH5n3fxwXQ==
+"@robinfinance/js-api@^2.33.4":
+  version "2.33.4"
+  resolved "https://npm.pkg.github.com/download/@robinfinance/js-api/2.33.4/80004021c50f15687222c855d23c63b3058e6127a32f60a5b6e97b13575db76c#acf4e8273b7702d74080f8943c4e3b017735c705"
+  integrity sha512-2HeAbpwEoI6qel0hSbc1ioJmfTEtluAu4qm0ZZRXDEhEFJgYkZYLpiTeIOpEC9nwbnbj8qgBxguSUN5epV/nbg==
 
 "@sendgrid/client@^7.2.0":
   version "7.2.0"

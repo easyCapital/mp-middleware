@@ -10,6 +10,7 @@ tmp
 .env.dev
 .env.stg
 .env.prd
+.env.local.dev
 
 # Generated files
 dist/
