@@ -21,6 +21,7 @@ export default class Question implements QuestionInterface {
   private label?: string;
   private type?: InputType;
   private placeholder?: string;
+  private table?: string;
   private required: boolean = false;
   private min?: number;
   private max?: number;
@@ -37,6 +38,7 @@ export default class Question implements QuestionInterface {
     this.id = json.key;
     this.label = json.label;
     this.placeholder = json.placeholder;
+    this.table = json.table;
     this.required = json.required;
     this.min = json.min;
     this.max = json.max;
@@ -82,6 +84,7 @@ export default class Question implements QuestionInterface {
         label: this.label || null,
         type: this.type,
         placeholder: this.placeholder || null,
+        table: this.table || null,
         required: this.required,
         min: this.min || null,
         max: this.max || null,
