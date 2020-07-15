@@ -16,6 +16,7 @@ const addAPIPrefixToGroup = (group: IRoute.Group) => {
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/UserController.get');
+    Route.post('/password', 'V1/CGP/UserController.changePassword');
   }),
 );
 

@@ -9,6 +9,7 @@ export enum BackendErrorTypes {
   MissingTokenError = 'MissingTokenError',
   MissingCustomerTokenError = 'MissingCustomerTokenError',
   InvalidCredentialsError = 'InvalidCredentialsError',
+  InvalidError = 'InvalidError',
 
   MinValueError = 'MinValueError',
   MaxValueError = 'MaxValueError',
