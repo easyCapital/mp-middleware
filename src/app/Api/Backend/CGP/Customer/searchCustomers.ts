@@ -17,7 +17,7 @@ export default async function searchCustomers(
       url: 'customer/cgp/search',
       filters,
       pagination,
-      orderBy: { key: 'last_modified', type: 'desc' },
+      orderBy: { key: 'date_joined', type: 'desc' },
     });
 
     const data = await response.json();

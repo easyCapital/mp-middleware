@@ -52,7 +52,9 @@ class CGPCustomerController {
 
     await backendApi.deactivateCGPCustomer(id);
 
-    response.status(200).send();
+    const customer = await backendApi.getCGPCustomer(id);
+
+    response.status(200).send(customer);
   }
 }
 
