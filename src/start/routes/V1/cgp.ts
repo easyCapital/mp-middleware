@@ -30,6 +30,7 @@ addAPIPrefixToGroup(
     Route.post('/', 'V1/CGP/CustomerController.create');
     Route.get('/', 'V1/CGP/CustomerController.search');
     Route.get('/:id', 'V1/CGP/CustomerController.get');
+    Route.patch('/:id/deactivate', 'V1/CGP/CustomerController.deactivate');
   }).prefix('customer'),
 );
 

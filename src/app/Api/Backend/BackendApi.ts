@@ -63,6 +63,7 @@ export default class BackendApi {
   public getGCPContractTasks = CGP.getContractTasks;
   // CGP - Customer
   public createCGPCustomer = CGP.createCustomer;
+  public deactivateCGPCustomer = CGP.deactivateCustomer;
   public getCGPCustomer = CGP.getCustomer;
   public searchCGPCustomer = CGP.searchCustomers;
   // CGP - File

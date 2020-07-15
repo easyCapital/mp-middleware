@@ -18,6 +18,7 @@ export default class Customer implements CustomerInterface {
   private emailValidated: boolean;
   private activeTask?: string;
   private lastModified: string;
+  private lastLogin?: string;
   private universe: string;
   private tags?: Tag[];
 
@@ -27,6 +28,7 @@ export default class Customer implements CustomerInterface {
     this.active = json.is_active;
     this.emailValidated = json.email_validated;
     this.lastModified = json.last_modified;
+    this.lastLogin = json.last_login;
     this.universe = json.universe;
 
     if (json.customer_tags) {
@@ -41,8 +43,10 @@ export default class Customer implements CustomerInterface {
       firstName: this.firstName,
       lastName: this.lastName,
       mobileNumber: this.mobileNumber,
+      isActive: this.active,
       activeTask: this.activeTask,
       lastModified: this.lastModified,
+      lastLogin: this.lastLogin,
       universe: this.universe,
       tags: this.tags?.map((tag) => tag.toJSON()),
     };
