@@ -4,23 +4,20 @@ import { EmailNotVerifiedException, UserIsInactiveException } from '../../../Exc
 class AuthenticationController {
   public async login(ctx: Context) {
     const { email, password }: any = ctx.request.post();
-    const userType = ctx.app.userType;
 
-    const data = await ctx.backendApi.login(email, password, userType);
+    const data = await ctx.backendApi.login(email, password);
 
-    ctx.updateToken({ [`${userType}Token`]: data.token });
+    ctx.updateToken({ customerToken: data.token });
     ctx.session.clear();
 
-    if (userType === 'customer') {
-      const customer = await ctx.backendApi.getCustomerDetails();
+    const customer = await ctx.backendApi.getCustomerDetails();
 
-      if (!customer.isActive()) {
-        throw new UserIsInactiveException();
-      }
+    if (!customer.isActive()) {
+      throw new UserIsInactiveException();
+    }
 
-      if (!customer.isEmailValidated()) {
-        throw new EmailNotVerifiedException();
-      }
+    if (!customer.isEmailValidated()) {
+      throw new EmailNotVerifiedException();
     }
 
     ctx.response.status(200).send(data);

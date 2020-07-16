@@ -8,6 +8,19 @@ const addAPIPrefixToGroup = (group: IRoute.Group) => {
 
   return group;
 };
+
+/*
+  |--------------------------------------------------------------------------
+  | API V1 - CGP - AUTHENTICATION
+  |--------------------------------------------------------------------------
+  */
+
+Route.group(() => {
+  Route.post('/login', 'V1/CGP/AuthenticationController.login');
+})
+  .prefix('api/1.0/cgp/auth')
+  .middleware(['requestLogger', 'originConfigDetector', 'universeDetector', 'authenticator']);
+
 /*
   |--------------------------------------------------------------------------
   | API V1 - CGP - USER

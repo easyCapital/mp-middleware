@@ -1,4 +1,5 @@
 export * from './Answer';
+export * from './Authentication';
 export * from './Contract';
 export * from './Customer';
 export * from './File';

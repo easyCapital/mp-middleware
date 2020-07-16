@@ -1,12 +1,12 @@
 import { Token } from '@robinfinance/js-api';
 
-import { Exception } from '../../../Exceptions';
-import { AuthenticationException } from '../Exceptions';
-import BackendApi from '..';
+import { Exception } from '../../../../Exceptions';
+import { AuthenticationException } from '../../Exceptions';
+import BackendApi from '../..';
 
 export default async function login(this: BackendApi, email: string, password: string): Promise<Token> {
   try {
-    const response = await this.backendClient.post({ url: `customer/login` }, { email, password });
+    const response = await this.backendClient.post({ url: `cgp/login` }, { email, password });
 
     const data: Token = await response.json();
 
