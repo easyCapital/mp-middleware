@@ -19,17 +19,9 @@ export default async function getCustomerAnswers(
     });
     const data = await response.json();
 
-    const answers: { [key: string]: Answer } = {};
+    const answers = data.map((item) => new Answer(item));
 
-    data.forEach((answer) => {
-      if (answers[answer.question_id]) {
-        answers[answer.question_id].addValue(answer.value);
-      } else {
-        answers[answer.question_id] = new Answer(answer);
-      }
-    });
-
-    return Object.values(answers);
+    return answers;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();

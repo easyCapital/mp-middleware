@@ -1,6 +1,5 @@
-import { Filters, QuestionAnswer } from '@robinfinance/js-api';
+import { Filters, Answer } from '@robinfinance/js-api';
 
-import { formatAnswers } from '../../../../Api/Backend/Helpers';
 import { Context } from '../../../../../types';
 
 class CGPAnswerController {
@@ -10,12 +9,12 @@ class CGPAnswerController {
 
     const answers = await backendApi.getCGPCustomerAnswers(customer, filters);
 
-    response.status(200).send(formatAnswers(answers));
+    response.status(200).send(answers);
   }
 
   public async create({ params, request, response, backendApi }: Context) {
     const { customer, study, contract } = params;
-    const answers = request.post() as QuestionAnswer;
+    const answers = request.post() as Answer[];
 
     await backendApi.createCGPAnswers(customer, answers, study, contract);
 

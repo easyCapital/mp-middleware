@@ -1,12 +1,12 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
-import { ErrorTypes, ErrorType } from '@robinfinance/js-api';
+import { ErrorTypes, ErrorType, Answer } from '@robinfinance/js-api';
 
 import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
 
 const Logger = use('Logger');
 
 export default class AnswerException extends HttpException {
-  constructor(answers: { question: string; value: string | null }[], errors: BackendError[]) {
+  constructor(answers: Answer[], errors: BackendError[]) {
     const errorMessages: { [key: string]: ErrorType } = {};
 
     errors.forEach((error, index) => {

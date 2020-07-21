@@ -2,7 +2,7 @@ import { Proposition } from '../../../Models/Proposition';
 import { Context } from '../../../../types';
 import { NotFoundException } from '../../../Exceptions';
 import { onPropositionGeneration } from '../../../Listeners';
-import { Proposition as JsonPropositionInterface } from '@robinfinance/js-api';
+import { Proposition as JsonPropositionInterface, Answer } from '@robinfinance/js-api';
 import { Question } from '../../../Models/Onboarding';
 
 const twig = use('Twig');
@@ -96,29 +96,36 @@ class PropositionController {
 
 function toTwigModel(proposition: Proposition, universe: string | undefined, questions: { [key: string]: Question }) {
   const recommendation = proposition.toJSON();
+
   const goals = findGoalsLabels(recommendation, questions);
-  const horizon = findOptionLabel(questions, 'sub_horizon1', recommendation.answers.sub_horizon1 as string);
+  const horizon = findOptionLabel(
+    questions,
+    'sub_horizon1',
+    recommendation.answers.find((item) => item.question === 'sub_horizon1'),
+  );
+
   return { recommendation, universe, goals, horizon };
 }
 
 function findGoalsLabels(recommendation: JsonPropositionInterface, questions: { [key: string]: Question }) {
-  let goalsValues = recommendation.answers.sub_contract_goal1;
-  if (goalsValues) {
-    if (!Array.isArray(goalsValues)) {
-      goalsValues = [goalsValues];
-    }
-    return goalsValues.map((optionValue: string) => findOptionLabel(questions, 'sub_contract_goal1', optionValue));
+  const answers = recommendation.answers.filter((item) => item.question === 'sub_contract_goal1');
+
+  if (answers) {
+    return answers.map((answer) => findOptionLabel(questions, 'sub_contract_goal1', answer));
   }
 }
 
 function findOptionLabel(
   questions: { [key: string]: Question },
   questionKey: string,
-  optionValue: string,
+  answer?: Answer,
 ): string | undefined {
-  const option = questions[questionKey].findOption(optionValue);
-  if (option) {
-    return option.label;
+  if (answer && answer.value) {
+    const option = questions[questionKey].findOption(answer.value);
+
+    if (option) {
+      return option.label;
+    }
   }
 }
 

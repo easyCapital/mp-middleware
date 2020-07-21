@@ -5,20 +5,22 @@ import { Context } from '../../../../../types';
 
 class CGPCustomerController {
   public async create({ request, response, backendApi, universe }: Context) {
-    const { email, tags, ...answers }: any = request.post();
+    const { email, tags, data: answers }: any = request.post();
 
     if (!universe) {
       throw new InvalidArgumentException("L'entête MP-Universe est obligatoire.");
     }
 
-    if (answers && Object.keys(answers).length > 0) {
+    if (answers && answers.length > 0) {
       await backendApi.prevalidateAnswers(answers);
     }
 
     const data = await backendApi.createCGPCustomer(email, universe);
 
-    if (answers && Object.keys(answers).length > 0) {
-      await backendApi.createCGPAnswers(data.id, answers);
+    if (answers && answers.length > 0) {
+      try {
+        await backendApi.createCGPAnswers(data.id, answers);
+      } catch {}
     }
 
     if (tags && tags.length > 0) {

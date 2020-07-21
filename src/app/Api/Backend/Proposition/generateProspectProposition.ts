@@ -1,22 +1,20 @@
-import { QuestionAnswer } from '@robinfinance/js-api';
+import { Answer } from '@robinfinance/js-api';
 
 import { Exception } from '../../../Exceptions';
 import { Proposition } from '../../../Models/Proposition';
-import { formatAnswerBody, getPropositionDetails } from '../Helpers';
+import { getPropositionDetails } from '../Helpers';
 import BackendApi from '..';
 
 export default async function generateProspectProposition(
   this: BackendApi,
   universe: string | undefined,
   prospectId: string,
-  answers: QuestionAnswer,
+  answers: Answer[],
 ): Promise<Proposition> {
-  const formattedAnswers = formatAnswerBody(answers);
-
   try {
     const response = await this.backendClient.post(
       { url: 'recommendation/customer/generate_prospect_proposition' },
-      { universe, prospect: prospectId, answers: formattedAnswers },
+      { universe, prospect: prospectId, answers },
     );
 
     const data = await response.json();

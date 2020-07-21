@@ -8,7 +8,6 @@ import {
 import { Portfolio } from '.';
 import { Advice } from '../Prismic';
 import { Answer } from '../Answer';
-import { formatAnswers } from '../../Api/Backend/Helpers';
 
 interface PropositionInterface {
   toJSON(): JsonPropositionInterface;
@@ -48,17 +47,7 @@ export default class Proposition implements PropositionInterface {
     }
 
     if (json.answers) {
-      const answers: { [key: string]: Answer } = {};
-
-      json.answers.forEach((answer) => {
-        if (answers[answer.question]) {
-          answers[answer.question].addValue(answer.value);
-        } else {
-          answers[answer.question] = new Answer(answer);
-        }
-      });
-
-      this.answers = Object.values(answers);
+      this.answers = json.answers.map((item) => new Answer(item));
     }
 
     if (json.contents) {
@@ -84,7 +73,7 @@ export default class Proposition implements PropositionInterface {
       userEmail: this.userEmail,
       origin: this.origin,
       weightedSrri: this.weightedSrri,
-      answers: formatAnswers(this.answers),
+      answers: this.answers.map((item) => item.toJSON()),
       investorType: this.investorType && this.investorType.toJSON(),
       portfolios: this.portfolios.map((portfolio) => {
         const jsonPortfolio = portfolio.toJSON() as JsonPropositionPortfolioInterface;

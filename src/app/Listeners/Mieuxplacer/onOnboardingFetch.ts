@@ -1,16 +1,16 @@
-import { QuestionAnswer } from '@robinfinance/js-api';
+import { Answer } from '@robinfinance/js-api';
 
 import { Context } from '../../../types';
 
 async function onOnboardingFetch(context: Context) {
   const { session, authenticated, backendApi } = context;
 
-  let answers: QuestionAnswer = {};
+  let answers: Answer[] = [];
 
   if (authenticated) {
     const rawAnswers = await backendApi.getAnswers();
 
-    answers = rawAnswers.reduce((previous, answer) => ({ ...previous, ...answer.toJSON() }), {});
+    answers = rawAnswers.map((item) => item.toJSON());
   } else {
     const sessionAnswers = session.get('answers');
 

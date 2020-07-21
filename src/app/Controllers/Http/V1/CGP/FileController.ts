@@ -1,4 +1,4 @@
-import { Filters, FileType, FileDTO, File as JsonFileInterface, OrderBy, QuestionAnswer } from '@robinfinance/js-api';
+import { Filters, FileType, FileDTO, File as JsonFileInterface, OrderBy, Answer } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
@@ -84,7 +84,7 @@ class CGPContractFileController {
 
   public async inpactedFiles({ params, request, response, backendApi }: Context) {
     const { customer, study, contract } = params;
-    const answers = request.post() as QuestionAnswer;
+    const answers = request.post() as Answer[];
 
     const files = await backendApi.getInpactedCustomerFiles(customer, study, answers, contract);
 

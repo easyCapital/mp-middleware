@@ -1,20 +1,17 @@
-import { QuestionAnswer } from '@robinfinance/js-api';
+import { Answer } from '@robinfinance/js-api';
 
 import { Exception } from '../../../Exceptions';
-import { formatAnswerBody } from '../Helpers';
 import BackendApi from '..';
 
 export default async function getRiskAdvice(
   this: BackendApi,
   universe: string | undefined,
-  answers: QuestionAnswer,
+  answers: Answer,
 ): Promise<{ key: string }> {
   try {
-    const formattedAnswers = formatAnswerBody(answers);
-
     const response = await this.backendClient.post(
       { url: 'recommendation/customer/get_risk_advice' },
-      { universe, answers: formattedAnswers },
+      { universe, answers },
     );
 
     const data = await response.json();

@@ -1,20 +1,21 @@
-import { QuestionAnswer } from '@robinfinance/js-api';
+import { Answer } from '@robinfinance/js-api';
 
 import { Exception } from '../../../Exceptions';
-import { AnswerException } from '../Exceptions';
-import { formatAnswerBody } from '../Helpers';
+import { AnswerException, BackendException } from '../Exceptions';
 import BackendApi from '..';
 
-export default async function prevalidateAnswers(this: BackendApi, answers: QuestionAnswer): Promise<void> {
-  const formattedAnswers = formatAnswerBody(answers);
-
+export default async function prevalidateAnswers(this: BackendApi, answers: Answer[]): Promise<void> {
   try {
-    await this.backendClient.post({ url: 'answer/prevalidate' }, formattedAnswers);
+    await this.backendClient.post({ url: 'answer/prevalidate' }, answers);
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new AnswerException(formattedAnswers, error);
+      if (Array.isArray(error)) {
+        throw new AnswerException(answers, error);
+      }
+
+      throw new BackendException(error);
     }
 
     throw new Exception(exception);

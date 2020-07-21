@@ -1,20 +1,17 @@
-import { QuestionAnswer } from '@robinfinance/js-api';
+import { Answer } from '@robinfinance/js-api';
 
 import { File } from '../../../../Models/File';
 import { Exception } from '../../../../Exceptions';
 import { BackendException, AnswerException } from '../../Exceptions';
-import { formatAnswerBody } from '../../Helpers';
 import BackendApi from '../..';
 
 export default async function getInpactedFiles(
   this: BackendApi,
   customerId: number | string,
   studyId: number | string,
-  answers: QuestionAnswer,
+  answers: Answer[],
   contractId?: number | string,
 ): Promise<File[]> {
-  const formattedAnswers = formatAnswerBody(answers);
-
   let url: string = `cgp/customer/${customerId}/study/${studyId}/files/get_answer_impact`;
 
   if (contractId) {
@@ -26,7 +23,7 @@ export default async function getInpactedFiles(
       {
         url,
       },
-      formattedAnswers,
+      answers,
     );
 
     const data = await response.json();
@@ -39,7 +36,7 @@ export default async function getInpactedFiles(
       const error = await exception.json();
 
       if (exception.status === 400) {
-        throw new AnswerException(formattedAnswers, error);
+        throw new AnswerException(answers, error);
       }
 
       throw new BackendException(error);

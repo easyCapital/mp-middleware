@@ -10,11 +10,20 @@ function onCustomerCreation(context: Context, data?: any) {
   if (data) {
     const { phoneNumber, firstName, lastName } = data;
 
-    backendApi.createAnswers({
-      [PHONE_NUMBER_KEY]: phoneNumber,
-      [FIRST_NAME_KEY]: firstName,
-      [LAST_NAME_KEY]: lastName,
-    });
+    backendApi.createAnswers([
+      {
+        question: PHONE_NUMBER_KEY,
+        value: phoneNumber,
+      },
+      {
+        question: FIRST_NAME_KEY,
+        value: firstName,
+      },
+      {
+        question: LAST_NAME_KEY,
+        value: lastName,
+      },
+    ]);
   }
 }
 

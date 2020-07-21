@@ -1,40 +1,35 @@
-import { QuestionAnswer as JsonAnswerInterface } from '@robinfinance/js-api';
+import { Answer as JsonAnswerInterface } from '@robinfinance/js-api';
 
 interface AnswerInterface {
   toJSON(): JsonAnswerInterface;
   getKey(): string;
-  getValue(): string | string[];
-  addValue(value: string): void;
+  getValue(): string | null;
 }
 
 export default class Answer implements AnswerInterface {
-  private key: string;
-  private value: string | string[];
+  private question: string;
+  private value: string | null;
+  private row?: number;
 
   constructor(json: any) {
-    this.key = json.question_id;
+    this.question = json.question_id;
     this.value = json.value;
+    this.row = json.row !== null ? json.row : undefined;
   }
 
   public toJSON(): JsonAnswerInterface {
-    return { [this.key]: this.value };
+    return {
+      question: this.question,
+      value: this.value,
+      row: this.row,
+    };
   }
 
   public getKey() {
-    return this.key;
+    return this.question;
   }
 
   public getValue() {
     return this.value;
-  }
-
-  public addValue(value: string | string[]) {
-    this.value = Array.isArray(this.value)
-      ? Array.isArray(value)
-        ? [...this.value, ...value]
-        : [...this.value, value]
-      : Array.isArray(value)
-      ? [this.value, ...value]
-      : [this.value, value];
   }
 }

@@ -1,19 +1,16 @@
-import { QuestionAnswer } from '@robinfinance/js-api';
+import { Answer } from '@robinfinance/js-api';
 
 import { Exception, NotFoundException } from '../../../../Exceptions';
 import { AnswerException, BackendException } from '../../Exceptions';
-import { formatAnswerBody } from '../../Helpers';
 import BackendApi from '../..';
 
 export default async function createCustomerAnswers(
   this: BackendApi,
   customerId: string | number,
-  answers: QuestionAnswer,
+  answers: Answer[],
   studyId?: string,
   contractId?: string,
 ): Promise<void> {
-  const formattedAnswers = formatAnswerBody(answers);
-
   let url: string = `cgp/customer/${customerId}/answer/create`;
 
   try {
@@ -23,7 +20,7 @@ export default async function createCustomerAnswers(
         : `cgp/customer/${customerId}/study/${studyId}/answer/create`;
     }
 
-    await this.backendClient.post({ url }, formattedAnswers);
+    await this.backendClient.post({ url }, answers);
   } catch (exception) {
     if (exception.status === 404) {
       throw new NotFoundException();
@@ -33,7 +30,7 @@ export default async function createCustomerAnswers(
       const error = await exception.json();
 
       if (exception.status === 400) {
-        throw new AnswerException(formattedAnswers, error);
+        throw new AnswerException(answers, error);
       }
 
       throw new BackendException(error);
