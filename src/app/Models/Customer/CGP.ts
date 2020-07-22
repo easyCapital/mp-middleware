@@ -1,4 +1,6 @@
-import { CGP as JsonCGPInterface } from '@robinfinance/js-api';
+import { CGP as JsonCGPInterface, Gender } from '@robinfinance/js-api';
+
+import { CGPGenderMapper } from '../../Mappers/Customer';
 
 interface CGPInterface {
   toJSON(): JsonCGPInterface;
@@ -9,6 +11,7 @@ export default class CGP implements CGPInterface {
   private email: string;
   private firstName?: string;
   private lastName?: string;
+  private gender?: Gender;
   private CIF?: string;
   private orias?: string;
   private universe: string;
@@ -27,6 +30,10 @@ export default class CGP implements CGPInterface {
     this.firstLogin = json.first_login;
     this.lastModified = json.last_modified;
     this.lastLogin = json.last_login;
+
+    if (json.cgp_gender) {
+      this.gender = CGPGenderMapper.transformValue(json.cgp_gender);
+    }
   }
 
   public toJSON(): JsonCGPInterface {
@@ -35,6 +42,7 @@ export default class CGP implements CGPInterface {
       email: this.email,
       firstName: this.firstName,
       lastName: this.lastName,
+      gender: this.gender,
       CIF: this.CIF,
       orias: this.orias,
       universe: this.universe,
