@@ -1,4 +1,5 @@
 import { InputTypes } from '@robinfinance/js-api';
+
 import GenericMapper from '../GenericMapper';
 
 const InputTypeMapping = {
@@ -10,6 +11,7 @@ const InputTypeMapping = {
   date: InputTypes.DATE,
   textarea: InputTypes.TEXTAREA,
   select: InputTypes.SELECT,
+  searchable_select: InputTypes.SEARCHABLE_SELECT,
   radio: InputTypes.RADIO,
   checkbox: InputTypes.CHECKBOX,
   icon_checkbox: InputTypes.ICON_CHECKBOX,
