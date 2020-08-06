@@ -8,10 +8,10 @@ import { ExpectedJsonResponseException, MultipleTokenException, FileTooBigExcept
 export type BackendClientBuilder = (backendApiKey: string, token?: BackendToken) => BackendClientInterface;
 
 export interface BackendClientInterface {
-  get(options: RequestOptions): Promise<any>;
-  patch(options: RequestOptions, body?: any): Promise<any>;
-  post(options: RequestOptions, body?: any): Promise<any>;
-  delete(options: RequestOptions, body?: any): Promise<any>;
+  get(options: RequestOptions): Promise<Response>;
+  patch(options: RequestOptions, body?: any): Promise<Response>;
+  post(options: RequestOptions, body?: any): Promise<Response>;
+  delete(options: RequestOptions, body?: any): Promise<Response>;
   proxy(req: IncomingMessage, res: ServerResponse, options: RequestOptions): Promise<any>;
 }
 
