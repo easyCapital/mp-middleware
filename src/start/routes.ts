@@ -14,6 +14,12 @@ import { NotFoundException } from '../app/Exceptions';
 
 const Route = use('Route');
 
+Route.get('/api/1.0', 'V1/BaseController.init').middleware([
+  'originConfigDetector',
+  'universeDetector',
+  'authenticator',
+]);
+
 import './routes/V1/public';
 import './routes/V1/cgp';
 

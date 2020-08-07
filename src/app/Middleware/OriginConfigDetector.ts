@@ -20,6 +20,8 @@ class OriginConfigDetector {
     ctx.origin = origin;
     ctx.backendApiKey = originConfig.backendApiKey;
 
+    ctx.response.header('Client', originConfig.client);
+
     await next();
   }
 }
