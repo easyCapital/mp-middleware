@@ -1,6 +1,6 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
+import { BackendError, BackendErrors } from '@robinfinance/js-api';
 
-import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
 import { NotFoundException, UnauthorizedException, ForbiddenException, Exception } from '../../../Exceptions';
 
 const Logger = use('Logger');
@@ -9,14 +9,14 @@ export default class PropositionException extends HttpException {
   constructor(error: BackendError) {
     Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
-        case BackendErrorTypes.NotFound:
+        case BackendErrors.NotFound:
           throw new NotFoundException("Cette proposition n'existe pas.");
 
-        case BackendErrorTypes.InvalidCustomerTokenError:
-        case BackendErrorTypes.MissingCustomerTokenError:
+        case BackendErrors.InvalidCustomerTokenError:
+        case BackendErrors.MissingCustomerTokenError:
           throw new UnauthorizedException("Vous n'avez pas accès à cette proposition");
 
-        case BackendErrorTypes.PermissionDenied:
+        case BackendErrors.PermissionDenied:
           throw new ForbiddenException("Vous n'avez pas accès à cette proposition");
 
         default:

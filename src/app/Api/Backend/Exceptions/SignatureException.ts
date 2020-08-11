@@ -1,6 +1,6 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
+import { BackendError, BackendErrors } from '@robinfinance/js-api';
 
-import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
 import { Exception } from '../../../Exceptions';
 
 const Logger = use('Logger');
@@ -9,10 +9,10 @@ export default class SignatureException extends HttpException {
   constructor(error: BackendError) {
     Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
-        case BackendErrorTypes.FileAlreadySignedError:
+        case BackendErrors.FileAlreadySignedError:
           throw new Exception('Le fichier a déjà été signé, veuillez contacter notre support.');
 
-        case BackendErrorTypes.SignNoFileToSignError:
+        case BackendErrors.SignNoFileToSignError:
           throw new Exception('Aucun fichier à signer, veuillez contacter notre support.');
 
         default:

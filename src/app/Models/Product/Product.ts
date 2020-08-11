@@ -11,6 +11,7 @@ export default class Product implements ProductInterface {
   private id: number;
   private identifier: string;
   private name: string;
+  private minInvestment: number;
   private oneLinePortfolio: boolean;
   private hasEditableSubscriptionFeeRate: boolean;
   private hasEditableManagementFeeRate: boolean;
@@ -20,6 +21,7 @@ export default class Product implements ProductInterface {
     this.id = json.id;
     this.identifier = json.identifier;
     this.name = json.name;
+    this.minInvestment = json.min_investment;
     this.oneLinePortfolio = json.one_line_portfolio;
     this.hasEditableSubscriptionFeeRate = json.is_editable_subscription_fee_rate;
     this.hasEditableManagementFeeRate = json.is_editable_management_fee_rate;
@@ -31,6 +33,7 @@ export default class Product implements ProductInterface {
       id: this.id,
       identifier: this.identifier,
       name: this.name,
+      minInvestment: this.minInvestment,
       oneLinePortfolio: this.oneLinePortfolio,
       hasEditableSubscriptionFeeRate: this.hasEditableSubscriptionFeeRate,
       hasEditableManagementFeeRate: this.hasEditableManagementFeeRate,

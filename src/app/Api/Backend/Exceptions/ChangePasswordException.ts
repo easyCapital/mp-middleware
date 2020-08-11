@@ -1,7 +1,5 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
-import { ErrorTypes, ErrorType } from '@robinfinance/js-api';
-
-import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
+import { ErrorTypes, ErrorType, BackendError, BackendErrors } from '@robinfinance/js-api';
 
 const Logger = use('Logger');
 
@@ -11,31 +9,31 @@ export default class ChangePasswordException extends HttpException {
 
     Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
-        case BackendErrorTypes.CommonPasswordError:
+        case BackendErrors.CommonPasswordError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.COMMON_PASSWORD;
           });
           break;
 
-        case BackendErrorTypes.MinimumLengthError:
+        case BackendErrors.MinimumLengthError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.MIN;
           });
           break;
 
-        case BackendErrorTypes.UserAttributeSimilarityError:
+        case BackendErrors.UserAttributeSimilarityError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.SIMILAR_PASSWORD;
           });
           break;
 
-        case BackendErrorTypes.NumericPasswordError:
+        case BackendErrors.NumericPasswordError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.NUMERIC_PASSWORD;
           });
           break;
 
-        case BackendErrorTypes.InvalidError:
+        case BackendErrors.InvalidError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.INVALID_CREDENTIALS;
           });

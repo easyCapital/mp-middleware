@@ -1,7 +1,5 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
-import { ErrorTypes, ErrorType } from '@robinfinance/js-api';
-
-import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
+import { ErrorTypes, ErrorType, BackendError, BackendErrors } from '@robinfinance/js-api';
 
 const Logger = use('Logger');
 
@@ -11,15 +9,15 @@ export default class ProspectException extends HttpException {
 
     Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
-        case BackendErrorTypes.EmailAlreadyAssignedToUserError:
+        case BackendErrors.EmailAlreadyAssignedToUserError:
           errorMessageType = { global: ErrorTypes.USED_EMAIL };
           break;
 
-        case BackendErrorTypes.EmailValidationError:
+        case BackendErrors.EmailValidationError:
           errorMessageType = { email: ErrorTypes.DEFAULT };
           break;
 
-        case BackendErrorTypes.InvalidEmailStatus:
+        case BackendErrors.InvalidEmailStatus:
           errorMessageType = { email: ErrorTypes.INVALID_EMAIL };
           break;
 

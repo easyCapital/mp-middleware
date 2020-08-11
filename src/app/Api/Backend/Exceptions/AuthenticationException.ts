@@ -1,7 +1,5 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
-import { ErrorTypes } from '@robinfinance/js-api';
-
-import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
+import { ErrorTypes, BackendError, BackendErrors } from '@robinfinance/js-api';
 
 const Logger = use('Logger');
 
@@ -11,17 +9,17 @@ export default class AuthenticationException extends HttpException {
 
     Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
-        case BackendErrorTypes.InvalidCredentialsError:
+        case BackendErrors.InvalidCredentialsError:
           errorMessages.global = ErrorTypes.INVALID_CREDENTIALS;
           break;
 
-        case BackendErrorTypes.MissingMandatoryFieldsError:
+        case BackendErrors.MissingMandatoryFieldsError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.REQUIRED;
           });
           break;
 
-        case BackendErrorTypes.EmailValidationError:
+        case BackendErrors.EmailValidationError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.DEFAULT;
           });

@@ -1,6 +1,6 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
+import { BackendError, BackendErrors } from '@robinfinance/js-api';
 
-import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
 import { UnauthorizedException } from '../../../Exceptions';
 
 const Logger = use('Logger');
@@ -9,11 +9,11 @@ export default class BackendException extends HttpException {
   constructor(error: BackendError) {
     Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
-        case BackendErrorTypes.InvalidCustomerTokenError:
-        case BackendErrorTypes.MissingCustomerTokenError:
-        case BackendErrorTypes.InvalidCGPTokenError:
-        case BackendErrorTypes.InvalidTokenError:
-        case BackendErrorTypes.MissingTokenError:
+        case BackendErrors.InvalidCustomerTokenError:
+        case BackendErrors.MissingCustomerTokenError:
+        case BackendErrors.InvalidCGPTokenError:
+        case BackendErrors.InvalidTokenError:
+        case BackendErrors.MissingTokenError:
           throw new UnauthorizedException();
 
         default:

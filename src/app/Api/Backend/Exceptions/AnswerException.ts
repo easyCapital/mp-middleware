@@ -1,7 +1,5 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
-import { ErrorTypes, ErrorType, Answer } from '@robinfinance/js-api';
-
-import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
+import { ErrorTypes, ErrorType, Answer, BackendError, BackendErrors } from '@robinfinance/js-api';
 
 const Logger = use('Logger');
 
@@ -16,23 +14,23 @@ export default class AnswerException extends HttpException {
         let errorMessageType: ErrorType = ErrorTypes.DEFAULT;
 
         switch (errorKey) {
-          case BackendErrorTypes.BlankError:
+          case BackendErrors.BlankError:
             errorMessageType = ErrorTypes.REQUIRED;
             break;
 
-          case BackendErrorTypes.MinValueError:
+          case BackendErrors.MinValueError:
             errorMessageType = ErrorTypes.MIN;
             break;
 
-          case BackendErrorTypes.MaxValueError:
+          case BackendErrors.MaxValueError:
             errorMessageType = ErrorTypes.MAX;
             break;
 
-          case BackendErrorTypes.NotFound:
+          case BackendErrors.NotFound:
             errorMessageType = ErrorTypes.DEFAULT;
             break;
 
-          case BackendErrorTypes.InvalidMobileFormatError:
+          case BackendErrors.InvalidMobileFormatError:
             errorMessageType = ErrorTypes.INVALID_MOBILE_NUMBER;
             break;
 

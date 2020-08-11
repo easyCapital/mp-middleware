@@ -1,8 +1,7 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
-import { ErrorTypes, ErrorType } from '@robinfinance/js-api';
+import { ErrorTypes, ErrorType, BackendError, BackendErrors } from '@robinfinance/js-api';
 
 import { Exception } from '../../../Exceptions';
-import { BackendError, BackendErrorTypes } from '../../../Clients/Backend/types';
 
 const Logger = use('Logger');
 
@@ -12,59 +11,59 @@ export default class CustomerCreationException extends HttpException {
 
     Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
-        case BackendErrorTypes.ToManyEmailRevalidation:
+        case BackendErrors.ToManyEmailRevalidation:
           throw new Exception();
 
-        case BackendErrorTypes.EmailUniqueConstraintError:
+        case BackendErrors.EmailUniqueConstraintError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.USED_EMAIL;
           });
           break;
 
-        case BackendErrorTypes.EmailValidationError:
+        case BackendErrors.EmailValidationError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.DEFAULT;
           });
           break;
 
-        case BackendErrorTypes.BlankError:
-        case BackendErrorTypes.NullError:
+        case BackendErrors.BlankError:
+        case BackendErrors.NullError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.REQUIRED;
           });
           break;
 
-        case BackendErrorTypes.InvalidEmailStatus:
+        case BackendErrors.InvalidEmailStatus:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.INVALID_EMAIL;
           });
           break;
 
-        case BackendErrorTypes.MinimumLengthError:
+        case BackendErrors.MinimumLengthError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.MIN;
           });
           break;
 
-        case BackendErrorTypes.UserAttributeSimilarityError:
+        case BackendErrors.UserAttributeSimilarityError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.SIMILAR_PASSWORD;
           });
           break;
 
-        case BackendErrorTypes.CommonPasswordError:
+        case BackendErrors.CommonPasswordError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.COMMON_PASSWORD;
           });
           break;
 
-        case BackendErrorTypes.NumericPasswordError:
+        case BackendErrors.NumericPasswordError:
           error[errorKey].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.NUMERIC_PASSWORD;
           });
           break;
 
-        case BackendErrorTypes.TemporaryCustomerAlreadyExists:
+        case BackendErrors.TemporaryCustomerAlreadyExists:
           error[errorKey].fields.forEach(() => {
             errorMessages.email = ErrorTypes.USER_EXISTS;
           });
