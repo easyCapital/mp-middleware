@@ -12,7 +12,7 @@ export default class Answer implements AnswerInterface {
   private row?: number;
 
   constructor(json: any) {
-    this.question = json.question_id;
+    this.question = json.question_id || json.question;
     this.value = json.value;
     this.row = json.row !== null ? json.row : undefined;
   }
