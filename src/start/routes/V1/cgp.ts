@@ -30,6 +30,8 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/UserController.get');
     Route.post('/password', 'V1/CGP/UserController.changePassword');
+    Route.get('/answer', 'V1/CGP/AnswerController.search');
+    Route.post('/answer', 'V1/CGP/AnswerController.create');
   }),
 );
 

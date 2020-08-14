@@ -19,7 +19,7 @@ class CGPCustomerController {
 
     if (answers && answers.length > 0) {
       try {
-        await backendApi.createCGPAnswers(data.id, answers);
+        await backendApi.createCGPCustomerAnswers(data.id, answers);
       } catch {}
     }
 

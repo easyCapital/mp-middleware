@@ -7,7 +7,9 @@ class CGPAnswerController {
     const { customer } = params;
     const filters = request.input('filters') as Filters;
 
-    const answers = await backendApi.getCGPCustomerAnswers(customer, filters);
+    const answers = customer
+      ? await backendApi.getCGPCustomerAnswers(customer, filters)
+      : await backendApi.getCGPAnswers(filters);
 
     response.status(200).send(answers);
   }
@@ -16,7 +18,11 @@ class CGPAnswerController {
     const { customer, study, contract } = params;
     const answers = request.post() as Answer[];
 
-    await backendApi.createCGPAnswers(customer, answers, study, contract);
+    if (customer) {
+      await backendApi.createCGPCustomerAnswers(customer, answers, study, contract);
+    } else {
+      await backendApi.createCGPAnswers(answers);
+    }
 
     response.status(201).send();
   }
