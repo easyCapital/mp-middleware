@@ -54,6 +54,7 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/answer', 'V1/CGP/AnswerController.searchAgency');
     Route.post('/answer', 'V1/CGP/AnswerController.createAgency');
+    Route.post('/logo', 'V1/CGP/AgencyController.createLogo');
   }).prefix('agency'),
 );
 

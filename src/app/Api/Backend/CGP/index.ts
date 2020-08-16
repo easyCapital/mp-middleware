@@ -1,3 +1,4 @@
+export * from './Agency';
 export * from './Answer';
 export * from './Authentication';
 export * from './Contract';
