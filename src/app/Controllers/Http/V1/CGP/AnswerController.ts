@@ -7,9 +7,7 @@ class CGPAnswerController {
     const { customer } = params;
     const filters = request.input('filters') as Filters;
 
-    const answers = customer
-      ? await backendApi.getCGPCustomerAnswers(customer, filters)
-      : await backendApi.getCGPAnswers(filters);
+    const answers = await backendApi.getCGPCustomerAnswers(customer, filters);
 
     response.status(200).send(answers);
   }
@@ -18,11 +16,39 @@ class CGPAnswerController {
     const { customer, study, contract } = params;
     const answers = request.post() as Answer[];
 
-    if (customer) {
-      await backendApi.createCGPCustomerAnswers(customer, answers, study, contract);
-    } else {
-      await backendApi.createCGPAnswers(answers);
-    }
+    await backendApi.createCGPCustomerAnswers(customer, answers, study, contract);
+
+    response.status(201).send();
+  }
+
+  public async searchCGP({ request, response, backendApi }: Context) {
+    const filters = request.input('filters') as Filters;
+
+    const answers = await backendApi.getCGPAnswers(filters);
+
+    response.status(200).send(answers);
+  }
+
+  public async createCGP({ request, response, backendApi }: Context) {
+    const answers = request.post() as Answer[];
+
+    await backendApi.createCGPAnswers(answers);
+
+    response.status(201).send();
+  }
+
+  public async searchAgency({ request, response, backendApi }: Context) {
+    const filters = request.input('filters') as Filters;
+
+    const answers = await backendApi.getAgencyAnswers(filters);
+
+    response.status(200).send(answers);
+  }
+
+  public async createAgency({ request, response, backendApi }: Context) {
+    const answers = request.post() as Answer[];
+
+    await backendApi.createAgencyAnswers(answers);
 
     response.status(201).send();
   }

@@ -30,9 +30,31 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/UserController.get');
     Route.post('/password', 'V1/CGP/UserController.changePassword');
-    Route.get('/answer', 'V1/CGP/AnswerController.search');
-    Route.post('/answer', 'V1/CGP/AnswerController.create');
   }),
+);
+
+/*
+  |--------------------------------------------------------------------------
+  | API V1 - CGP - USER ANSWER
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/CGP/AnswerController.searchCGP');
+    Route.post('/', 'V1/CGP/AnswerController.createCGP');
+  }).prefix('answer'),
+);
+
+/*
+  |--------------------------------------------------------------------------
+  | API V1 - CGP - AGENCY
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/answer', 'V1/CGP/AnswerController.searchAgency');
+    Route.post('/answer', 'V1/CGP/AnswerController.createAgency');
+  }).prefix('agency'),
 );
 
 /*
