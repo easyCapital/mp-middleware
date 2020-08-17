@@ -137,6 +137,18 @@ addAPIPrefixToGroup(
 
 /*
   |--------------------------------------------------------------------------
+  | API V1 - CGP - SCORING
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/knowledge', 'V1/CGP/ScoringController.knowledge');
+    Route.get('/risk', 'V1/CGP/ScoringController.risk');
+  }).prefix('customer/:customerId/study/:studyId/scoring'),
+);
+
+/*
+  |--------------------------------------------------------------------------
   | API V1 - CGP - PORTFOLIO
   |--------------------------------------------------------------------------
   */
