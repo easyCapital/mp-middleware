@@ -1,6 +1,6 @@
 import Sendgrid from '@sendgrid/mail';
 import { format } from 'date-fns';
-import { getFileTypeFromBase64 } from '../../Helpers';
+import { getFileTypeFromBase64 } from '@robinfinance/js-api';
 
 export interface SendgridClientInterface {
   send(to: string, from: string, subject: string, content: string, attachments?: string[]): Promise<any>;

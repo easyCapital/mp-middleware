@@ -1,6 +1,5 @@
 import { format } from 'date-fns';
-
-import { getFileTypeFromBase64 } from '../../Helpers';
+import { getFileTypeFromBase64 } from '@robinfinance/js-api';
 
 const Env = use('Env');
 const Config = use('Config');

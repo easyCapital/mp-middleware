@@ -1,12 +1,20 @@
+import { AgencyDTO } from '@robinfinance/js-api';
+
 import { Context } from '../../../../../types';
 
 class CGPAgencyController {
-  public async createLogo({ request, response, backendApi }: Context) {
-    const file = request.input('file') as string;
+  public async get({ response, backendApi }: Context) {
+    const agency = await backendApi.getAgency();
 
-    const createdFile = await backendApi.createAgencyLogo(file);
+    response.status(200).send(agency);
+  }
 
-    response.status(200).send(createdFile);
+  public async edit({ request, response, backendApi }: Context) {
+    const agencyDTO = request.all() as AgencyDTO;
+
+    const agency = await backendApi.editAgency(agencyDTO);
+
+    response.status(200).send(agency);
   }
 }
 

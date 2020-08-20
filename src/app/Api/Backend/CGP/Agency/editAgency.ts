@@ -1,19 +1,24 @@
+import { AgencyDTO } from '@robinfinance/js-api';
+
+import { Agency } from '../../../../Models/Agency';
 import { Exception, FileTooBigException } from '../../../../Exceptions';
 import { FileException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function createAgencyLogo(this: BackendApi, file: string): Promise<{ file: string }> {
+export default async function editAgency(this: BackendApi, agencyDTO: AgencyDTO): Promise<Agency> {
   try {
     const response = await this.backendClient.patch(
       {
-        url: 'cgp/agency/logo/change',
+        url: 'cgp/agency/',
       },
-      { file },
+      agencyDTO,
     );
 
     const data = await response.json();
 
-    return data;
+    const agency = new Agency(data);
+
+    return agency;
   } catch (exception) {
     if (exception.status === 413) {
       throw new FileTooBigException();

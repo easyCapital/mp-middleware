@@ -54,7 +54,8 @@ export default class BackendApi {
   public getSignatureUrl = Task.getSignatureUrl;
   public validateSignature = Task.validateSignature;
   // CGP - Agency
-  public createAgencyLogo = CGP.createAgencyLogo;
+  public editAgency = CGP.editAgency;
+  public getAgency = CGP.getAgency;
   // CGP - Answer
   public getCGPAnswersByCustomer = CGP.getAnswersByCustomer;
   public getCGPAnswers = CGP.getCGPAnswers;
