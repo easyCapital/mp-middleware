@@ -18,6 +18,7 @@ const addAPIPrefixToGroup = (group: IRoute.Group) => {
 Route.group(() => {
   Route.post('/login', 'V1/CGP/AuthenticationController.login');
   Route.post('/reset-password', 'V1/CGP/AuthenticationController.resetPassword');
+  Route.post('/reset-password/confirm', 'V1/CGP/AuthenticationController.resetPasswordConfirm');
 })
   .prefix('api/1.0/cgp/auth')
   .middleware(['requestLogger', 'originConfigDetector', 'universeDetector', 'authenticator']);

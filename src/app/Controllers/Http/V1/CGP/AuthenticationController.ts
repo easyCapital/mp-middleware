@@ -21,6 +21,14 @@ class CGPAuthenticationController {
 
     ctx.response.status(200).send();
   }
+
+  public async resetPasswordConfirm(ctx: Context) {
+    const { uid, token, password }: any = ctx.request.post();
+
+    await ctx.backendApi.resetCGPPasswordConfirm(uid, token, password);
+
+    ctx.response.status(200).send();
+  }
 }
 
 export = CGPAuthenticationController;
