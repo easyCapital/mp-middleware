@@ -13,6 +13,14 @@ class CGPAuthenticationController {
 
     ctx.response.status(200).send({ token: data.token, user: cgp });
   }
+
+  public async resetPassword(ctx: Context) {
+    const { email }: any = ctx.request.post();
+
+    await ctx.backendApi.resetCGPPassword(email);
+
+    ctx.response.status(200).send();
+  }
 }
 
 export = CGPAuthenticationController;
