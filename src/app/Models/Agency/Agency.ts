@@ -7,7 +7,7 @@ interface AgencyInterface {
 export default class Answer implements AgencyInterface {
   private id: number;
   private name: string;
-  private logo?: string;
+  private logo: string | null;
   private created: string;
   private updated: string;
 

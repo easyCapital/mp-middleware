@@ -15,7 +15,7 @@
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/redis": "^2.0.7",
     "@adonisjs/session": "^1.0.29",
-    "@robinfinance/js-api": "^2.40.0",
+    "@robinfinance/js-api": "^2.40.1",
     "@sendgrid/mail": "^7.2.3",
     "@slack/web-api": "^5.11.0",
     "date-fns": "^2.15.0",
