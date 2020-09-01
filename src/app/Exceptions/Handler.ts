@@ -1,7 +1,9 @@
 import Exception from './Exception';
 
 const BaseExceptionHandler = use('BaseExceptionHandler');
+const Config = use('Config');
 const Logger = use('Logger');
+const Sentry = use('Sentry');
 
 class ExceptionHandler extends BaseExceptionHandler {
   public async handle(error, { response }) {
@@ -13,8 +15,24 @@ class ExceptionHandler extends BaseExceptionHandler {
   }
 
   public async report(error) {
-    if (error.name === 'FetchError' || error.name === 'Exception' || error.name === 'TypeError') {
+    const environment = Config.get('sentry.environment');
+
+    if (
+      [
+        'FetchError',
+        'Exception',
+        'TypeError',
+        'ExpectedJsonResponseException',
+        'InvalidArgumentException',
+        'MultipleTokenException',
+        'NotFoundException',
+      ].includes(error.name)
+    ) {
       Logger.crit(error);
+
+      if (environment === 'staging' || environment === 'production') {
+        Sentry.captureException(error);
+      }
     }
   }
 }

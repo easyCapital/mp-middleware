@@ -12797,6 +12797,7 @@ declare namespace AdonisNamespaces {
   type HubspotClient = 'HubspotClient';
   type Twig = 'Twig';
   type WkHtmlToPdf = 'WkHtmlToPdf';
+  type Sentry = 'Sentry';
 }
 
 declare global {
@@ -12838,6 +12839,7 @@ declare global {
   function use(namespace: AdonisNamespaces.HubspotClient): HubspotClientInterface;
   function use(namespace: AdonisNamespaces.Twig): TwigRenderer;
   function use(namespace: AdonisNamespaces.WkHtmlToPdf): WkHtmlToPdf;
+  function use(namespace: AdonisNamespaces.Sentry): any;
 }
 
 declare global {

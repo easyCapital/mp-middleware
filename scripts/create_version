@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+set -e
+
+VERSION=$1
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+export SENTRY_ORG=robinfinance
+export SENTRY_PROJECT=middleware
+
+SENTRY_VERSION=middleware@${VERSION}
+
+if [ -f .env ]; then
+    # Load Environment Variables
+    export $(cat .env | grep -v '#' | awk '/=/ {print $1}')
+fi
+
+if [[ $# -eq 0 ]]; then
+  echo 'You must specify a version'
+  exit 1
+fi
+
+if [[ "$BRANCH" != "master" ]]; then
+  echo 'Versions can only be created on master'
+  exit 1
+fi
+
+if [[ -z "${SENTRY_AUTH_TOKEN}" ]]; then
+  echo 'SENTRY_AUTH_TOKEN must be defined'
+  exit 1
+fi
+
+echo "Creating new version"
+yarn version --new-version ${VERSION}
+
+echo "Pushing the changes"
+git push -u origin
+git push --tags
+
+echo "Building the source files"
+yarn build
+
+echo "Creating a Sentry release"
+./node_modules/.bin/sentry-cli releases new ${SENTRY_VERSION}
+./node_modules/.bin/sentry-cli releases set-commits "${SENTRY_VERSION}" --auto
+./node_modules/.bin/sentry-cli releases files "${SENTRY_VERSION}" upload-sourcemaps ./dist
+./node_modules/.bin/sentry-cli releases finalize ${SENTRY_VERSION}
