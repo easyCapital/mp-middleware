@@ -3,7 +3,6 @@ import Exception from './Exception';
 const BaseExceptionHandler = use('BaseExceptionHandler');
 const Config = use('Config');
 const Logger = use('Logger');
-const Sentry = use('Sentry');
 
 class ExceptionHandler extends BaseExceptionHandler {
   public async handle(error, { response }) {
@@ -31,6 +30,8 @@ class ExceptionHandler extends BaseExceptionHandler {
       Logger.crit(error);
 
       if (environment === 'staging' || environment === 'production') {
+        const Sentry = use('Sentry');
+
         Sentry.captureException(error);
       }
     }

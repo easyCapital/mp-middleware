@@ -16,7 +16,5 @@ export = {
 
   release: `middleware@${packageJson.version}`,
 
-  options: {
-    // captureUnhandledRejections: true
-  },
+  debug: false,
 };
