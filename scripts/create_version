@@ -20,8 +20,8 @@ if [[ $# -eq 0 ]]; then
   exit 1
 fi
 
-if [[ "$BRANCH" != "master" ]]; then
-  echo 'Versions can only be created on master'
+if [[ "$BRANCH" != "master" ]] && [[ "$BRANCH" != "release/"* ]]; then
+  echo 'Versions can only be created on master or release branch'
   exit 1
 fi
 
