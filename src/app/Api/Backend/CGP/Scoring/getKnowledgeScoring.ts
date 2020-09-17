@@ -7,7 +7,7 @@ export default async function getKnowledgeScoring(
   customerId: string | number,
   studyId: string | number,
   universe: string,
-): Promise<{ score: string }> {
+): Promise<{ score: number }> {
   try {
     const response = await this.backendClient.post(
       {
