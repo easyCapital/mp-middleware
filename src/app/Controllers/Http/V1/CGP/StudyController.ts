@@ -1,4 +1,4 @@
-import { Filters } from '@robinfinance/js-api';
+import { Filters, StudyDTO } from '@robinfinance/js-api';
 
 import { Study } from '../../../../Models/Study';
 import { Context } from '../../../../../types';
@@ -20,6 +20,15 @@ class CGPStudyController {
     const studies: Study[] = await backendApi.getCGPCustomerStudies(customer, filters);
 
     response.status(200).send(studies);
+  }
+
+  public async edit({ params, request, response, backendApi }: Context) {
+    const { customer, study } = params;
+    const data = request.post() as StudyDTO;
+
+    const updatedStudy = await backendApi.editCGPCustomerStudy(customer, study, data);
+
+    response.status(200).send(updatedStudy);
   }
 
   public async finishTask({ params, response, backendApi }: Context) {

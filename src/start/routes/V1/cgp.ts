@@ -218,6 +218,7 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/StudyController.search');
     Route.post('/', 'V1/CGP/StudyController.create');
+    Route.put('/:study', 'V1/CGP/StudyController.edit');
   }).prefix('customer/:customer/study'),
 );
 

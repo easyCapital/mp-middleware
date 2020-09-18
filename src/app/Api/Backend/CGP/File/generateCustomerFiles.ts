@@ -11,12 +11,14 @@ export default async function generateCustomerFiles(
   studyId: string,
   files: { type: FileType; contractId?: number }[],
 ): Promise<File[]> {
+  const formattedFiles = files.map((file) => ({ file_type: file.type, contract_id: file.contractId }));
+
   try {
     const response = await this.backendClient.post(
       {
         url: `cgp/customer/${customerId}/study/${studyId}/file/generate`,
       },
-      files.map((file) => ({ file_type: file.type, contract_id: file.contractId })),
+      formattedFiles,
     );
 
     const data = await response.json();
@@ -26,9 +28,9 @@ export default async function generateCustomerFiles(
     return createdFiles;
   } catch (exception) {
     if (typeof exception.json === 'function') {
-      const error = await exception.json();
+      const errors = await exception.json();
 
-      throw new FileException(error);
+      throw new FileException(errors[0]);
     }
 
     throw new Exception(exception);
