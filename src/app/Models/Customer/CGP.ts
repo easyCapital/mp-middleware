@@ -14,6 +14,7 @@ export default class CGP implements CGPInterface {
   private gender?: Gender;
   private CIF?: string;
   private orias?: string;
+  private signature?: string;
   private universe: string;
   private firstLogin: boolean;
   private lastModified: string;
@@ -26,6 +27,7 @@ export default class CGP implements CGPInterface {
     this.lastName = json.lastname;
     this.CIF = json.CIF;
     this.orias = json.orias;
+    this.signature = json.signature;
     this.universe = json.universe;
     this.firstLogin = json.first_login;
     this.lastModified = json.last_modified;
@@ -45,6 +47,7 @@ export default class CGP implements CGPInterface {
       gender: this.gender,
       CIF: this.CIF,
       orias: this.orias,
+      signature: this.signature,
       universe: this.universe,
       firstLogin: this.firstLogin,
       lastModified: this.lastModified,

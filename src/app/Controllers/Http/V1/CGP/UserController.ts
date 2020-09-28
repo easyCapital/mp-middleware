@@ -14,6 +14,14 @@ class CGPUserController {
 
     response.status(200).send();
   }
+
+  public async changeSignature({ request, response, backendApi }: Context) {
+    const { signature }: any = request.post();
+
+    await backendApi.modifyCGPSignature(signature);
+
+    response.status(200).send();
+  }
 }
 
 export = CGPUserController;

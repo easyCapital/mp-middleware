@@ -125,6 +125,7 @@ export default class BackendApi {
   // CGP - User
   public getCGPDetails = CGP.getCGPDetails;
   public modifyCGPPassword = CGP.modifyPassword;
+  public modifyCGPSignature = CGP.modifySignature;
 
   protected getStepsAndBlocks = Onboarding.getStepsAndBlocks;
 
