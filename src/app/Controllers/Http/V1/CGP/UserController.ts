@@ -18,9 +18,9 @@ class CGPUserController {
   public async changeSignature({ request, response, backendApi }: Context) {
     const { signature }: any = request.post();
 
-    await backendApi.modifyCGPSignature(signature);
+    const user = await backendApi.modifyCGPSignature(signature);
 
-    response.status(200).send();
+    response.status(200).send(user);
   }
 }
 
