@@ -7,6 +7,7 @@ const mpBackendApiKey = Env.getOrFail('MP_BACKEND_API_TOKEN');
 const demoInsuranceBrokerBackendApiKey = Env.get('DEMO_INSURANCE_BROKER_API_TOKEN') || '';
 const demoCGPBackendApiKey = Env.get('DEMO_CGP_API_TOKEN') || '';
 const serenalisBackendApiKey = Env.get('SERENALIS_API_TOKEN') || '';
+const demoSerenalisBackendApiKey = Env.get('DEMO_SERENALIS_API_TOKEN', '');
 const aPlusFinanceBackendApiKey = Env.get('APLUSFINANCE_API_TOKEN') || '';
 
 /*
@@ -200,6 +201,11 @@ const production = {
     app: Apps.CONSEIL,
     client: Clients.CGP_SERENALIS,
     backendApiKey: serenalisBackendApiKey,
+  },
+  'https://demo.mon1215.elwin.fr': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_SERENALIS,
+    backendApiKey: demoSerenalisBackendApiKey,
   },
   'https://aplusfinance.elwin.fr': {
     app: Apps.CONSEIL,
