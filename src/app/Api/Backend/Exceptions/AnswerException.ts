@@ -2,6 +2,7 @@ import { HttpException } from '@adonisjs/generic-exceptions';
 import { ErrorTypes, ErrorType, Answer, BackendError, BackendErrors } from '@robinfinance/js-api';
 
 const Logger = use('Logger');
+const Sentry = use('Sentry');
 
 export default class AnswerException extends HttpException {
   constructor(answers: Answer[], errors: BackendError[]) {
@@ -27,15 +28,22 @@ export default class AnswerException extends HttpException {
             break;
 
           case BackendErrors.NotFound:
+          case BackendErrors.InvalidError:
             errorMessageType = ErrorTypes.DEFAULT;
             break;
 
           case BackendErrors.InvalidMobileFormatError:
+          case BackendErrors.InvalidLandlineFormatError:
             errorMessageType = ErrorTypes.INVALID_MOBILE_NUMBER;
             break;
 
           default:
-            Logger.info('Missing Error mapping value in %s for %s', 'AnswerException', errorKey);
+            const errorMessage = `Missing Error mapping value in AnswerException for ${errorKey}`;
+
+            Sentry.captureMessage(errorMessage, {
+              context: { errors },
+            });
+            Logger.info(errorMessage);
             break;
         }
 

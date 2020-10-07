@@ -4,6 +4,7 @@ import { URL } from 'url';
 
 const Config = use('Config');
 const Logger = use('Logger');
+const Sentry = use('Sentry');
 
 class OriginConfigDetector {
   protected async handle(ctx: Context, next) {
@@ -11,7 +12,10 @@ class OriginConfigDetector {
     const originConfig = Config.get('origins')[origin];
 
     if (!originConfig) {
-      Logger.warning('%s could not be found in origins config', origin);
+      const errorMessage = `${origin} could not be found in origins config`;
+
+      Sentry.captureException(new Error(errorMessage));
+      Logger.warning(errorMessage);
 
       throw new ForbiddenException();
     }
@@ -21,6 +25,12 @@ class OriginConfigDetector {
     ctx.backendApiKey = originConfig.backendApiKey;
 
     ctx.response.header('Client', originConfig.client);
+
+    Sentry.setContext('origin', {
+      origin,
+      app: originConfig.app,
+      client: originConfig.client,
+    });
 
     await next();
   }

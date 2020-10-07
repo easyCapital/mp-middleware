@@ -4,6 +4,7 @@ import { BackendError, BackendErrors } from '@robinfinance/js-api';
 import { Exception, InvalidArgumentException } from '../../../Exceptions';
 
 const Logger = use('Logger');
+const Sentry = use('Sentry');
 
 export default class FileException extends HttpException {
   constructor(error: BackendError) {
@@ -23,7 +24,12 @@ export default class FileException extends HttpException {
           throw new InvalidArgumentException('Le document n’a pas pu être trouvé, merci de vérifier l’id fourni.');
 
         default:
-          Logger.info('Missing Error mapping value in %s for %s', 'FileException', errorKey);
+          const errorMessage = `Missing Error mapping value in FileException for ${errorKey}`;
+
+          Sentry.captureMessage(errorMessage, {
+            context: { error },
+          });
+          Logger.info(errorMessage);
           break;
       }
     });

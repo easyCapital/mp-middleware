@@ -1,6 +1,7 @@
 import { NotFoundException } from './Exceptions';
 
 const Logger = use('Logger');
+const Sentry = use('Sentry');
 
 interface Mapping {
   [key: string]: any;
@@ -16,12 +17,14 @@ export default abstract class GenericMapper<Type> {
       return mappedValue;
     }
 
-    const errorMsg = this.getErrMessage(String(value));
+    const errorMessage = this.getErrorMessage(String(value));
 
     if (throwException) {
-      throw new NotFoundException(errorMsg);
+      throw new NotFoundException(errorMessage);
     }
-    Logger.info(errorMsg);
+
+    Sentry.captureMessage(errorMessage);
+    Logger.info(errorMessage);
 
     return undefined;
   }
@@ -33,17 +36,20 @@ export default abstract class GenericMapper<Type> {
       return key;
     }
 
-    const errorMsg = this.getErrMessage(String(value), true);
+    const errorMessage = this.getErrorMessage(String(value), true);
+
     if (throwException) {
-      throw new NotFoundException(errorMsg);
+      throw new NotFoundException(errorMessage);
     }
 
-    Logger.info(errorMsg);
+    Sentry.captureMessage(errorMessage);
+
+    Logger.info(errorMessage);
 
     return undefined;
   }
 
-  private getErrMessage(value: string, reverse: boolean = false): string {
+  private getErrorMessage(value: string, reverse: boolean = false): string {
     return `Missing${reverse ? ' reverse ' : ' '}mapping value in ${this.constructor.name} for ${value}.`;
   }
 }

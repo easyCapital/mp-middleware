@@ -4,6 +4,7 @@ import { BackendError, BackendErrors } from '@robinfinance/js-api';
 import { NotFoundException, UnauthorizedException, ForbiddenException, Exception } from '../../../Exceptions';
 
 const Logger = use('Logger');
+const Sentry = use('Sentry');
 
 export default class PropositionException extends HttpException {
   constructor(error: BackendError) {
@@ -20,7 +21,12 @@ export default class PropositionException extends HttpException {
           throw new ForbiddenException("Vous n'avez pas accès à cette proposition");
 
         default:
-          Logger.info('Missing Error mapping value in %s for %s', 'PropositionException', errorKey);
+          const errorMessage = `Missing Error mapping value in PropositionException for ${errorKey}`;
+
+          Sentry.captureMessage(errorMessage, {
+            context: { error },
+          });
+          Logger.info(errorMessage);
           break;
       }
     });

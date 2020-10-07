@@ -4,6 +4,7 @@ import { BackendError, BackendErrors } from '@robinfinance/js-api';
 import { UnauthorizedException } from '../../../Exceptions';
 
 const Logger = use('Logger');
+const Sentry = use('Sentry');
 
 export default class BackendException extends HttpException {
   constructor(error: BackendError) {
@@ -17,7 +18,12 @@ export default class BackendException extends HttpException {
           throw new UnauthorizedException();
 
         default:
-          Logger.info('Missing Error mapping value in %s for %s', 'BackendException', errorKey);
+          const errorMessage = `Missing Error mapping value in BackendException for ${errorKey}`;
+
+          Sentry.captureMessage(errorMessage, {
+            context: { error },
+          });
+          Logger.info(errorMessage);
           break;
       }
     });

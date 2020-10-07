@@ -2,6 +2,7 @@ import { HttpException } from '@adonisjs/generic-exceptions';
 import { ErrorTypes, ErrorType, BackendError, BackendErrors } from '@robinfinance/js-api';
 
 const Logger = use('Logger');
+const Sentry = use('Sentry');
 
 export default class ChangePasswordException extends HttpException {
   constructor(error: BackendError) {
@@ -40,7 +41,12 @@ export default class ChangePasswordException extends HttpException {
           break;
 
         default:
-          Logger.info('Missing Error mapping value in %s for %s', 'ChangePasswordException', errorKey);
+          const errorMessage = `Missing Error mapping value in ChangePasswordException for ${errorKey}`;
+
+          Sentry.captureMessage(errorMessage, {
+            context: { error },
+          });
+          Logger.info(errorMessage);
           break;
       }
     });

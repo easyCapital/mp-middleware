@@ -4,6 +4,7 @@ import { BackendError, BackendErrors } from '@robinfinance/js-api';
 import { Exception } from '../../../Exceptions';
 
 const Logger = use('Logger');
+const Sentry = use('Sentry');
 
 export default class SignatureException extends HttpException {
   constructor(error: BackendError) {
@@ -16,7 +17,12 @@ export default class SignatureException extends HttpException {
           throw new Exception('Aucun fichier à signer, veuillez contacter notre support.');
 
         default:
-          Logger.info('Missing Error mapping value in %s for %s', 'SignatureException', errorKey);
+          const errorMessage = `Missing Error mapping value in SignatureException for ${errorKey}`;
+
+          Sentry.captureMessage(errorMessage, {
+            context: { error },
+          });
+          Logger.info(errorMessage);
           break;
       }
     });
