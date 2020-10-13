@@ -9,6 +9,9 @@
 
     <div>
       <p>
+        <b>Origine :</b> {{ origin }}
+      </p>
+      <p>
         <b>Type :</b> {{ type }}
       </p>
       <p>
@@ -20,6 +23,14 @@
       <p>
         <b>Email :</b> {{ email }}
       </p>
+      <p>
+        <b>Agence :</b> {{ agency }}
+      </p>
+      {% for key, value in data %}
+        <p>
+          <b>{{ key }} :</b> {{ value }}
+        </p>
+      {% endfor %}
     </div>
 
   </div>

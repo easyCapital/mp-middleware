@@ -7,11 +7,14 @@ const Drive = use('Drive');
 const SlackClient = use('SlackClient');
 
 async function sendFeedbackMessage(
+  origin: string,
   type: string,
   description: string,
   email: string,
+  agency?: string,
   title?: string,
   rawFiles?: string[],
+  data?: { [key: string]: string },
 ): Promise<void> {
   const FEEDBACK_CHANNEL_ID = Env.get('SLACK_FEEDBACK_CHANNEL_ID');
   const files: string[] = [];
@@ -30,13 +33,21 @@ async function sendFeedbackMessage(
   }
 
   if (FEEDBACK_CHANNEL_ID) {
+    let text: string = `Une nouvelle demande a été envoyée par un CGP :\n  - *origine :* ${origin}\n  - *type :* ${type}\n  - *titre :* ${
+      title || '-'
+    }\n  - *description :* ${description}\n  - *email :* ${email}\n  - *agence :* ${agency || '-'}`;
+
+    if (data) {
+      Object.keys(data).forEach((key) => {
+        text += `\n  - *${key} :* ${data[key]}`;
+      });
+    }
+
     const section: any = {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: `Une nouvelle demande a été envoyée par un CGP :\n  - *type :* ${type}\n  - *titre :* ${
-          title || '-'
-        }\n  - *description :* ${description}\n  - *email :* ${email}`,
+        text,
       },
     };
 
