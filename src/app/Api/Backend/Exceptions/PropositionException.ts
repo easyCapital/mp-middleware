@@ -3,11 +3,13 @@ import { BackendError, BackendErrors } from '@robinfinance/js-api';
 
 import { NotFoundException, UnauthorizedException, ForbiddenException, Exception } from '../../../Exceptions';
 
+const Config = use('Config');
 const Logger = use('Logger');
-const Sentry = use('Sentry');
 
 export default class PropositionException extends HttpException {
   constructor(error: BackendError) {
+    const environment = Config.get('sentry.environment');
+
     Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
         case BackendErrors.NotFound:
@@ -23,9 +25,14 @@ export default class PropositionException extends HttpException {
         default:
           const errorMessage = `Missing Error mapping value in PropositionException for ${errorKey}`;
 
-          Sentry.captureMessage(errorMessage, {
-            context: { error },
-          });
+          if (environment === 'staging' || environment === 'production') {
+            const Sentry = use('Sentry');
+
+            Sentry.captureMessage(errorMessage, {
+              context: { error },
+            });
+          }
+
           Logger.info(errorMessage);
           break;
       }

@@ -3,11 +3,12 @@ import { BackendError, BackendErrors } from '@robinfinance/js-api';
 
 import { Exception } from '../../../Exceptions';
 
+const Config = use('Config');
 const Logger = use('Logger');
-const Sentry = use('Sentry');
 
 export default class PortfolioException extends HttpException {
   constructor(errors: BackendError[]) {
+    const environment = Config.get('sentry.environment');
     const portfolioErrors: { type?: BackendErrors; message: string }[][] = [];
 
     errors.forEach((error) => {
@@ -62,9 +63,14 @@ export default class PortfolioException extends HttpException {
           default:
             const errorMessage = `Missing Error mapping value in PortfolioException for ${errorKey}`;
 
-            Sentry.captureMessage(errorMessage, {
-              context: { error },
-            });
+            if (environment === 'staging' || environment === 'production') {
+              const Sentry = use('Sentry');
+
+              Sentry.captureMessage(errorMessage, {
+                context: { error },
+              });
+            }
+
             Logger.info(errorMessage);
 
             errorMessages.push({ message: Exception.defaultMessage });

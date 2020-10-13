@@ -1,17 +1,22 @@
 import onFinished from 'on-finished';
 import { format } from 'date-fns';
 
+const Config = use('Config');
 const Logger = use('Logger');
-const Sentry = use('Sentry');
 
 class RequestLogger {
   protected async handle(ctx: any, next) {
+    const environment = Config.get('sentry.environment');
     const startTime = process.hrtime();
 
-    Sentry.setContext('request', {
-      method: ctx.request.method(),
-      url: ctx.request.url(),
-    });
+    if (environment === 'staging' || environment === 'production') {
+      const Sentry = use('Sentry');
+
+      Sentry.setContext('request', {
+        method: ctx.request.method(),
+        url: ctx.request.url(),
+      });
+    }
 
     onFinished(ctx.response.response, () => {
       const endTime = process.hrtime(startTime);
@@ -26,6 +31,12 @@ class RequestLogger {
         origin: ctx.origin,
         url: ctx.request.url(),
       });
+
+      if (environment === 'staging' || environment === 'production') {
+        const Sentry = use('Sentry');
+
+        Sentry.configureScope((scope) => scope.clear());
+      }
     });
 
     await next();

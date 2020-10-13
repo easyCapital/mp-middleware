@@ -64,6 +64,8 @@ export default class BackendApi {
   public createCGPAnswers = CGP.createCGPAnswers;
   public createAgencyAnswers = CGP.createAgencyAnswers;
   public createCGPCustomerAnswers = CGP.createCustomerAnswers;
+  public deactivateAgencyAnswers = CGP.deactivateAgencyAnswers;
+  public deactivateCGPCustomerAnswers = CGP.deactivateCustomerAnswers;
   // CGP - Authentication
   public loginCGP = CGP.login;
   public resetCGPPassword = CGP.resetPassword;

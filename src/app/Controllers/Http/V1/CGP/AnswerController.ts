@@ -21,6 +21,15 @@ class CGPAnswerController {
     response.status(201).send();
   }
 
+  public async deactivate({ params, request, response, backendApi }: Context) {
+    const { customer, study, contract } = params;
+    const answers = request.post() as Answer[];
+
+    await backendApi.deactivateCGPCustomerAnswers(customer, answers, study, contract);
+
+    response.status(200).send();
+  }
+
   public async searchCGP({ request, response, backendApi }: Context) {
     const filters = request.input('filters') as Filters;
 
@@ -51,6 +60,14 @@ class CGPAnswerController {
     await backendApi.createAgencyAnswers(answers);
 
     response.status(201).send();
+  }
+
+  public async deactivateAgency({ request, response, backendApi }: Context) {
+    const answers = request.post() as Answer[];
+
+    await backendApi.deactivateAgencyAnswers(answers);
+
+    response.status(200).send();
   }
 }
 

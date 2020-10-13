@@ -60,6 +60,7 @@ addAPIPrefixToGroup(
 
     Route.get('/answer', 'V1/CGP/AnswerController.searchAgency');
     Route.post('/answer', 'V1/CGP/AnswerController.createAgency');
+    Route.patch('/answer/deactivate', 'V1/CGP/AnswerController.deactivateAgency');
   }).prefix('agency'),
 );
 
@@ -109,6 +110,7 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.post('/', 'V1/CGP/AnswerController.create');
     Route.get('/', 'V1/CGP/AnswerController.search');
+    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivate');
   }).prefix('customer/:customer/answer'),
 );
 
@@ -242,6 +244,7 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.post('/', 'V1/CGP/AnswerController.create');
+    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivate');
   }).prefix('customer/:customer/study/:study/answer'),
 );
 
@@ -266,6 +269,7 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.post('/', 'V1/CGP/AnswerController.create');
+    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivate');
   }).prefix('customer/:customer/study/:study/contract/:contract/answer'),
 );
 

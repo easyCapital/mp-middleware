@@ -3,11 +3,13 @@ import { BackendError, BackendErrors } from '@robinfinance/js-api';
 
 import { Exception } from '../../../Exceptions';
 
+const Config = use('Config');
 const Logger = use('Logger');
-const Sentry = use('Sentry');
 
 export default class SignatureException extends HttpException {
   constructor(error: BackendError) {
+    const environment = Config.get('sentry.environment');
+
     Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
         case BackendErrors.FileAlreadySignedError:
@@ -19,9 +21,14 @@ export default class SignatureException extends HttpException {
         default:
           const errorMessage = `Missing Error mapping value in SignatureException for ${errorKey}`;
 
-          Sentry.captureMessage(errorMessage, {
-            context: { error },
-          });
+          if (environment === 'staging' || environment === 'production') {
+            const Sentry = use('Sentry');
+
+            Sentry.captureMessage(errorMessage, {
+              context: { error },
+            });
+          }
+
           Logger.info(errorMessage);
           break;
       }

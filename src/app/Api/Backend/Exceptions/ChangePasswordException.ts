@@ -1,11 +1,12 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
 import { ErrorTypes, ErrorType, BackendError, BackendErrors } from '@robinfinance/js-api';
 
+const Config = use('Config');
 const Logger = use('Logger');
-const Sentry = use('Sentry');
 
 export default class ChangePasswordException extends HttpException {
   constructor(error: BackendError) {
+    const environment = Config.get('sentry.environment');
     const errorMessages: { [key: string]: ErrorType } = {};
 
     Object.keys(error).forEach((errorKey) => {
@@ -43,9 +44,14 @@ export default class ChangePasswordException extends HttpException {
         default:
           const errorMessage = `Missing Error mapping value in ChangePasswordException for ${errorKey}`;
 
-          Sentry.captureMessage(errorMessage, {
-            context: { error },
-          });
+          if (environment === 'staging' || environment === 'production') {
+            const Sentry = use('Sentry');
+
+            Sentry.captureMessage(errorMessage, {
+              context: { error },
+            });
+          }
+
           Logger.info(errorMessage);
           break;
       }

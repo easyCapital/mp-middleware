@@ -1,11 +1,12 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
 import { ErrorTypes, ErrorType, Answer, BackendError, BackendErrors } from '@robinfinance/js-api';
 
+const Config = use('Config');
 const Logger = use('Logger');
-const Sentry = use('Sentry');
 
 export default class AnswerException extends HttpException {
   constructor(answers: Answer[], errors: BackendError[]) {
+    const environment = Config.get('sentry.environment');
     const errorMessages: { [key: string]: ErrorType } = {};
 
     errors.forEach((error, index) => {
@@ -40,9 +41,14 @@ export default class AnswerException extends HttpException {
           default:
             const errorMessage = `Missing Error mapping value in AnswerException for ${errorKey}`;
 
-            Sentry.captureMessage(errorMessage, {
-              context: { errors },
-            });
+            if (environment === 'staging' || environment === 'production') {
+              const Sentry = use('Sentry');
+
+              Sentry.captureMessage(errorMessage, {
+                context: { errors },
+              });
+            }
+
             Logger.info(errorMessage);
             break;
         }

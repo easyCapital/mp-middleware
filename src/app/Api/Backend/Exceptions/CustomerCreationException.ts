@@ -3,11 +3,12 @@ import { ErrorTypes, ErrorType, BackendError, BackendErrors } from '@robinfinanc
 
 import { Exception } from '../../../Exceptions';
 
+const Config = use('Config');
 const Logger = use('Logger');
-const Sentry = use('Sentry');
 
 export default class CustomerCreationException extends HttpException {
   constructor(error: BackendError) {
+    const environment = Config.get('sentry.environment');
     const errorMessages: { [key: string]: ErrorType } = {};
 
     Object.keys(error).forEach((errorKey) => {
@@ -73,9 +74,14 @@ export default class CustomerCreationException extends HttpException {
         default:
           const errorMessage = `Missing Error mapping value in CustomerCreationException for ${errorKey}`;
 
-          Sentry.captureMessage(errorMessage, {
-            context: { error },
-          });
+          if (environment === 'staging' || environment === 'production') {
+            const Sentry = use('Sentry');
+
+            Sentry.captureMessage(errorMessage, {
+              context: { error },
+            });
+          }
+
           Logger.info(errorMessage);
           break;
       }

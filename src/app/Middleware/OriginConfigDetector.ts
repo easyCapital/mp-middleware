@@ -4,17 +4,22 @@ import { URL } from 'url';
 
 const Config = use('Config');
 const Logger = use('Logger');
-const Sentry = use('Sentry');
 
 class OriginConfigDetector {
   protected async handle(ctx: Context, next) {
+    const environment = Config.get('sentry.environment');
     const origin: string = findOrigin(ctx);
     const originConfig = Config.get('origins')[origin];
 
     if (!originConfig) {
       const errorMessage = `${origin} could not be found in origins config`;
 
-      Sentry.captureException(new Error(errorMessage));
+      if (environment === 'staging' || environment === 'production') {
+        const Sentry = use('Sentry');
+
+        Sentry.captureException(new Error(errorMessage));
+      }
+
       Logger.warning(errorMessage);
 
       throw new ForbiddenException();
@@ -26,11 +31,15 @@ class OriginConfigDetector {
 
     ctx.response.header('Client', originConfig.client);
 
-    Sentry.setContext('origin', {
-      origin,
-      app: originConfig.app,
-      client: originConfig.client,
-    });
+    if (environment === 'staging' || environment === 'production') {
+      const Sentry = use('Sentry');
+
+      Sentry.setContext('origin', {
+        origin,
+        app: originConfig.app,
+        client: originConfig.client,
+      });
+    }
 
     await next();
   }
