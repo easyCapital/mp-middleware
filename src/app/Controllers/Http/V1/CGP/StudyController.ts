@@ -1,14 +1,19 @@
 import { Filters, StudyDTO } from '@robinfinance/js-api';
 
-import { Study } from '../../../../Models/Study';
 import { Context } from '../../../../../types';
+import { Study } from '../../../../Models/Study';
+import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPStudyController {
   public async create({ params, request, response, backendApi }: Context) {
     const { customer } = params;
-    const data: any = request.post();
+    const { title, coSubscriber } = request.post() as StudyDTO;
 
-    const contracts = await backendApi.createCGPStudy(customer, data.title);
+    if (!title) {
+      throw new InvalidArgumentException("Le titre de l'étude est obligatoire.");
+    }
+
+    const contracts = await backendApi.createCGPStudy(customer, title, coSubscriber);
 
     response.status(201).send(contracts);
   }
