@@ -8,7 +8,7 @@ import BackendApi from '../..';
 export default async function getProducts(this: BackendApi, filters?: Filters): Promise<Product> {
   try {
     const response = await this.backendClient.get({
-      url: 'product/search',
+      url: 'cgp/products',
       filters,
     });
 
