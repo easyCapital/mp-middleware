@@ -1,7 +1,7 @@
 import { Filters } from '@robinfinance/js-api';
 
 import { Product } from '../../../../Models/Product';
-import { Exception, NotFoundException } from '../../../../Exceptions';
+import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
@@ -14,11 +14,9 @@ export default async function getProducts(this: BackendApi, filters?: Filters): 
 
     const data = await response.json();
 
-    if (data.length > 0) {
-      const products = data.map((item) => new Product(item));
+    const products = data.map((item) => new Product(item));
 
-      return products;
-    }
+    return products;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();
@@ -28,6 +26,4 @@ export default async function getProducts(this: BackendApi, filters?: Filters): 
 
     throw new Exception(exception);
   }
-
-  throw new NotFoundException();
 }

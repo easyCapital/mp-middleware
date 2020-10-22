@@ -1,4 +1,4 @@
-import { Clients } from '@robinfinance/js-api';
+import { Clients, ClientTypes } from '@robinfinance/js-api';
 
 const Apps = use('Config').get('mpApps');
 const Env = use('Env');
@@ -9,6 +9,7 @@ const demoCGPBackendApiKey = Env.get('DEMO_CGP_API_TOKEN') || '';
 const serenalisBackendApiKey = Env.get('SERENALIS_API_TOKEN') || '';
 const demoSerenalisBackendApiKey = Env.get('DEMO_SERENALIS_API_TOKEN', '');
 const aPlusFinanceBackendApiKey = Env.get('APLUSFINANCE_API_TOKEN') || '';
+const demoAPlusFinanceBackendApiKey = Env.get('DEMO_APLUSFINANCE_API_TOKEN') || '';
 
 /*
 |--------------------------------------------------------------------------
@@ -36,39 +37,34 @@ const local = {
     client: Clients.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,
   },
-  'http://localhost:3300': {
-    app: Apps.CONSEIL,
-    client: Clients.CGP_DEMO,
-    backendApiKey: demoCGPBackendApiKey,
-  },
-  'http://localhost:3301': {
-    app: Apps.CONSEIL,
-    client: Clients.CGP_SERENALIS,
-    backendApiKey: serenalisBackendApiKey,
-  },
   'http://cgp.elwin.local': {
     app: Apps.CONSEIL,
     client: Clients.CGP_MIEUXPLACER,
+    type: ClientTypes.CGP,
     backendApiKey: mpBackendApiKey,
   },
   'http://demo.cgp.elwin.local': {
     app: Apps.CONSEIL,
     client: Clients.CGP_DEMO,
+    type: ClientTypes.CGP,
     backendApiKey: demoCGPBackendApiKey,
   },
   'http://demo.courtier.elwin.local': {
     app: Apps.CONSEIL,
     client: Clients.CGP_COURTIER,
+    type: ClientTypes.COURTIER,
     backendApiKey: demoInsuranceBrokerBackendApiKey,
   },
   'http://mon1215.elwin.local': {
     app: Apps.CONSEIL,
     client: Clients.CGP_SERENALIS,
+    type: ClientTypes.CGP,
     backendApiKey: serenalisBackendApiKey,
   },
   'http://aplusfinance.elwin.local': {
     app: Apps.CONSEIL,
     client: Clients.CGP_APLUS,
+    type: ClientTypes.ASSET_MANAGER,
     backendApiKey: aPlusFinanceBackendApiKey,
   },
 };
@@ -97,33 +93,32 @@ const development = {
   'http://cgp.dev.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_MIEUXPLACER,
+    type: ClientTypes.CGP,
     backendApiKey: mpBackendApiKey,
   },
   'http://demo.courtier.dev.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_COURTIER,
+    type: ClientTypes.COURTIER,
     backendApiKey: demoInsuranceBrokerBackendApiKey,
   },
   'http://demo.cgp.dev.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_DEMO,
+    type: ClientTypes.CGP,
     backendApiKey: demoCGPBackendApiKey,
   },
   'http://mon1215.dev.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_SERENALIS,
+    type: ClientTypes.CGP,
     backendApiKey: serenalisBackendApiKey,
   },
   'http://aplusfinance.dev.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_APLUS,
+    type: ClientTypes.ASSET_MANAGER,
     backendApiKey: aPlusFinanceBackendApiKey,
-  },
-  // AFTER THIS REMOVE WHEN CLEANUP
-  'http://serenalis.dev.robintech.co': {
-    app: Apps.CONSEIL,
-    client: Clients.CGP_SERENALIS,
-    backendApiKey: serenalisBackendApiKey,
   },
 };
 
@@ -141,32 +136,31 @@ const staging = {
   'https://cgp.stg.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_MIEUXPLACER,
+    type: ClientTypes.CGP,
     backendApiKey: mpBackendApiKey,
   },
   'https://demo.courtier.stg.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_COURTIER,
+    type: ClientTypes.COURTIER,
     backendApiKey: demoInsuranceBrokerBackendApiKey,
   },
   'https://demo.cgp.stg.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_DEMO,
+    type: ClientTypes.CGP,
     backendApiKey: demoCGPBackendApiKey,
-  },
-  // AFTER THIS REMOVE WHEN CLEANUP
-  'https://serenalis.stg.robintech.co': {
-    app: Apps.CONSEIL,
-    client: Clients.CGP_SERENALIS,
-    backendApiKey: serenalisBackendApiKey,
   },
   'https://mon1215.stg.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_SERENALIS,
+    type: ClientTypes.CGP,
     backendApiKey: serenalisBackendApiKey,
   },
   'https://aplusfinance.stg.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_APLUS,
+    type: ClientTypes.ASSET_MANAGER,
     backendApiKey: aPlusFinanceBackendApiKey,
   },
 };
@@ -185,69 +179,44 @@ const production = {
   'https://mieuxplacer.elwin.fr': {
     app: Apps.CONSEIL,
     client: Clients.CGP_MIEUXPLACER,
+    type: ClientTypes.CGP,
     backendApiKey: mpBackendApiKey,
   },
   'https://demo.courtier.elwin.fr': {
     app: Apps.CONSEIL,
     client: Clients.CGP_COURTIER,
+    type: ClientTypes.COURTIER,
     backendApiKey: demoInsuranceBrokerBackendApiKey,
   },
   'https://demo.cgp.elwin.fr': {
     app: Apps.CONSEIL,
     client: Clients.CGP_DEMO,
+    type: ClientTypes.CGP,
     backendApiKey: demoCGPBackendApiKey,
   },
   'https://mon1215.elwin.fr': {
     app: Apps.CONSEIL,
     client: Clients.CGP_SERENALIS,
+    type: ClientTypes.CGP,
     backendApiKey: serenalisBackendApiKey,
   },
   'https://demo.mon1215.elwin.fr': {
     app: Apps.CONSEIL,
     client: Clients.CGP_SERENALIS,
+    type: ClientTypes.CGP,
     backendApiKey: demoSerenalisBackendApiKey,
   },
   'https://aplusfinance.elwin.fr': {
     app: Apps.CONSEIL,
     client: Clients.CGP_APLUS,
+    type: ClientTypes.ASSET_MANAGER,
     backendApiKey: aPlusFinanceBackendApiKey,
   },
-  // AFTER THIS REMOVE WHEN CLEANUP
-  'https://cgp.prd.robintech.co': {
-    app: Apps.CONSEIL,
-    client: Clients.CGP_MIEUXPLACER,
-    backendApiKey: mpBackendApiKey,
-  },
-  'https://demo.cgp.prd.robintech.co': {
-    app: Apps.CONSEIL,
-    client: Clients.CGP_DEMO,
-    backendApiKey: demoCGPBackendApiKey,
-  },
-  'https://demo.courtier.prd.robintech.co': {
+  'https://demo.aplusfinance.elwin.fr': {
     app: Apps.CONSEIL,
     client: Clients.CGP_APLUS,
-    backendApiKey: aPlusFinanceBackendApiKey,
-  },
-  'https://serenalis.prd.robintech.co': {
-    app: Apps.CONSEIL,
-    client: Clients.CGP_SERENALIS,
-    backendApiKey: serenalisBackendApiKey,
-  },
-  'https://mon1215.prd.robintech.co': {
-    app: Apps.CONSEIL,
-    client: Clients.CGP_SERENALIS,
-    backendApiKey: serenalisBackendApiKey,
-  },
-  // AFTER THIS REMOVE WHEN NEW URLS HAVE BEEN COMMUNICATED
-  'https://aplusfinance.prd.robintech.co': {
-    app: Apps.CONSEIL,
-    client: Clients.CGP_APLUS,
-    backendApiKey: aPlusFinanceBackendApiKey,
-  },
-  'https://aplusfinance.mieuxplacer.tech': {
-    app: Apps.CONSEIL,
-    client: Clients.CGP_APLUS,
-    backendApiKey: aPlusFinanceBackendApiKey,
+    type: ClientTypes.ASSET_MANAGER,
+    backendApiKey: demoAPlusFinanceBackendApiKey,
   },
 };
 
