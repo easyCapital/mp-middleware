@@ -6,5 +6,7 @@ export { default as Page } from './Page';
 export { default as Product } from './Product';
 export { default as Supplier } from './Supplier';
 export { default as Type } from './Type';
+export { default as Tutorial } from './Tutorial';
+export { default as FAQ } from './FAQ';
 
 export * from './Elements';
