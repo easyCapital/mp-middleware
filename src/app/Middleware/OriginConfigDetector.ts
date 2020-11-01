@@ -31,7 +31,7 @@ class OriginConfigDetector {
 
     ctx.response.header('Client', originConfig.client);
 
-    if (originConfig.client) {
+    if (originConfig.type) {
       ctx.response.header('Client-Type', originConfig.type);
     }
 
