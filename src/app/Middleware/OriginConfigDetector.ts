@@ -30,7 +30,10 @@ class OriginConfigDetector {
     ctx.backendApiKey = originConfig.backendApiKey;
 
     ctx.response.header('Client', originConfig.client);
-    ctx.response.header('Client-Type', originConfig.type);
+
+    if (originConfig.client) {
+      ctx.response.header('Client-Type', originConfig.type);
+    }
 
     if (environment === 'staging' || environment === 'production') {
       const Sentry = use('Sentry');
