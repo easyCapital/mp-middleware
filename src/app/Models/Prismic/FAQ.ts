@@ -12,10 +12,11 @@ export default class FAQ extends ContentType {
     super(json);
     this.title = json.data.title[0].text;
     this.content = json.data.content.filter((item) => item.text.length > 0).map((item) => new RichText(item));
-    if (json.data.imageurl) {
+    this.order = json.data.order;
+
+    if (json.data.imageurl && json.data.imageurl.url) {
       this.image = new Image(json.data.imageurl);
     }
-    this.order = json.data.order;
   }
 
   public toJSON(): any {

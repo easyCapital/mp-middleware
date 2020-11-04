@@ -10,6 +10,8 @@ const serenalisBackendApiKey = Env.get('SERENALIS_API_TOKEN') || '';
 const demoSerenalisBackendApiKey = Env.get('DEMO_SERENALIS_API_TOKEN', '');
 const aPlusFinanceBackendApiKey = Env.get('APLUSFINANCE_API_TOKEN') || '';
 const demoAPlusFinanceBackendApiKey = Env.get('DEMO_APLUSFINANCE_API_TOKEN') || '';
+const afiBackendApiKey = Env.get('AFI_API_TOKEN') || '';
+const demoAfiBackendApiKey = Env.get('DEMO_AFI_API_TOKEN') || '';
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +69,12 @@ const local = {
     type: ClientTypes.ASSET_MANAGER,
     backendApiKey: aPlusFinanceBackendApiKey,
   },
+  'http://afi.elwin.local': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_AFI,
+    type: ClientTypes.COURTIER,
+    backendApiKey: afiBackendApiKey,
+  },
 };
 
 /*
@@ -120,6 +128,12 @@ const development = {
     type: ClientTypes.ASSET_MANAGER,
     backendApiKey: aPlusFinanceBackendApiKey,
   },
+  'http://afi.dev.robintech.co': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_AFI,
+    type: ClientTypes.COURTIER,
+    backendApiKey: afiBackendApiKey,
+  },
 };
 
 /*
@@ -162,6 +176,12 @@ const staging = {
     client: Clients.CGP_APLUS,
     type: ClientTypes.ASSET_MANAGER,
     backendApiKey: aPlusFinanceBackendApiKey,
+  },
+  'https://afi.stg.robintech.co': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_AFI,
+    type: ClientTypes.COURTIER,
+    backendApiKey: afiBackendApiKey,
   },
 };
 
@@ -217,6 +237,18 @@ const production = {
     client: Clients.CGP_APLUS,
     type: ClientTypes.ASSET_MANAGER,
     backendApiKey: demoAPlusFinanceBackendApiKey,
+  },
+  'https://afi.elwin.fr': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_AFI,
+    type: ClientTypes.COURTIER,
+    backendApiKey: afiBackendApiKey,
+  },
+  'https://demo.afi.elwin.fr': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_AFI,
+    type: ClientTypes.COURTIER,
+    backendApiKey: demoAfiBackendApiKey,
   },
 };
 
