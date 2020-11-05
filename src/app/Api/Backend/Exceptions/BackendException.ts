@@ -1,7 +1,7 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
 import { BackendError, BackendErrors } from '@robinfinance/js-api';
 
-import { UnauthorizedException } from '../../../Exceptions';
+import { UnauthorizedException, ForbiddenException } from '../../../Exceptions';
 
 const Config = use('Config');
 const Logger = use('Logger');
@@ -18,6 +18,9 @@ export default class BackendException extends HttpException {
         case BackendErrors.InvalidTokenError:
         case BackendErrors.MissingTokenError:
           throw new UnauthorizedException();
+
+        case BackendErrors.UserIsInactiveError:
+          throw new ForbiddenException('Votre compte est inactif, veuillez contacter le support Elwin.');
 
         default:
           const errorMessage = `Missing Error mapping value in BackendException for ${errorKey}`;

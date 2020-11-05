@@ -27,6 +27,9 @@ export default class AuthenticationException extends HttpException {
           });
           break;
 
+        case BackendErrors.UserIsInactiveError:
+          errorMessages.global = ErrorTypes.USER_INACTIVE;
+
         default:
           const errorMessage = `Missing Error mapping value in AuthenticationException for ${errorKey}`;
 
