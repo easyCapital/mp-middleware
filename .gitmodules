@@ -1,0 +1,4 @@
+[submodule "makefiles"]
+	path = makefiles
+	url = git@github.com:robinfinance/tools-makefiles.git
+	branch = master
