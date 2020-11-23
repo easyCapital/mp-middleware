@@ -67,7 +67,7 @@ export = {
   | Array - An array of allowed headers
   |
   */
-  exposeHeaders: ['Client', 'Client-Type'],
+  exposeHeaders: ['Client', 'Client-Type', 'Is-Demo'],
 
   /*
   |--------------------------------------------------------------------------

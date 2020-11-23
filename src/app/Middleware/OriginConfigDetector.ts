@@ -35,6 +35,10 @@ class OriginConfigDetector {
       ctx.response.header('Client-Type', originConfig.type);
     }
 
+    if (originConfig.isDemo) {
+      ctx.response.header('Is-Demo', originConfig.isDemo);
+    }
+
     if (environment === 'staging' || environment === 'production') {
       const Sentry = use('Sentry');
 

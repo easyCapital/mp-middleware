@@ -50,12 +50,14 @@ const local = {
     client: Clients.CGP_DEMO,
     type: ClientTypes.CGP,
     backendApiKey: demoCGPBackendApiKey,
+    isDemo: true,
   },
   'http://demo.courtier.elwin.local': {
     app: Apps.CONSEIL,
     client: Clients.CGP_COURTIER,
     type: ClientTypes.COURTIER,
     backendApiKey: demoInsuranceBrokerBackendApiKey,
+    isDemo: true,
   },
   'http://mon1215.elwin.local': {
     app: Apps.CONSEIL,
@@ -109,12 +111,14 @@ const development = {
     client: Clients.CGP_COURTIER,
     type: ClientTypes.COURTIER,
     backendApiKey: demoInsuranceBrokerBackendApiKey,
+    isDemo: true,
   },
   'http://demo.cgp.dev.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_DEMO,
     type: ClientTypes.CGP,
     backendApiKey: demoCGPBackendApiKey,
+    isDemo: true,
   },
   'http://mon1215.dev.robintech.co': {
     app: Apps.CONSEIL,
@@ -158,12 +162,14 @@ const staging = {
     client: Clients.CGP_COURTIER,
     type: ClientTypes.COURTIER,
     backendApiKey: demoInsuranceBrokerBackendApiKey,
+    isDemo: true,
   },
   'https://demo.cgp.stg.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_DEMO,
     type: ClientTypes.CGP,
     backendApiKey: demoCGPBackendApiKey,
+    isDemo: true,
   },
   'https://mon1215.stg.robintech.co': {
     app: Apps.CONSEIL,
@@ -207,12 +213,14 @@ const production = {
     client: Clients.CGP_COURTIER,
     type: ClientTypes.COURTIER,
     backendApiKey: demoInsuranceBrokerBackendApiKey,
+    isDemo: true,
   },
   'https://demo.cgp.elwin.fr': {
     app: Apps.CONSEIL,
     client: Clients.CGP_DEMO,
     type: ClientTypes.CGP,
     backendApiKey: demoCGPBackendApiKey,
+    isDemo: true,
   },
   'https://mon1215.elwin.fr': {
     app: Apps.CONSEIL,
@@ -225,6 +233,7 @@ const production = {
     client: Clients.CGP_SERENALIS,
     type: ClientTypes.CGP,
     backendApiKey: demoSerenalisBackendApiKey,
+    isDemo: true,
   },
   'https://aplusfinance.elwin.fr': {
     app: Apps.CONSEIL,
@@ -237,6 +246,7 @@ const production = {
     client: Clients.CGP_APLUS,
     type: ClientTypes.ASSET_MANAGER,
     backendApiKey: demoAPlusFinanceBackendApiKey,
+    isDemo: true,
   },
   'https://afi.elwin.fr': {
     app: Apps.CONSEIL,
@@ -249,6 +259,7 @@ const production = {
     client: Clients.CGP_AFI,
     type: ClientTypes.COURTIER,
     backendApiKey: demoAfiBackendApiKey,
+    isDemo: true,
   },
 };
 
