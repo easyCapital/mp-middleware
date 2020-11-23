@@ -225,6 +225,12 @@ addAPIPrefixToGroup(
   }).prefix('customer/:customer/study'),
 );
 
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/file', 'V1/CGP/FileController.getByStudy');
+  }).prefix('study/:study'),
+);
+
 /*
   |--------------------------------------------------------------------------
   | API V1 - CGP - STUDY TASK

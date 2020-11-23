@@ -15,6 +15,17 @@ class CGPContractFileController {
     response.status(200).send(files);
   }
 
+  public async getByStudy({ params, request, response, backendApi }: Context) {
+    const { study } = params;
+    const filters = request.input('filters') as Filters | undefined;
+    const orderBy = request.input('orderBy') as OrderBy | undefined;
+    const latestBy = request.input('latestBy') as string | undefined;
+
+    const files = await backendApi.getCGPStudyFiles(study, filters, orderBy, latestBy);
+
+    response.status(200).send(files);
+  }
+
   public async create({ params, request, response, backendApi }: Context) {
     const { customer, study } = params;
     const data = request.post() as FileDTO;

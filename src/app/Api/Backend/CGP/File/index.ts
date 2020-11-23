@@ -5,5 +5,6 @@ export { default as getCustomerFiles } from './getCustomerFiles';
 export { default as getInpactedFiles } from './getInpactedFiles';
 export { default as generateCustomerFiles } from './generateCustomerFiles';
 export { default as getSignatureUrl } from './getSignatureUrl';
+export { default as getStudyFiles } from './getStudyFiles';
 export { default as linkCustomerFile } from './linkCustomerFile';
 export { default as signedCustomerFile } from './signedCustomerFile';
