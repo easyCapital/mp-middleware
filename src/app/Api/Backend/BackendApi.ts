@@ -61,6 +61,7 @@ export default class BackendApi {
   public getCGPAnswers = CGP.getCGPAnswers;
   public getAgencyAnswers = CGP.getAgencyAnswers;
   public getCGPCustomerAnswers = CGP.getCustomerAnswers;
+  public getCGPStudyAnswers = CGP.getStudyAnswers;
   public createCGPAnswers = CGP.createCGPAnswers;
   public createAgencyAnswers = CGP.createAgencyAnswers;
   public createCGPCustomerAnswers = CGP.createCustomerAnswers;

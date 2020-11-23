@@ -17,6 +17,7 @@ export default class Task<Type> implements TaskInterface<Type> {
   private next: number | null;
   private order: number;
   private or: boolean;
+  private isForCoSubscriber: boolean;
   private contract?: number;
 
   constructor(json: any) {
@@ -28,6 +29,7 @@ export default class Task<Type> implements TaskInterface<Type> {
     this.next = json.next_action;
     this.order = json.execution_order;
     this.or = json._or;
+    this.isForCoSubscriber = json.is_for_co_subscriber;
     this.contract = json.contract;
   }
 
@@ -42,6 +44,7 @@ export default class Task<Type> implements TaskInterface<Type> {
       next: this.next,
       order: this.order,
       or: this.or,
+      isForCoSubscriber: this.isForCoSubscriber,
       contract: this.contract,
     };
   }

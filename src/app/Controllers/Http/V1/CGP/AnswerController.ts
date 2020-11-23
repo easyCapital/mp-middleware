@@ -30,6 +30,15 @@ class CGPAnswerController {
     response.status(200).send();
   }
 
+  public async searchStudy({ params, request, response, backendApi }: Context) {
+    const { study } = params;
+    const filters = request.input('filters') as Filters;
+
+    const answers = await backendApi.getCGPStudyAnswers(study, filters);
+
+    response.status(200).send(answers);
+  }
+
   public async searchCGP({ request, response, backendApi }: Context) {
     const filters = request.input('filters') as Filters;
 

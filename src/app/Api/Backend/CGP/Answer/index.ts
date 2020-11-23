@@ -7,3 +7,4 @@ export { default as getCGPAnswers } from './getCGPAnswers';
 export { default as getAgencyAnswers } from './getAgencyAnswers';
 export { default as getCustomerAnswers } from './getCustomerAnswers';
 export { default as getAnswersByCustomer } from './getAnswersByCustomer';
+export { default as getStudyAnswers } from './getStudyAnswers';

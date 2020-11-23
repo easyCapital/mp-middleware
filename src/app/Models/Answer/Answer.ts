@@ -9,11 +9,13 @@ interface AnswerInterface {
 export default class Answer implements AnswerInterface {
   private question: string;
   private value: string | null;
+  private user: number;
   private row?: number;
 
   constructor(json: any) {
     this.question = json.question_id || json.question;
     this.value = json.value;
+    this.user = json.user;
     this.row = json.row !== null ? json.row : undefined;
   }
 
@@ -21,6 +23,7 @@ export default class Answer implements AnswerInterface {
     return {
       question: this.question,
       value: this.value,
+      user: this.user,
       row: this.row,
     };
   }
