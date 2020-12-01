@@ -6,7 +6,7 @@ import { Filters } from '@robinfinance/js-api';
 export default async function getQuestions(
   this: BackendApi,
   configKey: string | undefined,
-  ids: string | string,
+  ids: string | string[],
 ): Promise<{ [key: string]: Question }> {
   const questions: { [key: string]: Question } = {};
 
