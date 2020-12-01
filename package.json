@@ -1,6 +1,6 @@
 {
   "name": "mieuxplacer-middleware",
-  "version": "2.19.0",
+  "version": "2.20.0-RC-1",
   "description": "Middleware for Mieuxplacer.com services",
   "main": "index.js",
   "private": true,
@@ -11,7 +11,7 @@
     "@adonisjs/drive": "^1.0.4",
     "@adonisjs/fold": "^4.0.9",
     "@adonisjs/framework": "^5.0.13",
-    "@adonisjs/generic-exceptions": "^3.0.1", 
+    "@adonisjs/generic-exceptions": "^3.0.1",
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/redis": "^2.0.7",
     "@adonisjs/session": "^1.0.29",
