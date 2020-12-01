@@ -3,6 +3,8 @@ import { Exception, NotFoundException } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
+import { CGPGenderMapper } from '../../../../Mappers/Customer';
+
 export default async function getCustomer(this: BackendApi, id: string): Promise<Customer> {
   try {
     const response = await this.backendClient.get({
@@ -18,13 +20,21 @@ export default async function getCustomer(this: BackendApi, id: string): Promise
       const answers = await this.getCGPCustomerAnswers(
         customer.getId().toString(),
         {
-          question_id__in: ['DQ7', 'DQ6', 'mobile_number'],
+          question_id__in: ['DQ5', 'DQ7', 'DQ6', 'mobile_number'],
           is_active: 'True',
         },
         'question_id',
       );
 
       answers.forEach((answer) => {
+        if (answer.getKey() === 'DQ5') {
+          const gender = CGPGenderMapper.transformValue(answer.getValue() as string);
+
+          if (gender) {
+            customer.setGender(gender);
+          }
+        }
+
         if (answer.getKey() === 'DQ7') {
           customer.setFirstName(answer.getValue() as string);
         }

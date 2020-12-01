@@ -1,4 +1,4 @@
-import { Customer as JsonCustomerInterface } from '@robinfinance/js-api';
+import { Customer as JsonCustomerInterface, Gender } from '@robinfinance/js-api';
 
 import Tag from './Tag';
 
@@ -11,6 +11,7 @@ interface CustomerInterface {
 export default class Customer implements CustomerInterface {
   private id: number;
   private email: string;
+  private gender?: Gender;
   private firstName?: string;
   private lastName?: string;
   private mobileNumber?: string;
@@ -40,6 +41,7 @@ export default class Customer implements CustomerInterface {
     return {
       id: this.id,
       email: this.email,
+      gender: this.gender,
       firstName: this.firstName,
       lastName: this.lastName,
       mobileNumber: this.mobileNumber,
@@ -54,6 +56,12 @@ export default class Customer implements CustomerInterface {
 
   public getId(): number {
     return this.id;
+  }
+
+  public setGender(gender: Gender): this {
+    this.gender = gender;
+
+    return this;
   }
 
   public setFirstName(firstName: string): this {
