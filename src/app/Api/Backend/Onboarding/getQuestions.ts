@@ -2,53 +2,50 @@ import { Question } from '../../../Models/Onboarding';
 import { Exception } from '../../../Exceptions';
 import BackendApi from '..';
 import { Filters } from '@robinfinance/js-api';
-import { formatMeta } from '../Helpers';
 
 export default async function getQuestions(
   this: BackendApi,
   configKey: string | undefined,
-  ids?: string[],
+  ids: string[],
 ): Promise<{ [key: string]: Question }> {
   const questions: { [key: string]: Question } = {};
 
   try {
-    const filters: Filters = { key__in: ids };
+    const filters: Filters = {};
+
+    const dupplicatedIds = [...ids];
+    const splittedIds: string[][] = [];
+
+    while (dupplicatedIds.length) {
+      splittedIds.push(dupplicatedIds.splice(0, 100));
+    }
 
     if (configKey) {
       filters.config_key = configKey;
     }
 
-    const response = await this.backendClient.get({
-      url: 'question/search',
-      filters,
-      pagination: { page: 1, perPage: 100 },
-    });
+    let data: any = [];
 
-    let data = await response.json();
-    const meta = formatMeta(response.headers, { page: 1, perPage: 100 });
-    let nextPage = meta.nextPage;
+    const responses = await Promise.all(
+      splittedIds.map((array) =>
+        this.backendClient.get({
+          url: 'question/search',
+          filters: { key__in: array, ...filters },
+          pagination: { page: 1, perPage: 100 },
+        }),
+      ),
+    );
 
-    while (nextPage) {
-      const nextResponse = await this.backendClient.get({
-        url: 'question/search',
-        filters,
-        pagination: { page: nextPage, perPage: 100 },
-      });
+    for await (const response of responses) {
+      const responseData = await response.json();
 
-      const nextMeta = formatMeta(nextResponse.headers, { page: nextPage, perPage: 100 });
-
-      nextPage = nextMeta.nextPage;
-      data = data.concat(await nextResponse.json());
+      data = data.concat(responseData);
     }
 
     data.forEach((item) => {
       const question = new Question(item);
 
-      if (ids !== undefined && ids.length > 0) {
-        if (ids.includes(question.getId())) {
-          questions[question.getId()] = question;
-        }
-      } else {
+      if (ids.includes(question.getId())) {
         questions[question.getId()] = question;
       }
     });
