@@ -6,14 +6,14 @@ import { Filters } from '@robinfinance/js-api';
 export default async function getQuestions(
   this: BackendApi,
   configKey: string | undefined,
-  ids: string[],
+  ids: string | string,
 ): Promise<{ [key: string]: Question }> {
   const questions: { [key: string]: Question } = {};
 
   try {
     const filters: Filters = {};
 
-    const dupplicatedIds = [...ids];
+    const dupplicatedIds = Array.isArray(ids) ? [...ids] : [ids];
     const splittedIds: string[][] = [];
 
     while (dupplicatedIds.length) {
