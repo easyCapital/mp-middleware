@@ -1,4 +1,4 @@
-import { Condition, ConditionTypes } from '@robinfinance/js-api';
+import { Condition, ConditionTypes, OtherConditionTypes } from '@robinfinance/js-api';
 
 import { getNumberOrString } from '../../Helpers';
 
@@ -83,6 +83,14 @@ export default class ConditionMapper {
         key: conditionElements[0].replace(/int\(/g, '').replace(/\)/g, ''),
         value: getNumberOrString(conditionElements[1]),
         type: ConditionTypes.IS_INFERIOR,
+      };
+    }
+
+    if (value in OtherConditionTypes) {
+      return {
+        key: '',
+        value: '',
+        type: value as OtherConditionTypes,
       };
     }
 

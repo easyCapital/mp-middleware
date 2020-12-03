@@ -6,6 +6,7 @@ const Env = use('Env');
 const mpBackendApiKey = Env.getOrFail('MP_BACKEND_API_TOKEN');
 const demoInsuranceBrokerBackendApiKey = Env.get('DEMO_INSURANCE_BROKER_API_TOKEN') || '';
 const demoCGPBackendApiKey = Env.get('DEMO_CGP_API_TOKEN') || '';
+const testElwinBackendApiKey = Env.get('TEST_ELWIN_API_TOKEN') || '';
 const serenalisBackendApiKey = Env.get('SERENALIS_API_TOKEN') || '';
 const demoSerenalisBackendApiKey = Env.get('DEMO_SERENALIS_API_TOKEN', '');
 const aPlusFinanceBackendApiKey = Env.get('APLUSFINANCE_API_TOKEN') || '';
@@ -105,6 +106,12 @@ const development = {
     client: Clients.CGP_MIEUXPLACER,
     type: ClientTypes.CGP,
     backendApiKey: mpBackendApiKey,
+  },
+  'http://test.elwin.dev.robintech.co': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_DEMO,
+    type: ClientTypes.CGP,
+    backendApiKey: testElwinBackendApiKey,
   },
   'http://demo.courtier.dev.robintech.co': {
     app: Apps.CONSEIL,

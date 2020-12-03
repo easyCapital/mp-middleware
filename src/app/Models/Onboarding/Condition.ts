@@ -22,10 +22,10 @@ export default class Condition implements ConditionInterface {
   }
 
   public toJSON(): JsonConditionInterface | null {
-    if (this.key && this.value && this.type) {
+    if (this.type) {
       return {
-        key: this.key,
-        value: this.value,
+        key: this.key || '',
+        value: this.value || '',
         type: this.type,
       };
     }
