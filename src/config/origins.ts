@@ -4,6 +4,8 @@ const Apps = use('Config').get('mpApps');
 const Env = use('Env');
 
 const mpBackendApiKey = Env.getOrFail('MP_BACKEND_API_TOKEN');
+const elwinBackendApiKey = Env.get('ELWIN_API_TOKEN') || '';
+const demoElwinBackendApiKey = Env.get('DEMO_ELWIN_API_TOKEN') || '';
 const demoInsuranceBrokerBackendApiKey = Env.get('DEMO_INSURANCE_BROKER_API_TOKEN') || '';
 const demoCGPBackendApiKey = Env.get('DEMO_CGP_API_TOKEN') || '';
 const testElwinBackendApiKey = Env.get('TEST_ELWIN_API_TOKEN') || '';
@@ -20,25 +22,16 @@ const demoAfiBackendApiKey = Env.get('DEMO_AFI_API_TOKEN') || '';
 |--------------------------------------------------------------------------
 */
 const local = {
-  'http://localhost:3330': {
-    app: Apps.MIEUXPLACER,
-    client: Clients.MIEUXPLACER,
-    backendApiKey: mpBackendApiKey,
-  },
   'http://mieuxplacer.local': {
     app: Apps.MIEUXPLACER,
     client: Clients.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,
   },
-  'http://mif.mieuxplacer.local': {
-    app: Apps.MIEUXPLACER,
-    client: Clients.MIEUXPLACER,
-    backendApiKey: mpBackendApiKey,
-  },
-  'http://conseil.mieuxplacer.local': {
-    app: Apps.MIEUXPLACER,
-    client: Clients.MIEUXPLACER,
-    backendApiKey: mpBackendApiKey,
+  'http://app.elwin.local': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_ELWIN,
+    type: ClientTypes.CGP,
+    backendApiKey: elwinBackendApiKey,
   },
   'http://cgp.elwin.local': {
     app: Apps.CONSEIL,
@@ -91,15 +84,11 @@ const development = {
     client: Clients.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,
   },
-  'http://mif.mieuxplacer.dev.robintech.co': {
-    app: Apps.MIEUXPLACER,
-    client: Clients.MIEUXPLACER,
-    backendApiKey: mpBackendApiKey,
-  },
-  'http://conseil.mieuxplacer.dev.robintech.co': {
-    app: Apps.MIEUXPLACER,
-    client: Clients.MIEUXPLACER,
-    backendApiKey: mpBackendApiKey,
+  'http://app.elwin.dev.robintech.co': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_ELWIN,
+    type: ClientTypes.CGP,
+    backendApiKey: elwinBackendApiKey,
   },
   'http://cgp.dev.robintech.co': {
     app: Apps.CONSEIL,
@@ -158,6 +147,12 @@ const staging = {
     client: Clients.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,
   },
+  'https://app.elwin.stg.robintech.co': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_ELWIN,
+    type: ClientTypes.CGP,
+    backendApiKey: elwinBackendApiKey,
+  },
   'https://cgp.stg.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_MIEUXPLACER,
@@ -208,6 +203,19 @@ const production = {
     app: Apps.MIEUXPLACER,
     client: Clients.MIEUXPLACER,
     backendApiKey: mpBackendApiKey,
+  },
+  'https://app.elwin.fr': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_ELWIN,
+    type: ClientTypes.CGP,
+    backendApiKey: elwinBackendApiKey,
+  },
+  'https://demo.app.elwin.fr': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_ELWIN,
+    type: ClientTypes.CGP,
+    backendApiKey: demoElwinBackendApiKey,
+    isDemo: true,
   },
   'https://mieuxplacer.elwin.fr': {
     app: Apps.CONSEIL,
