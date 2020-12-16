@@ -26,6 +26,17 @@ class CGPContractFileController {
     response.status(200).send(files);
   }
 
+  public async getAllStudiesFiles({ params, request, response, backendApi }: Context) {
+    const { customer } = params;
+    const filters = request.input('filters') as Filters | undefined;
+    const orderBy = request.input('orderBy') as OrderBy | undefined;
+    const latestBy = request.input('latestBy') as string | undefined;
+
+    const studyFilesList = await backendApi.getCGPAllStudyFiles(customer, filters, orderBy, latestBy);
+
+    response.status(200).send(studyFilesList);
+  }
+
   public async create({ params, request, response, backendApi }: Context) {
     const { customer, study } = params;
     const data = request.post() as FileDTO;
@@ -91,6 +102,12 @@ class CGPContractFileController {
     const { contract } = params;
 
     await backendApi.downloadCGPContractFiles(req, res, contract);
+  }
+
+  public async downloadStudyFiles({ params, req, res, backendApi }: Context) {
+    const { study } = params;
+
+    await backendApi.downloadCGPStudyFiles(req, res, study);
   }
 
   public async inpactedFiles({ params, request, response, backendApi }: Context) {

@@ -182,8 +182,20 @@ addAPIPrefixToGroup(
 
 addAPIPrefixToGroup(
   Route.group(() => {
+    Route.get('/', 'V1/CGP/FileController.getAllStudiesFiles');
+  }).prefix('customer/:customer/study/file'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
     Route.get('/download', 'V1/CGP/FileController.downloadContractFiles');
   }).prefix('contract/:contract/file'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/download', 'V1/CGP/FileController.downloadStudyFiles');
+  }).prefix('study/:study/file'),
 );
 
 addAPIPrefixToGroup(
