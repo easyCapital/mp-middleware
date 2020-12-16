@@ -33,6 +33,7 @@ export default class AnswerException extends HttpException {
             errorMessageType = ErrorTypes.DEFAULT;
             break;
 
+          case BackendErrors.InvalidPhoneFormatError:
           case BackendErrors.InvalidMobileFormatError:
           case BackendErrors.InvalidLandlineFormatError:
             errorMessageType = ErrorTypes.INVALID_MOBILE_NUMBER;
