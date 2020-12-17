@@ -1,0 +1,78 @@
+{
+  "name": "middleware-v3",
+  "version": "1.0.0",
+  "private": true,
+
+  "dependencies": {
+    "@adonisjs/core": "^5.0.4-preview-rc-2.1",
+    "@adonisjs/lucid": "^9.0.3",
+    "@adonisjs/repl": "^1.0.0",
+    "@adonisjs/session": "^4.0.5",
+    "@robinfinance/elwin-js": "0.0.1",
+    "@sentry/node": "^5.29.0",
+    "@sentry/tracing": "^5.29.0",
+    "@slack/web-api": "^5.14.0",
+    "date-fns": "^2.16.1",
+    "http-proxy": "^1.18.1",
+    "luxon": "^1.25.0",
+    "node-fetch": "^2.6.1",
+    "on-finished": "^2.3.0",
+    "pg": "^8.5.1",
+    "prismic-javascript": "^3.0.2",
+    "proxy-addr": "^2.0.6",
+    "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.19"
+  },
+  "scripts": {
+    "build": "node ace build --production",
+    "dev": "node ace serve --watch",
+    "lint": "eslint . --ext=.ts",
+    "format": "prettier --write ."
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./**/*.ts": [
+      "eslint",
+      "prettier --write"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:adonis/typescriptApp", "prettier", "prettier/@typescript-eslint"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@adonisjs/assembler": "^3.0.6",
+    "@sentry/cli": "^1.60.1",
+    "@types/date-fns": "^2.6.0",
+    "@types/http-proxy": "^1.17.4",
+    "@types/node-fetch": "^2.5.7",
+    "@types/on-finished": "^2.3.1",
+    "adonis-preset-ts": "^1.1.0",
+    "commitlint": "^11.0.0",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-adonis": "^1.0.15",
+    "eslint-plugin-prettier": "^3.2.0",
+    "husky": "^4.3.5",
+    "lint-staged": "^10.5.3",
+    "pino-pretty": "^4.3.0",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.2",
+    "youch": "^2.1.1",
+    "youch-terminal": "^1.0.1"
+  }
+}
