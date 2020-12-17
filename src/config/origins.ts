@@ -153,6 +153,12 @@ const staging = {
     type: ClientTypes.CGP,
     backendApiKey: elwinBackendApiKey,
   },
+  'https://test.elwin.stg.robintech.co': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_DEMO,
+    type: ClientTypes.CGP,
+    backendApiKey: testElwinBackendApiKey,
+  },
   'https://cgp.stg.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_MIEUXPLACER,
