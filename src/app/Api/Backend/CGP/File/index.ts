@@ -10,3 +10,4 @@ export { default as getStudyFiles } from './getStudyFiles';
 export { default as getAllStudyFiles } from './getAllStudyFiles';
 export { default as linkCustomerFile } from './linkCustomerFile';
 export { default as signedCustomerFile } from './signedCustomerFile';
+export { default as downloadTemplateFile } from './downloadTemplateFile';

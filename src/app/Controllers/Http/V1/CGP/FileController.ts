@@ -110,6 +110,12 @@ class CGPContractFileController {
     await backendApi.downloadCGPStudyFiles(req, res, study);
   }
 
+  public async downloadTemplateFile({ params, req, res, backendApi }: any) {
+    const { type } = params;
+
+    await backendApi.downloadTemplateFile(req, res, type);
+  }
+
   public async inpactedFiles({ params, request, response, backendApi }: Context) {
     const { customer, study, contract } = params;
     const answers = request.post() as Answer[];

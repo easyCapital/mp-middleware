@@ -203,6 +203,7 @@ addAPIPrefixToGroup(
     Route.get('/:id/download', 'V1/CGP/FileController.download');
     Route.get('/:id/view', 'V1/CGP/FileController.view');
     Route.get('/:id/signed', 'V1/CGP/FileController.signed');
+    Route.get('/template/:type/download/', 'V1/CGP/FileController.downloadTemplateFile');
   }).prefix('file'),
 );
 
