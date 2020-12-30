@@ -21,6 +21,7 @@ const TaskTypeMapping = {
   '16': TaskTypes.DOWNLOAD,
   '17': TaskTypes.RIC,
   '18': TaskTypes.OBSERVATIONS,
+  '19': TaskTypes.DOWNLOAD_FILE,
 };
 
 class TaskTypeMapper extends GenericMapper<TaskTypes> {
