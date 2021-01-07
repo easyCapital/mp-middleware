@@ -45,6 +45,7 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/AnswerController.searchCGP');
     Route.post('/', 'V1/CGP/AnswerController.createCGP');
+    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivateCGP');
   }).prefix('answer'),
 );
 

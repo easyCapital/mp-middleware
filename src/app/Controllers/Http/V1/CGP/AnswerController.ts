@@ -55,6 +55,14 @@ class CGPAnswerController {
     response.status(201).send();
   }
 
+  public async deactivateCGP({ request, response, backendApi }: Context) {
+    const answers = request.post() as Answer[];
+
+    await backendApi.deactivateCGPAnswers(answers);
+
+    response.status(200).send();
+  }
+
   public async searchAgency({ request, response, backendApi }: Context) {
     const filters = request.input('filters') as Filters;
 
