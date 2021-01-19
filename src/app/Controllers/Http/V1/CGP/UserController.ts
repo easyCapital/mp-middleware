@@ -7,6 +7,12 @@ class CGPUserController {
     response.status(200).send(customer);
   }
 
+  public async getStatistics({ response, backendApi }: Context) {
+    const statistics = await backendApi.getCGPStatistics();
+
+    response.status(200).send(statistics);
+  }
+
   public async changePassword({ request, response, backendApi }: Context) {
     const { oldPassword, newPassword }: any = request.post();
 
