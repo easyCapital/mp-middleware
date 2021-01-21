@@ -11,10 +11,15 @@ export default async function createCustomerFile(
   studyId: string,
   type: FileType,
   file: string,
+  id?: number,
   signatureDate?: string,
   contractId?: number,
 ): Promise<File> {
   const body: any = { customer_id: customerId, file_type: type, file };
+
+  if (id) {
+    body.file_id = id;
+  }
 
   if (signatureDate) {
     body.sign_date = signatureDate;

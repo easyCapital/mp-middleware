@@ -54,6 +54,7 @@ class CGPContractFileController {
             study,
             key as FileType,
             file.data,
+            file.id,
             file.signatureDate,
             file.contractId,
           );
