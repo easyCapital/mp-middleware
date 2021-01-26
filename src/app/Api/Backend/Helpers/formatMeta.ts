@@ -1,6 +1,6 @@
 import { Pagination, Meta } from '@robinfinance/js-api';
 
-function formatMeta(headers: Headers, pagination: Pagination): Meta {
+function formatMeta(headers: Headers, pagination: Pagination = { page: 1, perPage: 100 }): Meta {
   const contentRange = headers.get('Content-Range');
 
   const page = Number(pagination.page);
