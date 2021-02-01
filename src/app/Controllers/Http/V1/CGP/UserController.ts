@@ -13,6 +13,12 @@ class CGPUserController {
     response.status(200).send(statistics);
   }
 
+  public async setHasSeenHelp({ response, backendApi }: Context) {
+    const customer = await backendApi.setCGHasSeenHelp();
+
+    response.status(200).send(customer);
+  }
+
   public async changePassword({ request, response, backendApi }: Context) {
     const { oldPassword, newPassword }: any = request.post();
 

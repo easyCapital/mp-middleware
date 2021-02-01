@@ -17,6 +17,7 @@ export default class CGP implements CGPInterface {
   private firstLogin: boolean;
   private lastModified: string;
   private lastLogin?: string;
+  private hasSeenHelp: boolean;
 
   constructor(json: any) {
     this.id = json.id;
@@ -28,6 +29,7 @@ export default class CGP implements CGPInterface {
     this.firstLogin = json.first_login;
     this.lastModified = json.last_modified;
     this.lastLogin = json.last_login;
+    this.hasSeenHelp = json.has_seen_help;
 
     if (json.cgp_gender) {
       this.gender = CGPGenderMapper.transformValue(json.cgp_gender);
@@ -46,6 +48,7 @@ export default class CGP implements CGPInterface {
       firstLogin: this.firstLogin,
       lastModified: this.lastModified,
       lastLogin: this.lastLogin,
+      hasSeenHelp: this.hasSeenHelp,
     };
   }
 }

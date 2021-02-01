@@ -31,6 +31,7 @@ Route.group(() => {
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/UserController.get');
+    Route.patch('/help', 'V1/CGP/UserController.setHasSeenHelp');
     Route.get('/statistics', 'V1/CGP/UserController.getStatistics');
     Route.post('/password', 'V1/CGP/UserController.changePassword');
     Route.put('/signature', 'V1/CGP/UserController.changeSignature');
