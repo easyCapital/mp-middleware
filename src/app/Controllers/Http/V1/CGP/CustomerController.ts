@@ -49,6 +49,15 @@ class CGPCustomerController {
     response.status(200).send(customer);
   }
 
+  public async changeEmail({ params, request, response, backendApi }: Context) {
+    const { id } = params;
+    const { email }: any = request.post();
+
+    const customer = await backendApi.changeCGPCustomerEmail(id, email);
+
+    response.status(200).send(customer);
+  }
+
   public async deactivate({ params, response, backendApi }: Context) {
     const { id } = params;
 
