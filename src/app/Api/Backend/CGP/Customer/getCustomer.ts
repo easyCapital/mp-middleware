@@ -12,6 +12,7 @@ export default async function getCustomer(this: BackendApi, id: string): Promise
       filters: { id },
       pagination: { page: 1, perPage: 1 },
     });
+
     const data = await response.json();
 
     if (data.length > 0) {
