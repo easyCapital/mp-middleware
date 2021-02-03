@@ -2,6 +2,7 @@ import { Filters, Origins, Origin } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
+import * as SlackAPI from '../../../../Api/Slack';
 
 class CGPPropositionController {
   public async search({ params, request, response, backendApi }: Context) {
@@ -78,6 +79,19 @@ class CGPPropositionController {
     const proposition = await backendApi.createCGPStudyProposition(customer, study, universe, portfolios);
 
     response.status(200).send(proposition);
+  }
+
+  public async validateExternalProposition({ params, request, response, backendApi, origin }: Context) {
+    const { customer, study, task } = params;
+    const data = request.post() as { email: string; agency: string | undefined; product: string | undefined };
+
+    await backendApi.finishStudyTask(customer, study, task);
+
+    if (data.product) {
+      await SlackAPI.sendOtherProductName(origin, data.email, data.product, data.agency);
+    }
+
+    response.status(200).send();
   }
 
   public async downloadMissionReport({ params, req, res, backendApi }: Context) {
