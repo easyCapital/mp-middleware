@@ -185,8 +185,6 @@ addAPIPrefixToGroup(
     Route.get('/:contract/file', 'V1/FileController.search');
     Route.get('/:contract/complementary-question', 'V1/TaskController.complementaryQuestions');
     Route.get('/:contract/supporting-document', 'V1/TaskController.supportingDocuments');
-    Route.get('/:contract/signature', 'V1/TaskController.signatureUrl');
-    Route.get('/:contract/signed', 'V1/TaskController.validateSignature');
   }).prefix('contract'),
 );
 

@@ -148,7 +148,6 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/:id', 'V1/CGP/PropositionController.get');
-    Route.get('/:id/mission-report', 'V1/CGP/PropositionController.downloadMissionReport');
   }).prefix('proposition'),
 );
 

@@ -51,8 +51,6 @@ export default class BackendApi {
   public createProspect = Prospect.createProspect;
   // Task
   public getContractTasks = Task.getContractTasks;
-  public getSignatureUrl = Task.getSignatureUrl;
-  public validateSignature = Task.validateSignature;
   // CGP - Agency
   public editAgency = CGP.editAgency;
   public getAgency = CGP.getAgency;
@@ -116,7 +114,6 @@ export default class BackendApi {
   public getCGPStudyPropositions = CGP.getStudyPropositions;
   public createCGPCustomerProposition = CGP.createCustomerProposition;
   public createCGPStudyProposition = CGP.createStudyProposition;
-  public downloadCGPMissionReport = CGP.downloadMissionReport;
   // CGP - Scoring
   public getCGPKnowledgeScoring = CGP.getKnowledgeScoring;
   public getCGPRiskScoring = CGP.getRiskScoring;

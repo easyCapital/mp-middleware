@@ -93,12 +93,6 @@ class CGPPropositionController {
 
     response.status(200).send();
   }
-
-  public async downloadMissionReport({ params, req, res, backendApi }: Context) {
-    const { id } = params;
-
-    await backendApi.downloadCGPMissionReport(req, res, id);
-  }
 }
 
 export = CGPPropositionController;

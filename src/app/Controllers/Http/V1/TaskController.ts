@@ -62,22 +62,6 @@ class TaskController {
 
     response.status(200).send(Object.values(tasks));
   }
-
-  public async signatureUrl({ params, response, backendApi }: Context) {
-    const { contract } = params;
-
-    const url = await backendApi.getSignatureUrl(contract);
-
-    response.status(200).send(url);
-  }
-
-  public async validateSignature({ params, response, backendApi }: Context) {
-    const { contract } = params;
-
-    const data = await backendApi.validateSignature(contract);
-
-    response.status(200).send(data);
-  }
 }
 
 export = TaskController;
