@@ -34,6 +34,7 @@ const namedMiddleware: { [key: string]: string } = {
   universeDetector: 'App/Middleware/UniverseDetector',
   authenticator: 'App/Middleware/Authenticator',
   auth: 'App/Middleware/Auth',
+  maintenanceHandler: 'App/Middleware/MaintenanceHandler',
 };
 
 Server.registerGlobal(globalMiddleware)

@@ -4,7 +4,13 @@ const Route = use('Route');
 
 const addAPIPrefixToGroup = (group: IRoute.Group) => {
   group.prefix('api/1.0');
-  group.middleware(['requestLogger', 'originConfigDetector', 'universeDetector', 'authenticator']);
+  group.middleware([
+    'requestLogger',
+    'originConfigDetector',
+    'universeDetector',
+    'authenticator',
+    'maintenanceHandler',
+  ]);
 
   return group;
 };
