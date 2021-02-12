@@ -4,14 +4,7 @@ const Route = use('Route');
 
 const addAPIPrefixToGroup = (group: IRoute.Group) => {
   group.prefix('api/1.0/cgp');
-  group.middleware([
-    'requestLogger',
-    'originConfigDetector',
-    'universeDetector',
-    'authenticator',
-    'auth',
-    'maintenanceHandler',
-  ]);
+  group.middleware(['requestLogger', 'originConfigDetector', 'universeDetector', 'authenticator', 'auth']);
 
   return group;
 };

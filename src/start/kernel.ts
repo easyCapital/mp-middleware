@@ -34,10 +34,10 @@ const namedMiddleware: { [key: string]: string } = {
   universeDetector: 'App/Middleware/UniverseDetector',
   authenticator: 'App/Middleware/Authenticator',
   auth: 'App/Middleware/Auth',
-  maintenanceHandler: 'App/Middleware/MaintenanceHandler',
 };
 
 Server.registerGlobal(globalMiddleware)
   .registerNamed(namedMiddleware)
   .use(['Adonis/Middleware/Cors'])
-  .use(['Adonis/Middleware/Static']);
+  .use(['Adonis/Middleware/Static'])
+  .use(['App/Middleware/MaintenanceHandler']);
