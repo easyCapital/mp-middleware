@@ -21,7 +21,7 @@ Route.group(() => {
   Route.post('/reset-password/confirm', 'V1/CGP/AuthenticationController.resetPasswordConfirm');
 })
   .prefix('api/1.0/cgp/auth')
-  .middleware(['requestLogger', 'originConfigDetector', 'universeDetector', 'authenticator', 'maintenanceHandler']);
+  .middleware(['requestLogger', 'originConfigDetector', 'universeDetector', 'authenticator']);
 
 /*
   |--------------------------------------------------------------------------
