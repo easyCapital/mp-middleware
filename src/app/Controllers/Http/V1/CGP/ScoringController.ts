@@ -14,6 +14,18 @@ class CGPScoringController {
     response.status(200).send(scoring);
   }
 
+  public async profile({ params, response, backendApi, universe }: Context) {
+    const { customerId, studyId } = params;
+
+    if (!universe) {
+      throw new InvalidArgumentException("Aucun univers n'a été fourni.");
+    }
+
+    const scoring = await backendApi.getCGPProfileScoring(customerId, studyId, universe);
+
+    response.status(200).send(scoring);
+  }
+
   public async risk({ params, response, backendApi, universe }: Context) {
     const { customerId, studyId } = params;
 
