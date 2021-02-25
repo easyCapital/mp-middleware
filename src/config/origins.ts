@@ -43,7 +43,7 @@ const local = {
     type: ClientTypes.ASSET_MANAGER,
     backendApiKey: aPlusFinanceBackendApiKey,
   },
-  'http://afi.elwin.local': {
+  'http://afi-esca.elwin.local': {
     app: Apps.CONSEIL,
     client: Clients.CGP_AFI,
     type: ClientTypes.COURTIER,
@@ -86,7 +86,7 @@ const development = {
     type: ClientTypes.ASSET_MANAGER,
     backendApiKey: aPlusFinanceBackendApiKey,
   },
-  'http://afi.dev.robintech.co': {
+  'http://afi-esca.dev.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_AFI,
     type: ClientTypes.COURTIER,
@@ -129,7 +129,7 @@ const staging = {
     type: ClientTypes.ASSET_MANAGER,
     backendApiKey: aPlusFinanceBackendApiKey,
   },
-  'https://afi.stg.robintech.co': {
+  'https://afi-esca.stg.robintech.co': {
     app: Apps.CONSEIL,
     client: Clients.CGP_AFI,
     type: ClientTypes.COURTIER,
@@ -187,13 +187,13 @@ const production = {
     backendApiKey: demoAPlusFinanceBackendApiKey,
     isDemo: true,
   },
-  'https://afi.elwin.fr': {
+  'https://afi-esca.elwin.fr': {
     app: Apps.CONSEIL,
     client: Clients.CGP_AFI,
     type: ClientTypes.COURTIER,
     backendApiKey: afiBackendApiKey,
   },
-  'https://demo.afi.elwin.fr': {
+  'https://demo.afi-esca.elwin.fr': {
     app: Apps.CONSEIL,
     client: Clients.CGP_AFI,
     type: ClientTypes.COURTIER,
