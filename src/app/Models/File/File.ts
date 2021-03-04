@@ -15,6 +15,7 @@ export default class File implements FileInterface {
   private signed: boolean;
   private outdated: boolean;
   private updateDate: string;
+  private createDate: string;
   private contracts?: number[];
   private studies?: number[];
 
@@ -28,6 +29,7 @@ export default class File implements FileInterface {
     this.signed = json.signed;
     this.outdated = json.outdated_infos;
     this.updateDate = json.update_date;
+    this.createDate = json.upload_date;
     this.studies = json.studies;
   }
 
@@ -41,6 +43,7 @@ export default class File implements FileInterface {
       signed: this.signed,
       outdated: this.outdated,
       updateDate: this.updateDate,
+      createDate: this.createDate,
       contracts: this.contracts,
       studies: this.studies,
     };
