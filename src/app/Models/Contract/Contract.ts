@@ -14,6 +14,8 @@ export default class Contract implements ContractInterface {
   private status?: ContractStatus;
   private initialDeposit: number;
   private subscriptionFee: number;
+  private subscriptionFeeRate?: number;
+  private managementFeeRate?: number;
   private totalAmount: number;
   private includedSubscriptionFee: boolean;
   private proposition: number;
@@ -29,6 +31,14 @@ export default class Contract implements ContractInterface {
     this.totalAmount = json.total_amount;
     this.includedSubscriptionFee = json.is_included_subscription_fee;
     this.proposition = json.proposition;
+
+    if (json.subscription_fee_rate) {
+      this.subscriptionFeeRate = json.subscription_fee_rate;
+    }
+
+    if (json.management_fee_rate) {
+      this.managementFeeRate = json.management_fee_rate;
+    }
   }
 
   public toJSON(): JsonContractInterface {
@@ -39,6 +49,8 @@ export default class Contract implements ContractInterface {
       status: this.status,
       initialDeposit: this.initialDeposit,
       subscriptionFee: this.subscriptionFee,
+      subscriptionFeeRate: this.subscriptionFeeRate,
+      managementFeeRate: this.managementFeeRate,
       totalAmount: this.totalAmount,
       includedSubscriptionFee: this.includedSubscriptionFee,
       proposition: this.proposition,

@@ -177,6 +177,12 @@ addAPIPrefixToGroup(
   }).prefix('portfolio'),
 );
 
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/:productIdentifier', 'V1/CGP/PortfolioController.recommendation');
+  }).prefix('customer/:customerId/study/:studyId/portfolio'),
+);
+
 /*
   |--------------------------------------------------------------------------
   | API V1 - CGP - FILE

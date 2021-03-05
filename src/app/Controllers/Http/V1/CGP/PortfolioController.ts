@@ -37,6 +37,14 @@ class CGPPortfolioController {
 
     response.status(204);
   }
+
+  public async recommendation({ params, response, backendApi }: Context) {
+    const { customerId, studyId, productIdentifier } = params;
+
+    const portfolio = await backendApi.getCGPRecommendedPortfolio(customerId, studyId, productIdentifier);
+
+    response.status(200).send(portfolio);
+  }
 }
 
 export = CGPPortfolioController;

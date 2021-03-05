@@ -102,6 +102,7 @@ export default class BackendApi {
   public searchObservations = CGP.searchObservations;
   // CGP - Portfolio
   public createCGPPortfolio = CGP.createPortfolio;
+  public getCGPRecommendedPortfolio = CGP.getRecommendedPortfolio;
   public prevalidateCGPPortfolios = CGP.prevalidatePortfolios;
   public searchCGPPortfolios = CGP.searchPortfolios;
   // CGP - Product
