@@ -4,3 +4,4 @@ endif
 
 include makefiles/makefile.help.mk
 include makefiles/makefile.dotenv.mk
+include makefiles/makefile.release.mk
