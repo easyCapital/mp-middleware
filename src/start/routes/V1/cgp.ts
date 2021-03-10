@@ -83,6 +83,7 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/CustomerController.get');
     Route.post('/email', 'V1/CGP/CustomerController.changeEmail');
+    Route.patch('/activate', 'V1/CGP/CustomerController.activate');
     Route.patch('/deactivate', 'V1/CGP/CustomerController.deactivate');
   }).prefix('customer/:id'),
 );

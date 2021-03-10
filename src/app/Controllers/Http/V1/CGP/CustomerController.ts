@@ -58,6 +58,16 @@ class CGPCustomerController {
     response.status(200).send(customer);
   }
 
+  public async activate({ params, response, backendApi }: Context) {
+    const { id } = params;
+
+    await backendApi.activateCGPCustomer(id);
+
+    const customer = await backendApi.getCGPCustomer(id);
+
+    response.status(200).send(customer);
+  }
+
   public async deactivate({ params, response, backendApi }: Context) {
     const { id } = params;
 

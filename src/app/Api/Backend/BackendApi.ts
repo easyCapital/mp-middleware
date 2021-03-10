@@ -77,6 +77,7 @@ export default class BackendApi {
   // CGP - Customer
   public changeCGPCustomerEmail = CGP.changeCustomerEmail;
   public createCGPCustomer = CGP.createCustomer;
+  public activateCGPCustomer = CGP.activateCustomer;
   public deactivateCGPCustomer = CGP.deactivateCustomer;
   public getCGPCustomer = CGP.getCustomer;
   public searchCGPCustomer = CGP.searchCustomers;
