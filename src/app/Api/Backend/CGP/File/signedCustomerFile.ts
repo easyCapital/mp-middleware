@@ -3,7 +3,7 @@ import { Exception } from '../../../../Exceptions';
 import { FileException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function signedCustomerFile(this: BackendApi, fileId: string): Promise<any> {
+export default async function signedCustomerFile(this: BackendApi, fileId: string): Promise<File> {
   try {
     const response = await this.backendClient.get({ url: `cgp/file/${fileId}/signed` });
     const data = await response.json();

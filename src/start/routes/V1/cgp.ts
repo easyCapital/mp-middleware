@@ -268,7 +268,7 @@ addAPIPrefixToGroup(
   */
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.get('/finish', 'V1/CGP/StudyController.finishTask');
+    Route.patch('/finish', 'V1/CGP/StudyController.finishTask');
   }).prefix('customer/:customer/study/:study/task/:task'),
 );
 
