@@ -38,6 +38,7 @@ export default async function getAllStudyFiles(
 
     formattedFilters = { ...formattedFilters, ...filters };
   }
+
   try {
     const studyList: Study[] = await this.getCGPCustomerStudies(customerId);
 

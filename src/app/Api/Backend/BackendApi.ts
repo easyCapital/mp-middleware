@@ -93,7 +93,8 @@ export default class BackendApi {
   public downloadCGPStudyFiles = CGP.downloadStudyFiles;
   public getCGPFileSignatureUrl = CGP.getSignatureUrl;
   public linkCGPCustomerFile = CGP.linkCustomerFile;
-  public signedCGPCustomerFile = CGP.signedCustomerFile;
+  public cancelCGPCustomerFileSignature = CGP.cancelFileSignature;
+  public setCGPCustomerFileAsSigning = CGP.setFileAsSigning;
   public downloadTemplateFile = CGP.downloadTemplateFile;
   // CGP - Observation
   public createObservation = CGP.createObservation;
