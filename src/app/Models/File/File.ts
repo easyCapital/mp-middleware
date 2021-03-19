@@ -34,11 +34,11 @@ export default class File implements FileInterface {
     this.createDate = json.upload_date;
     this.studies = json.studies;
 
-    if (json.signature_status !== undefined) {
+    if (json.signature_status !== null) {
       this.signatureStatus = FileSignStatusMapper.transformValue(json.signature_status);
     }
 
-    if (json.signature_type !== undefined) {
+    if (json.signature_type !== null) {
       this.signatureType = FileSignTypeMapper.transformValue(json.signature_type);
     }
   }
