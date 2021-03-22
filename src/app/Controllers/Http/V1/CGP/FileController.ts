@@ -126,15 +126,11 @@ class CGPContractFileController {
     response.status(200).send(files);
   }
 
-  public async signatureUrl({ params, request, response, backendApi, app, origin }: Context) {
+  public async signatureUrl({ params, request, response, backendApi }: Context) {
     const { customer, file } = params;
-    const { callback }: any = request.get();
+    const { callback, type }: any = request.post();
 
-    if (!callback) {
-      throw new InvalidArgumentException("Aucune URL de callback n'a été fourni.");
-    }
-
-    const data = await backendApi.getCGPFileSignatureUrl(customer, file, callback);
+    const data = await backendApi.getCGPFileSignatureUrl(customer, file, callback, type);
 
     response.status(200).send(data);
   }
@@ -155,10 +151,31 @@ class CGPContractFileController {
     response.redirect(data.url);
   }
 
-  public async signed({ params, backendApi, response }: Context) {
+  public async sendSignature({ params, request, response, backendApi }: Context) {
+    const { customer, file } = params;
+    const body: any = request.post();
+
+    try {
+      const data = await backendApi.sendCGPCustomerSignature(customer, file, body);
+
+      response.status(200).send(data);
+    } catch (exception) {
+      response.status(400).send({ error: exception.message });
+    }
+  }
+
+  public async signing({ params, backendApi, response }: Context) {
     const { id } = params;
 
-    const file = await backendApi.signedCGPCustomerFile(id);
+    const file = await backendApi.setCGPCustomerFileAsSigning(id);
+
+    response.status(200).send(file);
+  }
+
+  public async cancelSignature({ params, backendApi, response }: Context) {
+    const { id } = params;
+
+    const file = await backendApi.cancelCGPCustomerFileSignature(id);
 
     response.status(200).send(file);
   }

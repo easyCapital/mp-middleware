@@ -18,6 +18,9 @@ export default class SignatureException extends HttpException {
         case BackendErrors.SignNoFileToSignError:
           throw new Exception('Aucun fichier à signer, veuillez contacter notre support.');
 
+        case BackendErrors.EmailValidationError:
+          throw new Exception('Veuillez saisir une adresse e-mail valide.');
+
         default:
           const errorMessage = `Missing Error mapping value in SignatureException for ${errorKey}`;
 

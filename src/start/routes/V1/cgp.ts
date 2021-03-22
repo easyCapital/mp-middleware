@@ -192,7 +192,8 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/FileController.search');
-    Route.get('/:file/signature', 'V1/CGP/FileController.signatureUrl');
+    Route.post('/:file/signature', 'V1/CGP/FileController.signatureUrl');
+    Route.post('/:file/customer-signature', 'V1/CGP/FileController.sendSignature');
     Route.get('/:file/sign', 'V1/CGP/FileController.sign');
   }).prefix('customer/:customer/file'),
 );
@@ -219,8 +220,10 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/:id/download', 'V1/CGP/FileController.download');
     Route.get('/:id/view', 'V1/CGP/FileController.view');
-    Route.get('/:id/signed', 'V1/CGP/FileController.signed');
     Route.get('/template/:type/download/', 'V1/CGP/FileController.downloadTemplateFile');
+
+    Route.patch('/:id/signing', 'V1/CGP/FileController.signing');
+    Route.patch('/:id/signature/cancel', 'V1/CGP/FileController.cancelSignature');
   }).prefix('file'),
 );
 

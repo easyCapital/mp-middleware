@@ -1,6 +1,6 @@
-import { File as JsonFileInterface, FileStatus, FileType } from '@robinfinance/js-api';
+import { File as JsonFileInterface, FileStatus, FileType, FileSignStatus, FileSignType } from '@robinfinance/js-api';
 
-import { FileTypeMapper, FileStatusMapper } from '../../Mappers/File';
+import { FileTypeMapper, FileStatusMapper, FileSignStatusMapper, FileSignTypeMapper } from '../../Mappers/File';
 
 interface FileInterface {
   toJSON(): JsonFileInterface;
@@ -14,6 +14,8 @@ export default class File implements FileInterface {
   private status?: FileStatus;
   private signed: boolean;
   private outdated: boolean;
+  private signatureStatus?: FileSignStatus;
+  private signatureType?: FileSignType;
   private updateDate: string;
   private createDate: string;
   private contracts?: number[];
@@ -31,6 +33,14 @@ export default class File implements FileInterface {
     this.updateDate = json.update_date;
     this.createDate = json.upload_date;
     this.studies = json.studies;
+
+    if (json.signature_status !== null) {
+      this.signatureStatus = FileSignStatusMapper.transformValue(json.signature_status);
+    }
+
+    if (json.signature_type !== null) {
+      this.signatureType = FileSignTypeMapper.transformValue(json.signature_type);
+    }
   }
 
   public toJSON(): JsonFileInterface {
@@ -42,6 +52,8 @@ export default class File implements FileInterface {
       status: this.status,
       signed: this.signed,
       outdated: this.outdated,
+      signatureStatus: this.signatureStatus,
+      signatureType: this.signatureType,
       updateDate: this.updateDate,
       createDate: this.createDate,
       contracts: this.contracts,

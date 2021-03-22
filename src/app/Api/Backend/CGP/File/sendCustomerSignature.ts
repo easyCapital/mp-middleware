@@ -1,31 +1,17 @@
-import { FileSignType } from '@robinfinance/js-api';
-
-import { FileSignTypeMapper } from '../../../../Mappers/File';
 import { Exception, NotFoundException } from '../../../../Exceptions';
 import { SignatureException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function getSignatureUrl(
+export default async function sendCustomerSignature(
   this: BackendApi,
   customerId: string,
   fileId: string,
-  callbackUrl?: string,
-  type?: FileSignType,
+  body?: { email?: string; subject?: string; message?: string },
 ): Promise<{ url: string }> {
-  const body: { callback_url?: string; type?: string } = {};
-
-  if (callbackUrl) {
-    body.callback_url = callbackUrl;
-  }
-
-  if (type) {
-    body.type = FileSignTypeMapper.reverseTransform(type);
-  }
-
   try {
     const response = await this.backendClient.post(
       {
-        url: `cgp/customer/${customerId}/file/${fileId}/sign`,
+        url: `cgp/customer/${customerId}/file/${fileId}/customer-sign`,
       },
       body,
     );
