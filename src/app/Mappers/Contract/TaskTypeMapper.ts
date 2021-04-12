@@ -24,6 +24,7 @@ const TaskTypeMapping = {
   '19': TaskTypes.DOWNLOAD_FILE,
   '20': TaskTypes.PROPOSITION_EXTERNAL,
   '21': TaskTypes.UPLOAD_EXTERNAL_FILE,
+  '22': TaskTypes.UPLOAD_ANNEX_PDF,
 };
 
 class TaskTypeMapper extends GenericMapper<TaskTypes> {

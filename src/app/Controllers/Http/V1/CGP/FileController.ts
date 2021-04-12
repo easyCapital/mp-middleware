@@ -1,4 +1,4 @@
-import { Filters, FileType, FileDTO, File as JsonFileInterface, OrderBy, Answer } from '@robinfinance/js-api';
+import { Filters, FileDTO, File as JsonFileInterface, OrderBy, Answer, FileType } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
@@ -39,42 +39,51 @@ class CGPContractFileController {
 
   public async create({ params, request, response, backendApi }: Context) {
     const { customer, study } = params;
-    const data = request.post() as FileDTO;
+    const data = request.post() as FileDTO[];
 
-    const files: JsonFileInterface[] = [];
-    const errors = {};
+    const errors: { [key in FileType]?: string } = {};
 
-    for await (const key of Object.keys(data)) {
-      const file = data[key];
+    const files: (JsonFileInterface | undefined)[] = await Promise.all(
+      data.map(async (file) => {
+        try {
+          if (file.data && file.type) {
+            const createdFile = await backendApi.createCGPCustomerFile(
+              customer,
+              study,
+              file.type,
+              file.data,
+              file.id,
+              file.signatureDate,
+              file.contractId,
+            );
 
-      try {
-        if (file.data) {
-          const createdFile = await backendApi.createCGPCustomerFile(
-            customer,
-            study,
-            key as FileType,
-            file.data,
-            file.id,
-            file.signatureDate,
-            file.contractId,
-          );
+            return createdFile.toJSON();
+          }
 
-          files.push(createdFile.toJSON());
-        } else if (file.file) {
-          await backendApi.linkCGPCustomerFile(study, file.file.id);
+          if (file.file && file.id) {
+            await backendApi.linkCGPCustomerFile(study, file.id);
 
-          files.push(file.file);
+            return file.file;
+          }
+        } catch (exception) {
+          if (file.type) {
+            errors[file.type] = exception.message;
+          }
         }
-      } catch (exception) {
-        errors[key] = exception.message;
-      }
-    }
+      }),
+    );
 
     if (Object.keys(errors).length > 0) {
       response.status(400).send(errors);
     } else {
       response.status(200).send(files);
     }
+  }
+
+  public async delete({ params, req, res, backendApi }: Context) {
+    const { file, customer } = params;
+
+    await backendApi.deleteCGPCustomerFile(req, res, file, customer);
   }
 
   public async view({ params, req, res, backendApi }: Context) {
@@ -97,6 +106,15 @@ class CGPContractFileController {
     const type = request.input('type') as string;
 
     await backendApi.downloadCGPCustomerFile(req, res, id, type);
+  }
+
+  public async merge({ params, request, response, backendApi }: Context) {
+    const { customer, study } = params;
+    const { type, id, files } = request.post() as any;
+
+    const file = await backendApi.mergeCGPCustomerFile(customer, study, type, id, files);
+
+    response.status(200).send(file);
   }
 
   public async downloadContractFiles({ params, req, res, backendApi }: Context) {

@@ -83,6 +83,7 @@ export default class BackendApi {
   public searchCGPCustomer = CGP.searchCustomers;
   // CGP - File
   public createCGPCustomerFile = CGP.createCustomerFile;
+  public deleteCGPCustomerFile = CGP.deleteCustomerFile;
   public downloadCGPCustomerFile = CGP.downloadCustomerFile;
   public getCGPCustomerFiles = CGP.getCustomerFiles;
   public getCGPStudyFiles = CGP.getStudyFiles;
@@ -93,6 +94,7 @@ export default class BackendApi {
   public downloadCGPStudyFiles = CGP.downloadStudyFiles;
   public getCGPFileSignatureUrl = CGP.getSignatureUrl;
   public linkCGPCustomerFile = CGP.linkCustomerFile;
+  public mergeCGPCustomerFile = CGP.mergeCustomerFile;
   public sendCGPCustomerSignature = CGP.sendCustomerSignature;
   public cancelCGPCustomerFileSignature = CGP.cancelFileSignature;
   public setCGPCustomerFileAsSigning = CGP.setFileAsSigning;

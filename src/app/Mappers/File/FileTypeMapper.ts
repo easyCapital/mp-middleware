@@ -25,6 +25,9 @@ const FileTypeMapping = {
   '21': FileTypes.CLIENT_DISCOVERY,
   '22': FileTypes.PRE_CONTRACT,
   '23': FileTypes.LCB_FT_RELATION_ENTRY,
+  '24': FileTypes.MISSION_REPORT_ANNEX,
+  '25': FileTypes.MISSION_REPORT_COMPLETED,
+  '26': FileTypes.MISSION_REPORT_WITH_ANNEXES,
 };
 
 class FileTypeMapper extends GenericMapper<FileTypes> {
