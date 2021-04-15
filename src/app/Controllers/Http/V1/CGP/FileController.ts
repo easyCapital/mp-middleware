@@ -60,8 +60,8 @@ class CGPContractFileController {
             return createdFile.toJSON();
           }
 
-          if (file.file && file.id) {
-            await backendApi.linkCGPCustomerFile(study, file.id);
+          if (file.file) {
+            await backendApi.linkCGPCustomerFile(study, file.file.id);
 
             return file.file;
           }
