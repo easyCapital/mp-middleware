@@ -2,7 +2,7 @@ import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function getProfileScoring(
+export default async function getSerenalisProfileScoring(
   this: BackendApi,
   customerId: string | number,
   studyId: string | number,
@@ -11,7 +11,7 @@ export default async function getProfileScoring(
   try {
     const response = await this.backendClient.post(
       {
-        url: `cgp/customer/${customerId}/study/${studyId}/get_afi_esca_profile_scoring`,
+        url: `cgp/customer/${customerId}/study/${studyId}/get_serenalis_profile_scoring`,
       },
       {
         universe,

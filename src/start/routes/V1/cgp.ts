@@ -161,7 +161,8 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/knowledge', 'V1/CGP/ScoringController.knowledge');
     Route.get('/risk', 'V1/CGP/ScoringController.risk');
-    Route.get('/profile', 'V1/CGP/ScoringController.profile');
+    Route.get('/afi-esca', 'V1/CGP/ScoringController.afiEsca');
+    Route.get('/serenalis', 'V1/CGP/ScoringController.serenalis');
   }).prefix('customer/:customerId/study/:studyId/scoring'),
 );
 
