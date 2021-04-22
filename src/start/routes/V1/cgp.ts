@@ -154,6 +154,18 @@ addAPIPrefixToGroup(
 
 /*
   |--------------------------------------------------------------------------
+  | API V1 - CGP - PROPOSITION V2
+  |--------------------------------------------------------------------------
+  */
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.post('/', 'V1/CGP/PropositionController.createStudyProposition');
+  }).prefix('customer/:customer/study/:study/propositionv2'),
+);
+
+/*
+  |--------------------------------------------------------------------------
   | API V1 - CGP - SCORING
   |--------------------------------------------------------------------------
   */
