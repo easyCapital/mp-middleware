@@ -1,9 +1,7 @@
-import { PortfolioDTO } from '@robinfinance/js-api';
-
 import { Proposition } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
 import { BackendException, PortfolioException } from '../../Exceptions';
-import { getPropositionDetails } from '../../Helpers';
+// import { getPropositionDetails } from '../../Helpers';
 import BackendApi from '../..';
 
 export default async function createPropositionV2(
@@ -28,7 +26,8 @@ export default async function createPropositionV2(
 
     const data = await response.json();
 
-    return getPropositionDetails(this, data);
+    // return getPropositionDetails(this, data);
+    return data;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();

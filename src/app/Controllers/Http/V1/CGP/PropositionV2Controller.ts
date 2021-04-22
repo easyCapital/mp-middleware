@@ -1,4 +1,4 @@
-import { Filters } from '@robinfinance/js-api';
+// import { Filters } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
@@ -16,6 +16,8 @@ class CGPPropositionV2Controller {
   public async create({ params, request, response, backendApi, universe }: Context) {
     const { customer } = params;
     const content = request.post() as any;
+
+    console.log(customer);
 
     if (!universe) {
       throw new InvalidArgumentException("Aucun univers n'a été fourni.");
