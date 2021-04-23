@@ -9,8 +9,9 @@ export default async function createPropositionV2(
   customerId: string,
   study: string,
   universe: string,
-  content: { amount: number; product_id: number },
-): Promise<Proposition> {
+  contents: { amount: number; product_id: number }[],
+): Promise<any> {
+  // promise should be proposition V2 TYPE
   try {
     const response = await this.backendClient.post(
       {
@@ -20,9 +21,11 @@ export default async function createPropositionV2(
         user: customerId,
         study,
         universe,
-        content,
+        contents,
       },
     );
+
+    console.log(response);
 
     const data = await response.json();
 

@@ -14,16 +14,14 @@ class CGPPropositionV2Controller {
   //   }
 
   public async create({ params, request, response, backendApi, universe }: Context) {
-    const { customer } = params;
+    const { customer, study } = params;
     const content = request.post() as any;
-
-    console.log(customer);
 
     if (!universe) {
       throw new InvalidArgumentException("Aucun univers n'a été fourni.");
     }
 
-    const proposition = await backendApi.createCGPCustomerProposition(customer, universe, content);
+    const proposition = await backendApi.createCGPPropositionV2(customer, study, universe, content);
 
     response.status(200).send(proposition);
   }

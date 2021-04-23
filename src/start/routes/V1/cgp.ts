@@ -160,7 +160,7 @@ addAPIPrefixToGroup(
 
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.post('/', 'V1/CGP/PropositionController.createStudyProposition');
+    Route.post('/', 'V1/CGP/PropositionV2Controller.create');
   }).prefix('customer/:customer/study/:study/propositionv2'),
 );
 
