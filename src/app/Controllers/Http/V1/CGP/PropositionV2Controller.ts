@@ -4,15 +4,6 @@ import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPPropositionV2Controller {
-  //   public async search({ params, request, response, backendApi }: Context) {
-  //     const { customer } = params;
-  //     const filters = request.input('filters') as Filters;
-
-  //     const propositions = await backendApi.getCGPCustomerPropositions(customer, filters);
-
-  //     response.status(200).send(propositions);
-  //   }
-
   public async create({ params, request, response, backendApi, universe }: Context) {
     const { customer, study } = params;
     const content = request.post() as any;
@@ -25,6 +16,15 @@ class CGPPropositionV2Controller {
 
     response.status(200).send(proposition);
   }
+
+  // public async search({ params, request, response, backendApi }: Context) {
+  //   const { customer } = params;
+  //   const filters = request.input('filters') as Filters;
+
+  //   const propositions = await backendApi.getCGPPropositionV2(customer, filters);
+
+  //   response.status(200).send(propositions);
+  // }
 }
 
 export = CGPPropositionV2Controller;

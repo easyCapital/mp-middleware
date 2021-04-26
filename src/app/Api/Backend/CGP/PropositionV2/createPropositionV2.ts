@@ -1,4 +1,4 @@
-import { Proposition } from '../../../../Models/Proposition';
+// import { Proposition } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
 import { BackendException, PortfolioException } from '../../Exceptions';
 // import { getPropositionDetails } from '../../Helpers';
@@ -9,7 +9,7 @@ export default async function createPropositionV2(
   customerId: string,
   study: string,
   universe: string,
-  contents: { amount: number; product_id: number }[],
+  contents: { amount: number; product: number }[],
 ): Promise<any> {
   // promise should be proposition V2 TYPE
   try {
@@ -24,8 +24,6 @@ export default async function createPropositionV2(
         contents,
       },
     );
-
-    console.log(response);
 
     const data = await response.json();
 
