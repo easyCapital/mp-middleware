@@ -1,7 +1,5 @@
-// import { Proposition } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
 import { BackendException, PortfolioException } from '../../Exceptions';
-// import { getPropositionDetails } from '../../Helpers';
 import BackendApi from '../..';
 
 export default async function createPropositionV2(
@@ -18,7 +16,7 @@ export default async function createPropositionV2(
         url: 'proposition_v2/cgp/create',
       },
       {
-        user: customerId,
+        customer: customerId,
         study,
         universe,
         contents,

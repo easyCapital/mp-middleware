@@ -1,5 +1,3 @@
-// import { Filters } from '@robinfinance/js-api';
-
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
 
@@ -17,14 +15,13 @@ class CGPPropositionV2Controller {
     response.status(200).send(proposition);
   }
 
-  // public async search({ params, request, response, backendApi }: Context) {
-  //   const { customer } = params;
-  //   const filters = request.input('filters') as Filters;
+  public async search({ params, request, response, backendApi }: Context) {
+    const { customer, study } = params;
 
-  //   const propositions = await backendApi.getCGPPropositionV2(customer, filters);
+    const propositions = await backendApi.getCGPPropositionV2(customer, study);
 
-  //   response.status(200).send(propositions);
-  // }
+    response.status(200).send(propositions);
+  }
 }
 
 export = CGPPropositionV2Controller;

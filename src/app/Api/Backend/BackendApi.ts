@@ -122,7 +122,7 @@ export default class BackendApi {
   public createCGPStudyProposition = CGP.createStudyProposition;
   // CGP - PropositionV2
   public createCGPPropositionV2 = CGP.createPropositionV2;
-  // public searchCGPPropositionV2 = CGP.getCGPPropositionV2;
+  public getCGPPropositionV2 = CGP.getCGPPropositionV2;
   // CGP - Scoring
   public getCGPKnowledgeScoring = CGP.getKnowledgeScoring;
   public getCGPRiskScoring = CGP.getRiskScoring;
