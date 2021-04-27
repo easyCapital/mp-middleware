@@ -1,6 +1,6 @@
 import { Exception } from '../../../../Exceptions';
-import { BackendException, PortfolioException } from '../../Exceptions';
 import BackendApi from '../..';
+import { PropositionV2 } from '../../../../Models/PropositionV2';
 
 export default async function createPropositionV2(
   this: BackendApi,
@@ -8,8 +8,7 @@ export default async function createPropositionV2(
   study: string,
   universe: string,
   contents: { amount: number; product: number }[],
-): Promise<any> {
-  // promise should be proposition V2 TYPE
+): Promise<PropositionV2> {
   try {
     const response = await this.backendClient.post(
       {
@@ -25,19 +24,8 @@ export default async function createPropositionV2(
 
     const data = await response.json();
 
-    // return getPropositionDetails(this, data);
     return data;
   } catch (exception) {
-    if (typeof exception.json === 'function') {
-      const error = await exception.json();
-
-      if (error.contents && error.contents.length > 0) {
-        throw new PortfolioException(error.contents);
-      }
-
-      throw new BackendException(error);
-    }
-
     throw new Exception(exception);
   }
 }

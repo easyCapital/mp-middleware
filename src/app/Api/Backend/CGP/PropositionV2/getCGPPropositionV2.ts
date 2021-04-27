@@ -1,8 +1,13 @@
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
+import { PropositionV2 } from '../../../../Models/PropositionV2';
 import BackendApi from '../..';
 
-export default async function getStudyPropositions(this: BackendApi, customer: string, study: string): Promise<any> {
+export default async function getStudyPropositions(
+  this: BackendApi,
+  customer: string,
+  study: string,
+): Promise<PropositionV2[]> {
   try {
     const response = await this.backendClient.get({
       url: 'proposition_v2/cgp/search',
@@ -10,20 +15,12 @@ export default async function getStudyPropositions(this: BackendApi, customer: s
     });
     const data = await response.json();
 
-    // let propositions: any = data;
+    // const propositions: PropositionV2[] = data;
 
-    // if (type) {
-    //   if (type === Origins.CGP) {
-    //     propositions = propositions.filter((item) => item.cgp !== null);
-    //   } else if (type === Origins.MIEUXPLACER) {
-    //     propositions = propositions.filter((item) => item.cgp === null);
-    //   }
-    // }
-
-    // const formattedPropositions: Proposition[] = [];
+    // const formattedPropositions: PropositionV2[] = [];
 
     // for (const proposition of propositions) {
-    //   formattedPropositions.push(await getPropositionDetails(this, proposition));
+    //   formattedPropositions.push(proposition);
     // }
 
     return data;
