@@ -30,7 +30,7 @@ export default class Contract implements ContractInterface {
     this.subscriptionFee = json.subscription_fee;
     this.totalAmount = json.total_amount;
     this.includedSubscriptionFee = json.is_included_subscription_fee;
-    this.proposition = json.proposition;
+    this.proposition = json.proposition || json.proposition_v2;
 
     if (json.subscription_fee_rate) {
       this.subscriptionFeeRate = json.subscription_fee_rate;

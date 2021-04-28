@@ -255,6 +255,12 @@ addAPIPrefixToGroup(
 
 addAPIPrefixToGroup(
   Route.group(() => {
+    Route.post('/:proposition', 'V1/CGP/ContractControllerV2.create');
+  }).prefix('customer/:customer/contract/v2/'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
     Route.get('/:contract/task', 'V1/CGP/TaskController.search');
   }).prefix('contract'),
 );

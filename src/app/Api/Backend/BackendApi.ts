@@ -72,6 +72,7 @@ export default class BackendApi {
   public resetCGPPasswordConfirm = CGP.resetPasswordConfirm;
   // CGP - Contract
   public createCGPContractsFromProposition = CGP.createContractsFromProposition;
+  public createCGPContractsFromPropositionV2 = CGP.createContractsFromPropositionV2;
   public getCGPCustomerContracts = CGP.getCustomerContracts;
   public getGCPContractTasks = CGP.getContractTasks;
   // CGP - Customer
