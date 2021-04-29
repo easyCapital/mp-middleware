@@ -1,14 +1,24 @@
-import { Filters, PropositionFeeDTO } from '@robinfinance/js-api';
+import { Filters } from '@robinfinance/js-api';
 
 import { Contract } from '../../../../Models/Contract';
 import { Context } from '../../../../../types';
+import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPContractController {
   public async create({ params, request, response, backendApi }: Context) {
-    const { customer, proposition } = params;
-    const fees = request.post() as PropositionFeeDTO[];
+    const { customer } = params;
+    const { proposition, propositionV2, fees } = request.post() as any;
 
-    const contracts = await backendApi.createCGPContractsFromProposition(customer, proposition, fees);
+    if (proposition && propositionV2) {
+      throw new InvalidArgumentException();
+    }
+
+    let contracts: Contract[] = [];
+    if (proposition) {
+      contracts = await backendApi.createCGPContractsFromProposition(customer, proposition, fees);
+    } else if (propositionV2) {
+      contracts = await backendApi.createCGPContractsFromPropositionV2(customer, proposition);
+    }
 
     response.status(200).send(contracts);
   }
