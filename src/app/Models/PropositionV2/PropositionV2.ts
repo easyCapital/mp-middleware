@@ -1,9 +1,9 @@
-import { PropositionV2 as JsonPropositionInterface } from '@robinfinance/js-api';
+import { PropositionV2 as JsonPropositionV2Interface } from '@robinfinance/js-api';
 
 import { Answer } from '../Answer';
 
 interface PropositionV2Interface {
-  toJSON(): JsonPropositionInterface;
+  toJSON(): JsonPropositionV2Interface;
 }
 
 export default class PropositionV2 implements PropositionV2Interface {
@@ -14,6 +14,7 @@ export default class PropositionV2 implements PropositionV2Interface {
   private userId?: number;
   private userEmail?: string;
   private answers: Answer[] = [];
+  private contents: any;
 
   constructor(json: any) {
     this.id = json.id;
@@ -33,14 +34,15 @@ export default class PropositionV2 implements PropositionV2Interface {
     }
 
     if (json.contents) {
-      console.log(json.contents);
+      this.contents = json.contents;
     }
 
     this.configKey = json.config_key;
   }
 
-  public toJSON(): JsonPropositionInterface {
-    // const totalAmount = this.getAmount();
+  public toJSON(): JsonPropositionV2Interface {
+    const totalAmount = this.getAmount();
+
     return {
       id: this.id,
       created: this.created,
@@ -48,22 +50,30 @@ export default class PropositionV2 implements PropositionV2Interface {
       userId: this.userId,
       userEmail: this.userEmail,
       answers: this.answers.map((item) => item.toJSON()),
-      amount: 0,
+      contents: this.contents,
+      totalAmount,
     };
   }
 
-  // private getAmount(): number {
-  //   let totalAmount = 0;
-  //   this.contents.forEach((portfolio) => {
-  //     const portfolioAmount = portfolio.amount;
-  //     if (portfolioAmount) {
-  //       totalAmount += portfolioAmount;
-  //     }
-  //   });
-  //   return totalAmount;
-  // }
+  private getAmount(): number {
+    let totalAmount = 0;
+    this.contents.forEach((content: { amount: number }) => {
+      if (content) {
+        totalAmount += content.amount;
+      }
+    });
+    return totalAmount;
+  }
 
   public getAnswers(): Answer[] {
     return this.answers;
+  }
+
+  public setContents(contents) {
+    if (contents) {
+      this.contents = contents;
+    }
+
+    return this;
   }
 }

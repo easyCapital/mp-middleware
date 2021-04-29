@@ -2,6 +2,7 @@ import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import { PropositionV2 } from '../../../../Models/PropositionV2';
 import BackendApi from '../..';
+import getPropositionV2Details from '../../Helpers/getPropositionV2Details';
 
 export default async function getStudyPropositions(
   this: BackendApi,
@@ -15,15 +16,15 @@ export default async function getStudyPropositions(
     });
     const data = await response.json();
 
-    // const propositions: PropositionV2[] = data;
+    const propositions: PropositionV2[] = data;
 
-    // const formattedPropositions: PropositionV2[] = [];
+    const formattedPropositions: PropositionV2[] = [];
 
-    // for (const proposition of propositions) {
-    //   formattedPropositions.push(proposition);
-    // }
+    for (const proposition of propositions) {
+      formattedPropositions.push(await getPropositionV2Details(this, proposition));
+    }
 
-    return data;
+    return formattedPropositions;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();
