@@ -21,7 +21,6 @@ export default async function getPropositionDetails(_backendApi: BackendApi, dat
     data.contents.forEach((item: any) => {
       const product = productsById[item.product_identifier];
 
-      // contentsWithProductsDetails.push(product);
       contentsWithProductsDetails.push({ product, amount: item.amount });
 
       if (!product) {
