@@ -3,6 +3,7 @@ export { default as AuthenticationException } from './AuthenticationException';
 export { default as BackendException } from './BackendException';
 export { default as ChangePasswordException } from './ChangePasswordException';
 export { default as CustomerCreationException } from './CustomerCreationException';
+export { default as CustomerPrevalidationException } from './CustomerPrevalidationException';
 export { default as FileException } from './FileException';
 export { default as PortfolioException } from './PortfolioException';
 export { default as PropositionException } from './PropositionException';

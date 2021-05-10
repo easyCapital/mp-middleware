@@ -75,6 +75,8 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.post('/', 'V1/CGP/CustomerController.create');
+    Route.post('/prevalidate', 'V1/CGP/CustomerController.prevalidate');
+    Route.post('/create', 'V1/CGP/CustomerController.bulkCreate');
     Route.get('/', 'V1/CGP/CustomerController.search');
   }).prefix('customer'),
 );
