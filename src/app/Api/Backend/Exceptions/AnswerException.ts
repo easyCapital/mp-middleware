@@ -7,7 +7,7 @@ const Logger = use('Logger');
 export default class AnswerException extends HttpException {
   constructor(answers: Answer[], errors: BackendError[]) {
     const environment = Config.get('sentry.environment');
-    const errorMessages: { [key: string]: ErrorType } = {};
+    const errorMessages: { key: string; row?: number; error: ErrorType }[] = [];
 
     errors.forEach((error, index) => {
       const answer = answers[index];
@@ -40,6 +40,8 @@ export default class AnswerException extends HttpException {
             break;
 
           default:
+            errorMessageType = ErrorTypes.UNKNOWN;
+
             const errorMessage = `Missing Error mapping value in AnswerException for ${errorKey}`;
 
             if (environment === 'staging' || environment === 'production') {
@@ -54,7 +56,7 @@ export default class AnswerException extends HttpException {
             break;
         }
 
-        errorMessages[answer.question] = errorMessageType;
+        errorMessages.push({ key: answer.question, row: answer.row, error: errorMessageType });
       });
     });
 
