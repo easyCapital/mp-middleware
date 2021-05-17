@@ -61,7 +61,7 @@ export default class AnswerException extends HttpException {
         });
       });
     } else {
-      const errorMessage = `Missing Error mapping value in AnswerException for : ${errors}`;
+      const errorMessage = `Missing Error mapping value in AnswerException for : ${JSON.stringify(errors)}`;
 
       if (environment === 'staging' || environment === 'production') {
         const Sentry = use('Sentry');
