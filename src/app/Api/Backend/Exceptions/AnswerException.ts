@@ -9,56 +9,70 @@ export default class AnswerException extends HttpException {
     const environment = Config.get('sentry.environment');
     const errorMessages: { key: string; row?: number; error: ErrorType }[] = [];
 
-    errors.forEach((error, index) => {
-      const answer = answers[index];
+    if (Array.isArray(errors)) {
+      errors.forEach((error, index) => {
+        const answer = answers[index];
 
-      Object.keys(error).forEach((errorKey) => {
-        let errorMessageType: ErrorType = ErrorTypes.DEFAULT;
+        Object.keys(error).forEach((errorKey) => {
+          let errorMessageType: ErrorType = ErrorTypes.DEFAULT;
 
-        switch (errorKey) {
-          case BackendErrors.BlankError:
-            errorMessageType = ErrorTypes.REQUIRED;
-            break;
+          switch (errorKey) {
+            case BackendErrors.BlankError:
+              errorMessageType = ErrorTypes.REQUIRED;
+              break;
 
-          case BackendErrors.MinValueError:
-            errorMessageType = ErrorTypes.MIN;
-            break;
+            case BackendErrors.MinValueError:
+              errorMessageType = ErrorTypes.MIN;
+              break;
 
-          case BackendErrors.MaxValueError:
-            errorMessageType = ErrorTypes.MAX;
-            break;
+            case BackendErrors.MaxValueError:
+              errorMessageType = ErrorTypes.MAX;
+              break;
 
-          case BackendErrors.NotFound:
-          case BackendErrors.InvalidError:
-            errorMessageType = ErrorTypes.DEFAULT;
-            break;
+            case BackendErrors.NotFound:
+            case BackendErrors.InvalidError:
+              errorMessageType = ErrorTypes.DEFAULT;
+              break;
 
-          case BackendErrors.InvalidPhoneFormatError:
-          case BackendErrors.InvalidMobileFormatError:
-          case BackendErrors.InvalidLandlineFormatError:
-            errorMessageType = ErrorTypes.INVALID_MOBILE_NUMBER;
-            break;
+            case BackendErrors.InvalidPhoneFormatError:
+            case BackendErrors.InvalidMobileFormatError:
+            case BackendErrors.InvalidLandlineFormatError:
+              errorMessageType = ErrorTypes.INVALID_MOBILE_NUMBER;
+              break;
 
-          default:
-            errorMessageType = ErrorTypes.UNKNOWN;
+            default:
+              errorMessageType = ErrorTypes.UNKNOWN;
 
-            const errorMessage = `Missing Error mapping value in AnswerException for ${errorKey}`;
+              const errorMessage = `Missing Error mapping value in AnswerException for ${errorKey}`;
 
-            if (environment === 'staging' || environment === 'production') {
-              const Sentry = use('Sentry');
+              if (environment === 'staging' || environment === 'production') {
+                const Sentry = use('Sentry');
 
-              Sentry.captureMessage(errorMessage, {
-                context: { errors },
-              });
-            }
+                Sentry.captureMessage(errorMessage, {
+                  context: { errors },
+                });
+              }
 
-            Logger.info(errorMessage);
-            break;
-        }
+              Logger.info(errorMessage);
+              break;
+          }
 
-        errorMessages.push({ key: answer.question, row: answer.row, error: errorMessageType });
+          errorMessages.push({ key: answer.question, row: answer.row, error: errorMessageType });
+        });
       });
-    });
+    } else {
+      const errorMessage = `Missing Error mapping value in AnswerException for : ${errors}`;
+
+      if (environment === 'staging' || environment === 'production') {
+        const Sentry = use('Sentry');
+
+        Sentry.captureMessage(errorMessage, {
+          context: { errors },
+        });
+      }
+
+      Logger.info(errorMessage);
+    }
 
     // @ts-ignore
     super(errorMessages, 400);

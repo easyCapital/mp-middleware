@@ -34,6 +34,12 @@ class CGPUserController {
 
     response.status(200).send(user);
   }
+
+  public async stripePortal({ response, backendApi }: Context) {
+    const url = await backendApi.getCGPStripePortalUrl();
+
+    response.redirect(url);
+  }
 }
 
 export = CGPUserController;

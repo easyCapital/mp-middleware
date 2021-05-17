@@ -35,6 +35,7 @@ addAPIPrefixToGroup(
     Route.get('/statistics', 'V1/CGP/UserController.getStatistics');
     Route.post('/password', 'V1/CGP/UserController.changePassword');
     Route.put('/signature', 'V1/CGP/UserController.changeSignature');
+    Route.get('/stripe-portal', 'V1/CGP/UserController.stripePortal');
   }),
 );
 
