@@ -2,22 +2,22 @@ import { Filters } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 
-class CGPProductController {
+class CGPSupplierController {
   public async index({ request, response, backendApi }: Context) {
     const filters = request.input('filters') as Filters;
 
-    const products = await backendApi.getProducts(filters);
+    const suppliers = await backendApi.getSuppliers(filters);
 
-    response.status(200).send(products);
+    response.status(200).send(suppliers);
   }
 
   public async get({ params, response, backendApi }: Context) {
     const { id } = params;
 
-    const product = await backendApi.getProduct(id);
+    const supplier = await backendApi.getSupplier(id);
 
-    response.status(200).send(product);
+    response.status(200).send(supplier);
   }
 }
 
-export = CGPProductController;
+export = CGPSupplierController;

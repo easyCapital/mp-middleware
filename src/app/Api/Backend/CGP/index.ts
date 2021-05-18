@@ -10,5 +10,6 @@ export * from './Product';
 export * from './Proposition';
 export * from './Scoring';
 export * from './Study';
+export * from './Supplier';
 export * from './Tag';
 export * from './User';

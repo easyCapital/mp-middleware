@@ -1,12 +1,12 @@
-import { Product } from '../../../../Models/Product';
+import { Supplier } from '../../../../Models/Product';
 import { Exception, NotFoundException } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function getProduct(this: BackendApi, id: number | string): Promise<Product> {
+export default async function getSupplier(this: BackendApi, id: number | string): Promise<Supplier> {
   try {
     const response = await this.backendClient.get({
-      url: 'cgp/products',
+      url: 'cgp/suppliers',
       filters: { id },
       pagination: { page: 1, perPage: 1 },
     });
@@ -14,9 +14,9 @@ export default async function getProduct(this: BackendApi, id: number | string):
     const data = await response.json();
 
     if (data.length > 0) {
-      const product = new Product(data[0]);
+      const supplier = new Supplier(data[0]);
 
-      return product;
+      return supplier;
     }
   } catch (exception) {
     if (typeof exception.json === 'function') {

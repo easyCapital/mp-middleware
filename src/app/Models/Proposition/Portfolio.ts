@@ -1,11 +1,9 @@
 import { Portfolio as JsonPortfolioInterface, FundTypes } from '@robinfinance/js-api';
 
 import { Fund } from '.';
-import { Product } from '../Prismic';
 
 interface PortfolioInterface {
   toJSON(): JsonPortfolioInterface;
-  setProduct(product: Product): Portfolio;
   setSrri(srri: number): Portfolio;
   setAmount(amount: number): Portfolio;
   addFund(fund: Fund): Portfolio;
@@ -16,7 +14,6 @@ export default class Portfolio implements PortfolioInterface {
   private id: number;
   private productId?: number;
   private productIdentifier?: string;
-  private product?: Product;
   private srri: number;
   private funds: Fund[] = [];
   private performances?: { [year: string]: number };
@@ -47,7 +44,6 @@ export default class Portfolio implements PortfolioInterface {
       id: this.id,
       productId: this.productId,
       productIdentifier: this.productIdentifier,
-      product: this.product && this.product.toJSON(),
       amount: this.amount,
       srri: this.srri,
       funds: this.funds.map((fund) => fund.toJSON()),
@@ -58,14 +54,6 @@ export default class Portfolio implements PortfolioInterface {
 
   public getId(): number {
     return this.id;
-  }
-
-  public setProduct(product: Product): Portfolio {
-    if (product) {
-      this.product = product;
-    }
-
-    return this;
   }
 
   public setProductIdentifier(product: string): Portfolio {

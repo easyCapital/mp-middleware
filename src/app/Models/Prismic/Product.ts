@@ -1,4 +1,4 @@
-import { Product as JsonProductInterface } from '@robinfinance/js-api';
+import { PrismicProduct as JsonProductInterface } from '@robinfinance/js-api';
 
 import { ContentType, Type, Supplier, RichText, Cost, TDVM, Image, Link, Slice } from '.';
 import { BooleanMapper } from '../../Mappers/Prismic';

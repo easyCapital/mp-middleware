@@ -6,12 +6,10 @@ import {
 } from '@robinfinance/js-api';
 
 import { Portfolio } from '.';
-import { Advice } from '../Prismic';
 import { Answer } from '../Answer';
 
 interface PropositionInterface {
   toJSON(): JsonPropositionInterface;
-  setInvestorType(investorType: Advice): Proposition;
   addPortfolio(portfolio: Portfolio): Proposition;
 }
 
@@ -26,7 +24,6 @@ export default class Proposition implements PropositionInterface {
   private token: string;
   private weightedSrri: number;
   private answers: Answer[] = [];
-  private investorType?: Advice;
   private portfolios: Portfolio[] = [];
   private contracts: number[] = [];
 
@@ -74,7 +71,6 @@ export default class Proposition implements PropositionInterface {
       origin: this.origin,
       weightedSrri: this.weightedSrri,
       answers: this.answers.map((item) => item.toJSON()),
-      investorType: this.investorType && this.investorType.toJSON(),
       portfolios: this.portfolios.map((portfolio) => {
         const jsonPortfolio = portfolio.toJSON() as JsonPropositionPortfolioInterface;
         if (jsonPortfolio.amount) {
@@ -93,12 +89,6 @@ export default class Proposition implements PropositionInterface {
 
   public setToken(token: string): Proposition {
     this.token = token;
-
-    return this;
-  }
-
-  public setInvestorType(investorType: Advice): Proposition {
-    this.investorType = investorType;
 
     return this;
   }

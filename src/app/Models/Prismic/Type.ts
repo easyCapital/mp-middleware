@@ -1,4 +1,4 @@
-import { Type as JsonTypeInterface, Gender } from '@robinfinance/js-api';
+import { PrismicProductType as JsonTypeInterface, Gender } from '@robinfinance/js-api';
 
 import { ContentType, Image } from '.';
 import { Slice, RichText } from './Elements';

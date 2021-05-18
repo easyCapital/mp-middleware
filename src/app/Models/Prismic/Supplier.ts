@@ -1,4 +1,4 @@
-import { Supplier as JsonSupplierInterface } from '@robinfinance/js-api';
+import { PrismicSupplier as JsonSupplierInterface } from '@robinfinance/js-api';
 
 import { ContentType, Image } from '.';
 

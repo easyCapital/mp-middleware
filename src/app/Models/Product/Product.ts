@@ -1,4 +1,6 @@
-import { BackendProduct as JsonProductInterface } from '@robinfinance/js-api';
+import { Product as JsonProductInterface, ProductType } from '@robinfinance/js-api';
+
+import { ProductTypeMapper } from '../../Mappers/Product';
 
 interface ProductInterface {
   toJSON(): JsonProductInterface;
@@ -11,6 +13,9 @@ export default class Product implements ProductInterface {
   private id: number;
   private identifier: string;
   private name: string;
+  private slug: string;
+  private type?: ProductType;
+  private supplier: number;
   private minInvestment: number;
   private oneLinePortfolio: boolean;
   private hasEditableSubscriptionFeeRate: boolean;
@@ -21,6 +26,9 @@ export default class Product implements ProductInterface {
     this.id = json.id;
     this.identifier = json.identifier;
     this.name = json.name;
+    this.slug = json.slug;
+    this.type = ProductTypeMapper.transformValue(json.product_type);
+    this.supplier = json.supplier;
     this.minInvestment = json.min_investment;
     this.oneLinePortfolio = json.one_line_portfolio;
     this.hasEditableSubscriptionFeeRate = json.is_editable_subscription_fee_rate;
@@ -33,6 +41,9 @@ export default class Product implements ProductInterface {
       id: this.id,
       identifier: this.identifier,
       name: this.name,
+      slug: this.slug,
+      type: this.type,
+      supplier: this.supplier,
       minInvestment: this.minInvestment,
       oneLinePortfolio: this.oneLinePortfolio,
       hasEditableSubscriptionFeeRate: this.hasEditableSubscriptionFeeRate,

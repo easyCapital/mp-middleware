@@ -110,8 +110,21 @@ addAPIPrefixToGroup(
   */
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.get('/', 'V1/CGP/ProductController.search');
-  }).prefix('product'),
+    Route.get('/', 'V1/CGP/ProductController.index');
+    Route.get('/:id', 'V1/CGP/ProductController.get');
+  }).prefix('products'),
+);
+
+/*
+  |--------------------------------------------------------------------------
+  | API V1 - CGP - SUPPLIER
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/CGP/SupplierController.index');
+    Route.get('/:id', 'V1/CGP/SupplierController.get');
+  }).prefix('suppliers'),
 );
 
 /*
