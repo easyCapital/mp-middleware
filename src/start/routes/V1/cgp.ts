@@ -170,6 +170,19 @@ addAPIPrefixToGroup(
 
 /*
   |--------------------------------------------------------------------------
+  | API V1 - CGP - PROPOSITION V2
+  |--------------------------------------------------------------------------
+  */
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.post('/', 'V1/CGP/PropositionV2Controller.create');
+    Route.get('/', 'V1/CGP/PropositionV2Controller.search');
+  }).prefix('customer/:customer/study/:study/propositionv2'),
+);
+
+/*
+  |--------------------------------------------------------------------------
   | API V1 - CGP - SCORING
   |--------------------------------------------------------------------------
   */
@@ -253,8 +266,14 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/ContractController.search');
-    Route.post('/:proposition', 'V1/CGP/ContractController.create');
+    Route.post('/proposition', 'V1/CGP/ContractController.create');
   }).prefix('customer/:customer/contract'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/CGP/ContractController.search');
+  }).prefix('customer/:customer/study/:study/contract'),
 );
 
 addAPIPrefixToGroup(

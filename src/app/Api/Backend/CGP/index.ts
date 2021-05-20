@@ -8,6 +8,7 @@ export * from './Observation';
 export * from './Portfolio';
 export * from './Product';
 export * from './Proposition';
+export * from './PropositionV2';
 export * from './Scoring';
 export * from './Study';
 export * from './Supplier';

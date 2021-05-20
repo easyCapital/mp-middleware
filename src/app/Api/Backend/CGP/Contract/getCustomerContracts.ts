@@ -8,11 +8,14 @@ import BackendApi from '../..';
 export default async function getCustomerContracts(
   this: BackendApi,
   customerId: string,
+  studyId?: string,
   filters?: Filters,
 ): Promise<Contract[]> {
+  const url = studyId ? `study/${studyId}/contract/search` : 'contract/cgp/search';
+
   try {
     const response = await this.backendClient.get({
-      url: 'contract/cgp/search',
+      url,
       filters: filters ? { ...filters, users: customerId } : { users: customerId },
       orderBy: { key: 'date_created', type: 'desc' },
     });

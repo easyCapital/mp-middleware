@@ -72,6 +72,7 @@ export default class BackendApi {
   public resetCGPPasswordConfirm = CGP.resetPasswordConfirm;
   // CGP - Contract
   public createCGPContractsFromProposition = CGP.createContractsFromProposition;
+  public createCGPContractsFromPropositionV2 = CGP.createContractsFromPropositionV2;
   public getCGPCustomerContracts = CGP.getCustomerContracts;
   public getGCPContractTasks = CGP.getContractTasks;
   // CGP - Customer
@@ -125,6 +126,9 @@ export default class BackendApi {
   public getCGPStudyPropositions = CGP.getStudyPropositions;
   public createCGPCustomerProposition = CGP.createCustomerProposition;
   public createCGPStudyProposition = CGP.createStudyProposition;
+  // CGP - PropositionV2
+  public createCGPPropositionV2 = CGP.createPropositionV2;
+  public getCGPPropositionV2 = CGP.getCGPPropositionV2;
   // CGP - Scoring
   public getCGPKnowledgeScoring = CGP.getKnowledgeScoring;
   public getCGPRiskScoring = CGP.getRiskScoring;

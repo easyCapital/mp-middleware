@@ -1,16 +1,15 @@
-import { PortfolioFeeDTO } from '@robinfinance/js-api';
+import { PropositionContentFeeDTO } from '@robinfinance/js-api';
 
 import { Contract } from '../../../../Models/Contract';
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
-import { formatContractTasks } from '../../Helpers';
 import BackendApi from '../..';
 
-export default async function createContractsFromProposition(
+export default async function createContractsFromPropositionV2(
   this: BackendApi,
   customerId: string,
   propositionId: string,
-  fees: PortfolioFeeDTO[],
+  fees: PropositionContentFeeDTO[],
 ): Promise<Contract[]> {
   try {
     const response = await this.backendClient.post(
@@ -19,9 +18,9 @@ export default async function createContractsFromProposition(
       },
       {
         user: Number(customerId),
-        proposition: Number(propositionId),
+        proposition_v2: Number(propositionId),
         fees: fees.map((fee) => ({
-          portfolio_id: fee.portfolioId,
+          proposition_content_id: fee.propositionContentId,
           values: {
             management_fee_rate: fee.managementFeeRate || null,
             subscription_fee_rate: fee.subscriptionFeeRate || null,
@@ -32,19 +31,7 @@ export default async function createContractsFromProposition(
 
     const data = await response.json();
 
-    const contracts = data.map((contract) => new Contract(contract));
-
-    await Promise.all(
-      contracts.map(async (item: Contract) => {
-        const tasks = await this.getGCPContractTasks(item.getId().toString());
-
-        item.setTasks(formatContractTasks(tasks));
-
-        return item;
-      }),
-    );
-
-    return contracts;
+    return data.map((contract) => new Contract(contract));
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();
