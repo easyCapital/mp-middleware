@@ -249,6 +249,7 @@ addAPIPrefixToGroup(
 
 addAPIPrefixToGroup(
   Route.group(() => {
+    Route.get('/signatures', 'V1/CGP/FileController.signatureDetails');
     Route.get('/:id/download', 'V1/CGP/FileController.download');
     Route.get('/:id/view', 'V1/CGP/FileController.view');
     Route.get('/template/:type/download/', 'V1/CGP/FileController.downloadTemplateFile');

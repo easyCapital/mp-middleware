@@ -1,4 +1,12 @@
-import { Filters, FileDTO, File as JsonFileInterface, OrderBy, Answer, FileType } from '@robinfinance/js-api';
+import {
+  Filters,
+  FileDTO,
+  File as JsonFileInterface,
+  OrderBy,
+  Answer,
+  FileType,
+  Pagination,
+} from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
@@ -140,6 +148,16 @@ class CGPContractFileController {
     const answers = request.post() as Answer[];
 
     const files = await backendApi.getInpactedCustomerFiles(customer, study, answers, contract);
+
+    response.status(200).send(files);
+  }
+
+  public async signatureDetails({ request, response, backendApi }: Context) {
+    const pagination = request.input('pagination') as Pagination;
+    const filters = request.input('filters') as Filters;
+    const orderBy = request.input('orderBy') as OrderBy;
+
+    const files = await backendApi.getCGPSignatureDetails(pagination, filters, orderBy);
 
     response.status(200).send(files);
   }
