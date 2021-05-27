@@ -17,6 +17,7 @@ export default class Product implements ProductInterface {
   private type?: ProductType;
   private supplier: number;
   private minInvestment: number;
+  private digitalized: boolean;
   private oneLinePortfolio: boolean;
   private hasEditableSubscriptionFeeRate: boolean;
   private hasEditableManagementFeeRate: boolean;
@@ -30,6 +31,7 @@ export default class Product implements ProductInterface {
     this.type = ProductTypeMapper.transformValue(json.product_type);
     this.supplier = json.supplier;
     this.minInvestment = json.min_investment;
+    this.digitalized = json.digitalization;
     this.oneLinePortfolio = json.one_line_portfolio;
     this.hasEditableSubscriptionFeeRate = json.is_editable_subscription_fee_rate;
     this.hasEditableManagementFeeRate = json.is_editable_management_fee_rate;
@@ -45,6 +47,7 @@ export default class Product implements ProductInterface {
       type: this.type,
       supplier: this.supplier,
       minInvestment: this.minInvestment,
+      digitalized: this.digitalized,
       oneLinePortfolio: this.oneLinePortfolio,
       hasEditableSubscriptionFeeRate: this.hasEditableSubscriptionFeeRate,
       hasEditableManagementFeeRate: this.hasEditableManagementFeeRate,

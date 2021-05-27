@@ -10,6 +10,15 @@ const ProductTypeMapping = {
   '6': ProductTypes.PEA,
   '7': ProductTypes.PERP,
   '8': ProductTypes.OPCI,
+  '9': ProductTypes.LUXEMBOURG_LIFE_INSURANCE,
+  '10': ProductTypes.CAPITALIZATION_CONTRACT,
+  '11': ProductTypes.LUXEMBOURG_CAPITALIZATION_CONTRACT,
+  '12': ProductTypes.GENERATION_LIFE,
+  '13': ProductTypes.GIRARDIN,
+  '14': ProductTypes.PER,
+  '15': ProductTypes.SCPI_LAND_DEFICIT,
+  '16': ProductTypes.TAX_SCPI,
+  '17': ProductTypes.SPECIALIZED_SCPI,
 };
 
 class ProductTypeMapper extends GenericMapper<ProductTypes> {
