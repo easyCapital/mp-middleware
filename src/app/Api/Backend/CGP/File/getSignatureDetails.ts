@@ -2,6 +2,7 @@ import { Filters, Meta, OrderBy, Pagination } from '@robinfinance/js-api';
 
 import BackendApi from '../..';
 import { FileSign } from '../../../../Models/File';
+import { FileSignStatusMapper } from '../../../../Mappers/File';
 import { BackendException } from '../../Exceptions';
 import { Exception } from '../../../../Exceptions';
 import { formatMeta } from '../../Helpers';
@@ -12,11 +13,27 @@ export default async function getSignatureDetails(
   filters?: Filters,
   orderBy?: OrderBy,
 ): Promise<{ results: File[]; meta: Meta }> {
+  let formattedFilters: Filters = {};
+
+  if (filters) {
+    if ('status' in filters) {
+      if (Array.isArray(filters.status)) {
+        formattedFilters.status__in = filters.status.map((status) => FileSignStatusMapper.reverseTransform(status));
+      } else {
+        formattedFilters.status = FileSignStatusMapper.reverseTransform(filters.status);
+      }
+
+      delete filters.status;
+    }
+
+    formattedFilters = { ...formattedFilters, ...filters };
+  }
+
   try {
     const response = await this.backendClient.get({
       url: 'cgp/signature/search',
       pagination,
-      filters,
+      filters: formattedFilters,
       orderBy,
     });
 

@@ -9,6 +9,7 @@ const FileSignStatusMapping = {
   '3': FileSignStatuses.SIGNED,
   '4': FileSignStatuses.EXPIRED,
   '5': FileSignStatuses.CANCELED,
+  '6': FileSignStatuses.REFUSED,
 };
 
 class FileSignStatusMapper extends GenericMapper<FileSignStatuses> {

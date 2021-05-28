@@ -43,7 +43,7 @@ export default class FileSign implements FileInterface {
     if (json.signs && json.signs.length > 0) {
       const signature = json.signs[0];
 
-      this.signatureStatus = FileSignStatusMapper.transformValue(signature.signature_status);
+      this.signatureStatus = FileSignStatusMapper.transformValue(signature.status);
       this.signatureType = FileSignTypeMapper.transformValue(signature.signature_type);
       this.createDate = signature.created;
     }
