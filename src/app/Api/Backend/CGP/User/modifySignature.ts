@@ -1,6 +1,6 @@
 import { Exception, FileTooBigException } from '../../../../Exceptions';
 import { CGP } from '../../../../Models/Customer';
-import { BackendException } from '../../Exceptions';
+import { FileException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function modifySignature(this: BackendApi, signature: string): Promise<CGP> {
@@ -25,7 +25,7 @@ export default async function modifySignature(this: BackendApi, signature: strin
     if (typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new BackendException(error);
+      throw new FileException(error, 'JPG, JPEG et PNG');
     }
 
     throw new Exception(exception);
