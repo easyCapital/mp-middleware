@@ -7,7 +7,7 @@ const Config = use('Config');
 const Logger = use('Logger');
 
 export default class FileException extends HttpException {
-  constructor(error: BackendError) {
+  constructor(error: BackendError, supportedFiles?: string) {
     const environment = Config.get('sentry.environment');
 
     Object.keys(error).forEach((errorKey) => {
@@ -17,7 +17,11 @@ export default class FileException extends HttpException {
           throw new InvalidArgumentException('Le document n’a pas pu être téléchargé, merci de réessayer.');
 
         case BackendErrors.UnsupportedFileContentTypeError:
-          throw new InvalidArgumentException('Seul les documents JPG, JPEG, PNG et PDF peuvent être utilisés.');
+          if (supportedFiles) {
+            throw new InvalidArgumentException(`Seul les documents ${supportedFiles} peuvent être utilisés.`);
+          }
+
+          throw new InvalidArgumentException(`Ce fichier est invalide, ou le format de fichier n'est pas autorisé.`);
 
         case BackendErrors.FileTooBigError:
           throw new InvalidArgumentException('Le document dépasse la taille maximale autorisée de 5Mo.');

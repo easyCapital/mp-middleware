@@ -49,12 +49,12 @@ class CGPContractFileController {
     const { customer, study } = params;
     const data = request.post() as FileDTO[];
 
-    const errors: { [key in FileType]?: string } = {};
+    const errors: { key: FileType; error: string }[] = [];
 
     const files: (JsonFileInterface | undefined)[] = await Promise.all(
-      data.map(async (file) => {
+      data.map(async (file, index) => {
         try {
-          if (file.data && file.type) {
+          if (file.data !== undefined && file.type) {
             const createdFile = await backendApi.createCGPCustomerFile(
               customer,
               study,
@@ -75,13 +75,13 @@ class CGPContractFileController {
           }
         } catch (exception) {
           if (file.type) {
-            errors[file.type] = exception.message;
+            errors[index] = { key: file.type, error: exception.message };
           }
         }
       }),
     );
 
-    if (Object.keys(errors).length > 0) {
+    if (errors.length > 0) {
       response.status(400).send(errors);
     } else {
       response.status(200).send(files);

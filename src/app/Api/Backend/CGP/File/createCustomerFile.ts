@@ -53,6 +53,6 @@ export default async function createCustomerFile(
       throw new FileException(error);
     }
 
-    throw new Exception(exception);
+    throw new Exception();
   }
 }
