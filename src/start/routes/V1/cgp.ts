@@ -170,6 +170,22 @@ addAPIPrefixToGroup(
 
 /*
   |--------------------------------------------------------------------------
+  | API V1 - CGP - PARTNER
+  |--------------------------------------------------------------------------
+  */
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/CGP/PartnerController.search');
+    Route.post('/', 'V1/CGP/PartnerController.create');
+
+    Route.put('/:partner', 'V1/CGP/PartnerController.update');
+    Route.delete('/:partner', 'V1/CGP/PartnerController.delete');
+  }).prefix('partner'),
+);
+
+/*
+  |--------------------------------------------------------------------------
   | API V1 - CGP - PROPOSITION V2
   |--------------------------------------------------------------------------
   */
@@ -386,6 +402,7 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.post('/', 'V1/CGP/FeedbackController.send');
+    Route.post('/missing', 'V1/CGP/FeedbackController.missingProductOrSupplier');
   }).prefix('feedback'),
 );
 

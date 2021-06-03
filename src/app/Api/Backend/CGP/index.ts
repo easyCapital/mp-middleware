@@ -5,6 +5,7 @@ export * from './Contract';
 export * from './Customer';
 export * from './File';
 export * from './Observation';
+export * from './Partner';
 export * from './Portfolio';
 export * from './Product';
 export * from './Proposition';

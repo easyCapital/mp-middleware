@@ -19,6 +19,19 @@ class CGPFeedbackController {
 
     response.status(200).send();
   }
+
+  public async missingProductOrSupplier({ request, response, origin }: Context) {
+    const data = request.post() as {
+      email: string;
+      supplier: string;
+      agency: string | undefined;
+      product: string | undefined;
+    };
+
+    await SlackAPI.sendOtherProductOrSupplierName(origin, data.email, data.supplier, data.product, data.agency);
+
+    response.status(200).send();
+  }
 }
 
 export = CGPFeedbackController;

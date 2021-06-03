@@ -117,9 +117,14 @@ export default class BackendApi {
   // CGP - Product
   public getProduct = CGP.getProduct;
   public getProducts = CGP.getProducts;
-  // CGP - Product
+  // CGP - Supplier
   public getSupplier = CGP.getSupplier;
   public getSuppliers = CGP.getSuppliers;
+  // CGP - Partners
+  public createCGPPartner = CGP.createPartner;
+  public getCGPPartners = CGP.getPartners;
+  public updateCGPPartner = CGP.updatePartner;
+  public deleteCGPPartner = CGP.deletePartner;
   // CGP - Proposition
   public generateCGPCustomerProposition = CGP.generateCustomerProposition;
   public getCGPCustomerPropositions = CGP.getCustomerPropositions;
