@@ -1,29 +1,23 @@
-import { Filters, OrderBy, Pagination } from '@robinfinance/js-api';
-
 import { Exception } from '../../../../Exceptions';
-import { Partner } from '../../../../Models/Partner';
+import { ProductPartner } from '../../../../Models/Partner';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function getPartners(
+export default async function getProductPartnerInformation(
   this: BackendApi,
-  pagination: Pagination = { page: 1, perPage: 100 },
-  filters?: Filters,
-  orderBy?: OrderBy,
-): Promise<Partner[]> {
+  partner: number | string,
+  product: number | string,
+): Promise<ProductPartner> {
   try {
     const response = await this.backendClient.get({
-      url: `cgp/partner/search`,
-      pagination,
-      filters,
-      orderBy,
+      url: `cgp/partner/${partner}/product/${product}`,
     });
 
     const data = await response.json();
 
-    const partners = data.map((item) => new Partner(item));
+    const productPartner = new ProductPartner(data);
 
-    return partners;
+    return productPartner;
   } catch (exception) {
     if (typeof exception.json === 'function') {
       const error = await exception.json();

@@ -1,1 +1,1 @@
-export { default as ProductTypeMapper } from './ProductTypeMapper';
+export { default as ProductCategoryMapper } from './ProductCategoryMapper';

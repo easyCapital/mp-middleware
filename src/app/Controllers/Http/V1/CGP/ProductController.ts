@@ -18,6 +18,31 @@ class CGPProductController {
 
     response.status(200).send(product);
   }
+
+  public async getProductCategories({ request, response, backendApi }: Context) {
+    const filters = request.input('filters') as Filters;
+
+    const categories = await backendApi.getProductCategories(filters);
+
+    response.status(200).send(categories);
+  }
+
+  public async getProductCategoriesFactSheet({ request, response, backendApi }: Context) {
+    const filters = request.input('filters') as Filters;
+
+    const factSheets = await backendApi.getCGPProductCategoriesFactSheet(filters);
+
+    response.status(200).send(factSheets);
+  }
+
+  public async updateProductCategoryFactSheet({ params, request, response, backendApi }: Context) {
+    const { category } = params;
+    const { field } = request.post() as { field: { name: string; value: string } };
+
+    const factSheet = await backendApi.updateCGPProductCategoryFactSheet(category, field);
+
+    response.status(200).send(factSheet);
+  }
 }
 
 export = CGPProductController;

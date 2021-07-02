@@ -70,6 +70,9 @@ export default class BackendApi {
   public loginCGP = CGP.login;
   public resetCGPPassword = CGP.resetPassword;
   public resetCGPPasswordConfirm = CGP.resetPasswordConfirm;
+  // CGP - Category
+  public getCGPProductCategoriesFactSheet = CGP.getProductCategoriesFactSheet;
+  public updateCGPProductCategoryFactSheet = CGP.updateProductCategoryFactSheet;
   // CGP - Contract
   public createCGPContractsFromProposition = CGP.createContractsFromProposition;
   public createCGPContractsFromPropositionV2 = CGP.createContractsFromPropositionV2;
@@ -117,6 +120,8 @@ export default class BackendApi {
   // CGP - Product
   public getProduct = CGP.getProduct;
   public getProducts = CGP.getProducts;
+  // CGP - Product Category
+  public getProductCategories = CGP.getProductCategories;
   // CGP - Supplier
   public getSupplier = CGP.getSupplier;
   public getSuppliers = CGP.getSuppliers;
@@ -125,6 +130,8 @@ export default class BackendApi {
   public getCGPPartners = CGP.getPartners;
   public updateCGPPartner = CGP.updatePartner;
   public deleteCGPPartner = CGP.deletePartner;
+  public getCGPProductPartnerInformation = CGP.getProductPartnerInformation;
+  public updateCGPProductPartnerInformation = CGP.updateProductPartnerInformation;
   // CGP - Proposition
   public generateCGPCustomerProposition = CGP.generateCustomerProposition;
   public getCGPCustomerPropositions = CGP.getCustomerPropositions;

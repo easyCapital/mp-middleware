@@ -1,6 +1,6 @@
-import { Product as JsonProductInterface, ProductType } from '@robinfinance/js-api';
+import { Product as JsonProductInterface, ProductCategoryType } from '@robinfinance/js-api';
 
-import { ProductTypeMapper } from '../../Mappers/Product';
+import { ProductCategoryMapper } from '../../Mappers/Product';
 
 interface ProductInterface {
   toJSON(): JsonProductInterface;
@@ -14,7 +14,7 @@ export default class Product implements ProductInterface {
   private identifier: string;
   private name: string;
   private slug: string;
-  private type?: ProductType;
+  private category?: ProductCategoryType;
   private supplier: number;
   private minInvestment: number;
   private digitalized: boolean;
@@ -28,7 +28,7 @@ export default class Product implements ProductInterface {
     this.identifier = json.identifier;
     this.name = json.name;
     this.slug = json.slug;
-    this.type = ProductTypeMapper.transformValue(json.product_type);
+    this.category = ProductCategoryMapper.transformValue(json.product_category);
     this.supplier = json.supplier;
     this.minInvestment = json.min_investment;
     this.digitalized = json.digitalization;
@@ -44,7 +44,7 @@ export default class Product implements ProductInterface {
       identifier: this.identifier,
       name: this.name,
       slug: this.slug,
-      type: this.type,
+      category: this.category,
       supplier: this.supplier,
       minInvestment: this.minInvestment,
       digitalized: this.digitalized,

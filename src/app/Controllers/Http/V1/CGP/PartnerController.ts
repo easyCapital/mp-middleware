@@ -31,11 +31,28 @@ class CGPPartnerController {
 
   public async update({ params, request, response, backendApi }: Context) {
     const { partner } = params;
-    const { products } = request.post() as { products: number[] };
+    const { products, description } = request.post() as { products: number[]; description?: string };
 
-    const partners = await backendApi.updateCGPPartner(partner, products);
+    const partners = await backendApi.updateCGPPartner(partner, products, description);
 
     response.status(200).send(partners);
+  }
+
+  public async getProductPartnerInformation({ params, response, backendApi }: Context) {
+    const { partner, product } = params;
+
+    const data = await backendApi.getCGPProductPartnerInformation(partner, product);
+
+    response.status(200).send(data);
+  }
+
+  public async updateProductPartnerInformation({ params, request, response, backendApi }: Context) {
+    const { partner, product } = params;
+    const { field } = request.post() as { field: { name: string; value: string } };
+
+    const data = await backendApi.updateCGPProductPartnerInformation(partner, product, field);
+
+    response.status(200).send(data);
   }
 }
 

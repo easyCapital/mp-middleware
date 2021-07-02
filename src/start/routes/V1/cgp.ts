@@ -105,6 +105,19 @@ addAPIPrefixToGroup(
 
 /*
   |--------------------------------------------------------------------------
+  | API V1 - CGP - PRODUCT CATEGORY
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/CGP/ProductController.getProductCategories');
+    Route.get('/fact-sheet', 'V1/CGP/ProductController.getProductCategoriesFactSheet');
+    Route.put('/fact-sheet/:category', 'V1/CGP/ProductController.updateProductCategoryFactSheet');
+  }).prefix('products/categories'),
+);
+
+/*
+  |--------------------------------------------------------------------------
   | API V1 - CGP - PRODUCT
   |--------------------------------------------------------------------------
   */
@@ -178,9 +191,10 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/PartnerController.search');
     Route.post('/', 'V1/CGP/PartnerController.create');
-
     Route.put('/:partner', 'V1/CGP/PartnerController.update');
     Route.delete('/:partner', 'V1/CGP/PartnerController.delete');
+    Route.get('/:partner/product/:product', 'V1/CGP/PartnerController.getProductPartnerInformation');
+    Route.put('/:partner/product/:product', 'V1/CGP/PartnerController.updateProductPartnerInformation');
   }).prefix('partner'),
 );
 

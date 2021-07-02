@@ -2,21 +2,18 @@ import { Partner } from '../../../../Models/Partner';
 import { Exception } from '../../../../Exceptions';
 import BackendApi from '../..';
 
-export default async function updatePartner(
+export default async function updateProductInformation(
   this: BackendApi,
   partner: number,
-  products: number[],
-  description?: string,
+  product: number,
+  field: { name: string; value: string },
 ): Promise<Partner> {
   try {
     const response = await this.backendClient.patch(
       {
-        url: `cgp/partner/${partner}/update`,
+        url: `cgp/partner/${partner}/product/${product}/update`,
       },
-      {
-        products,
-        description,
-      },
+      { [field.name]: field.value },
     );
 
     const data = await response.json();

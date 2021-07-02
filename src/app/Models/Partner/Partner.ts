@@ -11,6 +11,7 @@ export default class Partner implements PartnerInterface {
   private cgp: number;
   private supplier: number;
   private products: Product[];
+  private description: null | string;
 
   constructor(json: any) {
     this.id = json.id;
@@ -19,6 +20,7 @@ export default class Partner implements PartnerInterface {
     this.cgp = json.cgp;
     this.supplier = json.supplier;
     this.products = json.products;
+    this.description = json.description;
   }
 
   public toJSON(): JsonPartnerInterface {
@@ -29,6 +31,7 @@ export default class Partner implements PartnerInterface {
       cgp: this.cgp,
       supplier: this.supplier,
       products: this.products,
+      description: this.description,
     };
   }
 }
