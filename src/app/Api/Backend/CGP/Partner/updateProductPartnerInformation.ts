@@ -1,4 +1,4 @@
-import { Partner } from '../../../../Models/Partner';
+import { ProductPartner } from '../../../../Models/Partner';
 import { Exception } from '../../../../Exceptions';
 import BackendApi from '../..';
 
@@ -7,7 +7,7 @@ export default async function updateProductInformation(
   partner: number,
   product: number,
   field: { name: string; value: string },
-): Promise<Partner> {
+): Promise<ProductPartner> {
   try {
     const response = await this.backendClient.patch(
       {
@@ -18,7 +18,9 @@ export default async function updateProductInformation(
 
     const data = await response.json();
 
-    return data;
+    const productPartner = new ProductPartner(data);
+
+    return productPartner;
   } catch (exception) {
     throw new Exception(exception);
   }
