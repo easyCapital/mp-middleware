@@ -95,13 +95,17 @@ export default class CustomerPrevalidationException extends HttpException {
                 default:
                   customerAnswerErrorMessages.push(ErrorTypes.UNKNOWN);
 
-                  const errorMessage = `Missing Error mapping value in CustomerPrevalidationException for ${errorKey}`;
+                  const errorMessage = `Missing Error mapping value in CustomerPrevalidationException for ${errorKey} for question ${initialAnswer.question} and answer ${initialAnswer.value}`;
 
                   if (environment === 'staging' || environment === 'production') {
                     const Sentry = use('Sentry');
 
                     Sentry.captureMessage(errorMessage, {
-                      context: { error: customerErrors.email[errorKey] },
+                      context: {
+                        error: answerErrors[errorKey],
+                        question: initialAnswer.question,
+                        value: initialAnswer.value,
+                      },
                     });
                   }
 
