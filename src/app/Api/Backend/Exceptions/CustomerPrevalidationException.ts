@@ -71,14 +71,15 @@ export default class CustomerPrevalidationException extends HttpException {
                   break;
 
                 case BackendErrors.MinValueError:
+                case BackendErrors.MinimumLengthError:
                   customerAnswerErrorMessages.push(ErrorTypes.MIN);
                   break;
 
                 case BackendErrors.MaxValueError:
+                case BackendErrors.MaximumLengthError:
                   customerAnswerErrorMessages.push(ErrorTypes.MAX);
                   break;
 
-                case BackendErrors.MinimumLengthError:
                 case BackendErrors.NotFound:
                   customerAnswerErrorMessages.push(ErrorTypes.UNKNOWN);
                   break;
@@ -95,7 +96,7 @@ export default class CustomerPrevalidationException extends HttpException {
                 default:
                   customerAnswerErrorMessages.push(ErrorTypes.UNKNOWN);
 
-                  const errorMessage = `Missing Error mapping value in CustomerPrevalidationException for ${errorKey} for question ${initialAnswer.question} and answer ${initialAnswer.value}`;
+                  const errorMessage = `Missing Error mapping value in CustomerPrevalidationException for ${errorKey}`;
 
                   if (environment === 'staging' || environment === 'production') {
                     const Sentry = use('Sentry');
@@ -109,7 +110,9 @@ export default class CustomerPrevalidationException extends HttpException {
                     });
                   }
 
-                  Logger.info(errorMessage);
+                  Logger.info(
+                    `${errorMessage} for question ${initialAnswer.question} and answer ${initialAnswer.value}`,
+                  );
                   break;
               }
             });
