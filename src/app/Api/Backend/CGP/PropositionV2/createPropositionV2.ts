@@ -3,6 +3,7 @@ import { PropositionContentDTO } from '@robinfinance/js-api';
 import BackendApi from '../..';
 import { Exception } from '../../../../Exceptions';
 import { PropositionV2 } from '../../../../Models/PropositionV2';
+import { BackendException } from '../../Exceptions';
 
 export default async function createPropositionV2(
   this: BackendApi,
@@ -28,6 +29,12 @@ export default async function createPropositionV2(
 
     return proposition;
   } catch (exception) {
+    if (typeof exception.json === 'function') {
+      const error = await exception.json();
+
+      throw new BackendException(error);
+    }
+
     throw new Exception(exception);
   }
 }
