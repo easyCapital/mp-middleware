@@ -44,7 +44,6 @@ class OriginConfigDetector {
 
       Sentry.setContext('origin', {
         origin,
-        app: originConfig.app,
         client: originConfig.client,
         clientType: originConfig.type,
       });

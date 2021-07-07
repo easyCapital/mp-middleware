@@ -4,8 +4,10 @@ import GenericMapper from '../GenericMapper';
 
 const ProductCategoryMapping = {
   '0': ProductCategoryTypes.LIFE_INSURANCE,
+  '1': ProductCategoryTypes.TRADING_ACCOUNT,
   '2': ProductCategoryTypes.FIP,
   '3': ProductCategoryTypes.FCPI,
+  '4': ProductCategoryTypes.WALLET,
   '5': ProductCategoryTypes.SCPI,
   '6': ProductCategoryTypes.PEA,
   '7': ProductCategoryTypes.PERP,

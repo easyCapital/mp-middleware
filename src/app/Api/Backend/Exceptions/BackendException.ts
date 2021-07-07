@@ -29,7 +29,7 @@ export default class BackendException extends HttpException {
             const Sentry = use('Sentry');
 
             Sentry.captureMessage(errorMessage, {
-              context: { error },
+              contexts: { error },
             });
           }
 

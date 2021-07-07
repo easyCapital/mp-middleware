@@ -238,6 +238,14 @@ export = {
       level: 'info',
       json: true,
     },
+
+    info: {
+      driver: ['local', 'testing'].includes(Env.get('APP_ENV')) ? 'console' : 'file',
+      filename: '/var/log/middleware/middleware.info.log',
+      name: 'mieuxplacer-middleware-info',
+      level: 'info',
+      json: true,
+    },
   },
 
   /*

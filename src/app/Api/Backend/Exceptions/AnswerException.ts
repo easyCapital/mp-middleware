@@ -1,4 +1,5 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
+import { format } from 'date-fns';
 import { ErrorTypes, ErrorType, Answer, BackendError, BackendErrors } from '@robinfinance/js-api';
 
 const Config = use('Config');
@@ -22,10 +23,12 @@ export default class AnswerException extends HttpException {
               break;
 
             case BackendErrors.MinValueError:
+            case BackendErrors.MinimumLengthError:
               errorMessageType = ErrorTypes.MIN;
               break;
 
             case BackendErrors.MaxValueError:
+            case BackendErrors.MaximumLengthError:
               errorMessageType = ErrorTypes.MAX;
               break;
 
@@ -49,12 +52,38 @@ export default class AnswerException extends HttpException {
                 const Sentry = use('Sentry');
 
                 Sentry.captureMessage(errorMessage, {
-                  context: { errors },
+                  contexts: {
+                    question: answer.question,
+                    value: answer.value,
+                    row: answer.row,
+                    error,
+                  },
                 });
               }
 
-              Logger.info(errorMessage);
+              Logger.info(`${errorMessage} for question ${answer.question} and answer ${answer.value}`);
               break;
+          }
+
+          Logger.transport('info').info('Question error', {
+            time: format(new Date(), 'dd-MM-yyyy hh:mm:ss'),
+            question: answer.question,
+            value: answer.value,
+            row: answer.row,
+            error,
+          });
+
+          if (environment === 'staging' || environment === 'production') {
+            const Sentry = use('Sentry');
+
+            Sentry.captureMessage('Question error', {
+              contexts: {
+                question: answer.question,
+                value: answer.value,
+                row: answer.row,
+                error,
+              },
+            });
           }
 
           errorMessages.push({ key: answer.question, row: answer.row, error: errorMessageType });
@@ -67,7 +96,7 @@ export default class AnswerException extends HttpException {
         const Sentry = use('Sentry');
 
         Sentry.captureMessage(errorMessage, {
-          context: { errors },
+          contexts: { errors },
         });
       }
 

@@ -38,7 +38,11 @@ export default class CustomerPrevalidationException extends HttpException {
                 const Sentry = use('Sentry');
 
                 Sentry.captureMessage(errorMessage, {
-                  context: { error: customerErrors.email[errorKey] },
+                  contexts: {
+                    error: customerErrors.email[errorKey],
+                    question: 'email',
+                    value: initialData[customerIndex].email,
+                  },
                 });
               }
 
@@ -102,7 +106,7 @@ export default class CustomerPrevalidationException extends HttpException {
                     const Sentry = use('Sentry');
 
                     Sentry.captureMessage(errorMessage, {
-                      context: {
+                      contexts: {
                         error: answerErrors[errorKey],
                         question: initialAnswer.question,
                         value: initialAnswer.value,

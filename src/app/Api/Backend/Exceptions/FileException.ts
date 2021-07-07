@@ -36,7 +36,7 @@ export default class FileException extends HttpException {
             const Sentry = use('Sentry');
 
             Sentry.captureMessage(errorMessage, {
-              context: { error },
+              contexts: { error },
             });
           }
 
