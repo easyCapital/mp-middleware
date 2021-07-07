@@ -78,7 +78,11 @@ export default class CustomerCreationException extends HttpException {
             const Sentry = use('Sentry');
 
             Sentry.captureMessage(errorMessage, {
-              contexts: { error },
+              contexts: {
+                error: {
+                  error,
+                },
+              },
             });
           }
 

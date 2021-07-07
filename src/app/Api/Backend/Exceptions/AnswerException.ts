@@ -53,10 +53,12 @@ export default class AnswerException extends HttpException {
 
                 Sentry.captureMessage(errorMessage, {
                   contexts: {
-                    question: answer.question,
-                    value: answer.value,
-                    row: answer.row,
-                    error,
+                    error: {
+                      question: answer.question,
+                      value: answer.value,
+                      row: answer.row,
+                      error,
+                    },
                   },
                 });
               }
@@ -78,10 +80,12 @@ export default class AnswerException extends HttpException {
 
             Sentry.captureMessage('Question error', {
               contexts: {
-                question: answer.question,
-                value: answer.value,
-                row: answer.row,
-                error,
+                error: {
+                  question: answer.question,
+                  value: answer.value,
+                  row: answer.row,
+                  error,
+                },
               },
             });
           }
@@ -96,7 +100,11 @@ export default class AnswerException extends HttpException {
         const Sentry = use('Sentry');
 
         Sentry.captureMessage(errorMessage, {
-          contexts: { errors },
+          contexts: {
+            error: {
+              errors,
+            },
+          },
         });
       }
 

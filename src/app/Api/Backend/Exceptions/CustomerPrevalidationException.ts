@@ -39,9 +39,11 @@ export default class CustomerPrevalidationException extends HttpException {
 
                 Sentry.captureMessage(errorMessage, {
                   contexts: {
-                    error: customerErrors.email[errorKey],
-                    question: 'email',
-                    value: initialData[customerIndex].email,
+                    error: {
+                      error: customerErrors.email[errorKey],
+                      question: 'email',
+                      value: initialData[customerIndex].email,
+                    },
                   },
                 });
               }
@@ -107,9 +109,11 @@ export default class CustomerPrevalidationException extends HttpException {
 
                     Sentry.captureMessage(errorMessage, {
                       contexts: {
-                        error: answerErrors[errorKey],
-                        question: initialAnswer.question,
-                        value: initialAnswer.value,
+                        error: {
+                          error: answerErrors[errorKey],
+                          question: initialAnswer.question,
+                          value: initialAnswer.value,
+                        },
                       },
                     });
                   }
