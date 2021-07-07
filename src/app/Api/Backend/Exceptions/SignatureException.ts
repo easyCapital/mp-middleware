@@ -30,7 +30,7 @@ export default class SignatureException extends HttpException {
             Sentry.captureMessage(errorMessage, {
               contexts: {
                 error: {
-                  error,
+                  error: JSON.stringify(error),
                 },
               },
             });

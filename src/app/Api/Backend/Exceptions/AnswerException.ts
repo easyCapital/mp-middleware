@@ -57,7 +57,7 @@ export default class AnswerException extends HttpException {
                       question: answer.question,
                       value: answer.value,
                       row: answer.row,
-                      error,
+                      error: JSON.stringify(error),
                     },
                   },
                 });
@@ -84,7 +84,7 @@ export default class AnswerException extends HttpException {
                   question: answer.question,
                   value: answer.value,
                   row: answer.row,
-                  error,
+                  error: JSON.stringify(error),
                 },
               },
             });
@@ -102,7 +102,7 @@ export default class AnswerException extends HttpException {
         Sentry.captureMessage(errorMessage, {
           contexts: {
             error: {
-              errors,
+              errors: JSON.stringify(errors),
             },
           },
         });

@@ -39,7 +39,7 @@ export default class AuthenticationException extends HttpException {
             Sentry.captureMessage(errorMessage, {
               contexts: {
                 error: {
-                  error,
+                  error: JSON.stringify(error),
                 },
               },
             });

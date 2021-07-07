@@ -40,7 +40,7 @@ export default class CustomerPrevalidationException extends HttpException {
                 Sentry.captureMessage(errorMessage, {
                   contexts: {
                     error: {
-                      error: customerErrors.email[errorKey],
+                      error: JSON.stringify(customerErrors.email),
                       question: 'email',
                       value: initialData[customerIndex].email,
                     },
@@ -110,7 +110,7 @@ export default class CustomerPrevalidationException extends HttpException {
                     Sentry.captureMessage(errorMessage, {
                       contexts: {
                         error: {
-                          error: answerErrors[errorKey],
+                          error: JSON.stringify(answerErrors),
                           question: initialAnswer.question,
                           value: initialAnswer.value,
                         },

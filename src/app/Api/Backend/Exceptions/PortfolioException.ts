@@ -69,7 +69,7 @@ export default class PortfolioException extends HttpException {
               Sentry.captureMessage(errorMessage, {
                 contexts: {
                   error: {
-                    error,
+                    error: JSON.stringify(error),
                   },
                 },
               });
