@@ -5,15 +5,18 @@ import BackendApi from '../..';
 export default async function sendCustomerSignature(
   this: BackendApi,
   customerId: string,
-  fileId: string,
+  fileIds: number[] | string[],
   body?: { email?: string; subject?: string; message?: string },
 ): Promise<{ url: string }> {
   try {
     const response = await this.backendClient.post(
       {
-        url: `cgp/customer/${customerId}/file/${fileId}/customer-sign`,
+        url: `cgp/customer/${customerId}/file/customer-sign`,
       },
-      body,
+      {
+        files: fileIds,
+        ...body,
+      },
     );
 
     const data = await response.json();

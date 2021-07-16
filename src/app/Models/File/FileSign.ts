@@ -30,7 +30,6 @@ export default class FileSign implements FileInterface {
     this.id = json.id;
     this.type = FileTypeMapper.transformValue(json.type);
     this.status = FileStatusMapper.transformValue(json.status);
-    this.signDate = json.sign_date;
 
     if (json.user) {
       this.user = {
@@ -46,6 +45,7 @@ export default class FileSign implements FileInterface {
       this.signatureStatus = FileSignStatusMapper.transformValue(signature.status);
       this.signatureType = FileSignTypeMapper.transformValue(signature.signature_type);
       this.createDate = signature.created;
+      this.signDate = signature.updated;
     }
   }
 

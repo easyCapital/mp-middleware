@@ -8,11 +8,13 @@ import BackendApi from '../..';
 export default async function getSignatureUrl(
   this: BackendApi,
   customerId: string,
-  fileId: string,
+  fileIds: number[] | string[],
   callbackUrl?: string,
   type?: FileSignType,
 ): Promise<{ url: string }> {
-  const body: { callback_url?: string; type?: string } = {};
+  const body: { files: string[] | number[]; callback_url?: string; type?: string } = {
+    files: fileIds,
+  };
 
   if (callbackUrl) {
     body.callback_url = callbackUrl;
@@ -25,7 +27,7 @@ export default async function getSignatureUrl(
   try {
     const response = await this.backendClient.post(
       {
-        url: `cgp/customer/${customerId}/file/${fileId}/sign`,
+        url: `cgp/customer/${customerId}/file/sign`,
       },
       body,
     );

@@ -95,6 +95,7 @@ export default class BackendApi {
   public getCGPStudyFiles = CGP.getStudyFiles;
   public getCGPAllStudyFiles = CGP.getAllStudyFiles;
   public getInpactedCustomerFiles = CGP.getInpactedFiles;
+  public getFileSignature = CGP.getSignature;
   public getCGPSignatureDetails = CGP.getSignatureDetails;
   public generateCGPCustomerFiles = CGP.generateCustomerFiles;
   public downloadCGPContractFiles = CGP.downloadContractFiles;

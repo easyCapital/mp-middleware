@@ -152,6 +152,19 @@ class CGPContractFileController {
     response.status(200).send(files);
   }
 
+  public async signature({ params, request, response, backendApi }: Context) {
+    const { id } = params;
+    const data = request.all() as { callback?: string };
+
+    const signature = await backendApi.getFileSignature(id, data.callback);
+
+    if (signature) {
+      response.status(200).send(signature);
+    } else {
+      response.status(204).send();
+    }
+  }
+
   public async signatureDetails({ request, response, backendApi }: Context) {
     const pagination = request.input('pagination') as Pagination;
     const filters = request.input('filters') as Filters;
@@ -163,10 +176,10 @@ class CGPContractFileController {
   }
 
   public async signatureUrl({ params, request, response, backendApi }: Context) {
-    const { customer, file } = params;
-    const { callback, type }: any = request.post();
+    const { customer } = params;
+    const { files, callback, type }: any = request.post();
 
-    const data = await backendApi.getCGPFileSignatureUrl(customer, file, callback, type);
+    const data = await backendApi.getCGPFileSignatureUrl(customer, files, callback, type);
 
     response.status(200).send(data);
   }
@@ -188,11 +201,11 @@ class CGPContractFileController {
   }
 
   public async sendSignature({ params, request, response, backendApi }: Context) {
-    const { customer, file } = params;
-    const body: any = request.post();
+    const { customer } = params;
+    const { files, ...body }: any = request.post();
 
     try {
-      const data = await backendApi.sendCGPCustomerSignature(customer, file, body);
+      const data = await backendApi.sendCGPCustomerSignature(customer, files, body);
 
       response.status(200).send(data);
     } catch (exception) {
