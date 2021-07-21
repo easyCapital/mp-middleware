@@ -169,7 +169,6 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/PropositionController.getStudyPropositions');
-    Route.get('/generated', 'V1/CGP/PropositionController.getOrGenerateStudyProposition');
     Route.post('/', 'V1/CGP/PropositionController.createStudyProposition');
     Route.post('/:task/validate/external', 'V1/CGP/PropositionController.validateExternalProposition');
   }).prefix('customer/:customer/study/:study/proposition'),

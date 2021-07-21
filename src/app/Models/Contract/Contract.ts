@@ -1,25 +1,26 @@
 import { Contract as JsonContractInterface, ContractStatus } from '@robinfinance/js-api';
 
 import { ContractStatusMapper } from '../../Mappers/Contract';
-import { Task } from '../Task';
+import { Proposition } from '../Proposition';
+import { PropositionV2 } from '../PropositionV2';
 
 interface ContractInterface {
   toJSON(): JsonContractInterface;
 }
 
 export default class Contract implements ContractInterface {
-  private id: number;
-  private name: string;
-  private product: string;
-  private status?: ContractStatus;
-  private initialDeposit: number;
-  private subscriptionFee: number;
-  private subscriptionFeeRate?: number;
-  private managementFeeRate?: number;
-  private totalAmount: number;
-  private includedSubscriptionFee: boolean;
-  private proposition: number;
-  private tasks: Task<any>[] = [];
+  public id: number;
+  public name: string;
+  public product: string;
+  public status?: ContractStatus;
+  public initialDeposit: number;
+  public subscriptionFee: number;
+  public subscriptionFeeRate?: number;
+  public managementFeeRate?: number;
+  public totalAmount: number;
+  public includedSubscriptionFee: boolean;
+  public propositionId: number;
+  public proposition?: Proposition | PropositionV2;
 
   constructor(json: any) {
     this.id = json.id;
@@ -30,7 +31,7 @@ export default class Contract implements ContractInterface {
     this.subscriptionFee = json.subscription_fee;
     this.totalAmount = json.total_amount;
     this.includedSubscriptionFee = json.is_included_subscription_fee;
-    this.proposition = json.proposition || json.proposition_v2;
+    this.propositionId = json.proposition || json.proposition_v2;
 
     if (json.subscription_fee_rate) {
       this.subscriptionFeeRate = json.subscription_fee_rate;
@@ -53,18 +54,11 @@ export default class Contract implements ContractInterface {
       managementFeeRate: this.managementFeeRate,
       totalAmount: this.totalAmount,
       includedSubscriptionFee: this.includedSubscriptionFee,
-      proposition: this.proposition,
-      tasks: this.tasks.map((item) => item.toJSON()),
+      proposition: this.proposition?.toJSON(),
     };
   }
 
   public getId(): number {
     return this.id;
-  }
-
-  public setTasks(tasks: Task<any>[]): Contract {
-    this.tasks = tasks;
-
-    return this;
   }
 }

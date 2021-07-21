@@ -77,7 +77,6 @@ export default class BackendApi {
   public createCGPContractsFromProposition = CGP.createContractsFromProposition;
   public createCGPContractsFromPropositionV2 = CGP.createContractsFromPropositionV2;
   public getCGPCustomerContracts = CGP.getCustomerContracts;
-  public getGCPContractTasks = CGP.getContractTasks;
   // CGP - Customer
   public changeCGPCustomerEmail = CGP.changeCustomerEmail;
   public createCGPCustomer = CGP.createCustomer;

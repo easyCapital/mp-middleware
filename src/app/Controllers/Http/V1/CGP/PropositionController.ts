@@ -1,4 +1,4 @@
-import { Filters, Origins, Origin } from '@robinfinance/js-api';
+import { Filters } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
@@ -45,27 +45,12 @@ class CGPPropositionController {
     response.status(200).send(proposition);
   }
 
-  public async getStudyPropositions({ params, request, response, backendApi }: Context) {
+  public async getStudyPropositions({ params, response, backendApi }: Context) {
     const { customer, study } = params;
-    const origin = request.input('origin') as Origin | undefined;
 
-    const propositions = await backendApi.getCGPStudyPropositions(customer, study, origin);
+    const propositions = await backendApi.getCGPStudyPropositions(customer, study);
 
     response.status(200).send(propositions);
-  }
-
-  public async getOrGenerateStudyProposition({ params, request, response, backendApi, universe }: Context) {
-    const { customer, study } = params;
-    const configKey = request.input('configKey') as string | undefined;
-
-    const propositions = await backendApi.getCGPStudyPropositions(customer, study, Origins.MIEUXPLACER);
-
-    const proposition =
-      propositions.length > 0
-        ? propositions[0]
-        : await backendApi.generateCGPCustomerProposition(customer, universe, configKey, study);
-
-    response.status(200).send(proposition);
   }
 
   public async createStudyProposition({ params, request, response, backendApi, universe }: Context) {

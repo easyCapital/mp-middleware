@@ -1,7 +1,6 @@
 import { Contract } from '../../../Models/Contract';
 import { Exception, NotFoundException } from '../../../Exceptions';
 import { BackendException } from '../Exceptions';
-import { formatContractTasks } from '../Helpers';
 import BackendApi from '..';
 
 export default async function getContract(this: BackendApi, id: string): Promise<Contract> {
@@ -14,11 +13,6 @@ export default async function getContract(this: BackendApi, id: string): Promise
 
     if (data.length > 0) {
       const contract = new Contract(data[0]);
-      const tasks = await this.getContractTasks({
-        contract: contract.getId().toString(),
-      });
-
-      contract.setTasks(formatContractTasks(tasks));
 
       return contract;
     }

@@ -3,7 +3,6 @@ import { PortfolioFeeDTO } from '@robinfinance/js-api';
 import { Contract } from '../../../../Models/Contract';
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
-import { formatContractTasks } from '../../Helpers';
 import BackendApi from '../..';
 
 export default async function createContractsFromProposition(
@@ -33,16 +32,6 @@ export default async function createContractsFromProposition(
     const data = await response.json();
 
     const contracts = data.map((contract) => new Contract(contract));
-
-    await Promise.all(
-      contracts.map(async (item: Contract) => {
-        const tasks = await this.getGCPContractTasks(item.getId().toString());
-
-        item.setTasks(formatContractTasks(tasks));
-
-        return item;
-      }),
-    );
 
     return contracts;
   } catch (exception) {

@@ -1,8 +1,6 @@
 import {
   Proposition as JsonPropositionInterface,
   PropositionPortfolio as JsonPropositionPortfolioInterface,
-  Origin,
-  Origins,
 } from '@robinfinance/js-api';
 
 import { Portfolio } from '.';
@@ -15,23 +13,21 @@ interface PropositionInterface {
 
 export default class Proposition implements PropositionInterface {
   public configKey: string | undefined;
-  private id: number;
-  private created: string;
-  private universe: string;
-  private userId?: number;
-  private userEmail?: string;
-  private origin: Origin;
-  private token: string;
-  private weightedSrri: number;
-  private answers: Answer[] = [];
-  private portfolios: Portfolio[] = [];
-  private contracts: number[] = [];
+  public id: number;
+  public created: string;
+  public universe: string;
+  public userId?: number;
+  public userEmail?: string;
+  public token: string;
+  public weightedSrri: number;
+  public answers: Answer[] = [];
+  public portfolios: Portfolio[] = [];
+  public contracts: number[] = [];
 
   constructor(json: any) {
     this.id = json.id;
     this.created = json.created;
     this.universe = json.universe;
-    this.origin = json.cgp === null ? Origins.MIEUXPLACER : Origins.CGP;
     this.token = json.token;
     this.weightedSrri = json.srri_weighted;
 
@@ -68,7 +64,6 @@ export default class Proposition implements PropositionInterface {
       universe: this.universe,
       userId: this.userId,
       userEmail: this.userEmail,
-      origin: this.origin,
       weightedSrri: this.weightedSrri,
       answers: this.answers.map((item) => item.toJSON()),
       portfolios: this.portfolios.map((portfolio) => {

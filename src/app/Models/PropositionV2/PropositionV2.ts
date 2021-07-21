@@ -5,11 +5,11 @@ interface PropositionV2Interface {
 }
 
 export default class PropositionV2 implements PropositionV2Interface {
-  private id: number;
-  private created: string;
-  private updated: string;
-  private userId?: number;
-  private contents: PropositionContent[] = [];
+  public id: number;
+  public created: string;
+  public updated: string;
+  public userId?: number;
+  public contents: PropositionContent[] = [];
 
   constructor(json: any) {
     this.id = json.id;

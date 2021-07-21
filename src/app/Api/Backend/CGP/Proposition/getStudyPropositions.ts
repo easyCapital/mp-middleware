@@ -1,4 +1,4 @@
-import { Origin, Origins } from '@robinfinance/js-api';
+import { Filters } from '@robinfinance/js-api';
 
 import { Proposition } from '../../../../Models/Proposition';
 import { Exception } from '../../../../Exceptions';
@@ -10,29 +10,21 @@ export default async function getStudyPropositions(
   this: BackendApi,
   customerId: string,
   studyId: string,
-  type?: Origin,
+  filters?: Filters,
 ): Promise<Proposition[]> {
   try {
     const response = await this.backendClient.get({
       url: 'proposition/cgp/search',
-      filters: { user_id: customerId, study_id: studyId },
+      filters: filters
+        ? { ...filters, user_id: customerId, study_id: studyId }
+        : { user_id: customerId, study_id: studyId },
       orderBy: { key: 'created', type: 'desc' },
     });
     const data = await response.json();
 
-    let propositions: any = data;
-
-    if (type) {
-      if (type === Origins.CGP) {
-        propositions = propositions.filter((item) => item.cgp !== null);
-      } else if (type === Origins.MIEUXPLACER) {
-        propositions = propositions.filter((item) => item.cgp === null);
-      }
-    }
-
     const formattedPropositions: Proposition[] = [];
 
-    for (const proposition of propositions) {
+    for (const proposition of data) {
       formattedPropositions.push(await getPropositionDetails(this, proposition));
     }
 

@@ -1,3 +1,5 @@
+import { Filters } from '@robinfinance/js-api';
+
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import { PropositionV2 } from '../../../../Models/PropositionV2';
@@ -7,10 +9,12 @@ export default async function getStudyPropositions(
   this: BackendApi,
   customer: string,
   study: string,
+  filters?: Filters,
 ): Promise<PropositionV2[]> {
   try {
     const response = await this.backendClient.get({
       url: `cgp/customer/${customer}/study/${study}/proposition_v2/search`,
+      filters,
     });
     const data = await response.json();
 

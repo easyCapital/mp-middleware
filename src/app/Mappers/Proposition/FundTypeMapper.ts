@@ -9,6 +9,7 @@ const FundTypeMapping = {
   '5': FundTypes.SCPI,
   '6': FundTypes.PEA,
   '8': FundTypes.OPCI,
+  '9': FundTypes.DELEGATED,
 };
 
 class FundTypeMapper extends GenericMapper<FundTypes> {
