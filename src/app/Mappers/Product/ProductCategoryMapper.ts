@@ -21,6 +21,11 @@ const ProductCategoryMapping = {
   '15': ProductCategoryTypes.SCPI_LAND_DEFICIT,
   '16': ProductCategoryTypes.TAX_SCPI,
   '17': ProductCategoryTypes.SPECIALIZED_SCPI,
+  '18': ProductCategoryTypes.TONTINE,
+  '19': ProductCategoryTypes.LODEOM_EXONERATION,
+  '20': ProductCategoryTypes.AGRICULTURAL_GIRARDIN,
+  '21': ProductCategoryTypes.WINE_INVESTMENT,
+  '22': ProductCategoryTypes.FORESTRY_INVESTMENT,
 };
 
 class ProductCategoryMapper extends GenericMapper<ProductCategoryTypes> {
