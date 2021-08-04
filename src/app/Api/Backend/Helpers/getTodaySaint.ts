@@ -2,7 +2,7 @@ import { saints } from './saints';
 
 export default function getTodaySaint() {
   const today = new Date();
-  const monthString = today.toLocaleString('default', { month: 'long' }).toLowerCase();
+  const monthString = today.toLocaleString('en', { month: 'long' }).toLowerCase();
   const day = today.getDate() - 1;
 
   if (saints[monthString][day]) {
