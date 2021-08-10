@@ -40,4 +40,5 @@ Server.registerGlobal(globalMiddleware)
   .registerNamed(namedMiddleware)
   .use(['Adonis/Middleware/Cors'])
   .use(['Adonis/Middleware/Static'])
+  .use(['Adonis/Middleware/EventSourceWatcher'])
   .use(['App/Middleware/MaintenanceHandler']);

@@ -212,4 +212,16 @@ addAPIPrefixToGroup(
   }).prefix('file'),
 );
 
+/*
+|--------------------------------------------------------------------------
+| API V1 - EVENT
+|--------------------------------------------------------------------------
+*/
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/EventEmitterController.stream');
+    Route.get('/deploy', 'V1/EventEmitterController.deploy');
+  }).prefix('event'),
+);
+
 export {};
