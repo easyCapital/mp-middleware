@@ -23,41 +23,47 @@ export default async function getCustomerContracts(
 
     const contracts: Contract[] = data.map((item) => new Contract(item));
 
-    const propositionV1Ids: number[] = [];
-    const propositionV2Ids: number[] = [];
+    if (studyId) {
+      const propositionV1Ids: number[] = [];
+      const propositionV2Ids: number[] = [];
 
-    data.forEach((item) => {
-      if (item.proposition) {
-        propositionV1Ids.push(item.proposition);
-      } else if (item.proposition_v2) {
-        propositionV2Ids.push(item.proposition_v2);
+      data.forEach((item) => {
+        if (item.proposition) {
+          propositionV1Ids.push(item.proposition);
+        } else if (item.proposition_v2) {
+          propositionV2Ids.push(item.proposition_v2);
+        }
+      });
+
+      if (propositionV1Ids.length > 0) {
+        const uniquePropositionV1Ids = propositionV1Ids.filter((value, index, array) => array.indexOf(value) === index);
+        const propositionV1s = await this.getCGPStudyPropositions(customerId, studyId, {
+          pk__in: uniquePropositionV1Ids,
+        });
+
+        contracts.forEach((contract) => {
+          const proposition = propositionV1s.find((item) => item.id === contract.propositionId);
+
+          if (proposition) {
+            contract.proposition = proposition;
+          }
+        });
       }
-    });
 
-    if (propositionV1Ids.length > 0) {
-      const propositionV1s = await this.getCGPStudyPropositions(customerId, studyId || '', {
-        pk__in: propositionV1Ids,
-      });
+      if (propositionV2Ids.length > 0) {
+        const uniquePropositionV2Ids = propositionV2Ids.filter((value, index, array) => array.indexOf(value) === index);
+        const propositionV2s = await this.getCGPPropositionV2(customerId, studyId, {
+          pk__in: uniquePropositionV2Ids,
+        });
 
-      contracts.forEach((contract) => {
-        const proposition = propositionV1s.find((item) => item.id === contract.propositionId);
+        contracts.forEach((contract) => {
+          const proposition = propositionV2s.find((item) => item.id === contract.propositionId);
 
-        if (proposition) {
-          contract.proposition = proposition;
-        }
-      });
-    }
-
-    if (propositionV2Ids.length > 0) {
-      const propositionV2s = await this.getCGPPropositionV2(customerId, studyId || '', { pk__in: propositionV2Ids });
-
-      contracts.forEach((contract) => {
-        const proposition = propositionV2s.find((item) => item.id === contract.propositionId);
-
-        if (proposition) {
-          contract.proposition = proposition;
-        }
-      });
+          if (proposition) {
+            contract.proposition = proposition;
+          }
+        });
+      }
     }
 
     return contracts;
