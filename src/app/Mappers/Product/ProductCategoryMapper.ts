@@ -26,6 +26,8 @@ const ProductCategoryMapping = {
   '20': ProductCategoryTypes.AGRICULTURAL_GIRARDIN,
   '21': ProductCategoryTypes.WINE_INVESTMENT,
   '22': ProductCategoryTypes.FORESTRY_INVESTMENT,
+  '23': ProductCategoryTypes.BORROWER_INSURANCE,
+  '24': ProductCategoryTypes.EMPLOYEE_SAVINGS,
 };
 
 class ProductCategoryMapper extends GenericMapper<ProductCategoryTypes> {
