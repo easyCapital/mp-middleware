@@ -22,8 +22,8 @@ export default async function createContractsFromProposition(
         fees: fees.map((fee) => ({
           portfolio_id: fee.portfolioId,
           values: {
-            management_fee_rate: fee.managementFeeRate || null,
-            subscription_fee_rate: fee.subscriptionFeeRate || null,
+            management_fee_rate: fee.managementFeeRate !== undefined ? fee.managementFeeRate : null,
+            subscription_fee_rate: fee.subscriptionFeeRate !== undefined ? fee.subscriptionFeeRate : null,
           },
         })),
       },

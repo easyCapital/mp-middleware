@@ -33,11 +33,11 @@ export default class Contract implements ContractInterface {
     this.includedSubscriptionFee = json.is_included_subscription_fee;
     this.propositionId = json.proposition || json.proposition_v2;
 
-    if (json.subscription_fee_rate) {
+    if (json.subscription_fee_rate !== null) {
       this.subscriptionFeeRate = json.subscription_fee_rate;
     }
 
-    if (json.management_fee_rate) {
+    if (json.management_fee_rate !== null) {
       this.managementFeeRate = json.management_fee_rate;
     }
   }
