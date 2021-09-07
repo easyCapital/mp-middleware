@@ -5,6 +5,7 @@ export { default as downloadContractFiles } from './downloadContractFiles';
 export { default as downloadCustomerFile } from './downloadCustomerFile';
 export { default as downloadStudyFiles } from './downloadStudyFiles';
 export { default as getCustomerFiles } from './getCustomerFiles';
+export { default as getFileQuestions } from './getFileQuestions';
 export { default as getInpactedFiles } from './getInpactedFiles';
 export { default as getSignature } from './getSignature';
 export { default as getSignatureDetails } from './getSignatureDetails';

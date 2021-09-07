@@ -255,6 +255,7 @@ addAPIPrefixToGroup(
     Route.post('/customer-signature', 'V1/CGP/FileController.sendSignature');
     Route.get('/:file/sign', 'V1/CGP/FileController.sign');
     Route.delete('/:file/delete', 'V1/CGP/FileController.delete');
+    Route.get('/:fileType/questions', 'V1/CGP/FileController.questions');
   }).prefix('customer/:customer/file'),
 );
 

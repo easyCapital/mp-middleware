@@ -11,7 +11,7 @@ import {
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
 
-class CGPContractFileController {
+class CGPFileController {
   public async search({ params, request, response, backendApi }: Context) {
     const { customer } = params;
     const filters = request.input('filters') as Filters | undefined;
@@ -228,6 +228,14 @@ class CGPContractFileController {
 
     response.status(200).send(file);
   }
+
+  public async questions({ params, backendApi, response }: Context) {
+    const { customer, fileType } = params;
+
+    const questions = await backendApi.getFileQuestions(customer, fileType);
+
+    response.status(200).send(questions);
+  }
 }
 
-export = CGPContractFileController;
+export = CGPFileController;
