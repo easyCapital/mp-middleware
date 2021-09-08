@@ -1,7 +1,7 @@
 import { Context } from '../../../../../types';
 
 class CGPAuthenticationController {
-  public async login(ctx: Context) {
+  public async login(ctx: Context): Promise<void> {
     const { email, password }: any = ctx.request.post();
 
     const data = await ctx.backendApi.loginCGP(email, password);
@@ -14,7 +14,7 @@ class CGPAuthenticationController {
     ctx.response.status(200).send({ token: data.token, user: cgp });
   }
 
-  public async resetPassword(ctx: Context) {
+  public async resetPassword(ctx: Context): Promise<void> {
     const { email }: any = ctx.request.post();
 
     await ctx.backendApi.resetCGPPassword(email);
@@ -22,7 +22,7 @@ class CGPAuthenticationController {
     ctx.response.status(200).send();
   }
 
-  public async resetPasswordConfirm(ctx: Context) {
+  public async resetPasswordConfirm(ctx: Context): Promise<void> {
     const { uid, token, password }: any = ctx.request.post();
 
     await ctx.backendApi.resetCGPPasswordConfirm(uid, token, password);

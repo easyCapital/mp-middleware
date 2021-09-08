@@ -1,7 +1,7 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
 
 export default class Exception extends HttpException {
-  static get defaultMessage() {
+  static get defaultMessage(): string {
     return 'Un erreur est survenue, veuillez contacter le support Elwin.';
   }
 

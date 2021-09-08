@@ -11,7 +11,7 @@ export default async function createCustomerAnswers(
   studyId?: string,
   contractId?: string,
 ): Promise<void> {
-  let url: string = `cgp/customer/${customerId}/answer/create`;
+  let url = `cgp/customer/${customerId}/answer/create`;
 
   try {
     if (studyId) {
@@ -21,12 +21,12 @@ export default async function createCustomerAnswers(
     }
 
     await this.backendClient.post({ url }, answers);
-  } catch (exception) {
+  } catch (exception: any) {
     if (exception.status === 404) {
       throw new NotFoundException();
     }
 
-    if (typeof exception.json === 'function') {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       if (exception.status === 400) {

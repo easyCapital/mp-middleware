@@ -1,9 +1,7 @@
-import { Page as JsonPageInterface } from '@robinfinance/js-api';
-
 import { ContentType, Slice } from '.';
 
 interface PageInterface {
-  toJSON(): JsonPageInterface;
+  toJSON(): any;
 }
 
 export default class Page extends ContentType implements PageInterface {
@@ -33,7 +31,7 @@ export default class Page extends ContentType implements PageInterface {
     }
   }
 
-  public toJSON(): JsonPageInterface {
+  public toJSON(): any {
     return {
       id: this.id,
       slug: this.slug,

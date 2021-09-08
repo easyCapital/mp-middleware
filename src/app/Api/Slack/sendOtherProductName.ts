@@ -10,7 +10,7 @@ async function sendOtherProductName(
   const PRODUCT_CHANNEL_ID = Env.get('SLACK_PRODUCT_CHANNEL_ID');
 
   if (PRODUCT_CHANNEL_ID) {
-    const text: string = `Une sélection sans produit Elwin a été faite par un CGP :\n  - *origine :* ${origin}\n  - *email :* ${email}\n  - *agence :* ${
+    const text = `Une sélection sans produit Elwin a été faite par un CGP :\n  - *origine :* ${origin}\n  - *email :* ${email}\n  - *agence :* ${
       agency || '-'
     }\n  - *produit :* ${productName}`;
 

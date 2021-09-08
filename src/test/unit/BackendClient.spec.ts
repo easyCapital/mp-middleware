@@ -34,7 +34,7 @@ async function assertBackendApiTokenFromOrigin(
   assert: Assert,
   headerValue: string,
   backendApiToken: string,
-  headerName: string = 'Origin',
+  headerName = 'Origin',
 ) {
   mockPrismic();
 

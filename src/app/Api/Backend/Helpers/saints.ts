@@ -266,7 +266,7 @@ export const saints = {
     ['Rosalie', 'Sainte'],
     ['Raïssa', 'Sainte'],
     ['Bertrand', 'Saint'],
-    ['Reine', 'Sao,te'],
+    ['Reine', 'Sainte'],
     ['Fête de la Nativité', ''],
     ['Alain', 'Saint'],
     ['Inès', 'Sainte'],

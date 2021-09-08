@@ -16,7 +16,7 @@ export = {
   | Function - Receives the current origin and should return one of the above values.
   |
   */
-  origin: () => {
+  origin: (): string[] => {
     const allowedOriginsPerApp = Config.get('app.allowedOriginsPerApp') || {};
     const origins = Object.keys(allowedOriginsPerApp).map((key) => allowedOriginsPerApp[key]);
 

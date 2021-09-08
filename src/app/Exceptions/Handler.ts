@@ -1,3 +1,4 @@
+import { Context } from '../../types';
 import Exception from './Exception';
 
 const BaseExceptionHandler = use('BaseExceptionHandler');
@@ -5,7 +6,7 @@ const Config = use('Config');
 const Logger = use('Logger');
 
 class ExceptionHandler extends BaseExceptionHandler {
-  public async handle(error, { response }) {
+  public async handle(error: any, { response }: Context): Promise<void> {
     if (error.name === 'FetchError' || error.name === 'Exception' || error.name === 'TypeError') {
       response.status(error.status).send(JSON.stringify({ error: Exception.defaultMessage }));
     } else {
@@ -13,7 +14,7 @@ class ExceptionHandler extends BaseExceptionHandler {
     }
   }
 
-  public async report(error) {
+  public async report(error: any): Promise<void> {
     const environment = Config.get('sentry.environment');
 
     if (

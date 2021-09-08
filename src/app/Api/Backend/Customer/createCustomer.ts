@@ -10,8 +10,8 @@ export default async function createCustomer(
     const response = await this.backendClient.post({ url: 'customer/create' }, { ...customerData });
 
     return await response.json();
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new CustomerCreationException(error);

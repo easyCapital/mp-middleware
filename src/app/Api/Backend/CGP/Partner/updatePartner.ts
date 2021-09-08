@@ -22,7 +22,7 @@ export default async function updatePartner(
     const data = await response.json();
 
     return data;
-  } catch (exception) {
+  } catch (exception: any) {
     throw new Exception(exception);
   }
 }

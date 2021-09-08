@@ -1,10 +1,11 @@
 import { Filters, FileType } from '@robinfinance/js-api';
+import { Exception } from '../../../Exceptions';
 
 import { Context } from '../../../../types';
 import { File } from '../../../Models/File';
 
 class FileController {
-  public async search({ params, request, response, backendApi }: Context) {
+  public async search({ params, request, response, backendApi }: Context): Promise<void> {
     const { contract } = params;
     const filters = request.input('filters') as Filters;
 
@@ -15,7 +16,7 @@ class FileController {
     response.status(200).send(files);
   }
 
-  public async create({ request, response, backendApi }: Context) {
+  public async create({ request, response, backendApi }: Context): Promise<void> {
     const data: any = request.post();
 
     const files: File[] = [];
@@ -26,8 +27,10 @@ class FileController {
         const file = await backendApi.createFile(key as FileType, data[key]);
 
         files.push(file);
-      } catch (exception) {
-        errors[key] = exception.message;
+      } catch (exception: any) {
+        if (exception instanceof Exception) {
+          errors[key] = exception.message;
+        }
       }
     }
 

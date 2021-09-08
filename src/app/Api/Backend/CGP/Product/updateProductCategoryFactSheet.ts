@@ -20,7 +20,7 @@ export default async function updateProductCategoryFactSheet(
     const updatedCategory = new ProductCategoryFactSheet(data);
 
     return updatedCategory;
-  } catch (exception) {
+  } catch (exception: any) {
     throw new Exception(exception);
   }
 }

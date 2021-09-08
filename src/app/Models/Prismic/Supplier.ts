@@ -1,9 +1,7 @@
-import { PrismicSupplier as JsonSupplierInterface } from '@robinfinance/js-api';
-
 import { ContentType, Image } from '.';
 
 interface SupplierInterface {
-  toJSON(): JsonSupplierInterface;
+  toJSON(): any;
 }
 
 export default class Supplier extends ContentType implements SupplierInterface {
@@ -27,7 +25,7 @@ export default class Supplier extends ContentType implements SupplierInterface {
     }
   }
 
-  public toJSON(): JsonSupplierInterface {
+  public toJSON(): any {
     return {
       id: this.id,
       slug: this.slug,

@@ -1,7 +1,7 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
 
 export default class FileTooBigException extends HttpException {
-  static get defaultMessage() {
+  static get defaultMessage(): string {
     return 'Le document dépasse la taille maximale autorisée de 5Mo.';
   }
 

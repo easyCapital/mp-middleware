@@ -26,8 +26,8 @@ export default async function reorderObservations(
     const updatedObservations = data.map((item) => new Observation(item));
 
     return updatedObservations;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const errors = await exception.json();
 
       throw new BackendException(errors);

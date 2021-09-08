@@ -7,6 +7,8 @@ const Logger = use('Logger');
 export default class CustomerPrevalidationException extends HttpException {
   constructor(errors: { email: BackendError; answers: BackendError[] }[], initialData: CustomerDTO[]) {
     const environment = Config.get('sentry.environment');
+
+    let errorMessage: string | undefined;
     const errorMessages: { [key: string]: ErrorType[] }[] = [];
 
     errors.forEach((customerErrors, customerIndex) => {
@@ -32,7 +34,7 @@ export default class CustomerPrevalidationException extends HttpException {
             default:
               customerEmailErrorMessages.push(ErrorTypes.UNKNOWN);
 
-              const errorMessage = `Missing Error mapping value in CustomerPrevalidationException for ${errorKey}`;
+              errorMessage = `Missing Error mapping value in CustomerPrevalidationException for ${errorKey}`;
 
               if (environment === 'staging' || environment === 'production') {
                 const Sentry = use('Sentry');
@@ -102,7 +104,7 @@ export default class CustomerPrevalidationException extends HttpException {
                 default:
                   customerAnswerErrorMessages.push(ErrorTypes.UNKNOWN);
 
-                  const errorMessage = `Missing Error mapping value in CustomerPrevalidationException for ${errorKey}`;
+                  errorMessage = `Missing Error mapping value in CustomerPrevalidationException for ${errorKey}`;
 
                   if (environment === 'staging' || environment === 'production') {
                     const Sentry = use('Sentry');

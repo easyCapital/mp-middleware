@@ -7,6 +7,8 @@ const Logger = use('Logger');
 export default class ProspectException extends HttpException {
   constructor(error: BackendError) {
     const environment = Config.get('sentry.environment');
+
+    let errorMessage: string | undefined;
     let errorMessageType: { [key: string]: ErrorType } = { email: ErrorTypes.DEFAULT };
 
     Object.keys(error).forEach((errorKey) => {
@@ -24,7 +26,7 @@ export default class ProspectException extends HttpException {
           break;
 
         default:
-          const errorMessage = `Missing Error mapping value in ProspectException for ${errorKey}`;
+          errorMessage = `Missing Error mapping value in ProspectException for ${errorKey}`;
 
           if (environment === 'staging' || environment === 'production') {
             const Sentry = use('Sentry');

@@ -3,7 +3,7 @@ import { Tag as TagDTO } from '@robinfinance/js-api';
 import { Context } from '../../../../../types';
 
 class CGPTagController {
-  public async create({ request, response, params, backendApi }: Context) {
+  public async create({ request, response, params, backendApi }: Context): Promise<void> {
     const { customer } = params;
     const tags = request.post() as TagDTO[];
 
@@ -12,7 +12,7 @@ class CGPTagController {
     response.status(200).send(data);
   }
 
-  public async delete({ request, response, params, backendApi }: Context) {
+  public async delete({ request, response, params, backendApi }: Context): Promise<void> {
     const { customer } = params;
     const tags = request.post() as TagDTO[];
 

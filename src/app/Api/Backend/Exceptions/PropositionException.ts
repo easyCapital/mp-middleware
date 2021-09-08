@@ -10,6 +10,8 @@ export default class PropositionException extends HttpException {
   constructor(error: BackendError) {
     const environment = Config.get('sentry.environment');
 
+    let errorMessage: string | undefined;
+
     Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
         case BackendErrors.NotFound:
@@ -23,7 +25,7 @@ export default class PropositionException extends HttpException {
           throw new ForbiddenException("Vous n'avez pas accès à cette proposition");
 
         default:
-          const errorMessage = `Missing Error mapping value in PropositionException for ${errorKey}`;
+          errorMessage = `Missing Error mapping value in PropositionException for ${errorKey}`;
 
           if (environment === 'staging' || environment === 'production') {
             const Sentry = use('Sentry');

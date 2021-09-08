@@ -17,7 +17,7 @@ async function getBlogPosts(filters?: Filters): Promise<BlogPost[]> {
     const posts = data.objects.map((item) => new BlogPost(item));
 
     return posts;
-  } catch (exception) {
+  } catch (exception: any) {
     throw new Exception(exception);
   }
 }

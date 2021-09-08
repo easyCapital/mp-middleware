@@ -1,7 +1,5 @@
-import { TDVM as JsonTDVMInterface } from '@robinfinance/js-api';
-
 interface TDVMInterface {
-  toJSON(): JsonTDVMInterface;
+  toJSON(): any;
 }
 
 export default class Cost implements TDVMInterface {
@@ -13,7 +11,7 @@ export default class Cost implements TDVMInterface {
     this.value = json.tdvm_value;
   }
 
-  public toJSON(): JsonTDVMInterface {
+  public toJSON(): any {
     return {
       label: this.label,
       value: this.value,

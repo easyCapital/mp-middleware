@@ -10,8 +10,8 @@ export default async function getCustomerDetails(this: BackendApi): Promise<Cust
     const customer = new Customer(data);
 
     return customer;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new Exception(JSON.stringify(error));

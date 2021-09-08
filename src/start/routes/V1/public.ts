@@ -148,22 +148,6 @@ addAPIPrefixToGroup(
 
 /*
 |--------------------------------------------------------------------------
-| API V1 - PROPOSITION
-|--------------------------------------------------------------------------
-*/
-addAPIPrefixToGroup(
-  Route.group(() => {
-    Route.get('/', 'V1/PropositionController.get');
-    Route.post('/', 'V1/PropositionController.validate').middleware(['auth']);
-    Route.get('/:token', 'V1/PropositionController.getByToken');
-    Route.post('/generate', 'V1/PropositionController.generate');
-    Route.post('/risk-advice', 'V1/PropositionController.getRiskAdvice');
-    Route.get('/download/:token', 'V1/PropositionController.downloadByToken');
-  }).prefix('proposition'),
-);
-
-/*
-|--------------------------------------------------------------------------
 | API V1 - FUND
 |--------------------------------------------------------------------------
 */

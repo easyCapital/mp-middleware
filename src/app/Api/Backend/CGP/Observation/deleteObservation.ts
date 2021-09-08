@@ -12,8 +12,8 @@ export default async function deleteObservation(
     await this.backendClient.delete({
       url: `cgp/customer/${customer}/study/${study}/observation/${observation}/delete`,
     });
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const errors = await exception.json();
 
       throw new BackendException(errors);

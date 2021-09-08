@@ -1,7 +1,7 @@
 import { HttpException } from '@adonisjs/generic-exceptions';
 
 export default class InvalidArgumentException extends HttpException {
-  static get defaultMessage() {
+  static get defaultMessage(): string {
     return "Tous les arguments nécessaires n'ont pas été fournis.";
   }
 

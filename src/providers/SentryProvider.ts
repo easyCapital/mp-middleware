@@ -4,7 +4,7 @@ const Sentry = require('@sentry/node');
 require('@sentry/tracing');
 
 class SentryProvider extends ServiceProvider {
-  public register() {
+  public register(): void {
     const Config = this.app.use('Adonis/Src/Config');
     const environment = Config.get('sentry.environment');
 
@@ -23,8 +23,6 @@ class SentryProvider extends ServiceProvider {
       });
     }
   }
-
-  public boot() {}
 }
 
 export = SentryProvider;

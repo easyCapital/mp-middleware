@@ -7,7 +7,7 @@ import { ForbiddenException } from '../Exceptions';
 const Logger = use('Logger');
 
 class Authenticator {
-  protected async handle(ctx: Context, next) {
+  protected async handle(ctx: Context, next: any): Promise<void> {
     if (ctx.app) {
       ctx.updateToken = updateToken;
 

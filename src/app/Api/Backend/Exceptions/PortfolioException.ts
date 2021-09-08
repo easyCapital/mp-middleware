@@ -9,6 +9,8 @@ const Logger = use('Logger');
 export default class PortfolioException extends HttpException {
   constructor(errors: BackendError[]) {
     const environment = Config.get('sentry.environment');
+
+    let errorMessage: string | undefined;
     const portfolioErrors: { type?: BackendErrors; message: string }[][] = [];
 
     errors.forEach((error) => {
@@ -61,7 +63,7 @@ export default class PortfolioException extends HttpException {
             break;
 
           default:
-            const errorMessage = `Missing Error mapping value in PortfolioException for ${errorKey}`;
+            errorMessage = `Missing Error mapping value in PortfolioException for ${errorKey}`;
 
             if (environment === 'staging' || environment === 'production') {
               const Sentry = use('Sentry');

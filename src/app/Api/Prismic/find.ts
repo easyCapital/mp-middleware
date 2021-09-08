@@ -31,7 +31,7 @@ export default async function find(
     const response = await PrismicClient.query({ query, fields: formattedFields, orderings });
 
     return response.results;
-  } catch (error) {
+  } catch (error: any) {
     throw new Exception(error);
   }
 }

@@ -36,8 +36,8 @@ export default async function findPortfolios(this: BackendApi, filters: Filters)
     }
 
     return portfolios;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new Exception(JSON.stringify(error));

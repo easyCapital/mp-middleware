@@ -11,7 +11,7 @@ export default async function deactivateCustomerAnswers(
   studyId?: string,
   contractId?: string,
 ): Promise<void> {
-  let url: string = `cgp/customer/${customerId}/answer/deactivate`;
+  let url = `cgp/customer/${customerId}/answer/deactivate`;
 
   try {
     if (studyId) {
@@ -21,8 +21,8 @@ export default async function deactivateCustomerAnswers(
     }
 
     await this.backendClient.patch({ url }, answers);
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new BackendException(error);

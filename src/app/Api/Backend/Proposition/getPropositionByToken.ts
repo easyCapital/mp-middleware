@@ -10,8 +10,8 @@ export default async function getPropositionByToken(this: BackendApi, token: str
     const proposition = await response.json();
 
     return getPropositionDetails(this, proposition);
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new PropositionException(error);

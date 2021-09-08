@@ -36,8 +36,8 @@ export default async function findFunds(
     const meta = formatMeta(response.headers, pagination);
 
     return { results: funds, meta };
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const data = await exception.json();
 
       throw new Exception(JSON.stringify(data));

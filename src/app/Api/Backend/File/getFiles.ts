@@ -28,8 +28,8 @@ export default async function getFiles(this: BackendApi, filters: Filters): Prom
     const files = data.map((item) => new File(item));
 
     return files;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new BackendException(error);

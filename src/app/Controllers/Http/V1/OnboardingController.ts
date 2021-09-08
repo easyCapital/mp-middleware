@@ -2,7 +2,7 @@ import { onOnboardingFetch, onOnboardingPrevalidation, onOnboardingValidation } 
 import { Context } from '../../../../types';
 
 class OnboardingController {
-  public async index(context: Context) {
+  public async index(context: Context): Promise<void> {
     const { request, response, backendApi } = context;
     const withAuthentication = request.input('with-authentication') || false;
     const stepsConfig = request.input('steps-config');
@@ -18,7 +18,7 @@ class OnboardingController {
     response.status(200).send(data);
   }
 
-  public async getBlocks(context: Context) {
+  public async getBlocks(context: Context): Promise<void> {
     const { request, response, backendApi } = context;
     const ids = request.input('ids') || [];
     const stepsConfig = request.input('steps-config');
@@ -34,7 +34,7 @@ class OnboardingController {
     response.status(200).send(data);
   }
 
-  public async getQuestions(context: Context) {
+  public async getQuestions(context: Context): Promise<void> {
     const { request, response, backendApi } = context;
     const ids = request.input('ids') || [];
     const questionsConfig = request.input('questions-config');
@@ -51,7 +51,7 @@ class OnboardingController {
     response.status(200).send(data);
   }
 
-  public async prevalidate(context: Context) {
+  public async prevalidate(context: Context): Promise<void> {
     const { request, response, backendApi } = context;
     const answers: any = request.post();
 
@@ -61,7 +61,7 @@ class OnboardingController {
     response.status(200).send();
   }
 
-  public async validate(context: Context) {
+  public async validate(context: Context): Promise<void> {
     const { request, response } = context;
     const { answers, extra }: any = request.post();
 

@@ -7,6 +7,8 @@ const Logger = use('Logger');
 export default class ChangePasswordException extends HttpException {
   constructor(error: BackendError) {
     const environment = Config.get('sentry.environment');
+
+    let errorMessage: string | undefined;
     const errorMessages: { [key: string]: ErrorType } = {};
 
     Object.keys(error).forEach((errorKey) => {
@@ -42,7 +44,7 @@ export default class ChangePasswordException extends HttpException {
           break;
 
         default:
-          const errorMessage = `Missing Error mapping value in ChangePasswordException for ${errorKey}`;
+          errorMessage = `Missing Error mapping value in ChangePasswordException for ${errorKey}`;
 
           if (environment === 'staging' || environment === 'production') {
             const Sentry = use('Sentry');

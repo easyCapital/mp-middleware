@@ -4,7 +4,7 @@ import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPPropositionV2Controller {
-  public async create({ params, request, response, backendApi, universe }: Context) {
+  public async create({ params, request, response, backendApi, universe }: Context): Promise<void> {
     const { customer, study } = params;
 
     const content = request.post() as PropositionContentDTO[];
@@ -18,7 +18,7 @@ class CGPPropositionV2Controller {
     response.status(200).send(proposition);
   }
 
-  public async search({ params, request, response, backendApi }: Context) {
+  public async search({ params, response, backendApi }: Context): Promise<void> {
     const { customer, study } = params;
 
     const propositions = await backendApi.getCGPPropositionV2(customer, study);

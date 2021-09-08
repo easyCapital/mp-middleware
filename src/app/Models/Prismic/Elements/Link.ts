@@ -1,7 +1,7 @@
-import { Link as JsonLinkInterface, ContentType } from '@robinfinance/js-api';
+import { ContentType } from '@robinfinance/js-api';
 
 interface LinkInterface {
-  toJSON(): JsonLinkInterface;
+  toJSON(): any;
 }
 
 export default class Link implements LinkInterface {
@@ -19,7 +19,7 @@ export default class Link implements LinkInterface {
     this.url = json.url;
   }
 
-  public toJSON(): JsonLinkInterface {
+  public toJSON(): any {
     return {
       target: this.target,
       linkType: this.linkType,

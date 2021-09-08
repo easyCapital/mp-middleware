@@ -17,8 +17,8 @@ export default async function getSuppliers(this: BackendApi, filters?: Filters):
     const suppliers = data.map((item) => new Supplier(item));
 
     return suppliers;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new BackendException(error);

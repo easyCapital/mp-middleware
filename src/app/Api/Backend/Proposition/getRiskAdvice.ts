@@ -17,8 +17,8 @@ export default async function getRiskAdvice(
     const data = await response.json();
 
     return { key: data.risk_advice };
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const data = await exception.json();
 
       throw new Exception(JSON.stringify(data));

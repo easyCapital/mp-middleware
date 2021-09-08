@@ -43,8 +43,8 @@ export default async function editObservation(
     const updatedObservation = new Observation(data[0]);
 
     return updatedObservation;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const errors = await exception.json();
 
       throw new BackendException(errors);

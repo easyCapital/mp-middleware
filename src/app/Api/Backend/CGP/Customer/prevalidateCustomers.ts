@@ -7,8 +7,8 @@ import BackendApi from '../..';
 export default async function prevalidateCustomers(this: BackendApi, customers: CustomerDTO[]): Promise<void> {
   try {
     await this.backendClient.post({ url: 'cgp/customer/prevalidate' }, customers);
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const errors = await exception.json();
 
       throw new CustomerPrevalidationException(errors, customers);

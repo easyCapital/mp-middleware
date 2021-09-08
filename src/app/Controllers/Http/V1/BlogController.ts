@@ -4,7 +4,7 @@ import { Context } from '../../../../types';
 import * as hubspotApi from '../../../Api/Hubspot';
 
 class BlogController {
-  public async index({ request, response }: Context) {
+  public async index({ request, response }: Context): Promise<void> {
     const filters = request.input('filters', {}) as Filters;
 
     const blogPosts = await hubspotApi.getBlogPosts(filters);

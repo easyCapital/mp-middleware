@@ -21,8 +21,8 @@ export default async function getAfiEscaProfileScoring(
     const data = await response.json();
 
     return { score: data.profile_scoring };
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new BackendException(error);

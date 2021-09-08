@@ -5,7 +5,7 @@ import { InvalidArgumentException } from '../../../../Exceptions';
 import * as SlackAPI from '../../../../Api/Slack';
 
 class CGPPropositionController {
-  public async search({ params, request, response, backendApi }: Context) {
+  public async search({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer } = params;
     const filters = request.input('filters') as Filters;
 
@@ -14,7 +14,7 @@ class CGPPropositionController {
     response.status(200).send(propositions);
   }
 
-  public async create({ params, request, response, backendApi, universe }: Context) {
+  public async create({ params, request, response, backendApi, universe }: Context): Promise<void> {
     const { customer } = params;
     const portfolios = request.post() as any[];
 
@@ -27,7 +27,7 @@ class CGPPropositionController {
     response.status(200).send(proposition);
   }
 
-  public async get({ params, response, backendApi }: Context) {
+  public async get({ params, response, backendApi }: Context): Promise<void> {
     const { id } = params;
 
     const proposition = await backendApi.getCGPProposition(id);
@@ -35,8 +35,7 @@ class CGPPropositionController {
     response.status(200).send(proposition);
   }
 
-  public async generate(context: Context) {
-    const { params, request, response, backendApi, universe } = context;
+  public async generate({ params, request, response, backendApi, universe }: Context): Promise<void> {
     const { customer } = params;
     const configKey = (request.post() as any).configKey;
 
@@ -45,7 +44,7 @@ class CGPPropositionController {
     response.status(200).send(proposition);
   }
 
-  public async getStudyPropositions({ params, response, backendApi }: Context) {
+  public async getStudyPropositions({ params, response, backendApi }: Context): Promise<void> {
     const { customer, study } = params;
 
     const propositions = await backendApi.getCGPStudyPropositions(customer, study);
@@ -53,7 +52,7 @@ class CGPPropositionController {
     response.status(200).send(propositions);
   }
 
-  public async createStudyProposition({ params, request, response, backendApi, universe }: Context) {
+  public async createStudyProposition({ params, request, response, backendApi, universe }: Context): Promise<void> {
     const { customer, study } = params;
     const portfolios = request.post() as any[];
 
@@ -66,7 +65,7 @@ class CGPPropositionController {
     response.status(200).send(proposition);
   }
 
-  public async validateExternalProposition({ params, request, response, backendApi, origin }: Context) {
+  public async validateExternalProposition({ params, request, response, backendApi, origin }: Context): Promise<void> {
     const { customer, study, task } = params;
     const data = request.post() as { email: string; agency: string | undefined; product: string | undefined };
 

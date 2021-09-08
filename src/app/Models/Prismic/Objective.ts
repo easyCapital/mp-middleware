@@ -1,9 +1,7 @@
-import { Objective as JsonObjectiveInterface } from '@robinfinance/js-api';
-
 import { ContentType, Image, Slice } from '.';
 
 interface ObjectiveInterface {
-  toJSON(): JsonObjectiveInterface;
+  toJSON(): any;
 }
 
 export default class Objective extends ContentType implements ObjectiveInterface {
@@ -53,7 +51,7 @@ export default class Objective extends ContentType implements ObjectiveInterface
     }
   }
 
-  public toJSON(): JsonObjectiveInterface {
+  public toJSON(): any {
     return {
       id: this.id,
       slug: this.slug,

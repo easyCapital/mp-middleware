@@ -17,7 +17,7 @@ export default async function findOne(
     if (results.length > 0) {
       return results[0];
     }
-  } catch (error) {
+  } catch (error: any) {
     throw new Exception(error);
   }
 

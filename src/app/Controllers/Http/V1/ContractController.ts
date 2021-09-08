@@ -3,7 +3,7 @@ import { Filters } from '@robinfinance/js-api';
 import { Context } from '../../../../types';
 
 class ContractController {
-  public async index({ request, response, backendApi }: Context) {
+  public async index({ request, response, backendApi }: Context): Promise<void> {
     const filters = request.input('filters', {}) as Filters;
 
     const contracts = await backendApi.getContracts(filters);
@@ -11,7 +11,7 @@ class ContractController {
     response.status(200).send(contracts);
   }
 
-  public async get({ params, response, backendApi }: Context) {
+  public async get({ params, response, backendApi }: Context): Promise<void> {
     const { contract: id } = params;
 
     const contract = await backendApi.getContract(id);

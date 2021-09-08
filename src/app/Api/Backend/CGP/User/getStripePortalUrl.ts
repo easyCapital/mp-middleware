@@ -11,8 +11,8 @@ export default async function getStripePortalUrl(this: BackendApi): Promise<stri
     const data = await response.json();
 
     return data.url;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new BackendException(error);

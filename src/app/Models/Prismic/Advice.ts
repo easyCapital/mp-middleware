@@ -1,9 +1,7 @@
-import { Advice as JsonAdviceInterface } from '@robinfinance/js-api';
-
 import { ContentType, RichText } from '.';
 
 interface AdviceInterface {
-  toJSON(): JsonAdviceInterface;
+  toJSON(): any;
 }
 
 export default class Advice extends ContentType implements AdviceInterface {
@@ -22,7 +20,7 @@ export default class Advice extends ContentType implements AdviceInterface {
     }
   }
 
-  public toJSON(): JsonAdviceInterface {
+  public toJSON(): any {
     return {
       id: this.id,
       label: this.label,

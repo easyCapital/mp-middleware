@@ -21,7 +21,7 @@ export default async function updateProductInformation(
     const productPartner = new ProductPartner(data);
 
     return productPartner;
-  } catch (exception) {
+  } catch (exception: any) {
     throw new Exception(exception);
   }
 }

@@ -16,8 +16,8 @@ export default async function changeCustomerEmail(
     const customer = new Customer(data);
 
     return customer;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new CustomerCreationException(error);

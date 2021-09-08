@@ -44,8 +44,8 @@ export default async function getSignatureDetails(
     const files = data.map((item) => new FileSign(item));
 
     return { results: files, meta };
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new BackendException(error);

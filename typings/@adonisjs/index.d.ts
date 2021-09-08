@@ -3,15 +3,11 @@ import stream from 'stream';
 import events from 'events';
 import GE from '@adonisjs/generic-exceptions';
 
-import { BackendClientBuilder, BackendClientInterface } from '../../src/app/Clients/Backend/BackendClient';
+import { BackendClientBuilder } from '../../src/app/Clients/Backend/BackendClient';
 import { PrismicClientInterface } from '../../src/app/Clients/Prismic/PrismicClient';
-import { SymfonyClientInterface, SymfonyClientBuilder } from '../../src/app/Clients/Symfony/SymfonyClient';
+import { SymfonyClientBuilder } from '../../src/app/Clients/Symfony/SymfonyClient';
 import { SlackClientInterface } from '../../src/app/Clients/Slack/SlackClient';
-import { SendgridClientInterface } from '../../src/app/Clients/Sendgrid/SendgridClient';
 import { HubspotClientInterface } from '../../src/app/Clients/Hubspot/HubspotClient';
-import TwigProvider from '../../src/providers/TwigProvider';
-import TwigRenderer from '../../src/app/Helpers/TwigRenderer';
-import WkHtmlToPdf from '../../src/app/Helpers/WkHtmlToPdf';
 
 type WorkInProgress = any;
 type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
@@ -12793,10 +12789,7 @@ declare namespace AdonisNamespaces {
   type PrismicClient = 'PrismicClient';
   type SymfonyClientBuilder = 'SymfonyClientBuilder';
   type SlackClient = 'SlackClient';
-  type SendgridClient = 'SendgridClient';
   type HubspotClient = 'HubspotClient';
-  type Twig = 'Twig';
-  type WkHtmlToPdf = 'WkHtmlToPdf';
   type Sentry = 'Sentry';
 }
 
@@ -12835,10 +12828,7 @@ declare global {
   function use(namespace: AdonisNamespaces.PrismicClient): PrismicClientInterface;
   function use(namespace: AdonisNamespaces.SymfonyClientBuilder): SymfonyClientBuilder;
   function use(namespace: AdonisNamespaces.SlackClient): SlackClientInterface;
-  function use(namespace: AdonisNamespaces.SendgridClient): SendgridClientInterface;
   function use(namespace: AdonisNamespaces.HubspotClient): HubspotClientInterface;
-  function use(namespace: AdonisNamespaces.Twig): TwigRenderer;
-  function use(namespace: AdonisNamespaces.WkHtmlToPdf): WkHtmlToPdf;
   function use(namespace: AdonisNamespaces.Sentry): any;
 }
 

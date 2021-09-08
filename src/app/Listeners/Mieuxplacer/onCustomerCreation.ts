@@ -4,7 +4,7 @@ const PHONE_NUMBER_KEY = 'mobile_number';
 const FIRST_NAME_KEY = 'DQ7';
 const LAST_NAME_KEY = 'DQ6';
 
-function onCustomerCreation(context: Context, data?: any) {
+function onCustomerCreation(context: Context, data?: any): void {
   const { backendApi } = context;
 
   if (data) {

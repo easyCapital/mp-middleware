@@ -3,7 +3,7 @@ import { Filters, ObservationDTO } from '@robinfinance/js-api';
 import { Context } from '../../../../../types';
 
 class CGPObservationController {
-  public async search({ params, request, response, backendApi }: Context) {
+  public async search({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study } = params;
     const filters = request.input('filters') as Filters;
 
@@ -12,7 +12,7 @@ class CGPObservationController {
     response.status(200).send(observations);
   }
 
-  public async create({ params, request, response, backendApi }: Context) {
+  public async create({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study } = params;
     const data = request.post() as ObservationDTO;
 
@@ -21,7 +21,7 @@ class CGPObservationController {
     response.status(200).send(observation);
   }
 
-  public async edit({ params, request, response, backendApi }: Context) {
+  public async edit({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study, observation } = params;
     const data = request.post() as ObservationDTO;
 
@@ -30,7 +30,7 @@ class CGPObservationController {
     response.status(200).send(updatedObservation);
   }
 
-  public async delete({ params, response, backendApi }: Context) {
+  public async delete({ params, response, backendApi }: Context): Promise<void> {
     const { customer, study, observation } = params;
 
     await backendApi.deleteObservation(customer, study, observation);
@@ -38,7 +38,7 @@ class CGPObservationController {
     response.status(200).send();
   }
 
-  public async reorder({ params, request, response, backendApi }: Context) {
+  public async reorder({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study } = params;
     const data = request.post() as number[];
 

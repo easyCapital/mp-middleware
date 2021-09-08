@@ -2,8 +2,6 @@ import Prismic from 'prismic-javascript';
 import { QueryOptions } from 'prismic-javascript/d.ts/ResolvedApi';
 import { format } from 'date-fns';
 
-// import RedisCache from './RedisCache';
-
 export interface PrismicClientInterface {
   query(options: RequestOptions): Promise<any>;
 }

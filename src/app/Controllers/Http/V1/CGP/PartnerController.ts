@@ -3,7 +3,7 @@ import { Filters, OrderBy, Pagination } from '@robinfinance/js-api';
 import { Context } from '../../../../../types';
 
 class CGPPartnerController {
-  public async create({ request, response, backendApi }: Context) {
+  public async create({ request, response, backendApi }: Context): Promise<void> {
     const { supplier, products } = request.post() as { supplier: number; products?: number[] };
 
     const partner = await backendApi.createCGPPartner(supplier, products);
@@ -11,7 +11,7 @@ class CGPPartnerController {
     response.status(200).send(partner);
   }
 
-  public async search({ request, response, backendApi }: Context) {
+  public async search({ request, response, backendApi }: Context): Promise<void> {
     const pagination = request.input('pagination') as Pagination;
     const filters = request.input('filters') as Filters;
     const orderBy = request.input('orderBy') as OrderBy;
@@ -21,7 +21,7 @@ class CGPPartnerController {
     response.status(200).send(partners);
   }
 
-  public async delete({ params, response, backendApi }: Context) {
+  public async delete({ params, response, backendApi }: Context): Promise<void> {
     const { partner } = params;
 
     await backendApi.deleteCGPPartner(partner);
@@ -29,7 +29,7 @@ class CGPPartnerController {
     response.status(204);
   }
 
-  public async update({ params, request, response, backendApi }: Context) {
+  public async update({ params, request, response, backendApi }: Context): Promise<void> {
     const { partner } = params;
     const { products, description } = request.post() as { products: number[]; description?: string };
 
@@ -38,7 +38,7 @@ class CGPPartnerController {
     response.status(200).send(partners);
   }
 
-  public async getProductPartnerInformation({ params, response, backendApi }: Context) {
+  public async getProductPartnerInformation({ params, response, backendApi }: Context): Promise<void> {
     const { partner, product } = params;
 
     const data = await backendApi.getCGPProductPartnerInformation(partner, product);
@@ -46,7 +46,7 @@ class CGPPartnerController {
     response.status(200).send(data);
   }
 
-  public async updateProductPartnerInformation({ params, request, response, backendApi }: Context) {
+  public async updateProductPartnerInformation({ params, request, response, backendApi }: Context): Promise<void> {
     const { partner, product } = params;
     const { field } = request.post() as { field: { name: string; value: string } };
 

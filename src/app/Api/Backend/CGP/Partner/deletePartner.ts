@@ -7,8 +7,8 @@ export default async function deletePartner(this: BackendApi, partner: number): 
     await this.backendClient.delete({
       url: `cgp/partner/${partner}/delete`,
     });
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new BackendException(error);

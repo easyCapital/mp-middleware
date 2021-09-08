@@ -6,7 +6,7 @@ import * as MieuxplacerEvents from './Mieuxplacer';
 
 const Apps = use('Config').get('mpApps');
 
-async function onOnboardingPrevalidation(context: Context, answers: Answer[], extra?: any) {
+async function onOnboardingPrevalidation(context: Context, answers: Answer[]): Promise<void> {
   switch (context.app) {
     case Apps.MIEUXPLACER:
       return MieuxplacerEvents.onOnboardingPrevalidation(context, answers);

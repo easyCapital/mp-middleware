@@ -10,6 +10,8 @@ export default class FileException extends HttpException {
   constructor(error: BackendError, supportedFiles?: string) {
     const environment = Config.get('sentry.environment');
 
+    let errorMessage: string | undefined;
+
     Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
         case BackendErrors.InvalidFileTypeKeyError:
@@ -30,7 +32,7 @@ export default class FileException extends HttpException {
           throw new InvalidArgumentException('Le document n’a pas pu être trouvé, merci de vérifier l’id fourni.');
 
         default:
-          const errorMessage = `Missing Error mapping value in FileException for ${errorKey}`;
+          errorMessage = `Missing Error mapping value in FileException for ${errorKey}`;
 
           if (environment === 'staging' || environment === 'production') {
             const Sentry = use('Sentry');

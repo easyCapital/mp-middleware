@@ -11,8 +11,8 @@ export default async function login(this: BackendApi, email: string, password: s
     const data: Token = await response.json();
 
     return data;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new AuthenticationException(error);

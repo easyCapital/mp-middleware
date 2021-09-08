@@ -2,7 +2,7 @@ import * as PrismicApi from '../../../../Api/Prismic';
 import { Context } from '../../../../../types';
 
 class FAQController {
-  public async index({ request, response }: Context) {
+  public async index({ request, response }: Context): Promise<void> {
     const filters = request.input('filters');
     const linked = request.input('linked');
     const fields = request.input('fields');

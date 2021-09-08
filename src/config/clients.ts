@@ -14,9 +14,6 @@ export = {
   slack: {
     apiKey: Env.getOrFail('SLACK_API_TOKEN'),
   },
-  sendgrid: {
-    apiKey: Env.getOrFail('SENDGRID_API_TOKEN'),
-  },
   hubspot: {
     host: Env.getOrFail('HUBSPOT_API_HOST'),
     apiKey: Env.getOrFail('HUBSPOT_API_TOKEN'),

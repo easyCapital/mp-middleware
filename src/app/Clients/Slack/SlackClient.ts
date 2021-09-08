@@ -21,7 +21,7 @@ export default class SlackClient implements SlackClientInterface {
       await this.client.chat.postMessage({ channel: channelId, text: '', blocks });
 
       statusCode = 200;
-    } catch (error) {
+    } catch (error: any) {
       if (error.code === ErrorCode.PlatformError) {
         this.logger.crit(`Posting message to Slack failed with the following error: ${error.data.error}.`);
       } else {

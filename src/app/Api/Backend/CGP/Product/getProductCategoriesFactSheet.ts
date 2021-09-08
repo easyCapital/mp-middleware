@@ -21,8 +21,8 @@ export default async function getProductCategoriesFactSheet(
     const categoriesFactSheet = data.map((item) => new ProductCategoryFactSheet(item));
 
     return categoriesFactSheet;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new BackendException(error);

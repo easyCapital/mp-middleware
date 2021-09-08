@@ -2,7 +2,7 @@ import * as PrismicApi from '../../../../Api/Prismic';
 import { Context } from '../../../../../types';
 
 class ProductTypeController {
-  public async index({ request, response }: Context) {
+  public async index({ request, response }: Context): Promise<void> {
     const filters = request.input('filters');
     const linked = request.input('linked');
     const fields = request.input('fields');
@@ -13,7 +13,7 @@ class ProductTypeController {
     response.status(200).send(types);
   }
 
-  public async get({ params, response }: Context) {
+  public async get({ params, response }: Context): Promise<void> {
     const { id } = params;
 
     const type = await PrismicApi.getType(id);
@@ -21,7 +21,7 @@ class ProductTypeController {
     response.status(200).send(type);
   }
 
-  public async search({ request, response }: Context) {
+  public async search({ request, response }: Context): Promise<void> {
     const filters = request.input('filters');
     const linked = request.input('linked');
     const fields = request.input('fields');
@@ -32,7 +32,7 @@ class ProductTypeController {
     response.status(200).send(types);
   }
 
-  public async find({ request, response }: Context) {
+  public async find({ request, response }: Context): Promise<void> {
     const filters = request.input('filters');
     const linked = request.input('linked');
     const fields = request.input('fields');

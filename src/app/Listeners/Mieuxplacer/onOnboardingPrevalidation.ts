@@ -2,7 +2,7 @@ import { Answer } from '@robinfinance/js-api';
 
 import { Context } from '../../../types';
 
-async function onOnboardingPrevalidation(context: Context, answers: Answer[]) {
+async function onOnboardingPrevalidation(context: Context, answers: Answer[]): Promise<void> {
   const { session, authenticated, backendApi } = context;
 
   if (authenticated) {

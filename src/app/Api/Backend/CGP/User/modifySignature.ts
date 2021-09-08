@@ -17,12 +17,12 @@ export default async function modifySignature(this: BackendApi, signature: strin
     const user = new CGP(data);
 
     return user;
-  } catch (exception) {
+  } catch (exception: any) {
     if (exception.status === 413) {
       throw new FileTooBigException();
     }
 
-    if (typeof exception.json === 'function') {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new FileException(error, 'JPG, JPEG et PNG');

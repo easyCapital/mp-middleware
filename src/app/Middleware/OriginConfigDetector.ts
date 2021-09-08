@@ -6,7 +6,7 @@ const Config = use('Config');
 const Logger = use('Logger');
 
 class OriginConfigDetector {
-  protected async handle(ctx: Context, next) {
+  protected async handle(ctx: Context, next: any): Promise<void> {
     const environment = Config.get('sentry.environment');
     const origin: string = findOrigin(ctx);
     const originConfig = Config.get('origins')[origin];

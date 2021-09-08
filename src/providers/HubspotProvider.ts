@@ -3,7 +3,7 @@ const { ServiceProvider } = require('@adonisjs/fold');
 import HubspotClient from '../app/Clients/Hubspot/HubspotClient';
 
 class HubspotClientProvider extends ServiceProvider {
-  public register() {
+  public register(): void {
     const Config = this.app.use('Adonis/Src/Config');
     const Logger = this.app.use('Logger');
 
@@ -16,8 +16,6 @@ class HubspotClientProvider extends ServiceProvider {
       return hubspotClient;
     });
   }
-
-  public boot() {}
 }
 
 export = HubspotClientProvider;

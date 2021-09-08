@@ -23,15 +23,15 @@ export default class Question implements QuestionInterface {
   private placeholder?: string;
   private table?: string;
   private tableLabel?: string;
-  private required: boolean = false;
+  private required = false;
   private min?: number;
   private max?: number;
-  private sensitive: boolean = false;
-  private active: boolean = false;
-  private showIfAuthenticated: boolean = false;
-  private isUsedByAlgo: boolean = false;
-  private isForContract: boolean = false;
-  private isForCoSubscriber: boolean = false;
+  private sensitive = false;
+  private active = false;
+  private showIfAuthenticated = false;
+  private isUsedByAlgo = false;
+  private isForContract = false;
+  private isForCoSubscriber = false;
   private conditions?: Condition[][];
   private options?: Option[];
   private errors: Error[] = [];
@@ -54,7 +54,7 @@ export default class Question implements QuestionInterface {
 
     try {
       this.type = InputTypeMapper.transformValue(json.input_type, true);
-    } catch (exception) {
+    } catch (exception: any) {
       if (exception instanceof NotFoundException) {
         Logger.info(`${exception.message} (question key : %s)`, this.id);
       }

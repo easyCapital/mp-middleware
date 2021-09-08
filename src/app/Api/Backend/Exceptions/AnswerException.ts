@@ -8,6 +8,8 @@ const Logger = use('Logger');
 export default class AnswerException extends HttpException {
   constructor(answers: Answer[], errors: BackendError[]) {
     const environment = Config.get('sentry.environment');
+
+    let errorMessage: string | undefined;
     const errorMessages: { key: string; row?: number; error: ErrorType }[] = [];
 
     if (Array.isArray(errors)) {
@@ -46,7 +48,7 @@ export default class AnswerException extends HttpException {
             default:
               errorMessageType = ErrorTypes.UNKNOWN;
 
-              const errorMessage = `Missing Error mapping value in AnswerException for ${errorKey}`;
+              errorMessage = `Missing Error mapping value in AnswerException for ${errorKey}`;
 
               if (environment === 'staging' || environment === 'production') {
                 const Sentry = use('Sentry');

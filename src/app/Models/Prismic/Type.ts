@@ -1,11 +1,11 @@
-import { PrismicProductType as JsonTypeInterface, Gender } from '@robinfinance/js-api';
+import { Gender } from '@robinfinance/js-api';
 
 import { ContentType, Image } from '.';
 import { Slice, RichText } from './Elements';
 import { GenderMapper } from '../../Mappers/Prismic';
 
 interface TypeInterface {
-  toJSON(): JsonTypeInterface;
+  toJSON(): any;
 }
 
 export default class Type extends ContentType implements TypeInterface {
@@ -92,7 +92,7 @@ export default class Type extends ContentType implements TypeInterface {
     }
   }
 
-  public toJSON(): JsonTypeInterface {
+  public toJSON(): any {
     return {
       id: this.id,
       slug: this.slug,

@@ -2,7 +2,7 @@ import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '@adonisjs/generic-exceptions';
 
 class CGPScoringController {
-  public async knowledge({ params, response, backendApi, universe }: Context) {
+  public async knowledge({ params, response, backendApi, universe }: Context): Promise<void> {
     const { customerId, studyId } = params;
 
     if (!universe) {
@@ -14,7 +14,7 @@ class CGPScoringController {
     response.status(200).send(scoring);
   }
 
-  public async risk({ params, response, backendApi, universe }: Context) {
+  public async risk({ params, response, backendApi, universe }: Context): Promise<void> {
     const { customerId, studyId } = params;
 
     if (!universe) {
@@ -26,7 +26,7 @@ class CGPScoringController {
     response.status(200).send(scoring);
   }
 
-  public async afiEsca({ params, response, backendApi, universe }: Context) {
+  public async afiEsca({ params, response, backendApi, universe }: Context): Promise<void> {
     const { customerId, studyId } = params;
 
     if (!universe) {
@@ -38,7 +38,7 @@ class CGPScoringController {
     response.status(200).send(scoring);
   }
 
-  public async serenalis({ params, response, backendApi, universe }: Context) {
+  public async serenalis({ params, response, backendApi, universe }: Context): Promise<void> {
     const { customerId, studyId } = params;
 
     if (!universe) {

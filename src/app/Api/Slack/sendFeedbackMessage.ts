@@ -33,7 +33,7 @@ async function sendFeedbackMessage(
   }
 
   if (FEEDBACK_CHANNEL_ID) {
-    let text: string = `Une nouvelle demande a été envoyée par un CGP :\n  - *origine :* ${origin}\n  - *type :* ${type}\n  - *titre :* ${
+    let text = `Une nouvelle demande a été envoyée par un CGP :\n  - *origine :* ${origin}\n  - *type :* ${type}\n  - *titre :* ${
       title || '-'
     }\n  - *description :* ${description}\n  - *email :* ${email}\n  - *agence :* ${agency || '-'}`;
 

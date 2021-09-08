@@ -42,12 +42,12 @@ export default async function createCustomerFile(
     const createdFile = new File(data);
 
     return createdFile;
-  } catch (exception) {
+  } catch (exception: any) {
     if (exception.status === 413) {
       throw new FileTooBigException();
     }
 
-    if (typeof exception.json === 'function') {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new FileException(error);

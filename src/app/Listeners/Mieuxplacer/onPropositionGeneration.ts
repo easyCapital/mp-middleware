@@ -1,7 +1,7 @@
 import { Context } from '../../../types';
 import { Proposition } from '../../Models/Proposition';
 
-async function onPropositionGeneration(context: Context, proposition: Proposition) {
+async function onPropositionGeneration(context: Context, proposition: Proposition): Promise<void> {
   const { session, authenticated, symfonyApi } = context;
 
   if (!authenticated) {

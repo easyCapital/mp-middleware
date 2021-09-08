@@ -4,7 +4,7 @@ import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPPortfolioController {
-  public async index({ request, response, backendApi }: Context) {
+  public async index({ request, response, backendApi }: Context): Promise<void> {
     const filters = request.input('filters') as Filters;
     const pagination = request.input('pagination') as Pagination;
     const orderBy = request.input('orderBy') as OrderBy;
@@ -14,7 +14,7 @@ class CGPPortfolioController {
     response.status(200).send(portfolios);
   }
 
-  public async create({ request, response, backendApi, universe }: Context) {
+  public async create({ request, response, backendApi, universe }: Context): Promise<void> {
     const data = request.post() as PortfolioDTO;
 
     if (!universe) {
@@ -26,7 +26,7 @@ class CGPPortfolioController {
     response.status(200).send(portfolio);
   }
 
-  public async prevalidate({ request, response, backendApi, universe }: Context) {
+  public async prevalidate({ request, response, backendApi, universe }: Context): Promise<void> {
     const portfolio = request.post() as PortfolioDTO;
 
     if (!universe) {
@@ -38,7 +38,7 @@ class CGPPortfolioController {
     response.status(204);
   }
 
-  public async recommendation({ params, response, backendApi }: Context) {
+  public async recommendation({ params, response, backendApi }: Context): Promise<void> {
     const { customerId, studyId, productIdentifier } = params;
 
     const portfolio = await backendApi.getCGPRecommendedPortfolio(customerId, studyId, productIdentifier);

@@ -21,12 +21,9 @@ const providers: string[] = [
   path.join(__dirname, '../providers/BackendProvider'),
   path.join(__dirname, '../providers/HubspotProvider'),
   path.join(__dirname, '../providers/PrismicProvider'),
-  path.join(__dirname, '../providers/SendgridProvider'),
   path.join(__dirname, '../providers/SentryProvider'),
   path.join(__dirname, '../providers/SlackProvider'),
   path.join(__dirname, '../providers/SymfonyProvider'),
-  path.join(__dirname, '../providers/TwigProvider'),
-  path.join(__dirname, '../providers/WkHtmlToPdfProvider'),
 ];
 
 /*
@@ -38,7 +35,7 @@ const providers: string[] = [
 | Providers for migrations, tests etc.
 |
 */
-const aceProviders: any = ['@adonisjs/vow/providers/VowProvider'];
+const aceProviders: string[] = ['@adonisjs/vow/providers/VowProvider'];
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +49,7 @@ const aceProviders: any = ['@adonisjs/vow/providers/VowProvider'];
 |   { Route: 'Adonis/Src/Route' }
 |
 */
-const aliases: any = {};
+const aliases: { [key: string]: string } = {};
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +59,7 @@ const aliases: any = {};
 | Here you store ace commands for your package
 |
 */
-const commands: any = [];
+const commands: string[] = [];
 
 export = { providers, aceProviders, aliases, commands };
 

@@ -8,15 +8,21 @@ import BackendApi from '../..';
 export default async function generateCustomerFiles(
   this: BackendApi,
   customerId: string,
-  studyId: string,
   files: { type: FileType; contractId?: number }[],
+  studyId?: string,
 ): Promise<File[]> {
+  let url = `cgp/customer/${customerId}/file/generate`;
+
+  if (studyId) {
+    url = `cgp/customer/${customerId}/study/${studyId}/file/generate`;
+  }
+
   const formattedFiles = files.map((file) => ({ file_type: file.type, contract_id: file.contractId }));
 
   try {
     const response = await this.backendClient.post(
       {
-        url: `cgp/customer/${customerId}/study/${studyId}/file/generate`,
+        url,
       },
       formattedFiles,
     );
@@ -26,8 +32,8 @@ export default async function generateCustomerFiles(
     const createdFiles = data.map((item) => new File(item));
 
     return createdFiles;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const errors = await exception.json();
 
       throw new FileException(errors[0]);

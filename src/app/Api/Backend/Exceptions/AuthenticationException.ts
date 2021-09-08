@@ -7,6 +7,8 @@ const Logger = use('Logger');
 export default class AuthenticationException extends HttpException {
   constructor(error: BackendError) {
     const environment = Config.get('sentry.environment');
+
+    let errorMessage: string | undefined;
     const errorMessages: { [key: string]: string } = {};
 
     Object.keys(error).forEach((errorKey) => {
@@ -29,9 +31,10 @@ export default class AuthenticationException extends HttpException {
 
         case BackendErrors.UserIsInactiveError:
           errorMessages.global = ErrorTypes.USER_INACTIVE;
+          break;
 
         default:
-          const errorMessage = `Missing Error mapping value in AuthenticationException for ${errorKey}`;
+          errorMessage = `Missing Error mapping value in AuthenticationException for ${errorKey}`;
 
           if (environment === 'staging' || environment === 'production') {
             const Sentry = use('Sentry');

@@ -2,7 +2,7 @@ import { Answer } from '@robinfinance/js-api';
 
 import { Context } from '../../../types';
 
-async function onOnboardingFetch(context: Context) {
+async function onOnboardingFetch(context: Context): Promise<{ answers: Answer[] }> {
   const { session, authenticated, backendApi } = context;
 
   let answers: Answer[] = [];

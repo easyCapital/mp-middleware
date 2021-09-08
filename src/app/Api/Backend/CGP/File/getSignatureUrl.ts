@@ -37,8 +37,8 @@ export default async function getSignatureUrl(
     if (data.signature_url) {
       return { url: data.signature_url };
     }
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new SignatureException(error);

@@ -37,8 +37,8 @@ export default async function getRecommendedPortfolio(
         return portfolio;
       }
     }
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new Exception(JSON.stringify(error));

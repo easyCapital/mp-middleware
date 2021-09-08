@@ -6,7 +6,7 @@ import * as MieuxplacerEvents from './Mieuxplacer';
 
 const Apps = use('Config').get('mpApps');
 
-async function onOnboardingValidation(context: Context, answers: Answer[], extra?: any) {
+async function onOnboardingValidation(context: Context, answers: Answer[], extra?: any): Promise<any> {
   switch (context.app) {
     case Apps.MIEUXPLACER:
       return MieuxplacerEvents.onOnboardingValidation(context, answers, extra);

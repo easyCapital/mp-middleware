@@ -2,7 +2,7 @@ import * as PrismicApi from '../../../../Api/Prismic';
 import { Context } from '../../../../../types';
 
 class AdviceController {
-  public async index({ request, response }: Context) {
+  public async index({ request, response }: Context): Promise<void> {
     const filters = request.input('filters');
     const linked = request.input('linked');
     const fields = request.input('fields');
@@ -13,7 +13,7 @@ class AdviceController {
     response.status(200).send(advices);
   }
 
-  public async search({ request, response }: Context) {
+  public async search({ request, response }: Context): Promise<void> {
     const filters = request.input('filters');
     const linked = request.input('linked');
     const fields = request.input('fields');

@@ -11,7 +11,7 @@ export default async function getOne(id: string): Promise<any> {
     if (response.results.length > 0) {
       return response.results[0];
     }
-  } catch (error) {
+  } catch (error: any) {
     throw new Exception(error);
   }
 

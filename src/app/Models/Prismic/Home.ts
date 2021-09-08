@@ -1,10 +1,8 @@
-import { Home as JsonHomeInterface } from '@robinfinance/js-api';
-
 import { ContentType, Slice } from '.';
 import { RichText, Image, Link } from './Elements';
 
 interface HomeInterface {
-  toJSON(): JsonHomeInterface;
+  toJSON(): any;
 }
 
 export default class Home extends ContentType implements HomeInterface {
@@ -50,7 +48,7 @@ export default class Home extends ContentType implements HomeInterface {
     }
   }
 
-  public toJSON(): JsonHomeInterface {
+  public toJSON(): any {
     return {
       id: this.id,
       updatedAt: this.updated,

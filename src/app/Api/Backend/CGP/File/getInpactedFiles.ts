@@ -12,7 +12,7 @@ export default async function getInpactedFiles(
   answers: Answer[],
   contractId?: number | string,
 ): Promise<File[]> {
-  let url: string = `cgp/customer/${customerId}/study/${studyId}/files/get_answer_impact`;
+  let url = `cgp/customer/${customerId}/study/${studyId}/files/get_answer_impact`;
 
   if (contractId) {
     url = `cgp/customer/${customerId}/study/${studyId}/contract/${contractId}/files/get_answer_impact`;
@@ -31,8 +31,8 @@ export default async function getInpactedFiles(
     const files = data.map((item) => new File(item));
 
     return files;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       if (exception.status === 400) {

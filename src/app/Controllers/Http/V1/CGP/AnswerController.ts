@@ -3,7 +3,7 @@ import { Filters, Answer } from '@robinfinance/js-api';
 import { Context } from '../../../../../types';
 
 class CGPAnswerController {
-  public async search({ params, request, response, backendApi }: Context) {
+  public async search({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer } = params;
     const filters = request.input('filters') as Filters;
 
@@ -12,7 +12,7 @@ class CGPAnswerController {
     response.status(200).send(answers);
   }
 
-  public async create({ params, request, response, backendApi }: Context) {
+  public async create({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study, contract } = params;
     const answers = request.post() as Answer[];
 
@@ -21,7 +21,7 @@ class CGPAnswerController {
     response.status(201).send();
   }
 
-  public async deactivate({ params, request, response, backendApi }: Context) {
+  public async deactivate({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study, contract } = params;
     const answers = request.post() as Answer[];
 
@@ -30,7 +30,7 @@ class CGPAnswerController {
     response.status(200).send();
   }
 
-  public async searchStudy({ params, request, response, backendApi }: Context) {
+  public async searchStudy({ params, request, response, backendApi }: Context): Promise<void> {
     const { study } = params;
     const filters = request.input('filters') as Filters;
 
@@ -39,7 +39,7 @@ class CGPAnswerController {
     response.status(200).send(answers);
   }
 
-  public async searchCGP({ request, response, backendApi }: Context) {
+  public async searchCGP({ request, response, backendApi }: Context): Promise<void> {
     const filters = request.input('filters') as Filters;
 
     const answers = await backendApi.getCGPAnswers(filters);
@@ -47,7 +47,7 @@ class CGPAnswerController {
     response.status(200).send(answers);
   }
 
-  public async createCGP({ request, response, backendApi }: Context) {
+  public async createCGP({ request, response, backendApi }: Context): Promise<void> {
     const answers = request.post() as Answer[];
 
     await backendApi.createCGPAnswers(answers);
@@ -55,7 +55,7 @@ class CGPAnswerController {
     response.status(201).send();
   }
 
-  public async deactivateCGP({ request, response, backendApi }: Context) {
+  public async deactivateCGP({ request, response, backendApi }: Context): Promise<void> {
     const answers = request.post() as Answer[];
 
     await backendApi.deactivateCGPAnswers(answers);
@@ -63,7 +63,7 @@ class CGPAnswerController {
     response.status(200).send();
   }
 
-  public async searchAgency({ request, response, backendApi }: Context) {
+  public async searchAgency({ request, response, backendApi }: Context): Promise<void> {
     const filters = request.input('filters') as Filters;
 
     const answers = await backendApi.getAgencyAnswers(filters);
@@ -71,7 +71,7 @@ class CGPAnswerController {
     response.status(200).send(answers);
   }
 
-  public async createAgency({ request, response, backendApi }: Context) {
+  public async createAgency({ request, response, backendApi }: Context): Promise<void> {
     const answers = request.post() as Answer[];
 
     await backendApi.createAgencyAnswers(answers);
@@ -79,7 +79,7 @@ class CGPAnswerController {
     response.status(201).send();
   }
 
-  public async deactivateAgency({ request, response, backendApi }: Context) {
+  public async deactivateAgency({ request, response, backendApi }: Context): Promise<void> {
     const answers = request.post() as Answer[];
 
     await backendApi.deactivateAgencyAnswers(answers);

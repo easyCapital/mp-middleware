@@ -17,8 +17,8 @@ export default async function getContracts(this: BackendApi, filters?: Filters):
     const contracts = data.map((item) => new Contract(item));
 
     return contracts;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new BackendException(error);

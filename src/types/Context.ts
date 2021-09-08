@@ -14,5 +14,6 @@ export interface Context extends Http.Context {
   symfonySession?: any;
   universe?: string;
   symfonyApi: SymfonyApi;
+  source: any;
   updateToken: (token: BackendToken) => void;
 }

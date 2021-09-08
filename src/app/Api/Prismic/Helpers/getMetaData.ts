@@ -1,6 +1,6 @@
 import { MetaData } from '@robinfinance/js-api';
 
-function getMetaData(response): MetaData {
+function getMetaData(response: any): MetaData {
   return {
     page: response.page,
     perPage: response.results_per_page,

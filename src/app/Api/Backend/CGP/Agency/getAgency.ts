@@ -13,7 +13,7 @@ export default async function getAgency(this: BackendApi): Promise<Agency> {
     const agency = new Agency(data);
 
     return agency;
-  } catch (exception) {
+  } catch (exception: any) {
     throw new Exception(exception);
   }
 }

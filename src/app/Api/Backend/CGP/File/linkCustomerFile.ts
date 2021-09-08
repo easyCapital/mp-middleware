@@ -7,8 +7,8 @@ export default async function linkCustomerFile(this: BackendApi, studyId: string
     await this.backendClient.post({
       url: `cgp/study/${studyId}/file/${fileId}/link`,
     });
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new FileException(error);

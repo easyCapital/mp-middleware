@@ -3,7 +3,7 @@ const { ServiceProvider } = require('@adonisjs/fold');
 import SlackClient from '../app/Clients/Slack/SlackClient';
 
 class SlackClientProvider extends ServiceProvider {
-  public register() {
+  public register(): void {
     const Config = this.app.use('Adonis/Src/Config');
     const Logger = this.app.use('Logger');
 
@@ -14,8 +14,6 @@ class SlackClientProvider extends ServiceProvider {
       return slackClient;
     });
   }
-
-  public boot() {}
 }
 
 export = SlackClientProvider;

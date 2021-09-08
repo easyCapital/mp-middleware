@@ -22,7 +22,7 @@ export default async function createPartner(this: BackendApi, supplier: number, 
     const partner = new Partner(data);
 
     return partner;
-  } catch (exception) {
+  } catch (exception: any) {
     throw new Exception(exception);
   }
 }

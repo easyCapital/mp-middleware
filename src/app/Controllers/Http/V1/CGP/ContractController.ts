@@ -5,7 +5,7 @@ import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPContractController {
-  public async create({ params, request, response, backendApi }: Context) {
+  public async create({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer } = params;
     const { proposition, propositionV2, fees } = request.post() as any;
 
@@ -24,7 +24,7 @@ class CGPContractController {
     response.status(200).send(contracts);
   }
 
-  public async search({ params, request, response, backendApi }: Context) {
+  public async search({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study } = params;
     const filters = request.input('filters') as Filters;
 

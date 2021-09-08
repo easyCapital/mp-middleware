@@ -13,7 +13,7 @@ export default async function setHasSeenHelp(this: BackendApi): Promise<CGP> {
     const user = new CGP(data);
 
     return user;
-  } catch (exception) {
+  } catch (exception: any) {
     throw new Exception(exception);
   }
 }

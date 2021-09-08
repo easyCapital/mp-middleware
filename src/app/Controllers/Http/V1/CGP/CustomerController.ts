@@ -5,7 +5,7 @@ import InvalidArgumentException from '../../../../Exceptions/InvalidArgumentExce
 import { Context } from '../../../../../types';
 
 class CGPCustomerController {
-  public async create({ request, response, backendApi, universe }: Context) {
+  public async create({ request, response, backendApi, universe }: Context): Promise<void> {
     const { email, tags, data: answers }: any = request.post();
 
     if (!universe) {
@@ -21,26 +21,30 @@ class CGPCustomerController {
     if (answers && answers.length > 0) {
       try {
         await backendApi.createCGPCustomerAnswers(data.id, answers);
-      } catch {}
+      } catch {
+        // DON'T HANDLE CATCH
+      }
     }
 
     if (tags && tags.length > 0) {
       try {
         await backendApi.createCGPCustomerTags(data.id, tags);
-      } catch {}
+      } catch {
+        // DON'T HANDLE CATCH
+      }
     }
 
     response.status(200).send({ id: data.id });
   }
 
-  public async prevalidate({ request, response, backendApi }: Context) {
+  public async prevalidate({ request, response, backendApi }: Context): Promise<void> {
     const customers = request.post() as CustomerDTO[];
 
     try {
       await backendApi.prevalidateCustomers(customers);
 
       response.status(204);
-    } catch (exception) {
+    } catch (exception: any) {
       if (
         Array.isArray(exception.message) &&
         exception.message.filter((item) => Object.keys(item).length > 0).length > 0
@@ -50,7 +54,7 @@ class CGPCustomerController {
     }
   }
 
-  public async bulkCreate({ request, response, backendApi }: Context) {
+  public async bulkCreate({ request, response, backendApi }: Context): Promise<void> {
     const customers = request.post() as CustomerDTO[];
 
     const data = await backendApi.createCGPCustomers(customers);
@@ -58,7 +62,7 @@ class CGPCustomerController {
     response.status(201).send(data);
   }
 
-  public async search({ request, response, backendApi }: Context) {
+  public async search({ request, response, backendApi }: Context): Promise<void> {
     const filters = request.input('filters') as Filters;
     const pagination = request.input('pagination') as Pagination;
 
@@ -67,7 +71,7 @@ class CGPCustomerController {
     response.status(200).send(customers);
   }
 
-  public async get({ params, response, backendApi }: Context) {
+  public async get({ params, response, backendApi }: Context): Promise<void> {
     const { id } = params;
 
     const customer = await backendApi.getCGPCustomer(id);
@@ -75,7 +79,7 @@ class CGPCustomerController {
     response.status(200).send(customer);
   }
 
-  public async changeEmail({ params, request, response, backendApi }: Context) {
+  public async changeEmail({ params, request, response, backendApi }: Context): Promise<void> {
     const { id } = params;
     const { email }: any = request.post();
 
@@ -84,7 +88,7 @@ class CGPCustomerController {
     response.status(200).send(customer);
   }
 
-  public async activate({ params, response, backendApi }: Context) {
+  public async activate({ params, response, backendApi }: Context): Promise<void> {
     const { id } = params;
 
     await backendApi.activateCGPCustomer(id);
@@ -94,7 +98,7 @@ class CGPCustomerController {
     response.status(200).send(customer);
   }
 
-  public async deactivate({ params, response, backendApi }: Context) {
+  public async deactivate({ params, response, backendApi }: Context): Promise<void> {
     const { id } = params;
 
     await backendApi.deactivateCGPCustomer(id);

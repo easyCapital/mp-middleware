@@ -3,13 +3,13 @@ import InvalidArgumentException from '../../../Exceptions/InvalidArgumentExcepti
 import { onCustomerCreation } from '../../../Listeners';
 
 class CustomerController {
-  public async get({ response, backendApi }: Context) {
+  public async get({ response, backendApi }: Context): Promise<void> {
     const customer = await backendApi.getCustomerDetails();
 
     response.status(200).send(customer);
   }
 
-  public async create(context: Context) {
+  public async create(context: Context): Promise<void> {
     const { request, response, session, backendApi, universe } = context;
     const { email, password, utmCampaign, utmSource, utmMedium, ...body }: any = request.post();
 

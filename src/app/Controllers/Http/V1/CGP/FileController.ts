@@ -12,7 +12,7 @@ import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPFileController {
-  public async search({ params, request, response, backendApi }: Context) {
+  public async search({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer } = params;
     const filters = request.input('filters') as Filters | undefined;
     const orderBy = request.input('orderBy') as OrderBy | undefined;
@@ -23,7 +23,7 @@ class CGPFileController {
     response.status(200).send(files);
   }
 
-  public async getByStudy({ params, request, response, backendApi }: Context) {
+  public async getByStudy({ params, request, response, backendApi }: Context): Promise<void> {
     const { study } = params;
     const filters = request.input('filters') as Filters | undefined;
     const orderBy = request.input('orderBy') as OrderBy | undefined;
@@ -34,7 +34,7 @@ class CGPFileController {
     response.status(200).send(files);
   }
 
-  public async getAllStudiesFiles({ params, request, response, backendApi }: Context) {
+  public async getAllStudiesFiles({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer } = params;
     const filters = request.input('filters') as Filters | undefined;
     const orderBy = request.input('orderBy') as OrderBy | undefined;
@@ -45,7 +45,7 @@ class CGPFileController {
     response.status(200).send(studyFilesList);
   }
 
-  public async create({ params, request, response, backendApi }: Context) {
+  public async create({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study } = params;
     const data = request.post() as FileDTO[];
 
@@ -73,7 +73,7 @@ class CGPFileController {
 
             return file.file;
           }
-        } catch (exception) {
+        } catch (exception: any) {
           if (file.type) {
             errors[index] = { key: file.type, error: exception.message };
           }
@@ -88,35 +88,35 @@ class CGPFileController {
     }
   }
 
-  public async delete({ params, req, res, backendApi }: Context) {
+  public async delete({ params, req, res, backendApi }: Context): Promise<void> {
     const { file, customer } = params;
 
     await backendApi.deleteCGPCustomerFile(req, res, file, customer);
   }
 
-  public async view({ params, req, res, backendApi }: Context) {
+  public async view({ params, req, res, backendApi }: Context): Promise<void> {
     const { id } = params;
 
     await backendApi.downloadCGPCustomerFile(req, res, id);
   }
 
-  public async generate({ params, request, response, backendApi }: Context) {
+  public async generate({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study } = params;
     const data = request.post() as any;
 
-    const files = await backendApi.generateCGPCustomerFiles(customer, study, data);
+    const files = await backendApi.generateCGPCustomerFiles(customer, data, study);
 
     response.status(200).send(files);
   }
 
-  public async download({ params, request, req, res, backendApi }: Context) {
+  public async download({ params, request, req, res, backendApi }: Context): Promise<void> {
     const { id } = params;
     const type = request.input('type') as string;
 
     await backendApi.downloadCGPCustomerFile(req, res, id, type);
   }
 
-  public async merge({ params, request, response, backendApi }: Context) {
+  public async merge({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study } = params;
     const { type, id, files } = request.post() as any;
 
@@ -125,25 +125,25 @@ class CGPFileController {
     response.status(200).send(file);
   }
 
-  public async downloadContractFiles({ params, req, res, backendApi }: Context) {
+  public async downloadContractFiles({ params, req, res, backendApi }: Context): Promise<void> {
     const { contract } = params;
 
     await backendApi.downloadCGPContractFiles(req, res, contract);
   }
 
-  public async downloadStudyFiles({ params, req, res, backendApi }: Context) {
+  public async downloadStudyFiles({ params, req, res, backendApi }: Context): Promise<void> {
     const { study } = params;
 
     await backendApi.downloadCGPStudyFiles(req, res, study);
   }
 
-  public async downloadTemplateFile({ params, req, res, backendApi }: any) {
+  public async downloadTemplateFile({ params, req, res, backendApi }: Context): Promise<void> {
     const { type } = params;
 
     await backendApi.downloadTemplateFile(req, res, type);
   }
 
-  public async inpactedFiles({ params, request, response, backendApi }: Context) {
+  public async inpactedFiles({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study, contract } = params;
     const answers = request.post() as Answer[];
 
@@ -152,7 +152,7 @@ class CGPFileController {
     response.status(200).send(files);
   }
 
-  public async signature({ params, request, response, backendApi }: Context) {
+  public async signature({ params, request, response, backendApi }: Context): Promise<void> {
     const { id } = params;
     const data = request.all() as { callback?: string };
 
@@ -165,7 +165,7 @@ class CGPFileController {
     }
   }
 
-  public async signatureDetails({ request, response, backendApi }: Context) {
+  public async signatureDetails({ request, response, backendApi }: Context): Promise<void> {
     const pagination = request.input('pagination') as Pagination;
     const filters = request.input('filters') as Filters;
     const orderBy = request.input('orderBy') as OrderBy;
@@ -175,7 +175,7 @@ class CGPFileController {
     response.status(200).send(files);
   }
 
-  public async signatureUrl({ params, request, response, backendApi }: Context) {
+  public async signatureUrl({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer } = params;
     const { files, callback, type }: any = request.post();
 
@@ -184,7 +184,7 @@ class CGPFileController {
     response.status(200).send(data);
   }
 
-  public async sign({ params, request, response, backendApi, app, origin }: Context) {
+  public async sign({ params, request, response, backendApi, app, origin }: Context): Promise<void> {
     const { customer, file } = params;
     const { callback }: any = request.get();
 
@@ -200,7 +200,7 @@ class CGPFileController {
     response.redirect(data.url);
   }
 
-  public async sendSignature({ params, request, response, backendApi }: Context) {
+  public async sendSignature({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer } = params;
     const { files, ...body }: any = request.post();
 
@@ -208,12 +208,12 @@ class CGPFileController {
       const data = await backendApi.sendCGPCustomerSignature(customer, files, body);
 
       response.status(200).send(data);
-    } catch (exception) {
+    } catch (exception: any) {
       response.status(400).send({ error: exception.message });
     }
   }
 
-  public async signing({ params, backendApi, response }: Context) {
+  public async signing({ params, backendApi, response }: Context): Promise<void> {
     const { id } = params;
 
     const file = await backendApi.setCGPCustomerFileAsSigning(id);
@@ -221,7 +221,7 @@ class CGPFileController {
     response.status(200).send(file);
   }
 
-  public async cancelSignature({ params, backendApi, response }: Context) {
+  public async cancelSignature({ params, backendApi, response }: Context): Promise<void> {
     const { id } = params;
 
     const file = await backendApi.cancelCGPCustomerFileSignature(id);
@@ -229,7 +229,7 @@ class CGPFileController {
     response.status(200).send(file);
   }
 
-  public async questions({ params, backendApi, response }: Context) {
+  public async questions({ params, backendApi, response }: Context): Promise<void> {
     const { customer, fileType } = params;
 
     const questions = await backendApi.getFileQuestions(customer, fileType);

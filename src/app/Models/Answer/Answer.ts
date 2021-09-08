@@ -28,11 +28,11 @@ export default class Answer implements AnswerInterface {
     };
   }
 
-  public getKey() {
+  public getKey(): string {
     return this.question;
   }
 
-  public getValue() {
+  public getValue(): string | null {
     return this.value;
   }
 }

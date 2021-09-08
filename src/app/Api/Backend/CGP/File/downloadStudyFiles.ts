@@ -7,7 +7,6 @@ export default async function downloadStudyFiles(
   req: IncomingMessage,
   res: ServerResponse,
   studyId: string,
-  type?: string,
 ): Promise<any> {
   return this.backendClient.proxy(req, res, { url: `cgp/study/${studyId}/files/download` });
 }

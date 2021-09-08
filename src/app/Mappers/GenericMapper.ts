@@ -10,7 +10,7 @@ interface Mapping {
 export default abstract class GenericMapper<Type> {
   protected abstract readonly mapping: Mapping;
 
-  public transformValue(value: string, throwException: boolean = false): Type | undefined {
+  public transformValue(value: string, throwException = false): Type | undefined {
     const environment = Config.get('sentry.environment');
     const mappedValue = this.mapping[value];
 
@@ -35,7 +35,7 @@ export default abstract class GenericMapper<Type> {
     return undefined;
   }
 
-  public reverseTransform(value: Type, throwException: boolean = false): string | undefined {
+  public reverseTransform(value: Type, throwException = false): string | undefined {
     const environment = Config.get('sentry.environment');
     const key = Object.keys(this.mapping).find((item) => this.mapping[item] === value);
 
@@ -60,7 +60,7 @@ export default abstract class GenericMapper<Type> {
     return undefined;
   }
 
-  private getErrorMessage(value: string, reverse: boolean = false): string {
+  private getErrorMessage(value: string, reverse = false): string {
     return `Missing${reverse ? ' reverse ' : ' '}mapping value in ${this.constructor.name} for ${value}.`;
   }
 }

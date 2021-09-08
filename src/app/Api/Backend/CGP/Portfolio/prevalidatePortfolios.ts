@@ -43,8 +43,8 @@ export default async function prevalidatePortfolios(
         products: formattedPortfolios,
       },
     );
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       if (error.products && error.products.length > 0) {

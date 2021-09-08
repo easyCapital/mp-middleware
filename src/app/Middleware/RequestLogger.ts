@@ -5,7 +5,7 @@ const Config = use('Config');
 const Logger = use('Logger');
 
 class RequestLogger {
-  protected async handle(ctx: any, next) {
+  protected async handle(ctx: any, next: any): Promise<void> {
     const environment = Config.get('sentry.environment');
     const startTime = process.hrtime();
 

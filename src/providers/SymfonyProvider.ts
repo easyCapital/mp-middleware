@@ -3,7 +3,7 @@ const { ServiceProvider } = require('@adonisjs/fold');
 import { SymfonyClient } from '../app/Clients/';
 
 class SymfonyClientProvider extends ServiceProvider {
-  public register() {
+  public register(): void {
     const Logger = this.app.use('Logger');
     const Config = this.app.use('Adonis/Src/Config');
     const host = Config.get('clients.symfony.host');
@@ -14,8 +14,6 @@ class SymfonyClientProvider extends ServiceProvider {
       };
     });
   }
-
-  public boot() {}
 }
 
 export = SymfonyClientProvider;

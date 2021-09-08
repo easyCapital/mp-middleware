@@ -53,7 +53,7 @@ export default async function getAllStudyFiles(
     });
 
     return filesByStudy;
-  } catch (exception) {
+  } catch (exception: any) {
     throw new Exception(exception);
   }
 }

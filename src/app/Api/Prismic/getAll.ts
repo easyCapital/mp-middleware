@@ -54,7 +54,7 @@ export default async function getAll(
     }
 
     return results;
-  } catch (error) {
+  } catch (error: any) {
     throw new Exception(error);
   }
 }

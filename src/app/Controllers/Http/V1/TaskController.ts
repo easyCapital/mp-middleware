@@ -7,7 +7,7 @@ import { File } from '../../../Models/File';
 import { FileTypeMapper } from '../../../Mappers/File';
 
 class TaskController {
-  public async complementaryQuestions({ params, request, response, backendApi }: Context) {
+  public async complementaryQuestions({ params, request, response, backendApi }: Context): Promise<void> {
     const { contract } = params;
     const filters = (request.input('filters') || {}) as Filters;
 
@@ -36,7 +36,7 @@ class TaskController {
     response.status(200).send(Object.values(tasks));
   }
 
-  public async supportingDocuments({ params, request, response, backendApi }: Context) {
+  public async supportingDocuments({ params, request, response, backendApi }: Context): Promise<void> {
     const { contract } = params;
     const filters = request.input('filters') as Filters;
 

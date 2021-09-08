@@ -1,7 +1,5 @@
-import { Cost as JsonCostInterface } from '@robinfinance/js-api';
-
 interface CostInterface {
-  toJSON(): JsonCostInterface;
+  toJSON(): any;
 }
 
 export default class Cost implements CostInterface {
@@ -15,7 +13,7 @@ export default class Cost implements CostInterface {
     this.annotation = json.cost_annotation;
   }
 
-  public toJSON(): JsonCostInterface {
+  public toJSON(): any {
     return {
       label: this.label,
       value: this.value,

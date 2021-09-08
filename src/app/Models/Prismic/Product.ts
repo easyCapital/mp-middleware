@@ -1,10 +1,8 @@
-import { PrismicProduct as JsonProductInterface } from '@robinfinance/js-api';
-
 import { ContentType, Type, Supplier, RichText, Cost, TDVM, Image, Link, Slice } from '.';
 import { BooleanMapper } from '../../Mappers/Prismic';
 
 interface ProductInterface {
-  toJSON(): JsonProductInterface;
+  toJSON(): any;
   setType(type?: Type): Product;
   setSupplier(supplier?: Supplier): Product;
 }
@@ -376,7 +374,7 @@ export default class Product extends ContentType implements ProductInterface {
     }
   }
 
-  public toJSON(): JsonProductInterface {
+  public toJSON(): any {
     return {
       id: this.id,
       slug: this.slug,

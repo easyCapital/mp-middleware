@@ -10,6 +10,8 @@ export default class SignatureException extends HttpException {
   constructor(error: BackendError) {
     const environment = Config.get('sentry.environment');
 
+    let errorMessage: string | undefined;
+
     Object.keys(error).forEach((errorKey) => {
       switch (errorKey) {
         case BackendErrors.FileAlreadySignedError:
@@ -22,7 +24,7 @@ export default class SignatureException extends HttpException {
           throw new Exception('Veuillez saisir une adresse e-mail valide.');
 
         default:
-          const errorMessage = `Missing Error mapping value in SignatureException for ${errorKey}`;
+          errorMessage = `Missing Error mapping value in SignatureException for ${errorKey}`;
 
           if (environment === 'staging' || environment === 'production') {
             const Sentry = use('Sentry');

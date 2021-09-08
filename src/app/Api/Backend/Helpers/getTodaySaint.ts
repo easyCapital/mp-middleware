@@ -1,6 +1,6 @@
 import { saints } from './saints';
 
-export default function getTodaySaint() {
+export default function getTodaySaint(): string | null {
   const today = new Date();
   const monthString = today.toLocaleString('en', { month: 'long' }).toLowerCase();
   const day = today.getDate() - 1;

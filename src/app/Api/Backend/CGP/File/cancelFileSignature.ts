@@ -11,8 +11,8 @@ export default async function cancelFileSignature(this: BackendApi, fileId: stri
     const file = new File(data);
 
     return file;
-  } catch (exception) {
-    if (typeof exception.json === 'function') {
+  } catch (exception: any) {
+    if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
       throw new FileException(error);
