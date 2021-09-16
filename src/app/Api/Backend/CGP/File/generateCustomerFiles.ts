@@ -8,8 +8,8 @@ import BackendApi from '../..';
 export default async function generateCustomerFiles(
   this: BackendApi,
   customerId: string,
+  studyId: string | undefined,
   files: { type: FileType; contractId?: number }[],
-  studyId?: string,
 ): Promise<File[]> {
   let url = `cgp/customer/${customerId}/file/generate`;
 

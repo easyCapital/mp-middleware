@@ -11,9 +11,11 @@ export default class File implements FileInterface {
   private user: number;
   private type?: FileType;
   private mimeType?: string;
+  private size: number;
   private status?: FileStatus;
   private signed: boolean;
   private outdated: boolean;
+  private archived: boolean;
   private signatureStatus?: FileSignStatus;
   private signatureType?: FileSignType;
   private updateDate: string;
@@ -26,10 +28,12 @@ export default class File implements FileInterface {
     this.user = json.user;
     this.type = FileTypeMapper.transformValue(json.type);
     this.mimeType = json.mime_type;
+    this.size = json.size;
     this.status = FileStatusMapper.transformValue(json.status);
     this.contracts = json.contracts;
     this.signed = json.signed;
     this.outdated = json.outdated_infos;
+    this.archived = json.archived;
     this.updateDate = json.update_date;
     this.createDate = json.upload_date;
     this.studies = json.studies;
@@ -49,9 +53,11 @@ export default class File implements FileInterface {
       user: this.user,
       type: this.type,
       mimeType: this.mimeType,
+      size: this.size,
       status: this.status,
       signed: this.signed,
       outdated: this.outdated,
+      archived: this.archived,
       signatureStatus: this.signatureStatus,
       signatureType: this.signatureType,
       updateDate: this.updateDate,

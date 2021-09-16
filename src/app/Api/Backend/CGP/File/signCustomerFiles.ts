@@ -1,17 +1,18 @@
 import { FileSignType } from '@robinfinance/js-api';
 
+import { Signature } from '../../../../Models/File';
 import { FileSignTypeMapper } from '../../../../Mappers/File';
-import { Exception, NotFoundException } from '../../../../Exceptions';
+import { Exception } from '../../../../Exceptions';
 import { SignatureException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function getSignatureUrl(
+export default async function signCustomerFiles(
   this: BackendApi,
   customerId: string,
   fileIds: number[] | string[],
   callbackUrl?: string,
   type?: FileSignType,
-): Promise<{ url: string }> {
+): Promise<Signature | undefined> {
   const body: { files: string[] | number[]; callback_url?: string; type?: string } = {
     files: fileIds,
   };
@@ -34,9 +35,9 @@ export default async function getSignatureUrl(
 
     const data = await response.json();
 
-    if (data.signature_url) {
-      return { url: data.signature_url };
-    }
+    const signature = new Signature(data);
+
+    return signature;
   } catch (exception: any) {
     if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
@@ -46,6 +47,4 @@ export default async function getSignatureUrl(
 
     throw new Exception(exception);
   }
-
-  throw new NotFoundException();
 }

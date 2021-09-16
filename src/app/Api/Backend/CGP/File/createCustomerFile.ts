@@ -8,14 +8,20 @@ import BackendApi from '../..';
 export default async function createCustomerFile(
   this: BackendApi,
   customerId: string,
-  studyId: string,
+  studyId: string | undefined,
   type: FileType,
   file: string,
   id?: number,
   signatureDate?: string,
   contractId?: number,
 ): Promise<File> {
-  const body: any = { customer_id: customerId, file_type: type, file };
+  let url = `cgp/customer/${customerId}/file/create`;
+
+  if (studyId) {
+    url = `cgp/customer/${customerId}/study/${studyId}/file/create`;
+  }
+
+  const body: any = { file_type: type, file };
 
   if (id) {
     body.file_id = id;
@@ -32,7 +38,7 @@ export default async function createCustomerFile(
   try {
     const response = await this.backendClient.post(
       {
-        url: `cgp/study/${studyId}/file/create`,
+        url,
       },
       body,
     );

@@ -1,4 +1,5 @@
-import { Exception, NotFoundException } from '../../../../Exceptions';
+import { Signature } from '../../../../Models/File';
+import { Exception } from '../../../../Exceptions';
 import { SignatureException } from '../../Exceptions';
 import BackendApi from '../..';
 
@@ -7,7 +8,7 @@ export default async function sendCustomerSignature(
   customerId: string,
   fileIds: number[] | string[],
   body?: { email?: string; subject?: string; message?: string },
-): Promise<{ url: string }> {
+): Promise<Signature | undefined> {
   try {
     const response = await this.backendClient.post(
       {
@@ -21,9 +22,9 @@ export default async function sendCustomerSignature(
 
     const data = await response.json();
 
-    if (data.signature_url) {
-      return { url: data.signature_url };
-    }
+    const signature = new Signature(data);
+
+    return signature;
   } catch (exception: any) {
     if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
@@ -33,6 +34,4 @@ export default async function sendCustomerSignature(
 
     throw new Exception(exception);
   }
-
-  throw new NotFoundException();
 }
