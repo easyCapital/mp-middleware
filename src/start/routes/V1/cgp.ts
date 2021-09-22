@@ -93,6 +93,24 @@ addAPIPrefixToGroup(
 
 /*
   |--------------------------------------------------------------------------
+  | API V1 - CGP - ANALYSIS
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/CGP/AnalysisController.search');
+  }).prefix('analysis'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.post('/generate', 'V1/CGP/AnalysisController.generate');
+    Route.post('/valid', 'V1/CGP/AnalysisController.valid');
+  }).prefix('customer/:id/analysis'),
+);
+
+/*
+  |--------------------------------------------------------------------------
   | API V1 - CGP - TAG
   |--------------------------------------------------------------------------
   */

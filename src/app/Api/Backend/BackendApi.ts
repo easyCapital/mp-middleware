@@ -54,6 +54,10 @@ export default class BackendApi {
   // CGP - Agency
   public editAgency = CGP.editAgency;
   public getAgency = CGP.getAgency;
+  // CGP - Analysis
+  public searchCGPAnalysis = CGP.searchAnalyses;
+  public generateCGPCustomerAnalysis = CGP.generateCustomerAnalysis;
+  public setCGPCustomerValidAnalysis = CGP.setCustomerValidAnalysis;
   // CGP - Answer
   public getCGPAnswersByCustomer = CGP.getAnswersByCustomer;
   public getCGPAnswers = CGP.getCGPAnswers;

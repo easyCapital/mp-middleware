@@ -1,3 +1,4 @@
+export * from './Analysis';
 export * from './Agency';
 export * from './Answer';
 export * from './Authentication';
