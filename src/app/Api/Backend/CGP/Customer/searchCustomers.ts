@@ -34,47 +34,7 @@ export default async function searchCustomers(
     });
 
     if (customerIds.length > 0) {
-      const dataPromises: Promise<any>[] = [this.getLatestCustomerTask(customerIds)];
-
-      // CREATE ALL THE ANWER PROMISES
-      const answersResponse = await this.getCGPAnswersByCustomer({
-        user_id__in: customerIds,
-        question_id__in: ['DQ7', 'DQ6', 'mobile_number'],
-      });
-
-      if (answersResponse.meta.nextPage && answersResponse.meta.totalPages) {
-        for (let nextPage = answersResponse.meta.nextPage; nextPage <= answersResponse.meta.totalPages; nextPage += 1) {
-          dataPromises.push(
-            this.getCGPAnswersByCustomer(
-              {
-                user_id__in: customerIds,
-                question_id__in: ['DQ7', 'DQ6', 'mobile_number'],
-              },
-              { page: nextPage, perPage: answersResponse.meta.perPage },
-            ),
-          );
-        }
-      }
-
-      const [tasks, ...answerResponses] = await Promise.all(dataPromises);
-
-      // SET CUSTOMER ANSWERS
-      let answers: { [customerId: string]: { [key: string]: string } } = { ...answersResponse.results };
-
-      answerResponses.forEach((answerResponse) => {
-        answers = { ...answers, ...answerResponse.results };
-      });
-
-      Object.keys(answers).forEach((customerId) => {
-        const customer = customers.get(customerId);
-        const customerAnswers = answers[customerId];
-
-        if (customer && customerAnswers) {
-          customer.setFirstName(customerAnswers.DQ7);
-          customer.setLastName(customerAnswers.DQ6);
-          customer.setMobileNumber(customerAnswers.mobile_number);
-        }
-      });
+      const tasks = await this.getLatestCustomerTask(customerIds);
 
       // SET CUSTOMER TASKS
       Object.keys(tasks).forEach((customerId) => {

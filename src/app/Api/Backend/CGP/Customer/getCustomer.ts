@@ -3,8 +3,6 @@ import { Exception, NotFoundException } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-import { CGPGenderMapper } from '../../../../Mappers/Customer';
-
 export default async function getCustomer(this: BackendApi, id: string): Promise<Customer> {
   try {
     const response = await this.backendClient.get({
@@ -17,37 +15,6 @@ export default async function getCustomer(this: BackendApi, id: string): Promise
 
     if (data.length > 0) {
       const customer = new Customer(data[0]);
-
-      const answers = await this.getCGPCustomerAnswers(
-        customer.getId().toString(),
-        {
-          question_id__in: ['DQ5', 'DQ7', 'DQ6', 'mobile_number'],
-          is_active: 'True',
-        },
-        'question_id',
-      );
-
-      answers.forEach((answer) => {
-        if (answer.getKey() === 'DQ5') {
-          const gender = CGPGenderMapper.transformValue(answer.getValue() as string);
-
-          if (gender) {
-            customer.setGender(gender);
-          }
-        }
-
-        if (answer.getKey() === 'DQ7') {
-          customer.setFirstName(answer.getValue() as string);
-        }
-
-        if (answer.getKey() === 'DQ6') {
-          customer.setLastName(answer.getValue() as string);
-        }
-
-        if (answer.getKey() === 'mobile_number') {
-          customer.setMobileNumber(answer.getValue() as string);
-        }
-      });
 
       return customer;
     }

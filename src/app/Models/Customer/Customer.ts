@@ -1,5 +1,7 @@
 import { Customer as JsonCustomerInterface, Gender } from '@robinfinance/js-api';
 
+import { CGPGenderMapper } from '../../Mappers/Customer';
+
 import Tag from './Tag';
 
 interface CustomerInterface {
@@ -26,11 +28,18 @@ export default class Customer implements CustomerInterface {
   constructor(json: any) {
     this.id = json.id;
     this.email = json.email;
+    this.firstName = json.first_name;
+    this.lastName = json.last_name;
+    this.mobileNumber = json.mobile_number;
     this.universe = json.universe;
     this.active = json.is_active;
     this.emailValidated = json.email_validated;
     this.lastModified = json.last_modified;
     this.lastLogin = json.last_login;
+
+    if (json.gender) {
+      this.gender = CGPGenderMapper.transformValue(json.gender);
+    }
 
     if (json.customer_tags) {
       this.tags = json.customer_tags.map((tag) => new Tag(tag));
@@ -58,38 +67,8 @@ export default class Customer implements CustomerInterface {
     return this.id;
   }
 
-  public setGender(gender: Gender): this {
-    this.gender = gender;
-
-    return this;
-  }
-
-  public setFirstName(firstName: string): this {
-    this.firstName = firstName;
-
-    return this;
-  }
-
-  public setLastName(lastName: string): this {
-    this.lastName = lastName;
-
-    return this;
-  }
-
-  public setMobileNumber(mobileNumber: string): this {
-    this.mobileNumber = mobileNumber;
-
-    return this;
-  }
-
   public setActiveTask(label: string): this {
     this.activeTask = label;
-
-    return this;
-  }
-
-  public setTags(tags: Tag[]): this {
-    this.tags = tags;
 
     return this;
   }
