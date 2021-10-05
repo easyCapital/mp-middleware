@@ -1,6 +1,6 @@
 {
   "name": "mieuxplacer-middleware",
-  "version": "2.33.0",
+  "version": "2.34.0-RC-1",
   "description": "Middleware for Mieuxplacer.com services",
   "main": "index.js",
   "private": true,
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@adonisjs/vow": "^1.0.17",
+    "@commitlint/config-conventional": "^13.1.0",
     "@sentry/cli": "^1.68.0",
     "@types/chai": "^4.2.21",
     "@types/fetch-mock": "^7.3.5",
@@ -41,7 +42,6 @@
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
     "commitlint": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
     "concurrently": "^6.2.1",
     "cpx": "^1.5.0",
     "eslint": "^7.32.0",
