@@ -157,6 +157,7 @@ export default class BackendApi {
   public createCGPStudy = CGP.createStudy;
   public editCGPCustomerStudy = CGP.editCustomerStudy;
   public getCGPCustomerStudies = CGP.getCustomerStudies;
+  public updateCGPCustomerStudy = CGP.updateCustomerStudy;
   // CGP - Tag
   public createCGPCustomerTags = CGP.createCustomerTags;
   public deleteCGPCustomerTags = CGP.deleteCustomerTags;

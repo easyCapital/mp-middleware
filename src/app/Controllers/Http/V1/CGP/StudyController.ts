@@ -36,6 +36,14 @@ class CGPStudyController {
     response.status(200).send(updatedStudy);
   }
 
+  public async update({ params, response, backendApi }: Context): Promise<void> {
+    const { customer, study } = params;
+
+    const updatedStudy = await backendApi.updateCGPCustomerStudy(customer, study);
+
+    response.status(200).send(updatedStudy);
+  }
+
   public async finishTask({ params, response, backendApi }: Context): Promise<void> {
     const { customer, study, task } = params;
 
