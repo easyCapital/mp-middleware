@@ -27,7 +27,7 @@ Route.any('*', ({ request, response }) => {
   const bestFormat = request.accepts(['json', 'html']);
 
   if (bestFormat === 'json') {
-    throw new NotFoundException('Cette route est introuvable.');
+    throw new NotFoundException(`La route ${request.url()} est introuvable.`);
   }
 
   response.redirect('https://mieuxplacer.tech/');
