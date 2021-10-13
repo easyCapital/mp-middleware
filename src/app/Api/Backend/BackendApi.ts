@@ -1,7 +1,6 @@
 import { BackendClientInterface, BackendToken } from '../../../app/Clients/Backend/BackendClient';
 
 import * as Answer from './Answer';
-import * as Authentication from './Authentication';
 import * as Contract from './Contract';
 import * as Customer from './Customer';
 import * as File from './File';
@@ -18,11 +17,6 @@ export default class BackendApi {
   public createAnswers = Answer.createAnswers;
   public getAnswers = Answer.getAnswers;
   public prevalidateAnswers = Answer.prevalidateAnswers;
-  // Authentication
-  public login = Authentication.login;
-  public logout = Authentication.logout;
-  public forgotPassword = Authentication.forgotPassword;
-  public sendValidationEmail = Authentication.sendValidationEmail;
   // Contract
   public getContract = Contract.getContract;
   public getContracts = Contract.getContracts;

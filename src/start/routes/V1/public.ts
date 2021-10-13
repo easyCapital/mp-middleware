@@ -96,20 +96,6 @@ addAPIPrefixToGroup(
 
 /*
 |--------------------------------------------------------------------------
-| API V1 - AUTHENTICATION
-|--------------------------------------------------------------------------
-*/
-addAPIPrefixToGroup(
-  Route.group(() => {
-    Route.post('/login', 'V1/AuthenticationController.login');
-    Route.get('/logout', 'V1/AuthenticationController.logout').middleware(['auth']);
-    Route.post('/forgot-password', 'V1/AuthenticationController.forgotPassword');
-    Route.post('/email-validation', 'V1/AuthenticationController.sendValidationEmail');
-  }).prefix('auth'),
-);
-
-/*
-|--------------------------------------------------------------------------
 | API V1 - CUSTOMER
 |--------------------------------------------------------------------------
 */
