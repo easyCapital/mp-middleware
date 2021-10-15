@@ -158,7 +158,6 @@ export default class BackendApi {
   public getCGPCustomerTags = CGP.getCustomerTags;
   // CGP - Study Task
   public finishStudyTask = CGP.finishStudyTask;
-  public getLatestCustomerTask = CGP.getLatestCustomerTask;
   // CGP - User
   public getCGPDetails = CGP.getCGPDetails;
   public getCGPStatistics = CGP.getCGPStatistics;

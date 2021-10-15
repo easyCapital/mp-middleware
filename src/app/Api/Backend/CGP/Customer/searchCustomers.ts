@@ -5,7 +5,6 @@ import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import { formatMeta } from '../../Helpers';
 import BackendApi from '../..';
-import { Task } from '../../../../Models/Task';
 
 export default async function searchCustomers(
   this: BackendApi,
@@ -23,31 +22,9 @@ export default async function searchCustomers(
     const data = await response.json();
     const meta = formatMeta(response.headers, pagination);
 
-    const customers: Map<string, Customer> = new Map();
-    const customerIds: number[] = [];
+    const customers = data.map((item) => new Customer(item));
 
-    data.forEach((item) => {
-      const customer = new Customer(item);
-
-      customers.set(customer.getId().toString(), customer);
-      customerIds.push(customer.getId());
-    });
-
-    if (customerIds.length > 0) {
-      const tasks = await this.getLatestCustomerTask(customerIds);
-
-      // SET CUSTOMER TASKS
-      Object.keys(tasks).forEach((customerId) => {
-        const customer = customers.get(customerId);
-        const customerTask = tasks[customerId] as Task<any>;
-
-        if (customer && customerTask) {
-          customer.setActiveTask(customerTask.getLabel());
-        }
-      });
-    }
-
-    return { results: Array.from(customers.values()), meta };
+    return { results: customers, meta };
   } catch (exception: any) {
     if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();

@@ -6,8 +6,6 @@ import Tag from './Tag';
 
 interface CustomerInterface {
   toJSON(): JsonCustomerInterface;
-  isActive(): boolean;
-  isEmailValidated(): boolean;
 }
 
 export default class Customer implements CustomerInterface {
@@ -18,12 +16,10 @@ export default class Customer implements CustomerInterface {
   private lastName?: string;
   private mobileNumber?: string;
   private universe: string;
-  private activeTask?: string;
   private active: boolean;
-  private emailValidated: boolean;
   private lastModified: string;
   private lastLogin?: string;
-  private tags?: Tag[];
+  private tags: Tag[] = [];
 
   constructor(json: any) {
     this.id = json.id;
@@ -33,7 +29,6 @@ export default class Customer implements CustomerInterface {
     this.mobileNumber = json.mobile_number;
     this.universe = json.universe;
     this.active = json.is_active;
-    this.emailValidated = json.email_validated;
     this.lastModified = json.last_modified;
     this.lastLogin = json.last_login;
 
@@ -55,29 +50,10 @@ export default class Customer implements CustomerInterface {
       lastName: this.lastName,
       mobileNumber: this.mobileNumber,
       universe: this.universe,
-      activeTask: this.activeTask,
       isActive: this.active,
       lastModified: this.lastModified,
       lastLogin: this.lastLogin,
-      tags: this.tags?.map((tag) => tag.toJSON()),
+      tags: this.tags.map((tag) => tag.toJSON()),
     };
-  }
-
-  public getId(): number {
-    return this.id;
-  }
-
-  public setActiveTask(label: string): this {
-    this.activeTask = label;
-
-    return this;
-  }
-
-  public isActive(): boolean {
-    return this.active;
-  }
-
-  public isEmailValidated(): boolean {
-    return this.emailValidated;
   }
 }
