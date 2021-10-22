@@ -42,6 +42,6 @@ yarn build
 
 echo "Creating a Sentry release"
 ./node_modules/.bin/sentry-cli releases new ${SENTRY_VERSION}
-./node_modules/.bin/sentry-cli releases set-commits "${SENTRY_VERSION}" --auto || true
+./node_modules/.bin/sentry-cli releases set-commits "${SENTRY_VERSION}" --auto --ignore-missing || true
 ./node_modules/.bin/sentry-cli releases files "${SENTRY_VERSION}" upload-sourcemaps ./dist
 ./node_modules/.bin/sentry-cli releases finalize ${SENTRY_VERSION}
