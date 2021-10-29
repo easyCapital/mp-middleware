@@ -112,6 +112,8 @@ export default class BackendApi {
   public setCGPCustomerFileAsSigning = CGP.setFileAsSigning;
   public setCGPCustomerFilesAsArchived = CGP.setFilesAsArchived;
   public downloadTemplateFile = CGP.downloadTemplateFile;
+  // CGP - Household
+  public updateCGPHousehold = CGP.updateHousehold;
   // CGP - Observation
   public createObservation = CGP.createObservation;
   public deleteObservation = CGP.deleteObservation;
