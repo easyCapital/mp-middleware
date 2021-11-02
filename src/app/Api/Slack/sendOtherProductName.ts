@@ -22,7 +22,7 @@ async function sendOtherProductName(
       },
     };
 
-    await SlackClient.postMessage(PRODUCT_CHANNEL_ID, [section]);
+    await SlackClient.postMessage(PRODUCT_CHANNEL_ID, 'Sélection sans produit faite par un CGP', [section]);
   }
 }
 

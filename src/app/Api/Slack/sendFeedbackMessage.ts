@@ -65,7 +65,7 @@ async function sendFeedbackMessage(
       };
     }
 
-    await SlackClient.postMessage(FEEDBACK_CHANNEL_ID, [section]);
+    await SlackClient.postMessage(FEEDBACK_CHANNEL_ID, 'Nouveau feedback envoyé par un CGP', [section]);
   }
 }
 

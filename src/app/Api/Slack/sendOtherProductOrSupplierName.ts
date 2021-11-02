@@ -23,7 +23,9 @@ async function sendOtherProductOrSupplierName(
       },
     };
 
-    await SlackClient.postMessage(PRODUCT_CHANNEL_ID, [section]);
+    await SlackClient.postMessage(PRODUCT_CHANNEL_ID, "Demande d'ajout fournisseur ou produit envoyé par un CGP", [
+      section,
+    ]);
   }
 }
 

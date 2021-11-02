@@ -2,7 +2,7 @@ import { WebClient, KnownBlock, Block, ErrorCode } from '@slack/web-api';
 import { format } from 'date-fns';
 
 export interface SlackClientInterface {
-  postMessage(channelId: string, data: (KnownBlock | Block)[]): Promise<any>;
+  postMessage(channelId: string, text: string, data: (KnownBlock | Block)[]): Promise<any>;
 }
 
 export default class SlackClient implements SlackClientInterface {
@@ -12,13 +12,13 @@ export default class SlackClient implements SlackClientInterface {
     this.client = new WebClient(this.token);
   }
 
-  public async postMessage(channelId: string, blocks: (KnownBlock | Block)[]): Promise<void> {
+  public async postMessage(channelId: string, text: string, blocks: (KnownBlock | Block)[]): Promise<void> {
     const startTime = process.hrtime();
 
     let statusCode: number | undefined;
 
     try {
-      await this.client.chat.postMessage({ channel: channelId, text: '', blocks });
+      await this.client.chat.postMessage({ channel: channelId, text, blocks });
 
       statusCode = 200;
     } catch (error: any) {
