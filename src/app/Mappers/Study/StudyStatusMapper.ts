@@ -4,6 +4,7 @@ import GenericMapper from '../GenericMapper';
 const StudyStatusMapping = {
   'in progress': StudyStatuses.IN_PROGRESS,
   archived: StudyStatuses.ARCHIVED,
+  done: StudyStatuses.DONE,
 };
 
 class StudyStatusMapper extends GenericMapper<StudyStatuses> {
