@@ -136,10 +136,11 @@ class CGPFileController {
     await backendApi.downloadCGPStudyFiles(req, res, study);
   }
 
-  public async downloadTemplateFile({ params, req, res, backendApi }: Context): Promise<void> {
+  public async downloadTemplateFile({ params, req, request, res, backendApi }: Context): Promise<void> {
     const { type } = params;
+    const fileFormat = request.input('fileFormat');
 
-    await backendApi.downloadTemplateFile(req, res, type);
+    await backendApi.downloadTemplateFile(req, res, type, fileFormat);
   }
 
   public async inpactedFiles({ params, request, response, backendApi }: Context): Promise<void> {

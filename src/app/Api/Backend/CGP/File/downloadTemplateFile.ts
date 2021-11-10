@@ -8,8 +8,10 @@ export default async function downloadTemplateFile(
   req: IncomingMessage,
   res: ServerResponse,
   type: string,
+  fileFormat?: string,
 ): Promise<FileTypes> {
+  const querystring = fileFormat ? `?file_format=${fileFormat}` : '';
   return this.backendClient.proxy(req, res, {
-    url: `file/cgp/template/download/${type}`,
+    url: `file/cgp/template/download/${type}${querystring}`,
   });
 }
