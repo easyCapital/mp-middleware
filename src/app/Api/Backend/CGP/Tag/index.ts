@@ -1,3 +1,2 @@
-export { default as createCustomerTags } from './createCustomerTags';
-export { default as deleteCustomerTags } from './deleteCustomerTags';
-export { default as getCustomerTags } from './getCustomerTags';
+export { default as createTags } from './createTags';
+export { default as deleteTags } from './deleteTags';

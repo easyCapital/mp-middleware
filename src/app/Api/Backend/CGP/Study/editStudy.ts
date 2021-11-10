@@ -6,12 +6,7 @@ import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function editCustomerStudy(
-  this: BackendApi,
-  customerId: string,
-  studyId: string,
-  studyData: StudyDTO,
-): Promise<Study> {
+export default async function editStudy(this: BackendApi, studyId: string, studyData: StudyDTO): Promise<Study> {
   const formattedStudy: { title?: string; status?: string } = {};
 
   if (studyData.title !== undefined) {
@@ -23,9 +18,9 @@ export default async function editCustomerStudy(
   }
 
   try {
-    const response = await this.backendClient.patch(
+    const response = await this.backendClient.post(
       {
-        url: `cgp/customer/${customerId}/study/${studyId}/update`,
+        url: `cgp/study/${studyId}/update`,
       },
       formattedStudy,
     );

@@ -5,6 +5,7 @@ export * from './Authentication';
 export * from './Contract';
 export * from './Customer';
 export * from './File';
+export * from './Household';
 export * from './Observation';
 export * from './Partner';
 export * from './Portfolio';

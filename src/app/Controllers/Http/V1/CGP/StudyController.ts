@@ -1,7 +1,6 @@
 import { Filters, StudyDTO } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
-import { Study } from '../../../../Models/Study';
 import { InvalidArgumentException } from '../../../../Exceptions';
 
 class CGPStudyController {
@@ -13,35 +12,43 @@ class CGPStudyController {
       throw new InvalidArgumentException("Le titre de l'étude est obligatoire.");
     }
 
-    const contracts = await backendApi.createCGPStudy(customer, title, coSubscriber);
+    const study = await backendApi.createStudy(customer, title, coSubscriber);
 
-    response.status(201).send(contracts);
+    response.status(201).send(study);
   }
 
-  public async search({ params, request, response, backendApi }: Context): Promise<void> {
-    const { customer } = params;
-    const filters = request.input('filters') as Filters;
+  public async get({ params, response, backendApi }: Context): Promise<void> {
+    const { study: id } = params;
 
-    const studies: Study[] = await backendApi.getCGPCustomerStudies(customer, filters);
+    const study = await backendApi.getStudy(id);
 
-    response.status(200).send(studies);
+    response.status(200).send(study);
   }
 
   public async edit({ params, request, response, backendApi }: Context): Promise<void> {
-    const { customer, study } = params;
+    const { study: id } = params;
     const data = request.post() as StudyDTO;
 
-    const updatedStudy = await backendApi.editCGPCustomerStudy(customer, study, data);
+    const study = await backendApi.editStudy(id, data);
 
-    response.status(200).send(updatedStudy);
+    response.status(200).send(study);
   }
 
   public async update({ params, response, backendApi }: Context): Promise<void> {
-    const { customer, study } = params;
+    const { study: id } = params;
 
-    const updatedStudy = await backendApi.updateCGPCustomerStudy(customer, study);
+    const study = await backendApi.updateStudy(id);
 
-    response.status(200).send(updatedStudy);
+    response.status(200).send(study);
+  }
+
+  public async search({ params, request, response, backendApi }: Context): Promise<void> {
+    const { household } = params;
+    const filters = request.input('filters') as Filters;
+
+    const studies = await backendApi.getHouseholdStudies(household, filters);
+
+    response.status(200).send(studies);
   }
 
   public async finishTask({ params, response, backendApi }: Context): Promise<void> {

@@ -6,7 +6,7 @@ import { Context } from '../../../../../types';
 
 class CGPCustomerController {
   public async create({ request, response, backendApi, universe }: Context): Promise<void> {
-    const { email, tags, data: answers }: any = request.post();
+    const { email, data: answers }: any = request.post();
 
     if (!universe) {
       throw new InvalidArgumentException("L'entête MP-Universe est obligatoire.");
@@ -21,14 +21,6 @@ class CGPCustomerController {
     if (answers && answers.length > 0) {
       try {
         await backendApi.createCGPCustomerAnswers(data.id, answers);
-      } catch {
-        // DON'T HANDLE CATCH
-      }
-    }
-
-    if (tags && tags.length > 0) {
-      try {
-        await backendApi.createCGPCustomerTags(data.id, tags);
       } catch {
         // DON'T HANDLE CATCH
       }

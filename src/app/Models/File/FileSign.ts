@@ -16,6 +16,7 @@ export default class FileSign implements FileInterface {
   private id: number;
   private user?: {
     id: number;
+    household?: number;
     firstName?: string;
     lastName?: string;
   };
@@ -34,6 +35,7 @@ export default class FileSign implements FileInterface {
     if (json.user) {
       this.user = {
         id: json.user.id,
+        household: json.user.my_household,
         firstName: json.user.first_name,
         lastName: json.user.last_name,
       };

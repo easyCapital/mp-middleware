@@ -34,12 +34,12 @@ class CGPFileController {
   }
 
   public async getAllStudiesFiles({ params, request, response, backendApi }: Context): Promise<void> {
-    const { customer } = params;
+    const { household } = params;
     const filters = request.input('filters') as Filters | undefined;
     const orderBy = request.input('orderBy') as OrderBy | undefined;
     const latestBy = request.input('latestBy') as string | undefined;
 
-    const studyFilesList = await backendApi.getCGPAllStudyFiles(customer, filters, orderBy, latestBy);
+    const studyFilesList = await backendApi.getCGPAllStudyFiles(household, filters, orderBy, latestBy);
 
     response.status(200).send(studyFilesList);
   }

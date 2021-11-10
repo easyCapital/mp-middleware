@@ -3,14 +3,10 @@ import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function updateCustomerStudy(
-  this: BackendApi,
-  customerId: string,
-  studyId: string,
-): Promise<Study> {
+export default async function updateStudy(this: BackendApi, studyId: string): Promise<Study> {
   try {
     const response = await this.backendClient.post({
-      url: `cgp/customer/${customerId}/study/${studyId}/refresh_tasks`,
+      url: `cgp/study/${studyId}/refresh_tasks`,
     });
 
     const data = await response.json();

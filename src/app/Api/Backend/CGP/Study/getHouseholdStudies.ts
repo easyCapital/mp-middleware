@@ -6,9 +6,9 @@ import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function getCustomerStudies(
+export default async function getHouseholdStudies(
   this: BackendApi,
-  customerId: string,
+  householdId: number | string,
   filters?: Filters,
 ): Promise<Study[]> {
   let formattedFilters: Filters = {};
@@ -28,28 +28,15 @@ export default async function getCustomerStudies(
   }
 
   try {
-    const [customerResponse, coSubscriberResponse] = await Promise.all([
-      this.backendClient.get({
-        url: 'cgp/study/search',
-        filters: { ...formattedFilters, customer: customerId },
-        orderBy: { key: 'created', type: 'asc' },
-      }),
-      this.backendClient.get({
-        url: 'cgp/study/search',
-        filters: { ...formattedFilters, co_subscriber: customerId },
-        orderBy: { key: 'created', type: 'asc' },
-      }),
-    ]);
+    const response = await this.backendClient.get({
+      url: `cgp/household/${householdId}/study/search`,
+      filters: formattedFilters,
+      orderBy: { key: 'created', type: 'asc' },
+    });
 
-    const customerStudies = await customerResponse.json();
-    const coSubscriberStudies = await coSubscriberResponse.json();
+    const studies = await response.json();
 
-    const studies: Study[] = [];
-
-    customerStudies.forEach((item) => studies.push(new Study(item)));
-    coSubscriberStudies.forEach((item) => studies.push(new Study(item)));
-
-    return studies;
+    return studies.map((item) => new Study(item));
   } catch (exception: any) {
     if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();

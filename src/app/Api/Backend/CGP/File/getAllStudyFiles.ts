@@ -8,12 +8,12 @@ import BackendApi from '../..';
 
 export default async function getAllStudyFiles(
   this: BackendApi,
-  customerId: string,
+  householdId: number | string,
   filters?: Filters,
   orderBy?: OrderBy,
   latestBy?: string,
 ): Promise<{ [studyId: number]: File[] }> {
-  let formattedFilters: Filters = { customer: customerId };
+  let formattedFilters: Filters = {};
 
   if (filters) {
     if ('type' in filters) {
@@ -40,7 +40,7 @@ export default async function getAllStudyFiles(
   }
 
   try {
-    const studyList: Study[] = await this.getCGPCustomerStudies(customerId);
+    const studyList: Study[] = await this.getHouseholdStudies(householdId);
 
     const filesByStudy: { [studyId: number]: File[] } = {};
 

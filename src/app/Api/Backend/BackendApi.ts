@@ -84,6 +84,12 @@ export default class BackendApi {
   public getCGPCustomer = CGP.getCustomer;
   public searchCGPCustomer = CGP.searchCustomers;
   public prevalidateCustomers = CGP.prevalidateCustomers;
+  // CGP - Household
+  public createHousehold = CGP.createHousehold;
+  public createHouseholdMember = CGP.createHouseholdMember;
+  public getHousehold = CGP.getHousehold;
+  public editHousehold = CGP.editHousehold;
+  public searchHouseholds = CGP.searchHouseholds;
   // CGP - File
   public createCGPCustomerFile = CGP.createCustomerFile;
   public deleteCGPCustomerFile = CGP.deleteCustomerFile;
@@ -148,14 +154,14 @@ export default class BackendApi {
   public getCGPAfiEscaProfileScoring = CGP.getAfiEscaProfileScoring;
   public getCGPSerenalisProfileScoring = CGP.getSerenalisProfileScoring;
   // CGP - Study
-  public createCGPStudy = CGP.createStudy;
-  public editCGPCustomerStudy = CGP.editCustomerStudy;
-  public getCGPCustomerStudies = CGP.getCustomerStudies;
-  public updateCGPCustomerStudy = CGP.updateCustomerStudy;
+  public createStudy = CGP.createStudy;
+  public getStudy = CGP.getStudy;
+  public editStudy = CGP.editStudy;
+  public updateStudy = CGP.updateStudy;
+  public getHouseholdStudies = CGP.getHouseholdStudies;
   // CGP - Tag
-  public createCGPCustomerTags = CGP.createCustomerTags;
-  public deleteCGPCustomerTags = CGP.deleteCustomerTags;
-  public getCGPCustomerTags = CGP.getCustomerTags;
+  public createTags = CGP.createTags;
+  public deleteTags = CGP.deleteTags;
   // CGP - Study Task
   public finishStudyTask = CGP.finishStudyTask;
   // CGP - User

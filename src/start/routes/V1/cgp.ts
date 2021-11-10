@@ -93,6 +93,26 @@ addAPIPrefixToGroup(
 
 /*
   |--------------------------------------------------------------------------
+  | API V1 - CGP - HOUSEHOLD
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.post('/', 'V1/CGP/HouseholdController.create');
+    Route.get('/', 'V1/CGP/HouseholdController.search');
+  }).prefix('household'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/CGP/HouseholdController.get');
+    Route.put('/', 'V1/CGP/HouseholdController.edit');
+    Route.post('/member', 'V1/CGP/HouseholdController.member');
+  }).prefix('household/:id'),
+);
+
+/*
+  |--------------------------------------------------------------------------
   | API V1 - CGP - ANALYSIS
   |--------------------------------------------------------------------------
   */
@@ -118,7 +138,7 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.post('/', 'V1/CGP/TagController.create');
     Route.delete('/', 'V1/CGP/TagController.delete');
-  }).prefix('customer/:customer/tags'),
+  }).prefix('household/:household/tags'),
 );
 
 /*
@@ -282,7 +302,7 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/FileController.getAllStudiesFiles');
-  }).prefix('customer/:customer/study/file'),
+  }).prefix('household/:household/study/file'),
 );
 
 addAPIPrefixToGroup(
@@ -342,15 +362,27 @@ addAPIPrefixToGroup(
   */
 addAPIPrefixToGroup(
   Route.group(() => {
+    Route.put('/', 'V1/CGP/StudyController.edit');
+    Route.patch('/', 'V1/CGP/StudyController.update');
+  }).prefix('study/:study'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
     Route.get('/', 'V1/CGP/StudyController.search');
+  }).prefix('household/:household/study'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
     Route.post('/', 'V1/CGP/StudyController.create');
-    Route.put('/:study', 'V1/CGP/StudyController.edit');
-    Route.patch('/:study', 'V1/CGP/StudyController.update');
   }).prefix('customer/:customer/study'),
 );
 
 addAPIPrefixToGroup(
   Route.group(() => {
+    Route.get('/', 'V1/CGP/StudyController.get');
+
     Route.get('/file', 'V1/CGP/FileController.getByStudy');
   }).prefix('study/:study'),
 );

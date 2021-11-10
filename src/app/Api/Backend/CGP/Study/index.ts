@@ -1,6 +1,8 @@
 export { default as createStudy } from './createStudy';
-export { default as editCustomerStudy } from './editCustomerStudy';
-export { default as getCustomerStudies } from './getCustomerStudies';
-export { default as updateCustomerStudy } from './updateCustomerStudy';
+export { default as getStudy } from './getStudy';
+export { default as editStudy } from './editStudy';
+export { default as updateStudy } from './updateStudy';
+
+export { default as getHouseholdStudies } from './getHouseholdStudies';
 
 export * from './Task';

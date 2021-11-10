@@ -1,13 +1,13 @@
 import { Tag as TagDTO } from '@robinfinance/js-api';
 
-import { Tag } from '../../../../Models/Customer';
+import { Tag } from '../../../../Models/Tag';
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function createCustomerTags(this: BackendApi, customerId: number, tags: TagDTO[]): Promise<Tag[]> {
+export default async function createTags(this: BackendApi, householdId: number, tags: TagDTO[]): Promise<Tag[]> {
   try {
-    const response = await this.backendClient.post({ url: `cgp/customer/${customerId}/tags/create` }, { tags });
+    const response = await this.backendClient.post({ url: `cgp/household/${householdId}/tags/create` }, { tags });
 
     const data = await response.json();
 
