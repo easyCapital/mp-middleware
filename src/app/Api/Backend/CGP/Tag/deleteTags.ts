@@ -1,10 +1,10 @@
-import { Tag as TagDTO } from '@robinfinance/js-api';
+import { Tag } from '@robinfinance/js-api';
 
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import BackendApi from '../..';
 
-export default async function deleteTags(this: BackendApi, householdId: number, tags: TagDTO[]): Promise<void> {
+export default async function deleteTags(this: BackendApi, householdId: number, tags: Tag[]): Promise<void> {
   try {
     await this.backendClient.delete({ url: `cgp/household/${householdId}/tags/delete` }, { tags });
   } catch (exception: any) {

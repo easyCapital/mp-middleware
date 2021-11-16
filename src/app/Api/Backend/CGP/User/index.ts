@@ -1,4 +1,5 @@
 export { default as getCGPDetails } from './getCGPDetails';
+export { default as getCGPTags } from './getCGPTags';
 export { default as getCGPStatistics } from './getCGPStatistics';
 export { default as getStripePortalUrl } from './getStripePortalUrl';
 export { default as setHasSeenHelp } from './setHasSeenHelp';

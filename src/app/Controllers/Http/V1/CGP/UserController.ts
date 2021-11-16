@@ -1,3 +1,4 @@
+import { Filters, OrderBy, Pagination } from '@robinfinance/js-api';
 import { Context } from '../../../../../types';
 
 class CGPUserController {
@@ -5,6 +6,16 @@ class CGPUserController {
     const customer = await backendApi.getCGPDetails();
 
     response.status(200).send(customer);
+  }
+
+  public async getTags({ request, response, backendApi }: Context): Promise<void> {
+    const pagination = request.input('pagination') as Pagination;
+    const filters = request.input('filters') as Filters;
+    const orderBy = request.input('orderBy') as OrderBy;
+
+    const tags = await backendApi.getCGPTags(pagination, filters, orderBy);
+
+    response.status(200).send(tags);
   }
 
   public async getStatistics({ response, backendApi }: Context): Promise<void> {

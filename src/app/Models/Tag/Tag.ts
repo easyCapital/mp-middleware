@@ -5,18 +5,18 @@ interface TagInterface {
 }
 
 export default class Tag implements TagInterface {
+  private id: number;
   private label: string;
-  private color: string;
 
   constructor(json: any) {
+    this.id = json.id;
     this.label = json.label;
-    this.color = json.color;
   }
 
   public toJSON(): JsonTagInterface {
     return {
+      id: this.id,
       label: this.label,
-      color: this.color,
     };
   }
 }

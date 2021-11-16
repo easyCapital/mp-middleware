@@ -1,4 +1,4 @@
-import { Tag as TagDTO } from '@robinfinance/js-api';
+import { TagDTO } from '@robinfinance/js-api';
 
 import { Tag } from '../../../../Models/Tag';
 import { Exception } from '../../../../Exceptions';

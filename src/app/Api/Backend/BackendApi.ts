@@ -167,6 +167,7 @@ export default class BackendApi {
   // CGP - User
   public getCGPDetails = CGP.getCGPDetails;
   public getCGPStatistics = CGP.getCGPStatistics;
+  public getCGPTags = CGP.getCGPTags;
   public getCGPStripePortalUrl = CGP.getStripePortalUrl;
   public setCGHasSeenHelp = CGP.setHasSeenHelp;
   public modifyCGPPassword = CGP.modifyPassword;

@@ -1,4 +1,4 @@
-import { Tag as TagDTO } from '@robinfinance/js-api';
+import { Tag, TagDTO } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 
@@ -14,7 +14,7 @@ class CGPTagController {
 
   public async delete({ request, response, params, backendApi }: Context): Promise<void> {
     const { household } = params;
-    const tags = request.post() as TagDTO[];
+    const tags = request.post() as Tag[];
 
     await backendApi.deleteTags(household, tags);
 
