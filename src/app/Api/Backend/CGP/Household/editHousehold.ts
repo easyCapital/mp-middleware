@@ -17,11 +17,11 @@ export default async function editHousehold(
     main_contact?: number;
   } = {};
 
-  if (household.name) {
+  if (household.name !== undefined) {
     formattedData.name = household.name;
   }
 
-  if (household.notes) {
+  if (household.notes !== undefined) {
     formattedData.notes = household.notes;
   }
 
@@ -29,7 +29,7 @@ export default async function editHousehold(
     formattedData.archived = household.archived;
   }
 
-  if (household.mainContact) {
+  if (household.mainContact !== undefined) {
     formattedData.main_contact = household.mainContact;
   }
 
