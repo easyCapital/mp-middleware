@@ -30,6 +30,7 @@ const ProductCategoryMapping = {
   '24': ProductCategoryTypes.EMPLOYEE_SAVINGS,
   '25': ProductCategoryTypes.CROWDFUNDING,
   '26': ProductCategoryTypes.REAL_ESTATE_CROWDFUNDING,
+  '27': ProductCategoryTypes.FCPR,
 };
 
 class ProductCategoryMapper extends GenericMapper<ProductCategoryTypes> {
