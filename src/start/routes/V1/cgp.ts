@@ -99,8 +99,10 @@ addAPIPrefixToGroup(
   */
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.post('/', 'V1/CGP/HouseholdController.create');
     Route.get('/', 'V1/CGP/HouseholdController.search');
+    Route.post('/', 'V1/CGP/HouseholdController.create');
+    Route.post('/import', 'V1/CGP/HouseholdController.import');
+    Route.post('/prevalidate', 'V1/CGP/HouseholdController.prevalidate');
   }).prefix('household'),
 );
 

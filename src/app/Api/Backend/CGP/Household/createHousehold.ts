@@ -52,7 +52,7 @@ export default async function createHousehold(this: BackendApi, household: Creat
       const errors = await exception.json();
 
       if (errors.errors) {
-        throw new HouseholdCreationException(errors.errors, formattedData);
+        throw new HouseholdCreationException([errors.errors], [formattedData]);
       }
 
       throw new BackendException(errors);

@@ -87,8 +87,10 @@ export default class BackendApi {
   // CGP - Household
   public createHousehold = CGP.createHousehold;
   public createHouseholdMember = CGP.createHouseholdMember;
-  public getHousehold = CGP.getHousehold;
+  public createHouseholds = CGP.createHouseholds;
+  public prevalidateHouseholds = CGP.prevalidateHouseholds;
   public editHousehold = CGP.editHousehold;
+  public getHousehold = CGP.getHousehold;
   public searchHouseholds = CGP.searchHouseholds;
   // CGP - File
   public createCGPCustomerFile = CGP.createCustomerFile;

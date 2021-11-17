@@ -6,6 +6,7 @@ export { default as CustomerCreationException } from './CustomerCreationExceptio
 export { default as CustomerPrevalidationException } from './CustomerPrevalidationException';
 export { default as FileException } from './FileException';
 export { default as HouseholdCreationException } from './HouseholdCreationException';
+export { default as HouseholdPrevalidationException } from './HouseholdPrevalidationException';
 export { default as HouseholdAddMemberException } from './HouseholdAddMemberException';
 export { default as PortfolioException } from './PortfolioException';
 export { default as PropositionException } from './PropositionException';

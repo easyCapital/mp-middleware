@@ -19,19 +19,15 @@ type HouseholdErrors = BackendError & {
   members?: MemberErrors[];
 };
 
-type MemberErrorMessages = {
-  email?: ErrorType;
-  DQ5?: ErrorType;
-  DQ6?: ErrorType;
-  DQ7?: ErrorType;
-  mobile_number?: ErrorType;
+type MemberErrorMessages = { [key: string]: ErrorType[] } & {
+  email?: ErrorType[];
 };
 
 type HouseholdErrorMessages = {
   members?: MemberErrorMessages[];
 };
 
-export default class HouseholdCreationException extends HttpException {
+export default class HouseholdPrevalidationException extends HttpException {
   constructor(errors: HouseholdErrors[], data: HouseholdData[]) {
     const environment = Config.get('sentry.environment');
 
@@ -51,23 +47,28 @@ export default class HouseholdCreationException extends HttpException {
           const memberData = householdData.members[index];
 
           const memberErrorMessages: MemberErrorMessages = {};
+          const memberEmailErrorMessages: ErrorType[] = [];
 
           Object.keys(memberErrors).forEach((errorKey) => {
             switch (errorKey) {
               case BackendErrors.EmailValidationError:
-                memberErrorMessages.email = ErrorTypes.DEFAULT;
+                memberEmailErrorMessages.push(ErrorTypes.DEFAULT);
+                break;
+
+              case BackendErrors.EmailUniqueConstraintError:
+                memberEmailErrorMessages.push(ErrorTypes.USER_EXISTS);
                 break;
 
               case BackendErrors.MissingMandatoryFieldsError:
               case BackendErrors.BlankError:
               case BackendErrors.NullError:
-                memberErrorMessages.email = ErrorTypes.REQUIRED;
+                memberEmailErrorMessages.push(ErrorTypes.REQUIRED);
                 break;
 
               default:
-                memberErrorMessages.email = ErrorTypes.UNKNOWN;
+                memberEmailErrorMessages.push(ErrorTypes.UNKNOWN);
 
-                errorMessage = `Missing Error mapping value in HouseholdCreationException for ${errorKey}`;
+                errorMessage = `Missing Error mapping value in HouseholdPrevalidationException for ${errorKey}`;
 
                 if (environment === 'staging' || environment === 'production') {
                   const Sentry = use('Sentry');
@@ -87,8 +88,11 @@ export default class HouseholdCreationException extends HttpException {
             }
           });
 
+          memberErrorMessages.email = memberEmailErrorMessages;
+
           if (answersErrors && answersErrors.length > 0) {
             answersErrors.forEach((answerErrors, index) => {
+              const answerErrorMessages: ErrorType[] = [];
               const answerData = memberData.answers[index];
 
               Object.keys(answerErrors).forEach((errorKey) => {
@@ -96,26 +100,43 @@ export default class HouseholdCreationException extends HttpException {
                   case BackendErrors.MissingMandatoryFieldsError:
                   case BackendErrors.BlankError:
                   case BackendErrors.NullError:
-                    memberErrorMessages[answerData.question_id] = ErrorTypes.REQUIRED;
+                    answerErrorMessages.push(ErrorTypes.REQUIRED);
+                    break;
+
+                  case BackendErrors.InvalidChoiceError:
                     break;
 
                   case BackendErrors.InvalidError:
-                    memberErrorMessages[answerData.question_id] = ErrorTypes.INVALID;
+                    answerErrorMessages.push(ErrorTypes.INVALID);
+                    break;
+
+                  case BackendErrors.MinValueError:
+                  case BackendErrors.MinimumLengthError:
+                    answerErrorMessages.push(ErrorTypes.MIN);
+                    break;
+
+                  case BackendErrors.MaxValueError:
+                  case BackendErrors.MaximumLengthError:
+                    answerErrorMessages.push(ErrorTypes.MAX);
+                    break;
+
+                  case BackendErrors.NotFound:
+                    answerErrorMessages.push(ErrorTypes.UNKNOWN);
                     break;
 
                   case BackendErrors.InvalidPhoneFormatError:
                   case BackendErrors.InvalidLandlineFormatError:
-                    memberErrorMessages[answerData.question_id] = ErrorTypes.INVALID_PHONE_NUMBER;
+                    answerErrorMessages.push(ErrorTypes.INVALID_PHONE_NUMBER);
                     break;
 
                   case BackendErrors.InvalidMobileFormatError:
-                    memberErrorMessages[answerData.question_id] = ErrorTypes.INVALID_MOBILE_NUMBER;
+                    answerErrorMessages.push(ErrorTypes.INVALID_MOBILE_NUMBER);
                     break;
 
                   default:
-                    memberErrorMessages[answerData.question_id] = ErrorTypes.UNKNOWN;
+                    answerErrorMessages.push(ErrorTypes.UNKNOWN);
 
-                    errorMessage = `Missing Error mapping value in HouseholdCreationException for ${errorKey}`;
+                    errorMessage = `Missing Error mapping value in HouseholdPrevalidationException for ${errorKey}`;
 
                     if (environment === 'staging' || environment === 'production') {
                       const Sentry = use('Sentry');
@@ -134,6 +155,10 @@ export default class HouseholdCreationException extends HttpException {
                     Logger.info(errorMessage);
                 }
               });
+
+              if (answerErrorMessages.length > 0) {
+                memberErrorMessages[answerData.question_id] = answerErrorMessages;
+              }
             });
           }
 

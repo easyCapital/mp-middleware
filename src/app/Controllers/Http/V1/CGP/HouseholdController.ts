@@ -20,12 +20,20 @@ class HouseholdController {
     response.status(200).send(household);
   }
 
-  public async get({ params, response, backendApi }: Context): Promise<void> {
-    const { id } = params;
+  public async import({ request, response, backendApi }: Context): Promise<void> {
+    const households = request.post() as CreateHouseholdDTO[];
 
-    const household = await backendApi.getHousehold(id);
+    const createdHouseholds = await backendApi.createHouseholds(households);
 
-    response.status(200).send(household);
+    response.status(200).send(createdHouseholds);
+  }
+
+  public async prevalidate({ request, response, backendApi }: Context): Promise<void> {
+    const households = request.post() as CreateHouseholdDTO[];
+
+    await backendApi.prevalidateHouseholds(households);
+
+    response.status(204);
   }
 
   public async edit({ params, request, response, backendApi }: Context): Promise<void> {
@@ -33,6 +41,14 @@ class HouseholdController {
     const data = request.post() as HouseholdDTO;
 
     const household = await backendApi.editHousehold(id, data);
+
+    response.status(200).send(household);
+  }
+
+  public async get({ params, response, backendApi }: Context): Promise<void> {
+    const { id } = params;
+
+    const household = await backendApi.getHousehold(id);
 
     response.status(200).send(household);
   }
