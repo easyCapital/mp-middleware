@@ -15,6 +15,7 @@ export default class Household implements HouseholdInterface {
   public archived: boolean;
   public members: Customer[] = [];
   public tags: Tag[] = [];
+  public updatedRIC: string;
   public created: string;
   public updated: string;
 
@@ -25,6 +26,7 @@ export default class Household implements HouseholdInterface {
     this.mainContact = json.main_contact;
     this.archived = json.archived;
 
+    this.updatedRIC = json.updated_ric;
     this.created = json.created;
     this.updated = json.updated;
 
@@ -44,6 +46,7 @@ export default class Household implements HouseholdInterface {
       notes: this.notes,
       mainContact: this.mainContact,
       archived: this.archived,
+      updatedRIC: this.updatedRIC,
       created: this.created,
       updated: this.updated,
       members: this.members.map((member) => member.toJSON()),
