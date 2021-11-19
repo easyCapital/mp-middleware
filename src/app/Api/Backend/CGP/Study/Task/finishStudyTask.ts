@@ -2,15 +2,10 @@ import { Exception } from '../../../../../Exceptions';
 import { BackendException } from '../../../Exceptions';
 import BackendApi from '../../..';
 
-export default async function createStudy(
-  this: BackendApi,
-  customerId: string,
-  studyId: string,
-  taskId: string,
-): Promise<void> {
+export default async function finishStudyTask(this: BackendApi, studyId: string, taskId: string): Promise<void> {
   try {
     await this.backendClient.patch({
-      url: `cgp/customer/${customerId}/study/${studyId}/task/${taskId}/finish`,
+      url: `cgp/study/${studyId}/task/${taskId}/finish`,
     });
   } catch (exception: any) {
     if (exception instanceof Response && typeof exception.json === 'function') {

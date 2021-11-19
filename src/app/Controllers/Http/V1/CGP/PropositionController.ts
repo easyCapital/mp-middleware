@@ -45,9 +45,9 @@ class CGPPropositionController {
   }
 
   public async getStudyPropositions({ params, response, backendApi }: Context): Promise<void> {
-    const { customer, study } = params;
+    const { study } = params;
 
-    const propositions = await backendApi.getCGPStudyPropositions(customer, study);
+    const propositions = await backendApi.getCGPStudyPropositions(study);
 
     response.status(200).send(propositions);
   }
@@ -66,10 +66,10 @@ class CGPPropositionController {
   }
 
   public async validateExternalProposition({ params, request, response, backendApi, origin }: Context): Promise<void> {
-    const { customer, study, task } = params;
+    const { study, task } = params;
     const data = request.post() as { email: string; agency: string | undefined; product: string | undefined };
 
-    await backendApi.finishStudyTask(customer, study, task);
+    await backendApi.finishStudyTask(study, task);
 
     if (data.product) {
       await SlackAPI.sendOtherProductName(origin, data.email, data.product, data.agency);

@@ -8,16 +8,13 @@ import { getPropositionDetails } from '../../Helpers';
 
 export default async function getStudyPropositions(
   this: BackendApi,
-  customerId: string,
   studyId: string,
   filters?: Filters,
 ): Promise<Proposition[]> {
   try {
     const response = await this.backendClient.get({
       url: 'proposition/cgp/search',
-      filters: filters
-        ? { ...filters, user_id: customerId, study_id: studyId }
-        : { user_id: customerId, study_id: studyId },
+      filters: filters ? { ...filters, study_id: studyId } : { study_id: studyId },
       orderBy: { key: 'created', type: 'desc' },
     });
     const data = await response.json();

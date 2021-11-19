@@ -207,6 +207,11 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/PropositionController.search');
+  }).prefix('proposition'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
     Route.post('/', 'V1/CGP/PropositionController.create');
     Route.post('/generate', 'V1/CGP/PropositionController.generate');
   }).prefix('customer/:customer/proposition'),
@@ -214,9 +219,14 @@ addAPIPrefixToGroup(
 
 addAPIPrefixToGroup(
   Route.group(() => {
+    Route.post('/:task/validate/external', 'V1/CGP/PropositionController.validateExternalProposition');
+  }).prefix('study/:study/proposition'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
     Route.get('/', 'V1/CGP/PropositionController.getStudyPropositions');
     Route.post('/', 'V1/CGP/PropositionController.createStudyProposition');
-    Route.post('/:task/validate/external', 'V1/CGP/PropositionController.validateExternalProposition');
   }).prefix('customer/:customer/study/:study/proposition'),
 );
 
@@ -231,7 +241,6 @@ addAPIPrefixToGroup(
   | API V1 - CGP - PARTNER
   |--------------------------------------------------------------------------
   */
-
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/PartnerController.search');
@@ -248,11 +257,15 @@ addAPIPrefixToGroup(
   | API V1 - CGP - PROPOSITION V2
   |--------------------------------------------------------------------------
   */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/CGP/PropositionV2Controller.search');
+  }).prefix('study/:study/propositionv2'),
+);
 
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.post('/', 'V1/CGP/PropositionV2Controller.create');
-    Route.get('/', 'V1/CGP/PropositionV2Controller.search');
   }).prefix('customer/:customer/study/:study/propositionv2'),
 );
 
@@ -352,6 +365,11 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/ContractController.search');
+  }).prefix('contract'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
     Route.post('/proposition', 'V1/CGP/ContractController.create');
   }).prefix('customer/:customer/contract'),
 );
@@ -359,7 +377,7 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/ContractController.search');
-  }).prefix('customer/:customer/study/:study/contract'),
+  }).prefix('study/:study/contract'),
 );
 
 addAPIPrefixToGroup(
@@ -408,7 +426,7 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.patch('/finish', 'V1/CGP/StudyController.finishTask');
-  }).prefix('customer/:customer/study/:study/task/:task'),
+  }).prefix('study/:study/task/:task'),
 );
 
 /*
@@ -473,7 +491,7 @@ addAPIPrefixToGroup(
     Route.patch('/', 'V1/CGP/ObservationController.reorder');
     Route.put('/:observation', 'V1/CGP/ObservationController.edit');
     Route.delete('/:observation', 'V1/CGP/ObservationController.delete');
-  }).prefix('customer/:customer/study/:study/observation'),
+  }).prefix('study/:study/observation'),
 );
 
 /*

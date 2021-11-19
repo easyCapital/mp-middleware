@@ -7,13 +7,12 @@ import BackendApi from '../..';
 
 export default async function searchObservations(
   this: BackendApi,
-  customerId: string,
   studyId: string,
   filters?: Filters,
 ): Promise<Observation[]> {
   try {
     const response = await this.backendClient.get({
-      url: `cgp/customer/${customerId}/study/${studyId}/observation/search`,
+      url: `cgp/study/${studyId}/observation/search`,
       filters,
     });
     const data = await response.json();

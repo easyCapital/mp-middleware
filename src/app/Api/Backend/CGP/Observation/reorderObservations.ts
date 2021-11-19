@@ -5,7 +5,6 @@ import BackendApi from '../..';
 
 export default async function reorderObservations(
   this: BackendApi,
-  customer: string | number,
   study: string | number,
   observations: number[],
 ): Promise<Observation[]> {
@@ -17,7 +16,7 @@ export default async function reorderObservations(
   try {
     const response = await this.backendClient.patch(
       {
-        url: `cgp/customer/${customer}/study/${study}/observation/modify`,
+        url: `cgp/study/${study}/observation/modify`,
       },
       formattedObservations,
     );

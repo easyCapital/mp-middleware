@@ -52,9 +52,9 @@ class CGPStudyController {
   }
 
   public async finishTask({ params, response, backendApi }: Context): Promise<void> {
-    const { customer, study, task } = params;
+    const { study, task } = params;
 
-    await backendApi.finishStudyTask(customer, study, task);
+    await backendApi.finishStudyTask(study, task);
 
     response.status(200).send();
   }

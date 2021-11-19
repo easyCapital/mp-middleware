@@ -7,13 +7,12 @@ import BackendApi from '../..';
 
 export default async function getStudyPropositions(
   this: BackendApi,
-  customer: string,
-  study: string,
+  studyId: string,
   filters?: Filters,
 ): Promise<PropositionV2[]> {
   try {
     const response = await this.backendClient.get({
-      url: `cgp/customer/${customer}/study/${study}/proposition_v2/search`,
+      url: `cgp/study/${studyId}/proposition_v2/search`,
       filters,
     });
     const data = await response.json();

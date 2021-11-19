@@ -1,4 +1,4 @@
-import { PropositionContentDTO } from '@robinfinance/js-api';
+import { Filters, PropositionContentDTO } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 import { InvalidArgumentException } from '../../../../Exceptions';
@@ -18,10 +18,11 @@ class CGPPropositionV2Controller {
     response.status(200).send(proposition);
   }
 
-  public async search({ params, response, backendApi }: Context): Promise<void> {
-    const { customer, study } = params;
+  public async search({ params, request, response, backendApi }: Context): Promise<void> {
+    const { study } = params;
+    const filters = request.input('filters') as Filters;
 
-    const propositions = await backendApi.getCGPPropositionV2(customer, study);
+    const propositions = await backendApi.getCGPPropositionV2(study, filters);
 
     response.status(200).send(propositions);
   }

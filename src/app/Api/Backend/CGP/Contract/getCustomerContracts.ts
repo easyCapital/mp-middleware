@@ -7,7 +7,6 @@ import BackendApi from '../..';
 
 export default async function getCustomerContracts(
   this: BackendApi,
-  customerId: string,
   studyId?: string,
   filters?: Filters,
 ): Promise<Contract[]> {
@@ -16,7 +15,7 @@ export default async function getCustomerContracts(
   try {
     const response = await this.backendClient.get({
       url,
-      filters: filters ? { ...filters, users: customerId } : { users: customerId },
+      filters,
       orderBy: { key: 'date_created', type: 'desc' },
     });
     const data = await response.json();
@@ -37,7 +36,7 @@ export default async function getCustomerContracts(
 
       if (propositionV1Ids.length > 0) {
         const uniquePropositionV1Ids = propositionV1Ids.filter((value, index, array) => array.indexOf(value) === index);
-        const propositionV1s = await this.getCGPStudyPropositions(customerId, studyId, {
+        const propositionV1s = await this.getCGPStudyPropositions(studyId, {
           pk__in: uniquePropositionV1Ids,
         });
 
@@ -52,7 +51,7 @@ export default async function getCustomerContracts(
 
       if (propositionV2Ids.length > 0) {
         const uniquePropositionV2Ids = propositionV2Ids.filter((value, index, array) => array.indexOf(value) === index);
-        const propositionV2s = await this.getCGPPropositionV2(customerId, studyId, {
+        const propositionV2s = await this.getCGPPropositionV2(studyId, {
           pk__in: uniquePropositionV2Ids,
         });
 

@@ -4,13 +4,12 @@ import BackendApi from '../..';
 
 export default async function deleteObservation(
   this: BackendApi,
-  customer: string | number,
   study: string | number,
   observation: string | number,
 ): Promise<void> {
   try {
     await this.backendClient.delete({
-      url: `cgp/customer/${customer}/study/${study}/observation/${observation}/delete`,
+      url: `cgp/study/${study}/observation/${observation}/delete`,
     });
   } catch (exception: any) {
     if (exception instanceof Response && typeof exception.json === 'function') {

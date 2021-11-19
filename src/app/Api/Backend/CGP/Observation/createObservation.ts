@@ -8,7 +8,6 @@ import BackendApi from '../..';
 
 export default async function createObservation(
   this: BackendApi,
-  customer: string | number,
   study: string | number,
   observation: ObservationDTO,
 ): Promise<Observation> {
@@ -29,7 +28,7 @@ export default async function createObservation(
   try {
     const response = await this.backendClient.post(
       {
-        url: `cgp/customer/${customer}/study/${study}/observation/create`,
+        url: `cgp/study/${study}/observation/create`,
       },
       formattedObservation,
     );

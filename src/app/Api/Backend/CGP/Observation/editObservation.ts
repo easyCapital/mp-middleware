@@ -8,7 +8,6 @@ import BackendApi from '../..';
 
 export default async function editObservation(
   this: BackendApi,
-  customer: string | number,
   study: string | number,
   observation: string | number,
   observationData: ObservationDTO,
@@ -34,7 +33,7 @@ export default async function editObservation(
   try {
     const response = await this.backendClient.patch(
       {
-        url: `cgp/customer/${customer}/study/${study}/observation/modify`,
+        url: `cgp/study/${study}/observation/modify`,
       },
       [formattedObservation],
     );

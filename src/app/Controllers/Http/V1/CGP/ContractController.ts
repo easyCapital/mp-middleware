@@ -25,10 +25,10 @@ class CGPContractController {
   }
 
   public async search({ params, request, response, backendApi }: Context): Promise<void> {
-    const { customer, study } = params;
+    const { study } = params;
     const filters = request.input('filters') as Filters;
 
-    const contracts: Contract[] = await backendApi.getCGPCustomerContracts(customer, study, filters);
+    const contracts = await backendApi.getCGPCustomerContracts(study, filters);
 
     response.status(200).send(contracts);
   }
