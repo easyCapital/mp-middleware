@@ -1,4 +1,4 @@
-import { Filters } from '@robinfinance/js-api';
+import { Filters, OrderBy } from '@robinfinance/js-api';
 
 import { Answer } from '../../../../Models/Answer';
 import { Exception } from '../../../../Exceptions';
@@ -8,16 +8,15 @@ import BackendApi from '../..';
 
 export default async function getCustomerAnswers(
   this: BackendApi,
-  customerId: string,
   filters?: Filters,
+  orderBy?: OrderBy,
   latestBy?: string,
 ): Promise<Answer[]> {
-  const formattedFilters = filters ? { ...filters, user: customerId } : { user: customerId };
-
   try {
     const response = await this.backendClient.get({
       url: 'cgp/answer/search',
-      filters: formattedFilters,
+      filters,
+      orderBy,
       latestBy,
     });
     const data = await response.json();
@@ -32,7 +31,8 @@ export default async function getCustomerAnswers(
         answerQueries.push(
           this.backendClient.get({
             url: 'cgp/answer/search',
-            filters: formattedFilters,
+            filters,
+            orderBy,
             latestBy,
             pagination: {
               page,

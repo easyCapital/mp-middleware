@@ -11,13 +11,12 @@ import {
 import { Context } from '../../../../../types';
 
 class CGPFileController {
-  public async search({ params, request, response, backendApi }: Context): Promise<void> {
-    const { customer } = params;
+  public async search({ request, response, backendApi }: Context): Promise<void> {
     const filters = request.input('filters') as Filters | undefined;
     const orderBy = request.input('orderBy') as OrderBy | undefined;
     const latestBy = request.input('latestBy') as string | undefined;
 
-    const files = await backendApi.getCGPCustomerFiles(customer, filters, orderBy, latestBy);
+    const files = await backendApi.getCustomerFiles(filters, orderBy, latestBy);
 
     response.status(200).send(files);
   }

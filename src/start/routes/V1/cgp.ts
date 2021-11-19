@@ -188,8 +188,13 @@ addAPIPrefixToGroup(
   */
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.post('/', 'V1/CGP/AnswerController.create');
     Route.get('/', 'V1/CGP/AnswerController.search');
+  }).prefix('answer'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.post('/', 'V1/CGP/AnswerController.create');
     Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivate');
   }).prefix('customer/:customer/answer'),
 );
@@ -292,6 +297,11 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/FileController.search');
+  }).prefix('file'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
     Route.post('/', 'V1/CGP/FileController.create');
     Route.post('/generate', 'V1/CGP/FileController.generate');
     Route.post('/signature', 'V1/CGP/FileController.generateSignature');

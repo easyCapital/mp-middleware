@@ -8,12 +8,11 @@ import BackendApi from '../..';
 
 export default async function getCustomerFiles(
   this: BackendApi,
-  customerId: number | string,
   filters?: Filters,
   orderBy?: OrderBy,
   latestBy?: string,
 ): Promise<File[]> {
-  let formattedFilters: Filters = { user: customerId };
+  let formattedFilters: Filters = {};
 
   if (filters) {
     if ('type' in filters) {

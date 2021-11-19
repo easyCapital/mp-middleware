@@ -1,13 +1,14 @@
-import { Filters, Answer } from '@robinfinance/js-api';
+import { Filters, Answer, OrderBy } from '@robinfinance/js-api';
 
 import { Context } from '../../../../../types';
 
 class CGPAnswerController {
-  public async search({ params, request, response, backendApi }: Context): Promise<void> {
-    const { customer } = params;
-    const filters = request.input('filters') as Filters;
+  public async search({ request, response, backendApi }: Context): Promise<void> {
+    const filters = request.input('filters') as Filters | undefined;
+    const orderBy = request.input('orderBy') as OrderBy | undefined;
+    const latestBy = request.input('latestBy') as string | undefined;
 
-    const answers = await backendApi.getCGPCustomerAnswers(customer, filters);
+    const answers = await backendApi.getCGPCustomerAnswers(filters, orderBy, latestBy);
 
     response.status(200).send(answers);
   }
