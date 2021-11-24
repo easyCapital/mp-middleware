@@ -31,6 +31,16 @@ const ProductCategoryMapping = {
   '25': ProductCategoryTypes.CROWDFUNDING,
   '26': ProductCategoryTypes.REAL_ESTATE_CROWDFUNDING,
   '27': ProductCategoryTypes.FCPR,
+  '28': ProductCategoryTypes.FIA,
+  '29': ProductCategoryTypes.SOFICA,
+  '30': ProductCategoryTypes.FPCI,
+  '31': ProductCategoryTypes.OPPCI,
+  '32': ProductCategoryTypes.MADELIN,
+  '33': ProductCategoryTypes.FPS,
+  '34': ProductCategoryTypes.DEMEMBREMENT,
+  '35': ProductCategoryTypes.PEE,
+  '36': ProductCategoryTypes.PEI,
+  '37': ProductCategoryTypes.PERECO,
 };
 
 class ProductCategoryMapper extends GenericMapper<ProductCategoryTypes> {
