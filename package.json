@@ -1,6 +1,6 @@
 {
   "name": "mieuxplacer-middleware",
-  "version": "2.34.3",
+  "version": "2.34.4-RC-1",
   "description": "Middleware for Mieuxplacer.com services",
   "main": "index.js",
   "private": true,
