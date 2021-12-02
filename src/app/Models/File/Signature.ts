@@ -12,6 +12,7 @@ export default class Signature implements SignatureInterface {
   private status?: FileSignStatus;
   private type?: FileSignType;
   private url: string;
+  private comment?: string;
   private created: string;
   private updated: string;
   private files: File[];
@@ -21,6 +22,7 @@ export default class Signature implements SignatureInterface {
     this.status = FileSignStatusMapper.transformValue(json.status);
     this.type = FileSignTypeMapper.transformValue(json.signature_type);
     this.url = json.signature_url;
+    this.comment = json.comment;
     this.created = json.created;
     this.updated = json.updated;
 
@@ -33,6 +35,7 @@ export default class Signature implements SignatureInterface {
       status: this.status,
       type: this.type,
       url: this.url,
+      comment: this.comment,
       created: this.created,
       updated: this.updated,
       files: this.files.map((item) => item.toJSON()),

@@ -12,8 +12,9 @@ export default async function signCustomerFiles(
   fileIds: number[] | string[],
   callbackUrl?: string,
   type?: FileSignType,
+  sendFilesToClient?: boolean,
 ): Promise<Signature | undefined> {
-  const body: { files: string[] | number[]; callback_url?: string; type?: string } = {
+  const body: { files: string[] | number[]; callback_url?: string; type?: string; send_files_to_client?: boolean } = {
     files: fileIds,
   };
 
@@ -23,6 +24,10 @@ export default async function signCustomerFiles(
 
   if (type) {
     body.type = FileSignTypeMapper.reverseTransform(type);
+  }
+
+  if (sendFilesToClient !== undefined) {
+    body.send_files_to_client = sendFilesToClient;
   }
 
   try {

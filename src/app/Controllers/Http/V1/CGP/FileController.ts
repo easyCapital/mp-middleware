@@ -176,18 +176,17 @@ class CGPFileController {
 
   public async generateSignature({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer } = params;
-    const { files, callback, type }: any = request.post();
+    const { files, callback, type, sendFilesToClient }: any = request.post();
 
-    const data = await backendApi.signCustomerFiles(customer, files, callback, type);
+    const data = await backendApi.signCustomerFiles(customer, files, callback, type, sendFilesToClient);
 
     response.status(200).send(data);
   }
 
-  public async sendSignature({ params, request, response, backendApi }: Context): Promise<void> {
-    const { customer } = params;
-    const { files, ...body }: any = request.post();
+  public async sendSignature({ request, response, backendApi }: Context): Promise<void> {
+    const { files, customers, subject, message, sendFilesToClient }: any = request.post();
 
-    const data = await backendApi.sendCGPCustomerSignature(customer, files, body);
+    const data = await backendApi.sendCGPCustomerSignature(files, customers, subject, message, sendFilesToClient);
 
     response.status(200).send(data);
   }

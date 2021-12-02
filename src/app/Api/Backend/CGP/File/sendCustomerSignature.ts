@@ -5,19 +5,41 @@ import BackendApi from '../..';
 
 export default async function sendCustomerSignature(
   this: BackendApi,
-  customerId: string,
   fileIds: number[] | string[],
-  body?: { email?: string; subject?: string; message?: string },
+  customers: { id: number; email?: string }[],
+  subject?: string,
+  message?: string,
+  sendFilesToClient?: boolean,
 ): Promise<Signature | undefined> {
+  const body: {
+    files: number[] | string[];
+    customers: { id: number; email?: string }[];
+    subject?: string;
+    message?: string;
+    send_files_to_client?: boolean;
+  } = {
+    files: fileIds,
+    customers,
+  };
+
+  if (subject) {
+    body.subject = subject;
+  }
+
+  if (message) {
+    body.message = message;
+  }
+
+  if (sendFilesToClient !== undefined) {
+    body.send_files_to_client = sendFilesToClient;
+  }
+
   try {
     const response = await this.backendClient.post(
       {
-        url: `cgp/customer/${customerId}/file/customer-sign`,
+        url: `cgp/file/customer-sign`,
       },
-      {
-        files: fileIds,
-        ...body,
-      },
+      body,
     );
 
     const data = await response.json();

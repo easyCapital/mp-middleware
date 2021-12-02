@@ -219,13 +219,13 @@ addAPIPrefixToGroup(
 
 addAPIPrefixToGroup(
   Route.group(() => {
+    Route.get('/', 'V1/CGP/PropositionController.getStudyPropositions');
     Route.post('/:task/validate/external', 'V1/CGP/PropositionController.validateExternalProposition');
   }).prefix('study/:study/proposition'),
 );
 
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.get('/', 'V1/CGP/PropositionController.getStudyPropositions');
     Route.post('/', 'V1/CGP/PropositionController.createStudyProposition');
   }).prefix('customer/:customer/study/:study/proposition'),
 );
@@ -310,6 +310,7 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/FileController.search');
+    Route.post('/customer-signature', 'V1/CGP/FileController.sendSignature');
   }).prefix('file'),
 );
 
@@ -319,7 +320,6 @@ addAPIPrefixToGroup(
     Route.post('/generate', 'V1/CGP/FileController.generate');
     Route.post('/signature', 'V1/CGP/FileController.generateSignature');
     Route.post('/archive', 'V1/CGP/FileController.archived');
-    Route.post('/customer-signature', 'V1/CGP/FileController.sendSignature');
     Route.delete('/:file/delete', 'V1/CGP/FileController.delete');
     Route.get('/:fileType/questions', 'V1/CGP/FileController.questions');
   }).prefix('customer/:customer/file'),
