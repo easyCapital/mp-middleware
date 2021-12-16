@@ -10,6 +10,7 @@ interface TaskInterface<Type> {
 export default class Task<Type> implements TaskInterface<Type> {
   private id: number;
   private label: string;
+  private customer: number;
   private subject: TaskSubject;
   private status?: TaskStatus;
   private data?: Type;
@@ -17,19 +18,18 @@ export default class Task<Type> implements TaskInterface<Type> {
   private next: number | null;
   private order: number;
   private or: boolean;
-  private isForCoSubscriber: boolean;
   private contract?: number;
 
   constructor(json: any) {
     this.id = json.id;
     this.label = json.label;
+    this.customer = json.customer;
     this.subject = new TaskSubject(json.subject);
     this.status = TaskStatusMapper.transformValue(json.status);
     this.parent = json.parent;
     this.next = json.next_action;
     this.order = json.execution_order;
     this.or = json._or;
-    this.isForCoSubscriber = json.is_for_co_subscriber;
     this.contract = json.contract;
   }
 
@@ -37,6 +37,7 @@ export default class Task<Type> implements TaskInterface<Type> {
     return {
       id: this.id,
       label: this.label,
+      customer: this.customer,
       status: this.status,
       subject: this.subject.toJSON(),
       data: this.data,
@@ -44,7 +45,6 @@ export default class Task<Type> implements TaskInterface<Type> {
       next: this.next,
       order: this.order,
       or: this.or,
-      isForCoSubscriber: this.isForCoSubscriber,
       contract: this.contract,
     };
   }

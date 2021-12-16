@@ -10,7 +10,7 @@ export default class AnswerException extends HttpException {
     const environment = Config.get('sentry.environment');
 
     let errorMessage: string | undefined;
-    const errorMessages: { key: string; row?: number; error: ErrorType }[] = [];
+    const errorMessages: { key: string; row?: number; user?: number; error: ErrorType }[] = [];
 
     if (Array.isArray(errors)) {
       errors.forEach((error, index) => {
@@ -92,7 +92,7 @@ export default class AnswerException extends HttpException {
             });
           }
 
-          errorMessages.push({ key: answer.question, row: answer.row, error: errorMessageType });
+          errorMessages.push({ key: answer.question, row: answer.row, user: answer.user, error: errorMessageType });
         });
       });
     } else {
