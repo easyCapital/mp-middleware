@@ -19,3 +19,4 @@ export { default as sendCustomerSignature } from './sendCustomerSignature';
 export { default as downloadTemplateFile } from './downloadTemplateFile';
 export { default as setFileAsSigning } from './setFileAsSigning';
 export { default as setFilesAsArchived } from './setFilesAsArchived';
+export { default as updateStudyFiles } from './updateStudyFiles';

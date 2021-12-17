@@ -31,6 +31,11 @@ export default class FileException extends HttpException {
         case BackendErrors.NotFound:
           throw new InvalidArgumentException('Le document n’a pas pu être trouvé, merci de vérifier l’id fourni.');
 
+        case BackendErrors.MaximumLengthError:
+          throw new InvalidArgumentException(
+            'Le nom du fichier dépasse la taille autorisée, veuillez le renommer et réessayer.',
+          );
+
         default:
           errorMessage = `Missing Error mapping value in FileException for ${errorKey}`;
 

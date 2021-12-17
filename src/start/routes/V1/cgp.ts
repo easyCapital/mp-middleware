@@ -458,6 +458,7 @@ addAPIPrefixToGroup(
     Route.post('/generate', 'V1/CGP/FileController.generate');
     Route.post('/merge', 'V1/CGP/FileController.merge');
     Route.post('/inpacted', 'V1/CGP/FileController.inpactedFiles');
+    Route.put('/bulk-update', 'V1/CGP/FileController.bulkUpdate');
   }).prefix('customer/:customer/study/:study/file'),
 );
 

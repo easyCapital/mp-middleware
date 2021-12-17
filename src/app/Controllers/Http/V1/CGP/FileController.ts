@@ -61,6 +61,8 @@ class CGPFileController {
               file.id,
               file.signatureDate,
               file.contractId,
+              file.name,
+              file.order,
             );
 
             return createdFile.toJSON();
@@ -222,6 +224,16 @@ class CGPFileController {
     const questions = await backendApi.getFileQuestions(customer, fileType);
 
     response.status(200).send(questions);
+  }
+
+  public async bulkUpdate({ params, request, backendApi, response }: Context): Promise<void> {
+    const { customer, study } = params;
+
+    const files = request.post() as { id: number; order: number; name: string }[];
+
+    const updatedFiles = await backendApi.updateCGPStudyFiles(customer, study, files);
+
+    response.status(200).send(updatedFiles);
   }
 }
 

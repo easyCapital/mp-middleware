@@ -22,6 +22,8 @@ export default class File implements FileInterface {
   private createDate: string;
   private contracts?: number[];
   private studies?: number[];
+  private order: number;
+  private name?: string;
 
   constructor(json: any) {
     this.id = json.id;
@@ -37,6 +39,8 @@ export default class File implements FileInterface {
     this.updateDate = json.update_date;
     this.createDate = json.upload_date;
     this.studies = json.studies;
+    this.order = json.order;
+    this.name = json.file_name;
 
     if (json.signature_status !== null) {
       this.signatureStatus = FileSignStatusMapper.transformValue(json.signature_status);
@@ -64,6 +68,8 @@ export default class File implements FileInterface {
       createDate: this.createDate,
       contracts: this.contracts,
       studies: this.studies,
+      order: this.order,
+      name: this.name,
     };
   }
 

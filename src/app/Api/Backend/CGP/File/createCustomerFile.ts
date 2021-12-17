@@ -14,6 +14,8 @@ export default async function createCustomerFile(
   id?: number,
   signatureDate?: string,
   contractId?: number,
+  name?: string,
+  order?: number,
 ): Promise<File> {
   let url = `cgp/customer/${customerId}/file/create`;
 
@@ -33,6 +35,14 @@ export default async function createCustomerFile(
 
   if (contractId) {
     body.contract_id = contractId;
+  }
+
+  if (name) {
+    body.file_name = name;
+  }
+
+  if (order) {
+    body.order = order;
   }
 
   try {
