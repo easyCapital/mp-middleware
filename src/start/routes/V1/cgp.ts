@@ -455,6 +455,7 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.post('/', 'V1/CGP/FileController.create');
+    Route.post('/', 'V1/CGP/FileController.createMissionReport');
     Route.post('/generate', 'V1/CGP/FileController.generate');
     Route.post('/merge', 'V1/CGP/FileController.merge');
     Route.post('/inpacted', 'V1/CGP/FileController.inpactedFiles');

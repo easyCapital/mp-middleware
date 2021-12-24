@@ -88,6 +88,51 @@ class CGPFileController {
     }
   }
 
+  public async createMissionreport({ params, request, response, backendApi }: Context): Promise<void> {
+    const { customer, study } = params;
+    const data = request.post() as FileDTO[];
+
+    const errors: { key: FileType; error: string }[] = [];
+
+    const files: (JsonFileInterface | undefined)[] = await Promise.all(
+      data.map(async (file, index) => {
+        try {
+          if (file.data !== undefined && file.type) {
+            const createdFile = await backendApi.createCGPCustomerFile(
+              customer,
+              study,
+              file.type,
+              file.data,
+              file.id,
+              file.signatureDate,
+              file.contractId,
+              file.name,
+              file.order,
+            );
+
+            return createdFile.toJSON();
+          }
+
+          if (file.file) {
+            await backendApi.linkCGPCustomerFile(study, file.file.id);
+
+            return file.file;
+          }
+        } catch (exception: any) {
+          if (file.type) {
+            errors[index] = { key: file.type, error: exception.message };
+          }
+        }
+      }),
+    );
+
+    if (errors.length > 0) {
+      response.status(400).send(errors);
+    } else {
+      response.status(200).send(files);
+    }
+  }
+
   public async delete({ params, req, res, backendApi }: Context): Promise<void> {
     const { file, customer } = params;
 

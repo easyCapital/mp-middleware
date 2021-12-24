@@ -1,5 +1,6 @@
 export { default as cancelFileSignature } from './cancelFileSignature';
 export { default as createCustomerFile } from './createCustomerFile';
+export { default as createMissionReportFile } from './createMissionReportFile';
 export { default as deleteCustomerFile } from './deleteCustomerFile';
 export { default as downloadContractFiles } from './downloadContractFiles';
 export { default as downloadCustomerFile } from './downloadCustomerFile';
