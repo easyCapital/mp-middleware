@@ -19,6 +19,7 @@ export default class Study implements StudyInterface {
   private created: Date;
   private updated: Date;
   private tasks: Task<any>[] = [];
+  private version: number;
 
   constructor(json: any) {
     this.id = json.id;
@@ -28,6 +29,7 @@ export default class Study implements StudyInterface {
     this.version = json.version;
     this.created = json.created;
     this.updated = json.updated;
+    this.version = json.version;
 
     if (json.co_subscriber) {
       this.coSubscriber = json.co_subscriber;
@@ -59,6 +61,7 @@ export default class Study implements StudyInterface {
       created: this.created,
       updated: this.updated,
       tasks: this.tasks.map((item) => item.toJSON()),
+      version: this.version,
     };
   }
 }
