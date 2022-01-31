@@ -15,6 +15,7 @@ export default class Study implements StudyInterface {
   private coSubscriber?: number;
   private title: string;
   private status?: StudyStatus;
+  private version: number;
   private created: Date;
   private updated: Date;
   private tasks: Task<any>[] = [];
@@ -24,6 +25,7 @@ export default class Study implements StudyInterface {
     this.customer = json.customer;
     this.title = json.title;
     this.status = StudyStatusMapper.transformValue(json.status);
+    this.version = json.version;
     this.created = json.created;
     this.updated = json.updated;
 
@@ -52,6 +54,7 @@ export default class Study implements StudyInterface {
       customer: this.customer,
       coSubscriber: this.coSubscriber,
       title: this.title,
+      version: this.version,
       status: this.status,
       created: this.created,
       updated: this.updated,

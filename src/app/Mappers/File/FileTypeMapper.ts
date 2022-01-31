@@ -28,6 +28,8 @@ const FileTypeMapping = {
   '24': FileTypes.MISSION_REPORT_ANNEX,
   '25': FileTypes.MISSION_REPORT_COMPLETED,
   '26': FileTypes.MISSION_REPORT_WITH_ANNEXES,
+  '27': FileTypes.ASSET_FREEZING_BLACKLIST_REPORT,
+  '28': FileTypes.RIC_PAPER_FORM,
 };
 
 class FileTypeMapper extends GenericMapper<FileTypes> {

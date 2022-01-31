@@ -1,4 +1,4 @@
-import { Filters } from '@robinfinance/js-api';
+import { Filters, OrderBy } from '@robinfinance/js-api';
 
 import { Answer } from '../../../../Models/Answer';
 import { Exception } from '../../../../Exceptions';
@@ -6,18 +6,17 @@ import { BackendException } from '../../Exceptions';
 import { formatMeta } from '../../Helpers';
 import BackendApi from '../..';
 
-export default async function getStudyAnswers(
+export default async function getAnswers(
   this: BackendApi,
-  studyId: string | number,
   filters?: Filters,
+  orderBy?: OrderBy,
   latestBy?: string,
 ): Promise<Answer[]> {
-  const formattedFilters = filters ? { ...filters, study_answers__study: studyId } : { study_answers__study: studyId };
-
   try {
     const response = await this.backendClient.get({
       url: 'cgp/answer/search',
-      filters: formattedFilters,
+      filters,
+      orderBy,
       latestBy,
     });
     const data = await response.json();
@@ -32,7 +31,8 @@ export default async function getStudyAnswers(
         answerQueries.push(
           this.backendClient.get({
             url: 'cgp/answer/search',
-            filters: formattedFilters,
+            filters,
+            orderBy,
             latestBy,
             pagination: {
               page,

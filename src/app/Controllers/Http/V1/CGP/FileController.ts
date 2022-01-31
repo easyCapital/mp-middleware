@@ -145,10 +145,10 @@ class CGPFileController {
   }
 
   public async inpactedFiles({ params, request, response, backendApi }: Context): Promise<void> {
-    const { customer, study, contract } = params;
+    const { study, contract } = params;
     const answers = request.post() as Answer[];
 
-    const files = await backendApi.getInpactedCustomerFiles(customer, study, answers, contract);
+    const files = await backendApi.getInpactedFiles(study, answers, contract);
 
     response.status(200).send(files);
   }
@@ -219,9 +219,9 @@ class CGPFileController {
   }
 
   public async questions({ params, backendApi, response }: Context): Promise<void> {
-    const { customer, fileType } = params;
+    const { customer, study, contract, fileType } = params;
 
-    const questions = await backendApi.getFileQuestions(customer, fileType);
+    const questions = await backendApi.getFileQuestions(customer, fileType, study, contract);
 
     response.status(200).send(questions);
   }

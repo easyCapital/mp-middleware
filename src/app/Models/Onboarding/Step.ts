@@ -14,7 +14,7 @@ export default class Step implements StepInterface {
   private titleMobile: string;
   private blocks: Block[] = [];
 
-  constructor(json: any, withAuthentication: boolean) {
+  constructor(json: any, withAuthentication = false) {
     this.id = json.id;
     this.step = Number(json.step);
     this.title = json.title;

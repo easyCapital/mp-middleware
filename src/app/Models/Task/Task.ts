@@ -23,7 +23,7 @@ export default class Task<Type> implements TaskInterface<Type> {
   constructor(json: any) {
     this.id = json.id;
     this.label = json.label;
-    this.customer = json.customer;
+    this.customer = json.customer || undefined;
     this.subject = new TaskSubject(json.subject);
     this.status = TaskStatusMapper.transformValue(json.status);
     this.parent = json.parent;

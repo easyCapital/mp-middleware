@@ -1,39 +1,32 @@
-import { Filters, OrderBy } from '@robinfinance/js-api';
+import { Filters } from '@robinfinance/js-api';
 
-import { Answer } from '../../../../Models/Answer';
+import { Question } from '../../../../Models/Onboarding';
 import { Exception } from '../../../../Exceptions';
 import { BackendException } from '../../Exceptions';
 import { formatMeta } from '../../Helpers';
 import BackendApi from '../..';
 
-export default async function getCustomerAnswers(
-  this: BackendApi,
-  filters?: Filters,
-  orderBy?: OrderBy,
-  latestBy?: string,
-): Promise<Answer[]> {
+export default async function getQuestions(this: BackendApi, filters?: Filters): Promise<{ [key: string]: Question }> {
   try {
     const response = await this.backendClient.get({
-      url: 'cgp/answer/search',
+      url: 'question/search',
       filters,
-      orderBy,
-      latestBy,
     });
+
     const data = await response.json();
 
-    const answers = data.map((item) => new Answer(item));
+    const questions: Question[] = data.map((item: any) => new Question(item));
+
     const meta = formatMeta(response.headers);
 
     if (meta.totalPages && meta.totalPages > 1) {
-      const answerQueries: Promise<any>[] = [];
+      const questionQueries: Promise<any>[] = [];
 
       for (let page = 2; page <= meta.totalPages; page += 1) {
-        answerQueries.push(
+        questionQueries.push(
           this.backendClient.get({
-            url: 'cgp/answer/search',
+            url: 'question/search',
             filters,
-            orderBy,
-            latestBy,
             pagination: {
               page,
               perPage: 100,
@@ -42,16 +35,21 @@ export default async function getCustomerAnswers(
         );
       }
 
-      const answerResponses = await Promise.all(answerQueries);
+      const questionResponses = await Promise.all(questionQueries);
 
-      for await (const answerResponse of answerResponses) {
-        const answerData = await answerResponse.json();
+      for await (const questionResponse of questionResponses) {
+        const questionData = await questionResponse.json();
 
-        answerData.forEach((item) => answers.push(new Answer(item)));
+        questionData.forEach((item: any) => questions.push(new Question(item)));
       }
     }
 
-    return answers;
+    return questions.reduce((obj, item) => {
+      return {
+        ...obj,
+        [item.getId()]: item,
+      };
+    }, {});
   } catch (exception: any) {
     if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();

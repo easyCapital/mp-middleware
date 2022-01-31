@@ -18,6 +18,7 @@ const InputTypeMapping = {
   bordered_checkbox: InputTypes.BORDERED_CHECKBOX,
   chart: InputTypes.CHART,
   option_stepper: InputTypes.OPTION_STEPPER,
+  member_selector: InputTypes.MEMBER_SELECTOR,
 };
 
 class InputTypeMapper extends GenericMapper<InputTypes> {

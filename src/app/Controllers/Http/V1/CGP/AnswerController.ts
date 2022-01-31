@@ -8,12 +8,12 @@ class CGPAnswerController {
     const orderBy = request.input('orderBy') as OrderBy | undefined;
     const latestBy = request.input('latestBy') as string | undefined;
 
-    const answers = await backendApi.getCGPCustomerAnswers(filters, orderBy, latestBy);
+    const answers = await backendApi.getCGPAnswers(filters, orderBy, latestBy);
 
     response.status(200).send(answers);
   }
 
-  public async create({ params, request, response, backendApi }: Context): Promise<void> {
+  public async createCustomer({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study, contract } = params;
     const answers = request.post() as Answer[];
 
@@ -22,7 +22,7 @@ class CGPAnswerController {
     response.status(201).send();
   }
 
-  public async deactivate({ params, request, response, backendApi }: Context): Promise<void> {
+  public async deactivateCustomer({ params, request, response, backendApi }: Context): Promise<void> {
     const { customer, study, contract } = params;
     const answers = request.post() as Answer[];
 
@@ -31,21 +31,22 @@ class CGPAnswerController {
     response.status(200).send();
   }
 
-  public async searchStudy({ params, request, response, backendApi }: Context): Promise<void> {
-    const { study } = params;
-    const filters = request.input('filters') as Filters;
+  public async createHousehold({ params, request, response, backendApi }: Context): Promise<void> {
+    const { household, study, contract } = params;
+    const answers = request.post() as Answer[];
 
-    const answers = await backendApi.getCGPStudyAnswers(study, filters);
+    await backendApi.createHouseholdAnswers(household, answers, study, contract);
 
-    response.status(200).send(answers);
+    response.status(201).send();
   }
 
-  public async searchCGP({ request, response, backendApi }: Context): Promise<void> {
-    const filters = request.input('filters') as Filters;
+  public async deactivateHousehold({ params, request, response, backendApi }: Context): Promise<void> {
+    const { household, study, contract } = params;
+    const answers = request.post() as Answer[];
 
-    const answers = await backendApi.getCGPAnswers(filters);
+    await backendApi.deactivateHouseholdAnswers(household, answers, study, contract);
 
-    response.status(200).send(answers);
+    response.status(201).send();
   }
 
   public async createCGP({ request, response, backendApi }: Context): Promise<void> {

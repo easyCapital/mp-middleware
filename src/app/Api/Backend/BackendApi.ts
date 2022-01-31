@@ -53,17 +53,16 @@ export default class BackendApi {
   public generateCGPCustomerAnalysis = CGP.generateCustomerAnalysis;
   public setCGPCustomerValidAnalysis = CGP.setCustomerValidAnalysis;
   // CGP - Answer
-  public getCGPAnswersByCustomer = CGP.getAnswersByCustomer;
-  public getCGPAnswers = CGP.getCGPAnswers;
+  public getCGPAnswers = CGP.getAnswers;
   public getAgencyAnswers = CGP.getAgencyAnswers;
-  public getCGPCustomerAnswers = CGP.getCustomerAnswers;
-  public getCGPStudyAnswers = CGP.getStudyAnswers;
   public createCGPAnswers = CGP.createCGPAnswers;
   public createAgencyAnswers = CGP.createAgencyAnswers;
   public createCGPCustomerAnswers = CGP.createCustomerAnswers;
+  public createHouseholdAnswers = CGP.createHouseholdAnswers;
   public deactivateCGPAnswers = CGP.deactivateCGPAnswers;
   public deactivateAgencyAnswers = CGP.deactivateAgencyAnswers;
   public deactivateCGPCustomerAnswers = CGP.deactivateCustomerAnswers;
+  public deactivateHouseholdAnswers = CGP.deactivateHouseholdAnswers;
   // CGP - Authentication
   public loginCGP = CGP.login;
   public resetCGPPassword = CGP.resetPassword;
@@ -100,7 +99,7 @@ export default class BackendApi {
   public getCGPStudyFiles = CGP.getStudyFiles;
   public getCGPAllStudyFiles = CGP.getAllStudyFiles;
   public getFileQuestions = CGP.getFileQuestions;
-  public getInpactedCustomerFiles = CGP.getInpactedFiles;
+  public getInpactedFiles = CGP.getInpactedFiles;
   public getFileSignature = CGP.getSignature;
   public getCGPSignatureDetails = CGP.getSignatureDetails;
   public generateCGPCustomerFiles = CGP.generateCustomerFiles;
@@ -151,6 +150,11 @@ export default class BackendApi {
   // CGP - PropositionV2
   public createCGPPropositionV2 = CGP.createPropositionV2;
   public getCGPPropositionV2 = CGP.getCGPPropositionV2;
+  // CGP - Question
+  public getCGPForm = CGP.getForm;
+  public getCGPQuestionnaire = CGP.getQuestionnaire;
+  public getCGPQuestions = CGP.getQuestions;
+  public getCGPQuestionsLastUpdated = CGP.getQuestionsLastUpdated;
   // CGP - Scoring
   public getCGPKnowledgeScoring = CGP.getKnowledgeScoring;
   public getCGPRiskScoring = CGP.getRiskScoring;

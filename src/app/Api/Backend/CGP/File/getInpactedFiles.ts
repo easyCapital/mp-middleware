@@ -7,15 +7,14 @@ import BackendApi from '../..';
 
 export default async function getInpactedFiles(
   this: BackendApi,
-  customerId: number | string,
   studyId: number | string,
   answers: Answer[],
   contractId?: number | string,
 ): Promise<File[]> {
-  let url = `cgp/customer/${customerId}/study/${studyId}/files/get_answer_impact`;
+  let url = `cgp/study/${studyId}/files/get_answer_impact`;
 
   if (contractId) {
-    url = `cgp/customer/${customerId}/study/${studyId}/contract/${contractId}/files/get_answer_impact`;
+    url = `cgp/study/${studyId}/contract/${contractId}/files/get_answer_impact`;
   }
 
   try {

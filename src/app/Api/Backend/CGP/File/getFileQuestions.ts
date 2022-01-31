@@ -8,10 +8,22 @@ export default async function getFileQuestions(
   this: BackendApi,
   customerId: string | number,
   fileType: FileType,
-): Promise<string[]> {
+  studyId?: string | number,
+  contractId?: string | number,
+): Promise<{ household: string[]; subscriber: string[]; co_subscriber: string[] }> {
+  let url = `cgp/customer/${customerId}/file/${fileType}/questions`;
+
   try {
+    if (studyId) {
+      url = `cgp/customer/${customerId}/study/${studyId}/file/${fileType}/questions`;
+
+      if (contractId) {
+        url = `cgp/customer/${customerId}/study/${studyId}/contract/${contractId}/file/${fileType}/questions`;
+      }
+    }
+
     const response = await this.backendClient.get({
-      url: `cgp/customer/${customerId}/file/${fileType}/questions`,
+      url,
     });
 
     const data = await response.json();

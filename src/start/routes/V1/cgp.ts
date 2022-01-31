@@ -39,15 +39,48 @@ addAPIPrefixToGroup(
     Route.get('/stripe-portal', 'V1/CGP/UserController.stripePortal');
   }),
 );
-
 /*
   |--------------------------------------------------------------------------
-  | API V1 - CGP - USER ANSWER
+  | API V1 - CGP - QUESTION
   |--------------------------------------------------------------------------
   */
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.get('/', 'V1/CGP/AnswerController.searchCGP');
+    Route.get('/', 'V1/CGP/QuestionController.index');
+    Route.get('/updated', 'V1/CGP/QuestionController.updated');
+  }).prefix('question'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/CGP/QuestionController.form');
+  }).prefix('form'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/CGP/QuestionController.questionnaire');
+  }).prefix('questionnaire'),
+);
+
+/*
+  |--------------------------------------------------------------------------
+  | API V1 - CGP - ANSWER
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/CGP/AnswerController.search');
+  }).prefix('answer'),
+);
+
+/*
+  |--------------------------------------------------------------------------
+  | API V1 - CGP - CGP ANSWER
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
     Route.post('/', 'V1/CGP/AnswerController.createCGP');
     Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivateCGP');
   }).prefix('answer'),
@@ -188,15 +221,16 @@ addAPIPrefixToGroup(
   */
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.get('/', 'V1/CGP/AnswerController.search');
-  }).prefix('answer'),
+    Route.post('/', 'V1/CGP/AnswerController.createCustomer');
+    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivateCustomer');
+  }).prefix('customer/:customer/answer'),
 );
 
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.post('/', 'V1/CGP/AnswerController.create');
-    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivate');
-  }).prefix('customer/:customer/answer'),
+    Route.post('/', 'V1/CGP/AnswerController.createHousehold');
+    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivateHousehold');
+  }).prefix('household/:household/answer'),
 );
 
 /*
@@ -345,6 +379,18 @@ addAPIPrefixToGroup(
 
 addAPIPrefixToGroup(
   Route.group(() => {
+    Route.get('/:fileType/questions', 'V1/CGP/FileController.questions');
+  }).prefix('customer/:customer/study/:study/file'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/:fileType/questions', 'V1/CGP/FileController.questions');
+  }).prefix('customer/:customer/study/:study/contract/:contract/file'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
     Route.get('/signatures', 'V1/CGP/FileController.signatureDetails');
 
     Route.get('/:id/download', 'V1/CGP/FileController.download');
@@ -436,15 +482,16 @@ addAPIPrefixToGroup(
   */
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.get('/', 'V1/CGP/AnswerController.searchStudy');
-  }).prefix('study/:study/answer'),
+    Route.post('/', 'V1/CGP/AnswerController.createCustomer');
+    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivateCustomer');
+  }).prefix('customer/:customer/study/:study/answer'),
 );
 
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.post('/', 'V1/CGP/AnswerController.create');
-    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivate');
-  }).prefix('customer/:customer/study/:study/answer'),
+    Route.post('/', 'V1/CGP/AnswerController.createHousehold');
+    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivateHousehold');
+  }).prefix('household/:household/study/:study/answer'),
 );
 
 /*
@@ -457,9 +504,14 @@ addAPIPrefixToGroup(
     Route.post('/', 'V1/CGP/FileController.create');
     Route.post('/generate', 'V1/CGP/FileController.generate');
     Route.post('/merge', 'V1/CGP/FileController.merge');
-    Route.post('/inpacted', 'V1/CGP/FileController.inpactedFiles');
     Route.put('/bulk-update', 'V1/CGP/FileController.bulkUpdate');
   }).prefix('customer/:customer/study/:study/file'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.post('/inpacted', 'V1/CGP/FileController.inpactedFiles');
+  }).prefix('study/:study/file'),
 );
 
 /*
@@ -469,9 +521,16 @@ addAPIPrefixToGroup(
   */
 addAPIPrefixToGroup(
   Route.group(() => {
-    Route.post('/', 'V1/CGP/AnswerController.create');
-    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivate');
+    Route.post('/', 'V1/CGP/AnswerController.createCustomer');
+    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivateCustomer');
   }).prefix('customer/:customer/study/:study/contract/:contract/answer'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.post('/', 'V1/CGP/AnswerController.createHousehold');
+    Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivateHousehold');
+  }).prefix('household/:household/study/:study/contract/:contract/answer'),
 );
 
 /*
@@ -482,7 +541,7 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.post('/inpacted', 'V1/CGP/FileController.inpactedFiles');
-  }).prefix('customer/:customer/study/:study/contract/:contract/file'),
+  }).prefix('study/:study/contract/:contract/file'),
 );
 
 /*
