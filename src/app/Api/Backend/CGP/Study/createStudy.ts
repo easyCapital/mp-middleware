@@ -1,6 +1,6 @@
 import { Study } from '../../../../Models/Study';
 import { Exception } from '../../../../Exceptions';
-import { BackendException } from '../../Exceptions';
+import { StudyException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function createStudy(
@@ -31,7 +31,7 @@ export default async function createStudy(
     if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new BackendException(error);
+      throw new StudyException(error);
     }
 
     throw new Exception(exception);

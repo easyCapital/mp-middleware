@@ -13,3 +13,4 @@ export { default as PropositionException } from './PropositionException';
 export { default as ProspectException } from './ProspectException';
 export { default as ResetPasswordException } from './ResetPasswordException';
 export { default as SignatureException } from './SignatureException';
+export { default as StudyException } from './StudyException';

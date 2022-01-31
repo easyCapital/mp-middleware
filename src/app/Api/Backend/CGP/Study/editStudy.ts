@@ -3,7 +3,7 @@ import { StudyDTO } from '@robinfinance/js-api';
 import { StudyStatusMapper } from '../../../../Mappers/Study';
 import { Study } from '../../../../Models/Study';
 import { Exception } from '../../../../Exceptions';
-import { BackendException } from '../../Exceptions';
+import { StudyException } from '../../Exceptions';
 import BackendApi from '../..';
 
 export default async function editStudy(this: BackendApi, studyId: string, studyData: StudyDTO): Promise<Study> {
@@ -33,7 +33,7 @@ export default async function editStudy(this: BackendApi, studyId: string, study
     if (exception instanceof Response && typeof exception.json === 'function') {
       const errors = await exception.json();
 
-      throw new BackendException(errors);
+      throw new StudyException(errors);
     }
 
     throw new Exception(exception);
