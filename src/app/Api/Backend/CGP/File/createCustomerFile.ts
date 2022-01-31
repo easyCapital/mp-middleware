@@ -1,4 +1,4 @@
-import { FileType } from '@robinfinance/js-api';
+import { FileType, FileTypes } from '@robinfinance/js-api';
 
 import { File } from '../../../../Models/File';
 import { Exception, FileTooBigException } from '../../../../Exceptions';
@@ -18,6 +18,10 @@ export default async function createCustomerFile(
   order?: number,
 ): Promise<File> {
   let url = `cgp/customer/${customerId}/file/create`;
+
+  if (type === FileTypes.MISSION_REPORT_COMPLETED) {
+    url = `cgp/customer/${customerId}/study/${studyId}/file/create/mission_report`;
+  }
 
   if (studyId) {
     url = `cgp/customer/${customerId}/study/${studyId}/file/create`;
