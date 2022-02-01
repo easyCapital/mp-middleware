@@ -42,7 +42,15 @@ export default class AnswerException extends HttpException {
             case BackendErrors.InvalidPhoneFormatError:
             case BackendErrors.InvalidMobileFormatError:
             case BackendErrors.InvalidLandlineFormatError:
-              errorMessageType = ErrorTypes.INVALID_MOBILE_NUMBER;
+              if (error[errorKey] && error[errorKey].phone_type) {
+                if (error[errorKey].phone_type === 'fixe') {
+                  errorMessageType = ErrorTypes.INVALID_PHONE_NUMBER;
+                } else {
+                  errorMessageType = ErrorTypes.INVALID_MOBILE_NUMBER;
+                }
+              } else {
+                errorMessageType = ErrorTypes.INVALID_MOBILE_NUMBER;
+              }
               break;
 
             default:
