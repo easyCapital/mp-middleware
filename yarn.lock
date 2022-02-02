@@ -598,10 +598,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@robinfinance/js-api@^3.6.3":
-  version "3.6.3"
-  resolved "https://npm.pkg.github.com/download/@robinfinance/js-api/3.6.3/9f529c5ae4208e9eb502b970ec427bf0b604bb8164bc0fc6f1f2ab409ca9953f#7c12e5156f70d1a1e5752a7d5d7481e18abe25fe"
-  integrity sha512-wniiYBTur1u9rlHkk9SwzHWEccvr3mqG0ltqguv2OBnG3vJ8IPB2Wg8IYTB2MB8HGfOyuC3ZlRRsKhCw3psZ/g==
+"@robinfinance/js-api@^3.6.4":
+  version "3.6.4"
+  resolved "https://npm.pkg.github.com/download/@robinfinance/js-api/3.6.4/e84656aeddd7aad3c25f02fe9aa1519d7fd5b3a9dc67941d650b8048cdc8663c#ae6304968d649bc2bcbdb40a6afa36318563c83f"
+  integrity sha512-4bnYtHHc8D+x9s1Fqowk38uxUgeOkUIdfrHuxTsWGlOhF1hd8LKQ3HrGXu7sxvgtElQbPilsQsPYcAEUaWl8uA==
 
 "@sentry/cli@^1.68.0":
   version "1.68.0"
