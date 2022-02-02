@@ -15,7 +15,7 @@
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/redis": "^2.1.0",
     "@adonisjs/session": "^1.1.0",
-    "@robinfinance/js-api": "3.3.0-quinquies",
+    "@robinfinance/js-api": "3.3.0-sexies",
     "@sentry/node": "^6.12.0",
     "@sentry/tracing": "^6.12.0",
     "@slack/web-api": "^6.4.0",

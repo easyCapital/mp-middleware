@@ -43,6 +43,9 @@ const ProductCategoryMapping = {
   '37': ProductCategoryTypes.PERECO,
   '38': ProductCategoryTypes.REAL_ESTATE_FUNDS,
   '39': ProductCategoryTypes.BOND_LOAN,
+  '40': ProductCategoryTypes.SIMPLE_UNLISTED_BONDS,
+  '41': ProductCategoryTypes.SOCIAL_SHARES,
+  '42': ProductCategoryTypes.PROVIDENCE,
 };
 
 class ProductCategoryMapper extends GenericMapper<ProductCategoryTypes> {
