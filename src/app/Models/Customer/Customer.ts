@@ -18,6 +18,7 @@ export default class Customer implements CustomerInterface {
   public active: boolean;
   public lastModified: string;
   public lastLogin?: string;
+  public updatedRIC: string;
 
   constructor(json: any) {
     this.id = json.id;
@@ -30,6 +31,7 @@ export default class Customer implements CustomerInterface {
     this.active = json.is_active;
     this.lastModified = json.last_modified;
     this.lastLogin = json.last_login;
+    this.updatedRIC = json.updated_ric;
 
     if (json.gender) {
       this.gender = CGPGenderMapper.transformValue(json.gender);
@@ -49,6 +51,7 @@ export default class Customer implements CustomerInterface {
       isActive: this.active,
       lastModified: this.lastModified,
       lastLogin: this.lastLogin,
+      updatedRIC: this.updatedRIC,
     };
   }
 }
