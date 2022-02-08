@@ -33,6 +33,7 @@ export default class Question implements QuestionInterface {
   private isForContract = false;
   private isForHousehold = false;
   private isForStudy = false;
+  private isForCoSubscriber = false;
   private conditions?: Condition[][];
   private options?: Option[];
   private errors: Error[] = [];
@@ -53,6 +54,7 @@ export default class Question implements QuestionInterface {
     this.isForContract = json.for_contract;
     this.isForHousehold = json.is_for_household;
     this.isForStudy = json.is_for_study;
+    this.isForCoSubscriber = json.is_for_co_subscriber;
 
     try {
       this.type = InputTypeMapper.transformValue(json.input_type, true);
@@ -102,6 +104,7 @@ export default class Question implements QuestionInterface {
         isForContract: this.isForContract,
         isForHousehold: this.isForHousehold,
         isForStudy: this.isForStudy,
+        isForCoSubscriber: this.isForCoSubscriber,
         errors: [],
       };
 
