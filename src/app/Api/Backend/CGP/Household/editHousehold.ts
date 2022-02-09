@@ -15,6 +15,7 @@ export default async function editHousehold(
     notes?: string;
     archived?: boolean;
     main_contact?: number;
+    has_confict?: boolean;
   } = {};
 
   if (household.name !== undefined) {
@@ -31,6 +32,10 @@ export default async function editHousehold(
 
   if (household.mainContact !== undefined) {
     formattedData.main_contact = household.mainContact;
+  }
+
+  if (household.hasConflict !== undefined) {
+    formattedData.has_conflict = household.hasConflict;
   }
 
   try {

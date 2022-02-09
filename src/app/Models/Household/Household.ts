@@ -17,6 +17,7 @@ export default class Household implements HouseholdInterface {
   public tags: Tag[] = [];
   public created: string;
   public updated: string;
+  public hasConflict: boolean;
 
   constructor(json: any) {
     this.id = json.id;
@@ -24,6 +25,7 @@ export default class Household implements HouseholdInterface {
     this.notes = json.notes;
     this.mainContact = json.main_contact;
     this.archived = json.archived;
+    this.hasConflict = json.has_conflict;
 
     this.created = json.created;
     this.updated = json.updated;
@@ -47,6 +49,7 @@ export default class Household implements HouseholdInterface {
       created: this.created,
       updated: this.updated,
       members: this.members.map((member) => member.toJSON()),
+      hasConflict: this.hasConflict,
       tags: this.tags.map((tag) => tag.toJSON()),
     };
   }
