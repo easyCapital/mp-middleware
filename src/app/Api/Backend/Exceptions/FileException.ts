@@ -25,6 +25,9 @@ export default class FileException extends HttpException {
 
           throw new InvalidArgumentException(`Ce fichier est invalide, ou le format de fichier n'est pas autorisé.`);
 
+        case BackendErrors.InvalidFileHeaderError:
+          throw new InvalidArgumentException(`Ce fichier est invalide.`);
+
         case BackendErrors.FileTooBigError:
           throw new InvalidArgumentException('Le document dépasse la taille maximale autorisée de 5Mo.');
 
