@@ -230,6 +230,7 @@ addAPIPrefixToGroup(
   Route.group(() => {
     Route.post('/', 'V1/CGP/AnswerController.createHousehold');
     Route.patch('/deactivate', 'V1/CGP/AnswerController.deactivateHousehold');
+    Route.patch('/migrate', 'V1/CGP/AnswerController.migrateHousehold');
   }).prefix('household/:household/answer'),
 );
 

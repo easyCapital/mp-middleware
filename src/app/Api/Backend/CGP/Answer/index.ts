@@ -8,3 +8,4 @@ export { default as deactivateCustomerAnswers } from './deactivateCustomerAnswer
 export { default as deactivateHouseholdAnswers } from './deactivateHouseholdAnswers';
 export { default as getAgencyAnswers } from './getAgencyAnswers';
 export { default as getAnswers } from './getAnswers';
+export { default as migrateHouseholdAnswers } from './migrateHouseholdAnswers';

@@ -49,6 +49,15 @@ class CGPAnswerController {
     response.status(201).send();
   }
 
+  public async migrateHousehold({ params, request, response, backendApi }: Context): Promise<void> {
+    const { household } = params;
+    const questions = request.post() as string[];
+
+    await backendApi.migrateHouseholdAnswers(household, questions);
+
+    response.status(201).send();
+  }
+
   public async createCGP({ request, response, backendApi }: Context): Promise<void> {
     const answers = request.post() as Answer[];
 
