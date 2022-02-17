@@ -88,7 +88,9 @@ export default class HouseholdPrevalidationException extends HttpException {
             }
           });
 
-          memberErrorMessages.email = memberEmailErrorMessages;
+          if (memberEmailErrorMessages.length > 0) {
+            memberErrorMessages.email = memberEmailErrorMessages;
+          }
 
           if (answersErrors && answersErrors.length > 0) {
             answersErrors.forEach((answerErrors, index) => {

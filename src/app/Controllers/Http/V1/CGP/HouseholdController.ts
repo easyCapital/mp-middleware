@@ -31,9 +31,18 @@ class HouseholdController {
   public async prevalidate({ request, response, backendApi }: Context): Promise<void> {
     const households = request.post() as CreateHouseholdDTO[];
 
-    await backendApi.prevalidateHouseholds(households);
+    try {
+      await backendApi.prevalidateHouseholds(households);
 
-    response.status(204);
+      response.status(204);
+    } catch (exception: any) {
+      if (
+        Array.isArray(exception.message) &&
+        exception.message.filter((item) => Object.keys(item).length > 0).length > 0
+      ) {
+        response.status(400).send({ error: exception.message });
+      }
+    }
   }
 
   public async edit({ params, request, response, backendApi }: Context): Promise<void> {
