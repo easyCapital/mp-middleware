@@ -12,7 +12,7 @@ export default async function getAllStudyFiles(
   filters?: Filters,
   orderBy?: OrderBy,
   latestBy?: string,
-): Promise<{ [studyId: number]: File[] }> {
+): Promise<{ study: Study; files: File[] }[]> {
   let formattedFilters: Filters = {};
 
   if (filters) {
@@ -40,19 +40,16 @@ export default async function getAllStudyFiles(
   }
 
   try {
-    const studyList: Study[] = await this.getHouseholdStudies(householdId);
-
-    const filesByStudy: { [studyId: number]: File[] } = {};
+    const studies = await this.getHouseholdStudies(householdId);
 
     const studyFiles = await Promise.all(
-      studyList.map((study) => this.getCGPStudyFiles(study.getId(), filters, orderBy, latestBy)),
+      studies.map((study) => this.getCGPStudyFiles(study.getId(), filters, orderBy, latestBy)),
     );
 
-    studyList.forEach((study, index) => {
-      filesByStudy[study.getId()] = studyFiles[index];
-    });
-
-    return filesByStudy;
+    return studies.map((study, index) => ({
+      study,
+      files: studyFiles[index],
+    }));
   } catch (exception: any) {
     throw new Exception(exception);
   }
