@@ -19,12 +19,12 @@ export default async function createCustomerFile(
 ): Promise<File> {
   let url = `cgp/customer/${customerId}/file/create`;
 
-  if (type === FileTypes.MISSION_REPORT_COMPLETED) {
-    url = `cgp/customer/${customerId}/study/${studyId}/file/create/mission_report`;
-  }
-
   if (studyId) {
     url = `cgp/customer/${customerId}/study/${studyId}/file/create`;
+
+    if (type === FileTypes.MISSION_REPORT_COMPLETED || type === FileTypes.MISSION_REPORT_WITH_ANNEXES) {
+      url = `cgp/customer/${customerId}/study/${studyId}/file/create/mission_report`;
+    }
   }
 
   const body: any = { file_type: type, file };
