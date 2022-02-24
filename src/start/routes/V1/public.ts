@@ -71,18 +71,6 @@ addAPIPrefixToGroup(
   }).prefix('prismic/advice'),
 );
 
-addAPIPrefixToGroup(
-  Route.group(() => {
-    Route.get('/', 'V1/Prismic/TutorialController.index');
-  }).prefix('prismic/tutorial'),
-);
-
-addAPIPrefixToGroup(
-  Route.group(() => {
-    Route.get('/', 'V1/Prismic/FAQController.index');
-  }).prefix('prismic/faq'),
-);
-
 /*
 |--------------------------------------------------------------------------
 | API V1 - BLOG
