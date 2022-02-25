@@ -46,6 +46,9 @@ const ProductCategoryMapping = {
   '40': ProductCategoryTypes.SIMPLE_UNLISTED_BONDS,
   '41': ProductCategoryTypes.SOCIAL_SHARES,
   '42': ProductCategoryTypes.PROVIDENCE,
+  '43': ProductCategoryTypes.SCIC,
+  '44': ProductCategoryTypes.GFV,
+  '45': ProductCategoryTypes.SCI,
 };
 
 class ProductCategoryMapper extends GenericMapper<ProductCategoryTypes> {
