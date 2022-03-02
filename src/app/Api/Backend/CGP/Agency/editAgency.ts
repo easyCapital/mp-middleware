@@ -27,7 +27,7 @@ export default async function editAgency(this: BackendApi, agencyDTO: AgencyDTO)
     if (exception instanceof Response && typeof exception.json === 'function') {
       const error = await exception.json();
 
-      throw new FileException(error);
+      throw new FileException(error, 'JPG, JPEG et PNG');
     }
 
     throw new Exception(exception);
