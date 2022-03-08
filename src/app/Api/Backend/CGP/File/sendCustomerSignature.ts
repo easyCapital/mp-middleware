@@ -10,6 +10,7 @@ export default async function sendCustomerSignature(
   subject?: string,
   message?: string,
   sendFilesToClient?: boolean,
+  shouldNotifyCGP?: boolean,
 ): Promise<Signature | undefined> {
   const body: {
     files: number[] | string[];
@@ -17,6 +18,7 @@ export default async function sendCustomerSignature(
     subject?: string;
     message?: string;
     send_files_to_client?: boolean;
+    should_notify_cgp?: boolean;
   } = {
     files: fileIds,
     customers,
@@ -32,6 +34,10 @@ export default async function sendCustomerSignature(
 
   if (sendFilesToClient !== undefined) {
     body.send_files_to_client = sendFilesToClient;
+  }
+
+  if (shouldNotifyCGP) {
+    body.should_notify_cgp = shouldNotifyCGP;
   }
 
   try {

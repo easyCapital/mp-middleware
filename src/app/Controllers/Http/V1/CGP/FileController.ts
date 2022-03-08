@@ -186,9 +186,16 @@ class CGPFileController {
   }
 
   public async sendSignature({ request, response, backendApi }: Context): Promise<void> {
-    const { files, customers, subject, message, sendFilesToClient }: any = request.post();
+    const { files, customers, subject, message, sendFilesToClient, shouldNotifyCGP }: any = request.post();
 
-    const data = await backendApi.sendCGPCustomerSignature(files, customers, subject, message, sendFilesToClient);
+    const data = await backendApi.sendCGPCustomerSignature(
+      files,
+      customers,
+      subject,
+      message,
+      sendFilesToClient,
+      shouldNotifyCGP,
+    );
 
     response.status(200).send(data);
   }
