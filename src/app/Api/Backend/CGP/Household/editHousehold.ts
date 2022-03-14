@@ -16,6 +16,7 @@ export default async function editHousehold(
     archived?: boolean;
     main_contact?: number;
     has_conflict?: boolean;
+    ignore_partner_informations?: boolean;
   } = {};
 
   if (household.name !== undefined) {
@@ -36,6 +37,10 @@ export default async function editHousehold(
 
   if (household.hasConflict !== undefined) {
     formattedData.has_conflict = household.hasConflict;
+  }
+
+  if (household.ignorePartnerInformations !== undefined) {
+    formattedData.ignore_partner_informations = household.ignorePartnerInformations;
   }
 
   try {
