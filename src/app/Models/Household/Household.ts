@@ -13,11 +13,14 @@ export default class Household implements HouseholdInterface {
   public notes?: string;
   public mainContact?: number;
   public archived: boolean;
+  public hasConflict: boolean;
+  public ignorePartnerInformations: boolean;
+
   public members: Customer[] = [];
   public tags: Tag[] = [];
+
   public created: string;
   public updated: string;
-  public hasConflict: boolean;
 
   constructor(json: any) {
     this.id = json.id;
@@ -26,6 +29,7 @@ export default class Household implements HouseholdInterface {
     this.mainContact = json.main_contact;
     this.archived = json.archived;
     this.hasConflict = json.has_conflict;
+    this.ignorePartnerInformations = json.ignore_partner_informations;
 
     this.created = json.created;
     this.updated = json.updated;
@@ -46,11 +50,12 @@ export default class Household implements HouseholdInterface {
       notes: this.notes,
       mainContact: this.mainContact,
       archived: this.archived,
+      hasConflict: this.hasConflict,
+      ignorePartnerInformations: this.ignorePartnerInformations,
+      members: this.members.map((member) => member.toJSON()),
+      tags: this.tags.map((tag) => tag.toJSON()),
       created: this.created,
       updated: this.updated,
-      members: this.members.map((member) => member.toJSON()),
-      hasConflict: this.hasConflict,
-      tags: this.tags.map((tag) => tag.toJSON()),
     };
   }
 }
