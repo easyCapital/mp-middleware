@@ -1,3 +1,5 @@
+import excel from 'node-excel-export';
+
 import { Filters, Pagination, CustomerDTO } from '@robinfinance/js-api';
 
 import InvalidArgumentException from '../../../../Exceptions/InvalidArgumentException';
@@ -29,6 +31,29 @@ class CGPCustomerController {
     response.status(200).send({ id: data.id });
   }
 
+  public async exportXLSX({ request, response }: Context): Promise<void> {
+    const specification = {};
+
+    const data = request.post() as { [key: string]: string }[];
+
+    Object.keys(data[0]).forEach((key) => {
+      specification[key] = {
+        displayName: key,
+        headerStyle: {},
+        width: '60',
+      };
+    });
+
+    const dataExport = excel.buildExport([
+      {
+        specification,
+        data,
+      },
+    ]);
+
+    response.status(200).send(dataExport);
+  }
+
   public async prevalidate({ request, response, backendApi }: Context): Promise<void> {
     const customers = request.post() as CustomerDTO[];
 
@@ -52,6 +77,14 @@ class CGPCustomerController {
     const data = await backendApi.createCGPCustomers(customers);
 
     response.status(201).send(data);
+  }
+
+  public async export({ request, response, backendApi }: Context): Promise<void> {
+    const pagination = request.input('pagination') as Pagination;
+
+    const customers = await backendApi.exportCustomers(pagination);
+
+    response.status(200).send(customers);
   }
 
   public async search({ request, response, backendApi }: Context): Promise<void> {
