@@ -168,6 +168,7 @@ export default class BackendApi {
   public editStudy = CGP.editStudy;
   public updateStudy = CGP.updateStudy;
   public getHouseholdStudies = CGP.getHouseholdStudies;
+  public deleteStudy = CGP.deleteStudy;
   // CGP - Tag
   public createTags = CGP.createTags;
   public deleteTags = CGP.deleteTags;

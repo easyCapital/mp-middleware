@@ -462,7 +462,7 @@ addAPIPrefixToGroup(
 addAPIPrefixToGroup(
   Route.group(() => {
     Route.get('/', 'V1/CGP/StudyController.get');
-
+    Route.delete('/', 'V1/CGP/StudyController.delete');
     Route.get('/file', 'V1/CGP/FileController.getByStudy');
   }).prefix('study/:study'),
 );

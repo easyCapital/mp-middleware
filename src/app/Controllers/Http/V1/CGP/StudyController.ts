@@ -25,6 +25,14 @@ class CGPStudyController {
     response.status(200).send(study);
   }
 
+  public async delete({ params, response, backendApi }: Context): Promise<void> {
+    const { study: id } = params;
+
+    await backendApi.deleteStudy(id);
+
+    response.status(200).send();
+  }
+
   public async edit({ params, request, response, backendApi }: Context): Promise<void> {
     const { study: id } = params;
     const data = request.post() as StudyDTO;
