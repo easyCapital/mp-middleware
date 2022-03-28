@@ -14,6 +14,7 @@ export default class Customer implements CustomerInterface {
   public firstName?: string;
   public lastName?: string;
   public mobileNumber?: string;
+  public birthdate?: string;
   public universe: string;
   public active: boolean;
   public lastModified: string;
@@ -27,6 +28,7 @@ export default class Customer implements CustomerInterface {
     this.firstName = json.first_name;
     this.lastName = json.last_name;
     this.mobileNumber = json.mobile_number;
+    this.birthdate = json.birthdate;
     this.universe = json.universe;
     this.active = json.is_active;
     this.lastModified = json.last_modified;
@@ -46,6 +48,7 @@ export default class Customer implements CustomerInterface {
       gender: this.gender,
       firstName: this.firstName,
       lastName: this.lastName,
+      birthdate: this.birthdate,
       mobileNumber: this.mobileNumber,
       universe: this.universe,
       isActive: this.active,

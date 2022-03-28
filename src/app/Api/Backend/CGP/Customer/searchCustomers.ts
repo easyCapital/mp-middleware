@@ -20,6 +20,7 @@ export default async function searchCustomers(
     });
 
     const data = await response.json();
+
     const meta = formatMeta(response.headers, pagination);
 
     const customers = data.map((item) => new Customer(item));
