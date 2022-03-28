@@ -13,6 +13,8 @@ const aPlusFinanceBackendApiKey = Env.get('APLUSFINANCE_API_TOKEN') || '';
 const demoAPlusFinanceBackendApiKey = Env.get('DEMO_APLUSFINANCE_API_TOKEN') || '';
 const afiBackendApiKey = Env.get('AFI_API_TOKEN') || '';
 const demoAfiBackendApiKey = Env.get('DEMO_AFI_API_TOKEN') || '';
+const financierePhoceaBackendApiKey = Env.get('FINANCIERE_PHOCEA_API_TOKEN') || '';
+const demoFinancierePhoceaBackendApiKey = Env.get('DEMO_FINANCIERE_PHOCEA_API_TOKEN') || '';
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +50,12 @@ const local = {
     client: Clients.CGP_AFI,
     type: ClientTypes.COURTIER,
     backendApiKey: afiBackendApiKey,
+  },
+  'http://financiere-phocea.elwin.local': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_FINANCIERE_PHOCEA,
+    type: ClientTypes.ASSET_MANAGER,
+    backendApiKey: financierePhoceaBackendApiKey,
   },
 };
 
@@ -92,6 +100,12 @@ const development = {
     type: ClientTypes.COURTIER,
     backendApiKey: afiBackendApiKey,
   },
+  'http://financiere-phocea.dev.robintech.co': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_FINANCIERE_PHOCEA,
+    type: ClientTypes.ASSET_MANAGER,
+    backendApiKey: financierePhoceaBackendApiKey,
+  },
 };
 
 /*
@@ -134,6 +148,12 @@ const staging = {
     client: Clients.CGP_AFI,
     type: ClientTypes.COURTIER,
     backendApiKey: afiBackendApiKey,
+  },
+  'https://financiere-phocea.stg.robintech.co': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_FINANCIERE_PHOCEA,
+    type: ClientTypes.ASSET_MANAGER,
+    backendApiKey: financierePhoceaBackendApiKey,
   },
 };
 
@@ -198,6 +218,19 @@ const production = {
     client: Clients.CGP_AFI,
     type: ClientTypes.COURTIER,
     backendApiKey: demoAfiBackendApiKey,
+    isDemo: true,
+  },
+  'https://financiere-phocea.elwin.fr': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_FINANCIERE_PHOCEA,
+    type: ClientTypes.ASSET_MANAGER,
+    backendApiKey: financierePhoceaBackendApiKey,
+  },
+  'https://demo.financiere-phocea.elwin.fr': {
+    app: Apps.CONSEIL,
+    client: Clients.CGP_FINANCIERE_PHOCEA,
+    type: ClientTypes.ASSET_MANAGER,
+    backendApiKey: demoFinancierePhoceaBackendApiKey,
     isDemo: true,
   },
 };
