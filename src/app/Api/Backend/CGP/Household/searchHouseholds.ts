@@ -13,11 +13,25 @@ export default async function searchHouseholds(
   orderBy?: OrderBy,
 ): Promise<{ results: Household[]; meta: Meta }> {
   try {
+    let url = 'cgp/household/search';
+    let editedOrderBy: OrderBy | undefined = undefined;
+
+    // used to allow filtering on household main member last name, _ is necessary to bypass filtering
+    if (orderBy?.key === 'main_contact_last_name') {
+      if (orderBy.type === 'asc') {
+        url += '?_main_contact_last_name=main_contact_last_name';
+      } else {
+        url += '?_main_contact_last_name=-main_contact_last_name';
+      }
+    } else {
+      editedOrderBy = orderBy;
+    }
+
     const response = await this.backendClient.get({
-      url: 'cgp/household/search',
+      url,
       filters,
       pagination,
-      orderBy,
+      orderBy: editedOrderBy,
     });
 
     const data = await response.json();
