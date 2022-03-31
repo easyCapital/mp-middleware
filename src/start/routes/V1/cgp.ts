@@ -146,6 +146,7 @@ addAPIPrefixToGroup(
     Route.get('/', 'V1/CGP/HouseholdController.get');
     Route.put('/', 'V1/CGP/HouseholdController.edit');
     Route.post('/member', 'V1/CGP/HouseholdController.member');
+    Route.delete('/', 'V1/CGP/HouseholdController.delete');
   }).prefix('household/:id'),
 );
 

@@ -71,6 +71,14 @@ class HouseholdController {
 
     response.status(200).send(households);
   }
+
+  public async delete({ params, response, backendApi }: Context): Promise<void> {
+    const { id } = params;
+
+    await backendApi.deleteHousehold(id);
+
+    response.status(200).send();
+  }
 }
 
 export = HouseholdController;
