@@ -1,5 +1,6 @@
-import { Customer as JsonCustomerInterface, Gender } from '@robinfinance/js-api';
+import { AnalysisConclusion, Customer as JsonCustomerInterface, Gender } from '@robinfinance/js-api';
 
+import { AnalysisConclusionMapper } from '../../Mappers/Analysis';
 import { CGPGenderMapper } from '../../Mappers/Customer';
 
 interface CustomerInterface {
@@ -20,6 +21,7 @@ export default class Customer implements CustomerInterface {
   public lastModified: string;
   public lastLogin?: string;
   public updatedRIC: string;
+  public blacklisted?: AnalysisConclusion;
 
   constructor(json: any) {
     this.id = json.id;
@@ -38,6 +40,10 @@ export default class Customer implements CustomerInterface {
     if (json.gender) {
       this.gender = CGPGenderMapper.transformValue(json.gender);
     }
+
+    if (json.is_blacklisted !== null) {
+      this.blacklisted = AnalysisConclusionMapper.transformValue(json.is_blacklisted);
+    }
   }
 
   public toJSON(): JsonCustomerInterface {
@@ -55,6 +61,7 @@ export default class Customer implements CustomerInterface {
       lastModified: this.lastModified,
       lastLogin: this.lastLogin,
       updatedRIC: this.updatedRIC,
+      isBlacklisted: this.blacklisted,
     };
   }
 }
