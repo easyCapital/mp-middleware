@@ -35,7 +35,7 @@ export default class HouseholdAddMemberException extends HttpException {
           errorMessages.email = ErrorTypes.DEFAULT;
           break;
         case BackendErrors.InvalidError:
-          errorMessages.customer_status = ErrorTypes.DEFAULT;
+          errorMessages.customerStatus = ErrorTypes.DEFAULT;
           break;
         case BackendErrors.MissingMandatoryFieldsError:
           errors.MissingMandatoryFieldsError.fields.forEach((field) => {

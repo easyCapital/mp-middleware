@@ -61,7 +61,7 @@ export default class HouseholdCreationException extends HttpException {
                 break;
 
               case BackendErrors.MissingMandatoryFieldsError:
-                memberErrorMessages.customer_status = ErrorTypes.REQUIRED;
+                memberErrorMessages.customerStatus = ErrorTypes.REQUIRED;
                 break;
               case BackendErrors.InvalidError:
               case BackendErrors.BlankError:

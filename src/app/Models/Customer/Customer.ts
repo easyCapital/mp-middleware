@@ -1,4 +1,10 @@
-import { AnalysisConclusion, Customer as JsonCustomerInterface, Gender } from '@robinfinance/js-api';
+import {
+  AnalysisConclusion,
+  Customer as JsonCustomerInterface,
+  Gender,
+  CustomerStatus,
+  CustomerStatuses,
+} from '@robinfinance/js-api';
 
 import { AnalysisConclusionMapper } from '../../Mappers/Analysis';
 import { CGPGenderMapper } from '../../Mappers/Customer';
@@ -22,7 +28,7 @@ export default class Customer implements CustomerInterface {
   public lastLogin?: string;
   public updatedRIC: string;
   public blacklisted?: AnalysisConclusion;
-  public customer_status?: number | null;
+  public customerStatus: CustomerStatus;
 
   constructor(json: any) {
     this.id = json.id;
@@ -37,7 +43,7 @@ export default class Customer implements CustomerInterface {
     this.lastModified = json.last_modified;
     this.lastLogin = json.last_login;
     this.updatedRIC = json.updated_ric;
-    this.customer_status = json.customer_status;
+    this.customerStatus = json.customer_status;
 
     if (json.gender) {
       this.gender = CGPGenderMapper.transformValue(json.gender);
@@ -45,6 +51,18 @@ export default class Customer implements CustomerInterface {
 
     if (json.is_blacklisted !== null) {
       this.blacklisted = AnalysisConclusionMapper.transformValue(json.is_blacklisted);
+    }
+
+    switch (json.customer_status) {
+      case 0:
+        this.customerStatus === CustomerStatuses.NOT_SPECIFIED;
+        break;
+      case 1:
+        this.customerStatus === CustomerStatuses.PROSPECT;
+        break;
+      case 2:
+        this.customerStatus === CustomerStatuses.CLIENT;
+        break;
     }
   }
 
@@ -64,7 +82,7 @@ export default class Customer implements CustomerInterface {
       lastLogin: this.lastLogin,
       updatedRIC: this.updatedRIC,
       isBlacklisted: this.blacklisted,
-      customer_status: this.customer_status,
+      customerStatus: this.customerStatus,
     };
   }
 }

@@ -25,7 +25,7 @@ export default async function createHousehold(this: BackendApi, household: Creat
       email: member.email,
       is_main_contact: member.isMainContact,
       answers: member.answers.map((item) => ({ question_id: item.question, value: item.value })),
-      customer_status: member.customer_status,
+      customer_status: member.customerStatus,
     });
   });
 
