@@ -30,9 +30,7 @@ export default async function createHousehold(this: BackendApi, household: Creat
   });
 
   try {
-    console.log(formattedData);
     const response = await this.backendClient.post({ url: 'cgp/household/create' }, formattedData);
-    console.log(response);
     const data = await response.json();
 
     const createdHousehold = new Household(data);
@@ -53,6 +51,8 @@ export default async function createHousehold(this: BackendApi, household: Creat
   } catch (exception: any) {
     if (exception instanceof Response && typeof exception.json === 'function') {
       const errors = await exception.json();
+
+      console.log(errors.errors.members[0].InvalidError.fields);
 
       if (errors.errors) {
         throw new HouseholdCreationException([errors.errors], [formattedData]);
