@@ -10,6 +10,7 @@ type HouseholdData = {
     email: string | null;
     is_main_contact?: boolean;
     answers: { question_id: string; value: string | number | null }[];
+    customer_status?: number | null | undefined;
   }[];
 };
 
@@ -25,6 +26,7 @@ type MemberErrorMessages = {
   DQ6?: ErrorType;
   DQ7?: ErrorType;
   mobile_number?: ErrorType;
+  customer_status?: ErrorType;
 };
 
 type HouseholdErrorMessages = {
@@ -59,6 +61,9 @@ export default class HouseholdCreationException extends HttpException {
                 break;
 
               case BackendErrors.MissingMandatoryFieldsError:
+                memberErrorMessages.customer_status = ErrorTypes.REQUIRED;
+                break;
+              case BackendErrors.InvalidError:
               case BackendErrors.BlankError:
               case BackendErrors.NullError:
                 memberErrorMessages.email = ErrorTypes.REQUIRED;

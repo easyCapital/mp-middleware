@@ -124,6 +124,7 @@ addAPIPrefixToGroup(
     Route.post('/email', 'V1/CGP/CustomerController.changeEmail');
     Route.patch('/activate', 'V1/CGP/CustomerController.activate');
     Route.patch('/deactivate', 'V1/CGP/CustomerController.deactivate');
+    Route.patch('/status/change', 'V1/CGP/CustomerController.changeStatus');
   }).prefix('customer/:id'),
 );
 

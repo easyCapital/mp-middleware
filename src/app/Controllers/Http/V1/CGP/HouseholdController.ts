@@ -8,7 +8,9 @@ class HouseholdController {
 
     const createdHousehold = await backendApi.createHousehold(household);
 
-    response.status(200).send(createdHousehold);
+    const customer_status = request.input('customer_status');
+
+    response.status(200).send(createdHousehold, customer_status);
   }
 
   public async member({ params, request, response, backendApi }: Context): Promise<void> {
@@ -17,7 +19,9 @@ class HouseholdController {
 
     const household = await backendApi.createHouseholdMember(id, member);
 
-    response.status(200).send(household);
+    const customer_status = request.input('customer_status');
+
+    response.status(200).send(household, customer_status);
   }
 
   public async import({ request, response, backendApi }: Context): Promise<void> {

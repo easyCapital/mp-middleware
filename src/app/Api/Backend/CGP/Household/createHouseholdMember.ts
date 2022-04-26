@@ -11,12 +11,20 @@ export default async function createHouseholdMember(
   member: MemberDTO,
 ): Promise<Household> {
   const formattedData: {
-    email: string | null;
+    email?: string | null;
     answers: { question_id: string; value: string | number | null }[];
+    customer_status?: number | null | undefined;
   } = {
-    email: member.email,
     answers: member.answers.map((item) => ({ question_id: item.question, value: item.value })),
   };
+
+  if (member.customer_status) {
+    formattedData.customer_status = member.customer_status;
+  }
+
+  if (member.email) {
+    formattedData.email = member.email;
+  }
 
   try {
     const response = await this.backendClient.post(

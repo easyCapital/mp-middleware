@@ -5,8 +5,9 @@ const Config = use('Config');
 const Logger = use('Logger');
 
 type HouseholdData = {
-  email: string | null;
+  email?: string | null;
   answers: { question_id: string; value: string | number | null }[];
+  customer_status?: number | null | undefined;
 };
 
 type MemberErrors = BackendError & { answers?: BackendErrors[] };
@@ -17,6 +18,7 @@ type MemberErrorMessages = {
   DQ6?: ErrorType;
   DQ7?: ErrorType;
   mobile_number?: ErrorType;
+  customer_status?: ErrorType;
 };
 
 export default class HouseholdAddMemberException extends HttpException {
@@ -27,17 +29,22 @@ export default class HouseholdAddMemberException extends HttpException {
     const errorMessages: MemberErrorMessages = {};
 
     const { answers: answersErrors, ...memberErrors } = errors;
-
     Object.keys(memberErrors).forEach((errorKey) => {
       switch (errorKey) {
         case BackendErrors.EmailValidationError:
           errorMessages.email = ErrorTypes.DEFAULT;
           break;
-
+        case BackendErrors.InvalidError:
+          errorMessages.customer_status = ErrorTypes.DEFAULT;
+          break;
         case BackendErrors.MissingMandatoryFieldsError:
+          errors.MissingMandatoryFieldsError.fields.forEach((field) => {
+            errorMessages[field] = ErrorTypes.REQUIRED;
+          });
+          break;
         case BackendErrors.BlankError:
+          break;
         case BackendErrors.NullError:
-          errorMessages.email = ErrorTypes.REQUIRED;
           break;
 
         default:

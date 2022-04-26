@@ -12,6 +12,7 @@ export default async function createHousehold(this: BackendApi, household: Creat
       email: string | null;
       is_main_contact?: boolean;
       answers: { question_id: string; value: string | number | null }[];
+      customer_status?: number | null | undefined;
     }[];
   } = { members: [] };
 
@@ -24,12 +25,14 @@ export default async function createHousehold(this: BackendApi, household: Creat
       email: member.email,
       is_main_contact: member.isMainContact,
       answers: member.answers.map((item) => ({ question_id: item.question, value: item.value })),
+      customer_status: member.customer_status,
     });
   });
 
   try {
+    console.log(formattedData);
     const response = await this.backendClient.post({ url: 'cgp/household/create' }, formattedData);
-
+    console.log(response);
     const data = await response.json();
 
     const createdHousehold = new Household(data);

@@ -132,6 +132,15 @@ class CGPCustomerController {
 
     response.status(200).send(customer);
   }
+
+  public async changeStatus({ params, request, response, backendApi }: Context): Promise<void> {
+    const { id } = params;
+    const customer_status = request.input('customer_status');
+
+    const customer = await backendApi.changeCustomerStatus(id, customer_status);
+
+    response.status(200).send(customer);
+  }
 }
 
 export = CGPCustomerController;

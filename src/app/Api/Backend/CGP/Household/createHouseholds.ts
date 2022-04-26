@@ -40,7 +40,7 @@ export default async function createHouseholds(
 
   try {
     const response = await this.backendClient.post({ url: 'cgp/household/bulk_create' }, formattedData);
-
+    console.log('toto');
     const data = await response.json();
 
     return data.map((item) => new Household(item));

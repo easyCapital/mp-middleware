@@ -85,6 +85,7 @@ export default class BackendApi {
   public exportCustomers = CGP.exportCustomers;
   public searchCGPCustomer = CGP.searchCustomers;
   public prevalidateCustomers = CGP.prevalidateCustomers;
+  public changeCustomerStatus = CGP.changeCustomerStatus;
   // CGP - Household
   public createHousehold = CGP.createHousehold;
   public createHouseholdMember = CGP.createHouseholdMember;
