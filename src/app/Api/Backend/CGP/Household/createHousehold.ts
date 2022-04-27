@@ -25,7 +25,7 @@ export default async function createHousehold(this: BackendApi, household: Creat
       email: member.email,
       is_main_contact: member.isMainContact,
       answers: member.answers.map((item) => ({ question_id: item.question, value: item.value })),
-      customer_status: member.customerStatus,
+      customer_status: Number(member.customerStatus),
     });
   });
 
@@ -51,8 +51,6 @@ export default async function createHousehold(this: BackendApi, household: Creat
   } catch (exception: any) {
     if (exception instanceof Response && typeof exception.json === 'function') {
       const errors = await exception.json();
-
-      console.log(errors.errors.members[0].InvalidError.fields);
 
       if (errors.errors) {
         throw new HouseholdCreationException([errors.errors], [formattedData]);

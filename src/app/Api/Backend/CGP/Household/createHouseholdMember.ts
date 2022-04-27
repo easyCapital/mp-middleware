@@ -13,18 +13,20 @@ export default async function createHouseholdMember(
   const formattedData: {
     email?: string | null;
     answers: { question_id: string; value: string | number | null }[];
-    customerStatus?: CustomerStatus;
+    customer_status?: number;
   } = {
     answers: member.answers.map((item) => ({ question_id: item.question, value: item.value })),
   };
 
   if (member.customerStatus) {
-    formattedData.customerStatus = member.customerStatus;
+    formattedData.customer_status = Number(member.customerStatus);
   }
 
   if (member.email) {
     formattedData.email = member.email;
   }
+
+  console.log(formattedData);
 
   try {
     const response = await this.backendClient.post(
