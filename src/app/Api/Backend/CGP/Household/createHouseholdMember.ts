@@ -1,4 +1,4 @@
-import { CustomerStatus, MemberDTO } from '@robinfinance/js-api';
+import { MemberDTO } from '@robinfinance/js-api';
 
 import { Exception } from '../../../../Exceptions';
 import { Household } from '../../../../Models/Household';
@@ -18,15 +18,13 @@ export default async function createHouseholdMember(
     answers: member.answers.map((item) => ({ question_id: item.question, value: item.value })),
   };
 
-  if (member.customerStatus) {
-    formattedData.customer_status = Number(member.customerStatus);
+  if (member.customer_status) {
+    formattedData.customer_status = Number(member.customer_status);
   }
 
   if (member.email) {
     formattedData.email = member.email;
   }
-
-  console.log(formattedData);
 
   try {
     const response = await this.backendClient.post(

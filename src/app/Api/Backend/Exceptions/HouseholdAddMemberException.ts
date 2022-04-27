@@ -26,19 +26,25 @@ export default class HouseholdAddMemberException extends HttpException {
     const environment = Config.get('sentry.environment');
 
     let errorMessage: string | undefined;
+
     const errorMessages: MemberErrorMessages = {};
 
     const { answers: answersErrors, ...memberErrors } = errors;
-    Object.keys(memberErrors).forEach((errorKey) => {
-      switch (errorKey) {
+
+    Object.entries(memberErrors).forEach((errorKey) => {
+      switch (errorKey[0]) {
         case BackendErrors.EmailValidationError:
-          errorMessages.email = ErrorTypes.DEFAULT;
+          errorKey[1].fields.forEach((field) => {
+            errorMessages[field] = ErrorTypes.REQUIRED;
+          });
           break;
         case BackendErrors.InvalidError:
-          errorMessages.customerStatus = ErrorTypes.DEFAULT;
+          errorKey[1].fields.forEach((field) => {
+            errorMessages[field] = ErrorTypes.REQUIRED;
+          });
           break;
         case BackendErrors.MissingMandatoryFieldsError:
-          errors.MissingMandatoryFieldsError.fields.forEach((field) => {
+          errorKey[1].fields.forEach((field) => {
             errorMessages[field] = ErrorTypes.REQUIRED;
           });
           break;
@@ -48,7 +54,7 @@ export default class HouseholdAddMemberException extends HttpException {
           break;
 
         default:
-          errorMessages.email = ErrorTypes.UNKNOWN;
+          errorMessages[errorMessages[1].fields[0]] = ErrorTypes.UNKNOWN;
 
           errorMessage = `Missing Error mapping value in HouseholdAddMemberException for ${errorKey}`;
 
@@ -58,7 +64,7 @@ export default class HouseholdAddMemberException extends HttpException {
             Sentry.captureMessage(errorMessage, {
               contexts: {
                 error: {
-                  error: JSON.stringify(memberErrors[errorKey]),
+                  error: JSON.stringify(memberErrors[errorKey[1].fields[0]]),
                   question: 'email',
                   value: data.email,
                 },

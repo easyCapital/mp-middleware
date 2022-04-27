@@ -54,23 +54,27 @@ export default class HouseholdCreationException extends HttpException {
 
           const memberErrorMessages: MemberErrorMessages = {};
 
-          Object.keys(memberErrors).forEach((errorKey) => {
-            switch (errorKey) {
+          Object.entries(memberErrors).forEach((errorKey) => {
+            switch (errorKey[0]) {
               case BackendErrors.EmailValidationError:
-                memberErrorMessages.email = ErrorTypes.DEFAULT;
+                errorKey[1].fields.forEach((field) => {
+                  memberErrorMessages[field] = ErrorTypes.DEFAULT;
+                });
                 break;
 
               case BackendErrors.MissingMandatoryFieldsError:
-                memberErrorMessages.customerStatus = ErrorTypes.REQUIRED;
-                break;
               case BackendErrors.InvalidError:
               case BackendErrors.BlankError:
               case BackendErrors.NullError:
-                memberErrorMessages.email = ErrorTypes.REQUIRED;
+                errorKey[1].fields.forEach((field) => {
+                  memberErrorMessages[field] = ErrorTypes.REQUIRED;
+                });
                 break;
 
               default:
-                memberErrorMessages.email = ErrorTypes.UNKNOWN;
+                errorKey[1].fields.forEach((field) => {
+                  memberErrorMessages[field] = ErrorTypes.UNKNOWN;
+                });
 
                 errorMessage = `Missing Error mapping value in HouseholdCreationException for ${errorKey}`;
 
@@ -80,7 +84,7 @@ export default class HouseholdCreationException extends HttpException {
                   Sentry.captureMessage(errorMessage, {
                     contexts: {
                       error: {
-                        error: JSON.stringify(memberErrors[errorKey]),
+                        error: JSON.stringify(memberErrors[errorKey[1]['fields'][0]]),
                         question: 'email',
                         value: memberData.email,
                       },
@@ -91,6 +95,8 @@ export default class HouseholdCreationException extends HttpException {
                 Logger.info(errorMessage);
             }
           });
+
+          console.log(memberErrorMessages);
 
           if (answersErrors && answersErrors.length > 0) {
             answersErrors.forEach((answerErrors, index) => {
