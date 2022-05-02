@@ -1,7 +1,7 @@
-import { Step, Block } from '../../../../Models/Onboarding';
-import { Exception } from '../../../../Exceptions';
-import { BackendException } from '../../Exceptions';
-import BackendApi from '../..';
+import { Step, Block } from '../../../Models/Onboarding';
+import { Exception } from '../../../Exceptions';
+import { BackendException } from '../Exceptions';
+import BackendApi from '..';
 
 export default async function getQuestionnaire(
   this: BackendApi,

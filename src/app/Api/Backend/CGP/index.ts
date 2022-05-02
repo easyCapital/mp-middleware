@@ -2,6 +2,7 @@ export * from './Analysis';
 export * from './Agency';
 export * from './Answer';
 export * from './Authentication';
+export * from './ClientForm';
 export * from './Contract';
 export * from './Customer';
 export * from './File';

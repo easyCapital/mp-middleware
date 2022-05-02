@@ -1,10 +1,10 @@
 import { Filters } from '@robinfinance/js-api';
 
-import { Question } from '../../../../Models/Onboarding';
-import { Exception } from '../../../../Exceptions';
-import { BackendException } from '../../Exceptions';
-import { formatMeta } from '../../Helpers';
-import BackendApi from '../..';
+import { Question } from '../../../Models/Onboarding';
+import { Exception } from '../../../Exceptions';
+import { BackendException } from '../Exceptions';
+import { formatMeta } from '../Helpers';
+import BackendApi from '..';
 
 export default async function getQuestions(this: BackendApi, filters?: Filters): Promise<{ [key: string]: Question }> {
   try {

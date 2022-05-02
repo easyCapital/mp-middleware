@@ -96,6 +96,18 @@ addAPIPrefixToGroup(
 
 /*
 |--------------------------------------------------------------------------
+| API V1 - CLIENTFORMDATA
+|--------------------------------------------------------------------------
+*/
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/:uuid', 'V1/ClientFormDataController.getClientFormData');
+    Route.post('/:uuid/edit', 'V1/ClientFormDataController.setClientFormData');
+  }).prefix('clientformdata'),
+);
+
+/*
+|--------------------------------------------------------------------------
 | API V1 - ONBOARDING
 |--------------------------------------------------------------------------
 */
@@ -107,6 +119,24 @@ addAPIPrefixToGroup(
     Route.post('/validate', 'V1/OnboardingController.validate');
     Route.post('/prevalidate', 'V1/OnboardingController.prevalidate');
   }).prefix('onboarding'),
+);
+
+/*
+|--------------------------------------------------------------------------
+| API V1 - QUESTION
+|--------------------------------------------------------------------------
+*/
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/QuestionController.index');
+  }).prefix('question'),
+);
+
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.get('/', 'V1/QuestionController.questionnaire');
+  }).prefix('questionnaire'),
 );
 
 /*

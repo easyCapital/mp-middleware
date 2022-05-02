@@ -57,12 +57,6 @@ addAPIPrefixToGroup(
   }).prefix('form'),
 );
 
-addAPIPrefixToGroup(
-  Route.group(() => {
-    Route.get('/', 'V1/CGP/QuestionController.questionnaire');
-  }).prefix('questionnaire'),
-);
-
 /*
   |--------------------------------------------------------------------------
   | API V1 - CGP - ANSWER
@@ -100,6 +94,19 @@ addAPIPrefixToGroup(
     Route.post('/answer', 'V1/CGP/AnswerController.createAgency');
     Route.patch('/answer/deactivate', 'V1/CGP/AnswerController.deactivateAgency');
   }).prefix('agency'),
+);
+
+/*
+  |--------------------------------------------------------------------------
+  | API V1 - CGP - CLIENTFORM
+  |--------------------------------------------------------------------------
+  */
+addAPIPrefixToGroup(
+  Route.group(() => {
+    Route.post('/:household/create', 'V1/CGP/ClientFormController.create');
+    Route.post('/:uuid/deactivate', 'V1/CGP/ClientFormController.deactivate');
+    Route.get('/:household', 'V1/CGP/ClientFormController.getActiveClientForm');
+  }).prefix('clientform'),
 );
 
 /*

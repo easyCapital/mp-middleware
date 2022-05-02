@@ -2,6 +2,7 @@ import { BackendClientInterface, BackendToken } from '../../../app/Clients/Backe
 
 import * as Answer from './Answer';
 import * as Contract from './Contract';
+import * as ClientFormData from './ClientFormData';
 import * as Customer from './Customer';
 import * as File from './File';
 import * as Fund from './Fund';
@@ -10,6 +11,7 @@ import * as Portfolio from './Portfolio';
 import * as Proposition from './Proposition';
 import * as Prospect from './Prospect';
 import * as Task from './Task';
+import * as Question from './Question';
 import * as CGP from './CGP';
 
 export default class BackendApi {
@@ -17,6 +19,9 @@ export default class BackendApi {
   public createAnswers = Answer.createAnswers;
   public getAnswers = Answer.getAnswers;
   public prevalidateAnswers = Answer.prevalidateAnswers;
+  // ClientFormData
+  public getClientFormData = ClientFormData.getClientFormData;
+  public setClientFormData = ClientFormData.setClientFormData;
   // Contract
   public getContract = Contract.getContract;
   public getContracts = Contract.getContracts;
@@ -43,6 +48,9 @@ export default class BackendApi {
   public validateProposition = Proposition.validateProposition;
   // Prospect
   public createProspect = Prospect.createProspect;
+  // Question
+  public getPublicQuestions = Question.getQuestions;
+  public getPublicQuestionnaire = Question.getQuestionnaire;
   // Task
   public getContractTasks = Task.getContractTasks;
   // CGP - Agency
@@ -71,6 +79,10 @@ export default class BackendApi {
   // CGP - Category
   public getCGPProductCategoriesFactSheet = CGP.getProductCategoriesFactSheet;
   public updateCGPProductCategoryFactSheet = CGP.updateProductCategoryFactSheet;
+  // CGP - ClientForm
+  public createCGPClientForm = CGP.createClientForm;
+  public deactivateCGPClientForm = CGP.deactivateClientForm;
+  public getCGPActiveClientForm = CGP.getActiveClientForm;
   // CGP - Contract
   public createCGPContractsFromProposition = CGP.createContractsFromProposition;
   public createCGPContractsFromPropositionV2 = CGP.createContractsFromPropositionV2;
@@ -155,8 +167,6 @@ export default class BackendApi {
   public getCGPPropositionV2 = CGP.getCGPPropositionV2;
   // CGP - Question
   public getCGPForm = CGP.getForm;
-  public getCGPQuestionnaire = CGP.getQuestionnaire;
-  public getCGPQuestions = CGP.getQuestions;
   public getCGPQuestionsLastUpdated = CGP.getQuestionsLastUpdated;
   // CGP - Scoring
   public getCGPKnowledgeScoring = CGP.getKnowledgeScoring;
