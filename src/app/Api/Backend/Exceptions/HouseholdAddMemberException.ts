@@ -5,9 +5,9 @@ const Config = use('Config');
 const Logger = use('Logger');
 
 type HouseholdData = {
-  email?: string | null;
+  email: string | null;
   answers: { question_id: string; value: string | number | null }[];
-  customer_status?: number | null | undefined;
+  customer_status: number | null | undefined;
 };
 
 type MemberErrors = BackendError & { answers?: BackendErrors[] };
@@ -54,7 +54,9 @@ export default class HouseholdAddMemberException extends HttpException {
           break;
 
         default:
-          errorMessages[errorMessages[1].fields[0]] = ErrorTypes.UNKNOWN;
+          errorKey[1].fields.forEach((field) => {
+            errorMessages[field] = ErrorTypes.UNKNOWN;
+          });
 
           errorMessage = `Missing Error mapping value in HouseholdAddMemberException for ${errorKey}`;
 

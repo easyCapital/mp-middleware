@@ -12,7 +12,7 @@ export default async function createHousehold(this: BackendApi, household: Creat
       email: string | null;
       is_main_contact?: boolean;
       answers: { question_id: string; value: string | number | null }[];
-      customer_status?: number | null | undefined;
+      customer_status: number | null | undefined;
     }[];
   } = { members: [] };
 

@@ -10,7 +10,7 @@ type HouseholdData = {
     email: string | null;
     is_main_contact?: boolean;
     answers: { question_id: string; value: string | number | null }[];
-    customer_status?: number | null | undefined;
+    customer_status: number | null | undefined;
   }[];
 };
 
@@ -95,8 +95,6 @@ export default class HouseholdCreationException extends HttpException {
                 Logger.info(errorMessage);
             }
           });
-
-          console.log(memberErrorMessages);
 
           if (answersErrors && answersErrors.length > 0) {
             answersErrors.forEach((answerErrors, index) => {
