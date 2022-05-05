@@ -9,3 +9,5 @@ export { default as editHousehold } from './editHousehold';
 export { default as getHousehold } from './getHousehold';
 export { default as searchHouseholds } from './searchHouseholds';
 export { default as deleteHousehold } from './deleteHousehold';
+
+export { default as exportHouseHold } from './exportHousehold';

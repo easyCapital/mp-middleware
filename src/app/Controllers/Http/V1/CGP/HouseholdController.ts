@@ -79,6 +79,12 @@ class HouseholdController {
 
     response.status(200).send();
   }
+
+  public async export({ params, req, res, backendApi }: Context): Promise<void> {
+    const { id } = params;
+
+    await backendApi.exportHousehold(req, res, id);
+  }
 }
 
 export = HouseholdController;

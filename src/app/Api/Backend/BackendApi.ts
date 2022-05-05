@@ -106,6 +106,7 @@ export default class BackendApi {
   public getHousehold = CGP.getHousehold;
   public searchHouseholds = CGP.searchHouseholds;
   public deleteHousehold = CGP.deleteHousehold;
+  public exportHousehold = CGP.exportHouseHold;
   // CGP - File
   public createCGPCustomerFile = CGP.createCustomerFile;
   public deleteCGPCustomerFile = CGP.deleteCustomerFile;
